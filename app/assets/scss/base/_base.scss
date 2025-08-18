@@ -13,7 +13,8 @@ html {
   font-size: calc(100vw / (1440 / 10));
 }
 body {
-  // font-family: vars.$font-base;
+  font-family: vars.$font-base;
+  font-size: max(1.6rem, 16px);
 }
 a {
   color: inherit;
@@ -22,11 +23,11 @@ a {
   transition-duration: vars.$dt;
 }
 picture {
-  width: 100%;
   display: flex;
   overflow: hidden;
 }
-img {
+img,
+picture {
   width: 100%;
 }
 ul {

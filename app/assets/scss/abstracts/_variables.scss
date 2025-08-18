@@ -1,8 +1,32 @@
 // Fonts
+$font-base: 'Gotham', sans-serif;
 
-// Colors
+/**
+ * Colors
+ */
 
-// Others
+// Blacks & Greys
+$black: #090909;
+$dark-grey: #414651;
+$grey: #dadada;
+$light-grey: #f0f0f0;
+$near-white: #f7f7f7;
+
+// Teals / Greens
+$teal-dark: #05312b;
+$teal: #076962;
+
+// Gold / Yellow
+$gold-dark: #b99a49;
+$gold: #d3ad48;
+
+// Accent
+$orange: #eb8331;
+
+$green-linear-gradient: linear-gradient(246.98deg, #0b726b 0%, #065650 94.35%);
+$yellow-linear-gradient: linear-gradient(246.98deg, #ecc359 0%, #b99a49 94.35%);
+
+// Miscellaneous
 $dt: 0.3s;
 
 // Breakpoints
