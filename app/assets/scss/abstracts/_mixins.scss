@@ -1,0 +1,56 @@
+@use '../abstracts/variables';
+// Others
+// @mixin spacing($property: padding, $type: 'large') {
+//   & {
+//     @if ($type == 'large') {
+//       #{$property}-inline: vars.$spacing;
+//       @media screen and (max-width: vars.$bp-ipad-pro) {
+//         #{$property}-inline: max(vars.$spacing / 2, 16px);
+//       }
+//     } @else {
+//       #{$property}-inline: vars.$spacing-sm;
+//       @media screen and (max-width: vars.$bp-ipad-pro) {
+//         #{$property}-inline: max(vars.$spacing-sm / 2, 16px);
+//       }
+//     }
+//   }
+// }
+// Layout related
+@mixin grid-center {
+  display: grid;
+  place-items: center;
+}
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@mixin grid-scroll($grid-width, $snap-align: start) {
+  grid-template-columns: initial;
+  grid-auto-flow: column;
+  grid-auto-columns: $grid-width;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  & > * {
+    scroll-snap-align: $snap-align;
+  }
+}
+@mixin flex-scroll($child-width: 200px, $snap-align: start) {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  & > * {
+    scroll-snap-align: $snap-align;
+    flex: 1 0 $child-width;
+  }
+}
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

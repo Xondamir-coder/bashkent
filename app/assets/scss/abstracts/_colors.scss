@@ -1,0 +1,21 @@
+// // Map of colors for utility generation
+// $colors: ();
+
+// // Generate utility classes for text-color, background, SVG fill & stroke
+// @each $name, $color in $colors {
+//   .clr-#{$name} {
+//     color: $color;
+//   }
+
+//   .bg-#{$name} {
+//     background-color: $color;
+//   }
+
+//   .fill-#{$name} {
+//     fill: $color;
+//   }
+
+//   .stroke-#{$name} {
+//     stroke: $color;
+//   }
+// }

@@ -1,0 +1,81 @@
+@use '../abstracts/variables' as vars;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+html {
+  // based on 1440px -> 1rem = 10px, scales infinitely, maitains same ratio across screens
+  font-size: calc(100vw / (1440 / 10));
+}
+body {
+  // font-family: vars.$font-base;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+  transition-property: color, background-color, border-color, fill, transform, opacity;
+  transition-duration: vars.$dt;
+}
+picture {
+  width: 100%;
+  display: flex;
+  overflow: hidden;
+}
+img {
+  width: 100%;
+}
+ul {
+  list-style: none;
+}
+button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  color: inherit;
+  font: inherit;
+  transition-property: color, background-color, border-color, transform, outline, fill, opacity,
+    stroke;
+  transition-duration: vars.$dt;
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+textarea {
+  resize: none;
+}
+input,
+textarea {
+  font: inherit;
+  color: inherit;
+  border: none;
+  outline: none;
+  &::placeholder {
+    color: inherit;
+    opacity: 0.8;
+  }
+}
+
+/* Lenis */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
