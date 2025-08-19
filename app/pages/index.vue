@@ -21,16 +21,16 @@
 
 <style lang="scss" scoped>
 .home {
+  background: linear-gradient(180deg, #ffffff 15.8%, #f9e9d8 100%);
   flex: 1;
   position: relative;
   display: flex;
   align-items: center;
   padding-left: 6rem;
-  // overflow: hidden;
   &__pattern {
     position: absolute;
     z-index: 1;
-    width: 60.5%;
+    // width: 60.5%;
     height: calc(100% - 2.4%);
     right: 1.7%;
     top: 2.4%;

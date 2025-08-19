@@ -20,12 +20,16 @@
           <SvgChevronDown class="header__select-icon" />
         </button>
       </div>
-      <button class="header__button header__button--gold">Записаться на встречу</button>
+      <button class="header__button header__button--gold" @click="emits('toggle-modal')">
+        Записаться на встречу
+      </button>
     </div>
   </header>
 </template>
 
-<script setup></script>
+<script setup>
+const emits = defineEmits(['toggle-modal']);
+</script>
 
 <style lang="scss" scoped>
 .header {

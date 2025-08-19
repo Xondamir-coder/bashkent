@@ -1,8 +1,11 @@
 <template>
   <div class="sidebar">
     <SvgLogo class="sidebar__logo" />
-    <button class="sidebar__ham">
-      <SvgHam class="sidebar__ham-icon" />
+    <button class="sidebar__ham" :class="{ active: showMenu }" @click="emits('toggle-menu')">
+      <div class="sidebar__ham-box">
+        <SvgHam class="sidebar__ham-icon" />
+        <SvgClose class="sidebar__ham-icon" />
+      </div>
       <span class="sidebar__ham-text">Меню</span>
     </button>
     <SvgSidebarPattern class="sidebar__pattern" />
@@ -15,11 +18,16 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+defineProps({
+  showMenu: Boolean
+});
+const emits = defineEmits(['toggle-menu']);
+</script>
 
 <style lang="scss" scoped>
 .sidebar {
-  z-index: 5;
+  z-index: 20;
   width: 7%;
   padding-block: 2rem;
   padding-inline: 1.6rem;
@@ -100,13 +108,35 @@
     align-items: center;
     gap: 1.2rem;
     padding: 1.2rem;
+    &.active .sidebar__ham-icon {
+      &:first-child {
+        opacity: 0;
+        transform: scale(0);
+      }
+      &:last-child {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
     &-text {
       color: #fff;
       font-weight: 500;
       line-height: 135%;
     }
+    &-box {
+      display: grid;
+    }
     &-icon {
+      grid-area: 1/1/2/2;
       width: 2.4rem;
+      transition-property: transform, opacity;
+      transition-duration: vars.$dt;
+      fill: #fff;
+
+      &:last-child {
+        opacity: 0;
+        transform: scale(0);
+      }
     }
   }
   &__logo {
