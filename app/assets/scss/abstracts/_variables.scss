@@ -1,5 +1,9 @@
 // Fonts
-$font-base: 'Gotham', sans-serif;
+$font-serif: sans-serif;
+$font-base: 'Gotham', $font-serif;
+$font-inter: 'Inter', $font-serif;
+$font-angst: 'Angst', $font-serif;
+$font-gothic-a1: 'Gothic A1', $font-serif;
 
 /**
  * Colors
@@ -7,18 +11,26 @@ $font-base: 'Gotham', sans-serif;
 
 // Blacks & Greys
 $black: #090909;
+$lighter-black: #181a1a;
+$darker-grey: #535958;
 $dark-grey: #414651;
 $grey: #dadada;
 $light-grey: #f0f0f0;
 $near-white: #f7f7f7;
+$default-white: #fff;
 
 // Teals / Greens
 $teal-dark: #05312b;
 $teal: #076962;
+$teal-light: #609e99;
+$teal-very-light: #c1eae7;
 
 // Gold / Yellow
 $gold-dark: #b99a49;
 $gold: #d3ad48;
+
+// Black
+$black-medium: #181a1a;
 
 // Accent
 $orange: #eb8331;
