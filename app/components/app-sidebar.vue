@@ -1,6 +1,7 @@
 <template>
   <div class="sidebar">
     <SvgLogo class="sidebar__logo" />
+    <SvgLogoMobile class="sidebar__logo--mobile" />
     <button class="sidebar__ham" :class="{ active: showMenu }" @click="emits('toggle-menu')">
       <div class="sidebar__ham-box">
         <SvgHam class="sidebar__ham-icon" />
@@ -28,35 +29,57 @@ const emits = defineEmits(['toggle-menu']);
 <style lang="scss" scoped>
 .sidebar {
   z-index: 20;
-  width: vars.$sidebar-desktop-width;
-  min-height: 100%;
-  padding-block: 2rem;
-  padding-inline: 1.6rem;
+  padding-block: max(2rem, 16px);
+  padding-inline: max(1.6rem, 16px);
   background-color: vars.$teal;
-  border-right: 1px solid vars.$teal-light;
-  border-top-right-radius: 1.2rem;
-  border-bottom-right-radius: 1.2rem;
   display: flex;
-  flex-direction: column;
   justify-content: space-between;
   position: fixed;
   left: 0;
   top: 0;
   overflow: hidden;
-  &__pattern {
+  @media screen and (min-width: 900px) {
+    flex-direction: column;
+    min-height: 100%;
+    width: vars.$sidebar-desktop-width;
+    border-top-right-radius: 1.2rem;
+    border-bottom-right-radius: 1.2rem;
+    border-right: 1px solid vars.$teal-light;
+  }
+  @media screen and (max-width: 900px) {
     width: 100%;
+    border-bottom-left-radius: max(0.8rem, 8px);
+    border-bottom-right-radius: max(0.8rem, 8px);
+    border-bottom: 1px solid vars.$teal-light;
+  }
+  &__logo {
+    @media screen and (max-width: 900px) {
+      display: none;
+    }
+  }
+  &__pattern {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     pointer-events: none;
+    @media screen and (min-width: 900px) {
+      width: 500%;
+      top: 50%;
+      left: 100%;
+      transform: translate(0, -50%) rotate(-90deg);
+    }
+    @media screen and (max-width: 900px) {
+      left: 50%;
+      transform: translateX(-50%);
+      width: 91%;
+    }
   }
   &__bottom {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: calc(1.8rem * 3.5);
-
+    gap: max(calc(1.8rem * 3.5), 80px);
+    @media screen and (max-width: 900px) {
+      display: none;
+    }
     &-box {
       background-color: #fff;
       width: 4.2rem;
@@ -99,7 +122,7 @@ const emits = defineEmits(['toggle-menu']);
       width: 2.4rem;
     }
     &-text {
-      font-size: 1.4rem;
+      font-size: max(1.4rem, 14px);
       line-height: 135%;
       color: vars.$teal-very-light;
       transform: rotate(-90deg);
@@ -109,8 +132,14 @@ const emits = defineEmits(['toggle-menu']);
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.2rem;
-    padding: 1.2rem;
+    gap: max(1.2rem, 8px);
+    padding: max(1.2rem, 5px);
+    @media screen and (max-width: 900px) {
+      flex-direction: row;
+      .sidebar__ham-box {
+        order: 1;
+      }
+    }
     &.active .sidebar__ham-icon {
       &:first-child {
         opacity: 0;
@@ -131,7 +160,7 @@ const emits = defineEmits(['toggle-menu']);
     }
     &-icon {
       grid-area: 1/1/2/2;
-      width: 2.4rem;
+      width: max(2.4rem, 24px);
       transition-property: transform, opacity;
       transition-duration: vars.$dt;
       fill: #fff;
@@ -144,6 +173,17 @@ const emits = defineEmits(['toggle-menu']);
   }
   &__logo {
     width: 100%;
+    &:not(.sidebar__logo--mobile) {
+      @media screen and (max-width: 900px) {
+        display: none;
+      }
+    }
+    &--mobile {
+      width: max(11rem, 110px);
+      @media screen and (min-width: 900px) {
+        display: none;
+      }
+    }
   }
 }
 </style>

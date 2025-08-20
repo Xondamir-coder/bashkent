@@ -38,13 +38,6 @@ $orange: #eb8331;
 $green-linear-gradient: linear-gradient(246.98deg, #0b726b 0%, #065650 94.35%);
 $yellow-linear-gradient: linear-gradient(246.98deg, #ecc359 0%, #b99a49 94.35%);
 
-// Miscellaneous
-$dt: 0.3s;
-$header-top-spacing: 2rem;
-$sidebar-desktop-width: 7%;
-$inline-spacing-desktop: 6rem;
-$block-spacing-desktop: calc($sidebar-desktop-width + $inline-spacing-desktop);
-
 // Breakpoints
 $bp-large-desktop: 1600px;
 $bp-desktop: 1470px;
@@ -52,3 +45,8 @@ $bp-small-desktop: 1366px;
 $bp-ipad-pro: 1024px;
 $bp-large-mobile: 768px;
 $bp-small-mobile: 512px;
+
+// Miscellaneous
+$dt: 0.3s;
+$header-top-spacing: 2rem;
+$sidebar-desktop-width: max(10.8rem, 60px);

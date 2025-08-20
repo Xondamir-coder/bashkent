@@ -1,0 +1,5 @@
+@use '../abstracts/variables' as vars;
+.pattern {
+  opacity: 0.4;
+  fill: vars.$grey;
+}

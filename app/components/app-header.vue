@@ -9,9 +9,7 @@
     </div>
     <div class="header__right">
       <a href="tel:+998 78 148 55 55" class="header__tel">
-        <div class="header__tel-box">
-          <SvgCall class="header__tel-icon" />
-        </div>
+        <FloatingCall />
         <span>(78) 148-55-55</span>
       </a>
       <div class="header__dropdown">
@@ -25,6 +23,7 @@
       </button>
     </div>
   </header>
+  <FloatingCall :clickable="true" class="header__floating" />
 </template>
 
 <script setup>
@@ -37,19 +36,30 @@ const emits = defineEmits(['toggle-modal']);
   width: 100%;
   top: 0;
   left: 0;
-  padding-right: vars.$inline-spacing-desktop;
-  padding-left: vars.$block-spacing-desktop;
+  padding-right: var(--inline-spacing-desktop);
+  padding-left: var(--block-spacing-desktop);
   padding-top: vars.$header-top-spacing;
   display: flex;
   justify-content: space-between;
-  font-size: 1.4rem;
+  font-size: max(1.4rem, 11px);
   z-index: 10;
-
+  @media screen and (max-width: 900px) {
+    display: none;
+  }
+  &__floating {
+    position: fixed;
+    z-index: 15;
+    right: max(16px, 1.6rem);
+    bottom: max(16px, 1.6rem);
+    @media screen and (min-width: 900px) {
+      display: none;
+    }
+  }
   &__button {
-    padding-block: 1.15rem;
-    padding-inline: 2.1rem;
+    padding-block: max(1.15rem, 8px);
+    padding-inline: max(2.1rem, 17px);
     font-weight: 500;
-    border-radius: 0.8rem;
+    border-radius: max(0.8rem, 5px);
     &--grey {
       background-color: vars.$light-grey;
       &:hover {
@@ -81,18 +91,6 @@ const emits = defineEmits(['toggle-modal']);
     //   background-color: vars.$gold-dark;
     //   transform: scale(1.15);
     // }
-    &-box {
-      background-color: vars.$gold;
-      width: 3.8rem;
-      height: 3.8rem;
-      border-radius: 50%;
-      transition-property: background-color, transform;
-      transition-duration: vars.$dt;
-      @include mix.flex-center;
-    }
-    &-icon {
-      width: 1.8rem;
-    }
   }
   &__select {
     border-radius: 0.8rem;

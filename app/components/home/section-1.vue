@@ -24,8 +24,8 @@
   background: linear-gradient(180deg, #ffffff 15.8%, #f9e9d8 100%);
   display: flex;
   align-items: center;
-  padding-left: vars.$block-spacing-desktop;
-  padding-right: vars.$inline-spacing-desktop;
+  padding-left: var(--block-spacing-desktop);
+  padding-right: var(--inline-spacing-desktop);
 
   &__pattern {
     position: absolute;

@@ -8,13 +8,28 @@
   padding: 0;
   -webkit-tap-highlight-color: transparent;
 }
+
+:root {
+  --sidebar-desktop-width: #{vars.$sidebar-desktop-width};
+  --inline-spacing-desktop: 6rem;
+  --block-spacing-desktop: calc(var(--sidebar-desktop-width) + var(--inline-spacing-desktop));
+
+  @media screen and (max-width: vars.$bp-ipad-pro) {
+    --inline-spacing-desktop: 3rem;
+  }
+  @media screen and (max-width: 900px) {
+    --block-spacing-desktop: 0;
+    --inline-spacing-desktop: max(1.6rem, 16px);
+  }
+}
+
 html {
   // based on 1440px -> 1rem = 10px, scales infinitely, maitains same ratio across screens
   font-size: calc(100vw / (1440 / 10));
 }
 body {
   font-family: vars.$font-base;
-  font-size: 1.6rem;
+  font-size: max(1.6rem, 14px);
   color: vars.$black-medium;
 }
 p {
@@ -29,6 +44,9 @@ a {
 picture {
   display: flex;
   overflow: hidden;
+}
+img {
+  object-fit: cover;
 }
 img,
 picture {

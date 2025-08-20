@@ -1,6 +1,6 @@
 <template>
   <div class="section-2">
-    <NuxtPicture src="/images/home-bg.png" alt="home banner" class="section-2__pattern" />
+    <NuxtPicture src="/images/pattern-bg-green.png" alt="home banner" class="section-2__pattern" />
     <div class="section-2__wrapper">
       <div class="section-2__header">
         <h2 class="heading-large">
@@ -53,8 +53,8 @@
     justify-content: space-between;
     padding-bottom: 3.2rem;
     z-index: 2;
-    padding-left: vars.$block-spacing-desktop;
-    padding-right: vars.$inline-spacing-desktop;
+    padding-left: var(--block-spacing-desktop);
+    padding-right: var(--inline-spacing-desktop);
   }
   &__play {
     width: 12.3rem;

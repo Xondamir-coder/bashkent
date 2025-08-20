@@ -1,5 +1,5 @@
 <template>
-  <input v-model="model" class="form-input" @input="checkInput" />
+  <input v-model="model" class="form-input" @input="checkInput" >
 </template>
 
 <script setup>

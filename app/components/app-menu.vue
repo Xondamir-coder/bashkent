@@ -77,6 +77,11 @@ import { SvgCallEnd, SvgTelegram } from '#components';
     font-family: vars.$font-angst;
     font-size: 3.2rem;
   }
+  &__top {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
   &__bottom {
     display: flex;
     flex-direction: column;
