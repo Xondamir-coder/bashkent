@@ -65,7 +65,7 @@ import { SvgCallEnd, SvgTelegram } from '#components';
   min-height: 100%;
   height: 100%;
   overflow-y: auto;
-  padding-left: 7%;
+  padding-left: vars.$sidebar-desktop-width;
   padding-right: 4.3rem;
   z-index: 15;
   h2,

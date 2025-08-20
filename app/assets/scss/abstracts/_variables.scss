@@ -40,6 +40,10 @@ $yellow-linear-gradient: linear-gradient(246.98deg, #ecc359 0%, #b99a49 94.35%);
 
 // Miscellaneous
 $dt: 0.3s;
+$header-top-spacing: 2rem;
+$sidebar-desktop-width: 7%;
+$inline-spacing-desktop: 6rem;
+$block-spacing-desktop: calc($sidebar-desktop-width + $inline-spacing-desktop);
 
 // Breakpoints
 $bp-large-desktop: 1600px;

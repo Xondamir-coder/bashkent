@@ -34,9 +34,12 @@ const emits = defineEmits(['toggle-modal']);
 <style lang="scss" scoped>
 .header {
   position: fixed;
-  width: calc(100% - 11.11111% - 4.2%);
-  top: 2.222222%;
-  left: 11.11111%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  padding-right: vars.$inline-spacing-desktop;
+  padding-left: vars.$block-spacing-desktop;
+  padding-top: vars.$header-top-spacing;
   display: flex;
   justify-content: space-between;
   font-size: 1.4rem;

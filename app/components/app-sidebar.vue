@@ -28,7 +28,8 @@ const emits = defineEmits(['toggle-menu']);
 <style lang="scss" scoped>
 .sidebar {
   z-index: 20;
-  width: 7%;
+  width: vars.$sidebar-desktop-width;
+  min-height: 100%;
   padding-block: 2rem;
   padding-inline: 1.6rem;
   background-color: vars.$teal;
@@ -38,7 +39,9 @@ const emits = defineEmits(['toggle-menu']);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  position: relative;
+  position: fixed;
+  left: 0;
+  top: 0;
   overflow: hidden;
   &__pattern {
     width: 100%;
