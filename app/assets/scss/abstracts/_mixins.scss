@@ -16,8 +16,10 @@
 //   }
 // }
 @mixin block-padding {
-  padding-left: var(--block-spacing-desktop);
-  padding-right: var(--inline-spacing-desktop);
+  padding-left: var(--block-padding-left);
+  padding-top: var(--block-padding-top);
+  padding-right: var(--block-spacing);
+  padding-bottom: var(--block-spacing);
 }
 
 // Layout related

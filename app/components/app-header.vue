@@ -32,12 +32,14 @@ const emits = defineEmits(['toggle-modal']);
 
 <style lang="scss" scoped>
 .header {
-  @include mix.block-padding;
+  padding-top: var(--block-padding-top);
+  padding-left: var(--block-padding-left);
+  padding-right: var(--block-spacing);
   position: fixed;
   width: 100%;
   top: 0;
   left: 0;
-  padding-top: vars.$header-top-spacing;
+  padding-top: 2rem;
   display: flex;
   justify-content: space-between;
   font-size: max(1.4rem, 11px);
@@ -103,6 +105,7 @@ const emits = defineEmits(['toggle-modal']);
       background-color: vars.$grey;
     }
     &-icon {
+      fill: none;
       width: 2.4rem;
     }
   }

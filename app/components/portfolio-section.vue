@@ -37,7 +37,7 @@ defineProps({
 
   &:first-child {
     .portfolio-section__content {
-      padding-left: calc(var(--block-spacing-desktop) - 6rem);
+      padding-left: var(--block-spacing);
     }
     .portfolio-section__pattern {
       bottom: -44%;
@@ -88,7 +88,7 @@ defineProps({
     @media screen and (max-width: 900px) {
       align-self: flex-start;
       padding: 0;
-      margin-inline: var(--inline-spacing-desktop);
+      margin-inline: var(--block-spacing);
     }
     &-text {
       max-width: 75%;

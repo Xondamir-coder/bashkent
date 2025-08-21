@@ -41,7 +41,7 @@ const emits = defineEmits(['toggle-menu']);
   @media screen and (min-width: 900px) {
     flex-direction: column;
     min-height: 100%;
-    width: vars.$sidebar-desktop-width;
+    width: var(--sidebar-width);
     border-top-right-radius: 1.2rem;
     border-bottom-right-radius: 1.2rem;
     border-right: 1px solid vars.$teal-light;
