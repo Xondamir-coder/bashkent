@@ -1,7 +1,7 @@
 <template>
   <main class="formula">
     <h2 class="heading-large">Цифры говорят сами за себя:</h2>
-    <SvgFormulaPattern class="formula__pattern" />
+    <SvgFadingPattern class="formula__pattern" />
     <ul class="formula__list">
       <li v-for="(item, i) in items" :key="i" class="formula__item">
         <h3 class="formula__item-title">
@@ -17,7 +17,7 @@
 </template>
 
 <script setup>
-import imgSrc from '/images/formula-1.png';
+import imgSrc from '/images/formula-1.jpg';
 
 const items = [
   {

@@ -32,6 +32,9 @@ body {
   font-size: max(1.6rem, 14px);
   color: vars.$black-medium;
 }
+main {
+  flex: 1;
+}
 p {
   line-height: 135%;
 }

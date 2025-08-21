@@ -15,46 +15,21 @@
           v-for="(name, i) in blockLinks"
           :key="i"
           class="architecture__nav-item"
-          :class="{ active: currentBlock === i }"
-          @click="changeBlock(i)"
+          :class="{ active: currentPage === i }"
+          @click="changePage(i)"
         >
           {{ name }}
         </button>
       </div>
-      <div class="architecture__arrows">
-        <button
-          class="architecture__arrow"
-          :disabled="currentBlock === 0"
-          @click="changeBlock(prevBlock)"
-        >
-          <SvgLongArrowRight />
-        </button>
-        <div class="architecture__page">
-          <Transition name="fade">
-            <span :key="currentBlock">{{ currentBlock + 1 }}</span>
-          </Transition>
-          /
-          <span>{{ blockLinks.length }}</span>
-        </div>
-        <button
-          class="architecture__arrow"
-          :disabled="currentBlock === blockLinks.length - 1"
-          @click="changeBlock(nextBlock)"
-        >
-          <SvgLongArrowRight />
-        </button>
-      </div>
+      <PageCounter v-model="currentPage" :pages="blockLinks.length" />
     </div>
   </main>
 </template>
 
 <script setup>
-const currentBlock = ref(0);
+const currentPage = ref(0);
 
-const prevBlock = computed(() => (currentBlock.value - 1 <= 0 ? 0 : currentBlock.value - 1));
-const nextBlock = computed(() =>
-  currentBlock.value + 1 >= blockLinks.length ? blockLinks.length - 1 : currentBlock.value + 1
-);
+const changePage = index => (currentPage.value = index);
 
 const blockLinks = [
   'Террасы',
@@ -64,8 +39,6 @@ const blockLinks = [
   'Зона отдыха',
   'Автостоянки'
 ];
-
-const changeBlock = index => (currentBlock.value = index);
 </script>
 
 <style lang="scss" scoped>
@@ -144,41 +117,11 @@ const changeBlock = index => (currentBlock.value = index);
       font-size: max(1.8rem, 14px);
     }
   }
-  &__arrows {
-    display: flex;
-    align-items: center;
-    gap: max(1.2rem, 12px);
-    padding-block: max(1.3rem, 13px);
-    padding-inline: max(1.2rem, 12px);
-    border-radius: max(1.2rem, 12px);
-    background-color: #fff;
-  }
+
   &__page {
     min-width: 4.1rem;
     font-size: max(1.6rem, 16px);
     text-align: center;
-  }
-  &__arrow {
-    width: max(2.4rem, 24px);
-    display: flex;
-    fill: vars.$lighter-black;
-    &:first-of-type {
-      transform: rotate(180deg);
-    }
-    &:disabled {
-      fill: vars.$dark-grey-accent;
-    }
-  }
-}
-.fade {
-  &-enter-active,
-  &-leave-active {
-    transition: opacity 0.5s ease;
-  }
-  &-enter-from,
-  &-leave-to {
-    opacity: 0;
-    position: absolute;
   }
 }
 </style>
