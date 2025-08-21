@@ -14,12 +14,15 @@
   --inline-spacing-desktop: 6rem;
   --block-spacing-desktop: calc(var(--sidebar-desktop-width) + var(--inline-spacing-desktop));
 
+  @media screen and (max-width: 1200px) {
+    --inline-spacing-desktop: 4rem;
+  }
   @media screen and (max-width: vars.$bp-ipad-pro) {
     --inline-spacing-desktop: 3rem;
   }
   @media screen and (max-width: 900px) {
-    --block-spacing-desktop: 0;
     --inline-spacing-desktop: max(1.6rem, 16px);
+    --block-spacing-desktop: max(1.6rem, 16px);
   }
 }
 
@@ -47,6 +50,11 @@ picture {
 }
 img {
   object-fit: cover;
+}
+svg {
+  fill: inherit;
+  stroke: inherit;
+  width: 100%;
 }
 img,
 picture {

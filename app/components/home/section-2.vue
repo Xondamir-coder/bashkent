@@ -44,6 +44,7 @@
   display: flex;
 
   &__wrapper {
+    @include mix.block-padding;
     padding-top: 12rem;
     flex: 1;
     color: #fff;
@@ -53,8 +54,6 @@
     justify-content: space-between;
     padding-bottom: 3.2rem;
     z-index: 2;
-    padding-left: var(--block-spacing-desktop);
-    padding-right: var(--inline-spacing-desktop);
   }
   &__play {
     width: 12.3rem;

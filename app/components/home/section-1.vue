@@ -21,11 +21,10 @@
 
 <style lang="scss" scoped>
 .section-1 {
+  @include mix.block-padding;
   background: linear-gradient(180deg, #ffffff 15.8%, #f9e9d8 100%);
   display: flex;
   align-items: center;
-  padding-left: var(--block-spacing-desktop);
-  padding-right: var(--inline-spacing-desktop);
 
   &__pattern {
     position: absolute;

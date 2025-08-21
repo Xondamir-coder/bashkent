@@ -32,12 +32,11 @@ const emits = defineEmits(['toggle-modal']);
 
 <style lang="scss" scoped>
 .header {
+  @include mix.block-padding;
   position: fixed;
   width: 100%;
   top: 0;
   left: 0;
-  padding-right: var(--inline-spacing-desktop);
-  padding-left: var(--block-spacing-desktop);
   padding-top: vars.$header-top-spacing;
   display: flex;
   justify-content: space-between;
