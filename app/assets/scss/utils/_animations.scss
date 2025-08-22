@@ -71,9 +71,6 @@ $directions: (
   }
 }
 @keyframes spin {
-  from {
-    transform: rotate(0);
-  }
   to {
     transform: rotate(360deg);
   }
@@ -87,21 +84,9 @@ $directions: (
   from {
     opacity: 0;
   }
-  to {
-    opacity: 1;
-  }
 }
-@keyframes scale-up {
+@keyframes scale-out {
   from {
     transform: scale(0);
-  }
-  to {
-    transform: scale(1);
-  }
-}
-@keyframes scale-appear-95 {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
   }
 }

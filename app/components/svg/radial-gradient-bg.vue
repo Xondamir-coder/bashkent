@@ -7,38 +7,76 @@
 </template>
 
 <style lang="scss" scoped>
+$scale-factor: 1.1;
+$y-factor: 10%;
+$balance-factor: 5%;
+$duration: 3s;
+
+@keyframes scale-fade-in {
+  from {
+    opacity: 0;
+    scale: $scale-factor;
+  }
+}
+@keyframes scale-fade-in-from-top {
+  from {
+    opacity: 0;
+    scale: $scale-factor;
+    translate: $balance-factor -#{$y-factor};
+  }
+}
+@keyframes scale-fade-in-from-bottom {
+  from {
+    opacity: 0;
+    scale: $scale-factor;
+    translate: $balance-factor $y-factor;
+  }
+}
 .radial-gradient {
   width: 100%;
   height: 100%;
   position: absolute;
   inset: 0;
-  display: grid;
   overflow: hidden;
-  & > * {
-    grid-area: 1/1/2/2;
-  }
+
+  // & > * {
+  //   animation: scale-fade-in 2s backwards;
+  //   @for $i from 1 through 3 {
+  //     &:nth-child(#{$i}) {
+  //       animation-delay: $i * 0.5s;
+  //     }
+  //   }
+  // }
   &__pattern {
-    justify-self: center;
-    width: 79%;
+    width: min(79%, 100vh);
     min-width: 600px;
-    @media screen and (max-width: 900px) {
-      position: absolute;
-      left: 50%;
-      translate: -50%;
-    }
+    position: absolute;
+    left: 50%;
     &:nth-of-type(2) {
-      align-self: flex-start;
-      @media screen and (max-width: 900px) {
-        top: 0;
+      animation: scale-fade-in-from-top $duration backwards;
+      top: 0;
+      transform: translateX(-50%);
+      @media screen and (max-width: vars.$bp-large-mobile) {
+        transform: translate(-50%, -30%);
       }
     }
     &:last-of-type {
-      align-self: flex-end;
-      transform: rotate(180deg);
-      @media screen and (max-width: 900px) {
-        bottom: 0;
+      animation: scale-fade-in-from-bottom $duration backwards;
+      bottom: 0;
+      transform: translateX(-50%) rotate(180deg);
+      @media screen and (max-width: vars.$bp-large-mobile) {
+        transform: translate(-50%, 30%) rotate(180deg);
       }
     }
+  }
+  &__bg {
+    height: 100%;
+    min-width: 800px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    animation: scale-fade-in $duration backwards;
   }
 }
 </style>

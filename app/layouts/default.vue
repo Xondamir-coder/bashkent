@@ -9,6 +9,7 @@
     <Transition name="fade">
       <ContactsModal v-if="showModal" @toggle-modal="toggleModal" />
     </Transition>
+    <AppPreloader />
   </div>
 </template>
 
