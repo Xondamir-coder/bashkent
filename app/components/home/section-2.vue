@@ -1,6 +1,6 @@
 <template>
   <div class="section-2">
-    <NuxtPicture src="/images/pattern-bg-green.png" alt="home banner" class="section-2__pattern" />
+    <SvgRadialGradientBg />
     <div class="section-2__wrapper">
       <div class="section-2__header">
         <h2 class="heading-large">
@@ -21,7 +21,10 @@
         </div>
       </div>
       <div class="section-2__container">
-        <NuxtPicture src="/images/video-banner.png" alt="video banner" class="section-2__banner" />
+        <NuxtPicture src="/images/home/buildings.jpg" class="section-2__image" />
+        <NuxtPicture src="/images/home/tree-top.png" class="section-2__picture" />
+        <NuxtPicture src="/images/home/light.png" class="section-2__picture" />
+        <NuxtPicture src="/images/home/tree-2.png" class="section-2__picture" />
         <button class="section-2__play">
           <SvgVideoPlayText />
         </button>
@@ -45,36 +48,86 @@
 
   &__wrapper {
     @include mix.block-padding;
-    padding-top: 12rem;
     flex: 1;
     color: #fff;
     display: flex;
-    gap: 7.7rem;
+    gap: max(7.7rem, 57px);
     flex-direction: column;
     justify-content: space-between;
-    padding-bottom: 3.2rem;
     z-index: 2;
+    @media screen and (max-width: vars.$bp-large-mobile) {
+      padding-inline: 0;
+      padding-bottom: calc(var(--block-spacing) + max(7rem, 70px));
+    }
   }
   &__play {
-    width: 12.3rem;
+    display: flex;
+    width: max(12.3rem, 90px);
     place-self: center;
+  }
+  &__picture {
+    position: absolute;
+    z-index: 2;
+    &:nth-child(2) {
+      width: 30%;
+      min-width: 200px;
+      right: 0;
+      top: 0;
+      transform: translateY(-100%);
+    }
+    &:nth-child(3) {
+      width: 15.7%;
+      top: -10%;
+      min-width: 104px;
+      left: calc(var(--block-spacing) * -1);
+    }
+    &:last-of-type {
+      width: 24%;
+      left: calc(var(--block-spacing) * -1);
+      bottom: 0;
+      @media screen and (max-width: vars.$bp-large-mobile) {
+        transform: translateX(-20%);
+      }
+    }
+  }
+
+  &__image {
+    aspect-ratio: 1160/460;
+    @media screen and (max-width: vars.$bp-large-mobile) {
+      aspect-ratio: 375/210;
+    }
   }
   &__container {
     position: relative;
+    padding-right: var(--block-spacing);
     display: grid;
-    & > * {
+    @media screen and (max-width: vars.$bp-large-mobile) {
+      padding-right: 0;
+    }
+    & > *:not(.section-2__picture) {
       grid-area: 1/1/2/2;
     }
   }
   &__box {
+    margin-right: calc(var(--block-spacing) * -1);
     margin-bottom: 2.4rem;
     z-index: 2;
     place-self: flex-end;
     max-width: 37ch;
-    padding-block: 1.9rem;
+    padding-block: max(1.9rem, 15px);
     background-color: vars.$gold;
     text-align: center;
     font-weight: 700;
+    font-size: max(1.6rem, 12px);
+    @media screen and (max-width: vars.$bp-large-mobile) {
+      font-weight: 400;
+      padding-inline: 13px;
+      margin-bottom: 0;
+      margin-right: 0;
+      align-self: flex-end;
+      justify-self: center;
+      transform: translateY(50%);
+    }
   }
   &__banner {
     transform: scale(1.1);
@@ -82,15 +135,19 @@
   &__header {
     display: flex;
     gap: 11.2rem;
-
+    @media screen and (max-width: vars.$bp-large-mobile) {
+      flex-direction: column;
+      gap: max(5rem, 20px);
+      padding-inline: var(--block-spacing);
+    }
     &-content {
       display: flex;
       flex-direction: column;
       & > *:first-of-type {
-        padding-bottom: 1.6rem;
+        padding-bottom: max(1.6rem, 8px);
       }
       & > *:last-of-type {
-        padding-top: 1.6rem;
+        padding-top: max(1.6rem, 8px);
         position: relative;
         &::before {
           content: '';
@@ -99,6 +156,7 @@
           height: 1px;
           top: 0;
           left: 0;
+          opacity: 0.3;
           background: linear-gradient(
             90deg,
             rgba(255, 255, 255, 0) 0%,
@@ -112,13 +170,25 @@
       flex: 1;
     }
   }
-  &__pattern {
+  &__bg {
     position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
-    left: 0;
-    img {
-      object-fit: cover;
+    z-index: 1;
+  }
+  &__pattern {
+    z-index: 1;
+    position: absolute;
+    width: 59%;
+    left: 50%;
+    translate: -50%;
+    &:first-of-type {
+      top: 0;
+    }
+    &:last-of-type {
+      bottom: 0;
+      rotate: 180deg;
     }
   }
 }

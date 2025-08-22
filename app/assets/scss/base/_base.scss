@@ -21,6 +21,10 @@
     // No sidebar
     --block-padding-left: var(--block-spacing);
   }
+  @media screen and (max-width: 768px) {
+    // No sidebar
+    --block-spacing: max(3rem, 16px);
+  }
 }
 
 html {

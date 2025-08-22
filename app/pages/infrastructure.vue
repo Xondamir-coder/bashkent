@@ -1,21 +1,21 @@
 <template>
-  <main class="infra">
-    <SvgFadingPattern class="infra__pattern" />
-    <SvgFadingPattern class="infra__pattern" />
-    <NuxtPicture class="infra__picture" src="/images/infra-1.jpg" alt="picnic" />
-    <NuxtPicture class="infra__picture" src="/images/infra-2.jpg" alt="hugging" />
-    <NuxtPicture class="infra__picture" src="/images/infra-3.png" alt="cameras" />
-    <div class="infra__content">
+  <main class="infrastructure">
+    <SvgFadingPattern class="infrastructure__pattern" />
+    <SvgFadingPattern class="infrastructure__pattern" />
+    <NuxtPicture class="infrastructure__picture" src="/images/picnic.jpg" alt="picnic" />
+    <NuxtPicture class="infrastructure__picture" src="/images/hugging.jpg" alt="hugging" />
+    <NuxtPicture class="infrastructure__picture" src="/images/camera.png" alt="cameras" />
+    <div class="infrastructure__content">
       <h2 class="heading-large">Безопасность нового поколения</h2>
-      <p class="infra__content-text">
+      <p class="infrastructure__content-text">
         Современные технологии, которые обеспечат защиту вашего дома и круглосуточный контроль за
         территорией, создавая максимальный комфорт и безопасность для жителей.
       </p>
     </div>
     <PageCounter v-model="currentPage" :pages="6" />
-    <div class="infra__box">
-      <NuxtPicture class="infra__box-picture" src="/images/infra-4.jpg" alt="street" />
-      <NuxtPicture class="infra__box-picture" src="/images/infra-tree.png" alt="tree" />
+    <div class="infrastructure__box">
+      <NuxtPicture class="infrastructure__box-picture" src="/images/street.jpg" alt="street" />
+      <NuxtPicture class="infrastructure__box-picture" src="/images/tree.png" alt="tree" />
     </div>
   </main>
 </template>
@@ -25,13 +25,15 @@ const currentPage = ref(0);
 </script>
 
 <style lang="scss" scoped>
-.infra {
-  @include mix.block-padding;
+.infrastructure {
   display: flex;
   flex-direction: column;
   position: relative;
   align-items: center;
   overflow: hidden;
+  @media screen and (max-width: 900px) {
+    padding-inline: var(--block-spacing);
+  }
   &__picture {
     width: max(32rem, 160px);
     &:first-of-type {
@@ -101,6 +103,7 @@ const currentPage = ref(0);
   }
   &__content + div {
     z-index: 3;
+    padding-bottom: max(3.2rem, 16px);
   }
   &__content {
     z-index: 3;

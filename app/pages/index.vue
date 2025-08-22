@@ -1,7 +1,7 @@
 <template>
   <main class="home">
-    <!-- <HomeSection1 /> -->
-    <HomeSection2 />
+    <HomeSection1 />
+    <!-- <HomeSection2 /> -->
   </main>
 </template>
 
@@ -9,7 +9,6 @@
 
 <style lang="scss" scoped>
 .home {
-  flex: 1;
   & > * {
     width: 100%;
     height: 100%;

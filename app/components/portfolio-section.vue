@@ -31,13 +31,13 @@ defineProps({
 <style lang="scss" scoped>
 .portfolio-section {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
   position: relative;
   overflow: hidden;
+  grid-template-columns: 1.12fr 1fr;
 
   &:first-child {
     .portfolio-section__content {
-      padding-left: var(--block-spacing);
+      padding-left: var(--block-padding-left);
     }
     .portfolio-section__pattern {
       bottom: -44%;
@@ -54,6 +54,9 @@ defineProps({
     }
   }
   &:last-child {
+    .portfolio-section__content {
+      padding-inline: var(--block-spacing);
+    }
     .portfolio-section__image {
       order: -1;
     }
@@ -78,20 +81,18 @@ defineProps({
     position: absolute;
     min-width: 340px;
     width: 56.4%;
+    z-index: -1;
   }
   &__content {
     align-self: center;
     display: flex;
     flex-direction: column;
     gap: 2.4rem;
-    margin-inline: 6rem;
     @media screen and (max-width: 900px) {
       align-self: flex-start;
-      padding: 0;
-      margin-inline: var(--block-spacing);
     }
     &-text {
-      max-width: 75%;
+      max-width: 38ch;
       min-width: 343px;
       color: vars.$darker-grey;
       opacity: 0.7;
@@ -101,8 +102,8 @@ defineProps({
   &__image {
     height: 100vh;
     @media screen and (max-width: 900px) {
+      height: auto;
       order: -1;
-      max-height: 420px;
       aspect-ratio: 375/420;
     }
   }
