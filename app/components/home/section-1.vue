@@ -41,7 +41,7 @@
     right: 1.7%;
     top: 2.4%;
     @media screen and (max-width: vars.$bp-large-mobile) {
-      min-width: 423px;
+      min-width: 65vh;
       left: 50%;
       top: 60%;
       right: auto;
@@ -57,7 +57,7 @@
       width: 100%;
       min-width: 132vh;
       @media screen and (max-width: vars.$bp-large-mobile) {
-        transform: translate(10%, 10%);
+        transform: translate(12%, 10%);
       }
     }
     &:nth-of-type(2) {

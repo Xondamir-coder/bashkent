@@ -70,6 +70,12 @@ $directions: (
     opacity: 0;
   }
 }
+@keyframes layout-disappear {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
 @keyframes spin {
   to {
     transform: rotate(360deg);

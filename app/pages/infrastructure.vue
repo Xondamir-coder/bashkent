@@ -103,7 +103,7 @@ const currentPage = ref(0);
   }
   &__content + div {
     z-index: 3;
-    padding-bottom: max(3.2rem, 16px);
+    margin-bottom: max(3.2rem, 16px);
   }
   &__content {
     z-index: 3;

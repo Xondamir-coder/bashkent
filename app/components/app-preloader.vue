@@ -56,6 +56,8 @@ if (import.meta.client) {
 </script>
 
 <style lang="scss" scoped>
+$preloader-delay: 4.5s;
+$preloader-duration: 0.5s;
 .preloader {
   z-index: 100;
   position: fixed;
@@ -63,6 +65,8 @@ if (import.meta.client) {
   width: 100%;
   height: 100%;
   background-image: vars.$green-linear-gradient;
+  animation: layout-disappear $preloader-duration forwards $preloader-delay;
+
   @include mix.flex-center;
   &__logo {
     width: 38.5%;

@@ -1,6 +1,11 @@
 <template>
   <div class="sidebar">
-    <SvgLogo class="sidebar__logo" />
+    <button class="sidebar__key">
+      <SvgKey />
+    </button>
+    <button class="sidebar__logo" @click="reloadPage">
+      <SvgLogo />
+    </button>
     <SvgLogoMobile class="sidebar__logo--mobile" />
     <button class="sidebar__ham" :class="{ active: showMenu }" @click="emits('toggle-menu')">
       <div class="sidebar__ham-box">
@@ -51,6 +56,12 @@ const emits = defineEmits(['toggle-menu']);
     border-bottom-left-radius: max(0.8rem, 8px);
     border-bottom-right-radius: max(0.8rem, 8px);
     border-bottom: 1px solid vars.$teal-light;
+  }
+  &__key {
+    @include mix.flex-center;
+    @media screen and (min-width: 900px) {
+      display: none;
+    }
   }
   &__logo {
     @media screen and (max-width: 900px) {
@@ -154,6 +165,9 @@ const emits = defineEmits(['toggle-menu']);
       color: #fff;
       font-weight: 500;
       line-height: 135%;
+      @media screen and (max-width: 900px) {
+        display: none;
+      }
     }
     &-box {
       display: grid;
