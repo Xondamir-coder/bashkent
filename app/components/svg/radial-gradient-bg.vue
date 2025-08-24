@@ -48,7 +48,7 @@ $duration: 3s;
   //   }
   // }
   &__pattern {
-    width: min(79%, 100vh);
+    width: min(79%, 100dvh);
     min-width: 600px;
     position: absolute;
     left: 50%;

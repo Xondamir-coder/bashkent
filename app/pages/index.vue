@@ -1,7 +1,7 @@
 <template>
   <main class="home">
-    <HomeSection1 />
-    <!-- <HomeSection2 /> -->
+    <!-- <HomeSection1 /> -->
+    <HomeSection2 />
   </main>
 </template>
 

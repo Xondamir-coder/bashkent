@@ -1,6 +1,6 @@
 <template>
   <div class="loader">
-    <NuxtPicture src="/images/pattern-bg-green.png" alt="loader" class="loader__image" />
+    <SvgRadialGradientBg />
     <div class="loader__content">
       <h2 class="heading-large">Надёжность, проверенная временем</h2>
       <div class="loader__texts">
@@ -34,8 +34,8 @@ definePageMeta({
 .loader {
   @include mix.flex-center;
   position: relative;
-  min-width: 100vw;
-  min-height: 100vh;
+  min-width: 100dvw;
+  min-height: 100dvh;
   background: vars.$green-linear-gradient;
 
   &__image {

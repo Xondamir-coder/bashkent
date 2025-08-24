@@ -1,0 +1,8 @@
+<template>
+  <svg viewBox="0 0 28 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M11.6667 21.5H16.3333V19.1667H11.6667V21.5ZM3.5 7.5V9.83333H24.5V7.5H3.5ZM7 15.6667H21V13.3333H7V15.6667Z"
+      fill="inherit"
+    />
+  </svg>
+</template>

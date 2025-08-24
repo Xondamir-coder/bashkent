@@ -100,7 +100,7 @@ defineProps({
     }
   }
   &__image {
-    height: 100vh;
+    height: 100dvh;
     @media screen and (max-width: 900px) {
       height: auto;
       order: -1;

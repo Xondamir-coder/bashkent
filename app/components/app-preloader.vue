@@ -1,53 +1,26 @@
 <template>
   <div class="preloader">
-    <SvgPreloaderLogo class="preloader__logo" />
+    <div class="preloader__logo">
+      <SvgPreloaderLogoIcon class="preloader__logo-icon" />
+      <SvgPreloaderLogoText class="preloader__logo-text" />
+    </div>
     <SvgRadialGradientBg />
   </div>
 </template>
 
 <script setup>
 import gsap from 'gsap';
+import DrawSVGPlugin from 'gsap/DrawSVGPlugin';
+
+gsap.registerPlugin(DrawSVGPlugin);
 
 const animateLogo = () => {
-  const paths = document.querySelectorAll('.preloader__logo path');
-  const totalDuration = 10; // seconds
-
-  let maxLength = 0;
-  paths.forEach(path => {
-    const length = path.getTotalLength();
-    if (length > maxLength) maxLength = length;
-
-    gsap.set(path, {
-      strokeDasharray: length,
-      strokeDashoffset: length,
-      fill: 'transparent'
-    });
-  });
-
+  const duration = 2; // seconds
   const tl = gsap.timeline();
 
-  // animate drawing
-  paths.forEach(path => {
-    const length = path.getTotalLength();
-
-    tl.to(
-      path,
-      {
-        strokeDashoffset: 0,
-        duration: (length / maxLength) * totalDuration,
-        ease: 'none'
-      },
-      0
-    ); // all start at same time
-  });
-
-  setTimeout(() => {
-    gsap.to(paths, {
-      fill: '#fff',
-      duration: 1,
-      stagger: 0.008
-    });
-  }, 3000);
+  tl.from('.preloader__logo-icon path', { duration: duration, drawSVG: 0, stagger: 0.08 });
+  gsap.from('.preloader__logo-text path', { duration: duration * 15, drawSVG: 0, stagger: 0.08 });
+  tl.to('.preloader__logo path', { fill: '#fff' });
 };
 
 if (import.meta.client) {
@@ -58,6 +31,21 @@ if (import.meta.client) {
 <style lang="scss" scoped>
 $preloader-delay: 4.5s;
 $preloader-duration: 0.5s;
+
+@keyframes preloader-disappear {
+  to {
+    transform: scale(1.1);
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+@keyframes logo-disappear {
+  to {
+    transform: scale(0.85);
+    opacity: 0;
+  }
+}
+
 .preloader {
   z-index: 100;
   position: fixed;
@@ -65,13 +53,21 @@ $preloader-duration: 0.5s;
   width: 100%;
   height: 100%;
   background-image: vars.$green-linear-gradient;
-  animation: layout-disappear $preloader-duration forwards $preloader-delay;
+  animation: preloader-disappear $preloader-duration forwards $preloader-delay;
 
   @include mix.flex-center;
   &__logo {
     width: 38.5%;
     min-width: 222px;
     z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: max(4.2rem, 17px);
+    align-items: center;
+    animation: logo-disappear $preloader-duration forwards $preloader-delay;
+    &-icon {
+      width: 37.6%;
+    }
   }
 }
 </style>

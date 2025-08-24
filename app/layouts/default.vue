@@ -1,6 +1,7 @@
 <template>
   <div class="layout">
-    <AppHeader @toggle-modal="toggleModal" />
+    <!-- <AppPreloader /> -->
+    <AppHeader @toggle-modal="toggleModal" v-if="isHeaderPresent" />
     <Transition name="slide-in">
       <AppMenu v-if="showMenu" />
     </Transition>
@@ -9,13 +10,16 @@
     <Transition name="fade">
       <ContactsModal v-if="showModal" @toggle-modal="toggleModal" />
     </Transition>
-    <AppPreloader />
   </div>
 </template>
 
 <script setup>
 const showMenu = ref(false);
 const showModal = ref(false);
+
+const route = useRoute();
+
+const isHeaderPresent = computed(() => route.path !== '/select');
 
 const toggleMenu = () => {
   showMenu.value = !showMenu.value;
@@ -35,8 +39,8 @@ if (import.meta.client) {
 
 <style lang="scss" scoped>
 .layout {
-  min-height: 100vh;
-  min-width: 100vw;
+  min-height: 100dvh;
+  min-width: 100dvw;
   display: flex;
 }
 .slide-in-enter-active,

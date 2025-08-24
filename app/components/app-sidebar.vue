@@ -17,9 +17,9 @@
     <SvgSidebarPattern class="sidebar__pattern" />
     <div class="sidebar__bottom">
       <span class="sidebar__bottom-text"> Калькулятор </span>
-      <div class="sidebar__bottom-box">
-        <SvgCalculator class="sidebar__bottom-icon" />
-      </div>
+      <GlassButton>
+        <SvgCalculator />
+      </GlassButton>
     </div>
   </div>
 </template>
@@ -90,47 +90,6 @@ const emits = defineEmits(['toggle-menu']);
     gap: max(calc(1.8rem * 3.5), 80px);
     @media screen and (max-width: 900px) {
       display: none;
-    }
-    &-box {
-      background-color: #fff;
-      width: 4.2rem;
-      height: 4.2rem;
-      border-radius: 0.8rem;
-      position: relative;
-      @include mix.flex-center;
-      &::before,
-      &::after {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        border-radius: inherit;
-        border: 0.6px solid #ffffff;
-      }
-      &::after {
-        background: radial-gradient(
-          50% 50% at 50% 50%,
-          rgba(255, 255, 255, 0) 0%,
-          rgba(255, 255, 255, 0.3) 100%
-        );
-        width: 129%;
-        height: 129%;
-        opacity: 0.6;
-      }
-      &::before {
-        background: radial-gradient(
-          50% 50% at 50% 50%,
-          rgba(255, 255, 255, 0) 0%,
-          rgba(255, 255, 255, 0.3) 100%
-        );
-        width: 157%;
-        height: 157%;
-        opacity: 0.1;
-      }
-    }
-    &-icon {
-      width: 2.4rem;
     }
     &-text {
       font-size: max(1.4rem, 14px);

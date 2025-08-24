@@ -29,7 +29,7 @@
         </div>
       </form>
       <div class="contacts-modal__info">
-        <img src="~/assets/images/man.jpg" alt="man" class="contacts-modal__image" >
+        <img src="~/assets/images/man.jpg" alt="man" class="contacts-modal__image" />
         <p>Rуководитель отдела продаж Сергей Обозный</p>
       </div>
     </div>
@@ -131,8 +131,8 @@ const sanitizeName = () => {
     padding-left: 9.4rem;
     position: fixed;
     inset: 0;
-    width: 100vw;
-    height: 100vh;
+    width: 100dvw;
+    height: 100dvh;
     z-index: 100;
     overflow-y: auto;
   }

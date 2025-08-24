@@ -1,7 +1,7 @@
 <template>
   <header class="header">
     <div class="header__left">
-      <button class="header__button header__button--grey">Выбрать квартиру</button>
+      <NuxtLink to="/select" class="header__button header__button--grey">Выбрать квартиру</NuxtLink>
       <button class="header__button header__button--grey">
         <SvgVideocam class="header__button-icon" />
         <span>Онлайн-трансляция</span>
@@ -57,6 +57,7 @@ const emits = defineEmits(['toggle-modal']);
     }
   }
   &__button {
+    @include mix.flex-center;
     padding-block: max(1.15rem, 8px);
     padding-inline: max(2.1rem, 17px);
     font-weight: 500;
@@ -75,8 +76,6 @@ const emits = defineEmits(['toggle-modal']);
       }
     }
     &:has(svg) {
-      display: flex;
-      align-items: center;
       gap: 1rem;
     }
     &-icon {
