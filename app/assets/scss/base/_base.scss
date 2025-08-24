@@ -35,6 +35,7 @@ body {
   font-family: vars.$font-base;
   font-size: max(1.6rem, 14px);
   color: vars.$black-medium;
+  fill: vars.$black-medium;
 }
 main {
   flex: 1;
@@ -88,6 +89,7 @@ textarea {
 }
 input,
 textarea {
+  width: 100%;
   font: inherit;
   color: inherit;
   border: none;

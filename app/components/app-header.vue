@@ -1,12 +1,20 @@
 <template>
-  <header class="header">
+  <header class="header" :class="{ 'header--plan': isPlanHeader }">
     <div class="header__left">
-      <NuxtLink to="/select" class="header__button header__button--grey">Выбрать квартиру</NuxtLink>
-      <button class="header__button header__button--grey">
+      <NuxtLink to="/select" class="header__button">
+        <SvgKeyboardArrowLeft v-if="isPlanHeader" class="header__button-icon" />
+        <span>{{ isPlanHeader ? 'Вернуться' : 'Выбрать квартиру' }}</span>
+      </NuxtLink>
+      <button class="header__button">
         <SvgVideocam class="header__button-icon" />
         <span>Онлайн-трансляция</span>
       </button>
     </div>
+    <button v-if="isPlanHeader" class="header__back" @click="$router.back()">
+      <SvgKeyboardArrowLeft />
+    </button>
+    <SvgHeaderLogo v-if="isPlanHeader" class="header__logo" />
+    <FloatingCall v-if="isPlanHeader" :clickable="true" class="header__call" />
     <div class="header__right">
       <a href="tel:+998 78 148 55 55" class="header__tel">
         <FloatingCall />
@@ -23,16 +31,23 @@
       </button>
     </div>
   </header>
-  <FloatingCall :clickable="true" class="header__floating" />
+  <FloatingCall v-if="!isPlanHeader" :clickable="true" class="header__floating" />
 </template>
 
 <script setup>
 const emits = defineEmits(['toggle-modal']);
+
+defineProps({
+  isPlanHeader: {
+    default: false,
+    type: Boolean
+  }
+});
 </script>
 
 <style lang="scss" scoped>
 .header {
-  padding-top: var(--block-padding-top);
+  padding-top: max(var(--block-padding-top));
   padding-left: var(--block-padding-left);
   padding-right: var(--block-spacing);
   position: fixed;
@@ -44,8 +59,21 @@ const emits = defineEmits(['toggle-modal']);
   justify-content: space-between;
   font-size: max(1.4rem, 11px);
   z-index: 10;
-  @media screen and (max-width: 900px) {
-    display: none;
+  &:not(.header--plan) {
+    @media screen and (max-width: 900px) {
+      display: none;
+    }
+  }
+  &--plan {
+    position: absolute;
+    padding-left: var(--block-spacing);
+    padding-top: max(2rem, 16px);
+    @media screen and (max-width: 900px) {
+      .header__right,
+      .header__left {
+        display: none;
+      }
+    }
   }
   &__floating {
     position: fixed;
@@ -56,17 +84,39 @@ const emits = defineEmits(['toggle-modal']);
       display: none;
     }
   }
+  &__call {
+    width: max(4.2rem, 42px);
+    height: max(4.2rem, 42px);
+    @media screen and (min-width: 900px) {
+      display: none;
+    }
+  }
+  &__back {
+    width: max(4.2rem, 42px);
+    height: max(4.2rem, 42px);
+    border-radius: max(0.8rem, 8px);
+    background-color: vars.$light-grey;
+    @include mix.flex-center;
+    @media screen and (min-width: 900px) {
+      display: none;
+    }
+    svg {
+      width: 50%;
+    }
+    &:hover {
+      background-color: vars.$grey;
+    }
+  }
   &__button {
     @include mix.flex-center;
     padding-block: max(1.15rem, 8px);
     padding-inline: max(2.1rem, 17px);
     font-weight: 500;
     border-radius: max(0.8rem, 5px);
-    &--grey {
-      background-color: vars.$light-grey;
-      &:hover {
-        background-color: vars.$grey;
-      }
+    background-color: vars.$light-grey;
+
+    &:hover {
+      background-color: vars.$grey;
     }
     &--gold {
       background-color: vars.$gold;
@@ -110,6 +160,14 @@ const emits = defineEmits(['toggle-modal']);
   }
   &__dropdown {
     display: flex;
+  }
+  &__logo {
+    width: max(18.3rem, 117px);
+    @media screen and (min-width: 1000px) {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
   }
   &__right {
     display: flex;
