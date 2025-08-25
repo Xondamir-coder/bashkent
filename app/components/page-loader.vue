@@ -3,7 +3,7 @@
     <SvgRadialGradientBg :class="{ yellow: data.color === 'yellow' }" />
     <div class="page-loader__content">
       <h2 ref="titleRef" class="heading-large page-loader__title">{{ data.title }}</h2>
-      <div class="page-loader__texts" ref="textsContainerRef">
+      <div ref="textsContainerRef" class="page-loader__texts">
         <p v-for="text in data.texts" :key="text" ref="textsRef">
           {{ text }}
         </p>
@@ -14,18 +14,17 @@
 </template>
 
 <script setup>
-import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
 
-gsap.registerPlugin(SplitText);
+const { $gsap } = useNuxtApp();
 
 const titleRef = ref();
 const textsRef = ref([]);
 const textsContainerRef = ref();
 
 onMounted(() => {
-  gsap.set(titleRef.value, { opacity: 1 });
-  gsap.set(textsContainerRef.value, { opacity: 1 });
+  $gsap.set(titleRef.value, { opacity: 1 });
+  $gsap.set(textsContainerRef.value, { opacity: 1 });
 
   const titleSplit = SplitText.create(titleRef.value, {
     type: 'chars, words',
@@ -38,7 +37,7 @@ onMounted(() => {
     })
   );
 
-  const tl = gsap.timeline();
+  const tl = $gsap.timeline();
 
   // animate title
   tl.from(titleSplit.chars, {

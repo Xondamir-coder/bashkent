@@ -9,34 +9,32 @@
 </template>
 
 <script setup>
-import gsap from 'gsap';
-import DrawSVGPlugin from 'gsap/DrawSVGPlugin';
-
-gsap.registerPlugin(DrawSVGPlugin);
+const { $gsap } = useNuxtApp();
 
 const emits = defineEmits(['hide-preloader']);
 defineProps({
-  showPreloader: Boolean
+  showPreloader: {
+    required: true,
+    type: Boolean
+  }
 });
 
 const animateLogo = () => {
   const duration = 2; // seconds
 
-  gsap.set('.preloader__logo', { opacity: 1 });
+  $gsap.set('.preloader__logo', { opacity: 1 });
 
-  const tl = gsap.timeline({
+  const tl = $gsap.timeline({
     onComplete: () => {
       emits('hide-preloader');
     }
   });
   tl.from('.preloader__logo-icon path', { duration: duration, drawSVG: 0, stagger: 0.08 });
-  gsap.from('.preloader__logo-text path', { duration: duration * 15, drawSVG: 0, stagger: 0.08 });
+  $gsap.from('.preloader__logo-text path', { duration: duration * 15, drawSVG: 0, stagger: 0.08 });
   tl.to('.preloader__logo path', { fill: '#fff' });
 };
 
-if (import.meta.client) {
-  animateLogo();
-}
+onMounted(() => animateLogo());
 </script>
 
 <style lang="scss" scoped>

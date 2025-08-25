@@ -4,7 +4,7 @@
     <div class="about__wrapper">
       <div class="about__header">
         <h2 class="heading-large">
-          Что такое <br />
+          Что такое <br >
           Bashkent Residence?
         </h2>
         <div class="about__header-content">

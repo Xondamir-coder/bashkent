@@ -44,7 +44,7 @@
 </template>
 
 <script setup>
-import gsap from 'gsap';
+const { $gsap } = useNuxtApp();
 
 const data = ref({
   block: 4,
@@ -227,7 +227,7 @@ const handleParallax = e => {
   const xVal = (e.clientX / window.innerWidth) * 2 - 1;
   const yVal = (e.clientY / window.innerHeight) * 2 - 1;
 
-  gsap.to('.masterplan__wrapper', {
+  $gsap.to('.masterplan__wrapper', {
     x: -xVal * window.innerWidth * 0.1,
     y: -yVal * window.innerHeight * 0.1,
     duration: 0.8,
@@ -240,9 +240,9 @@ const assignData = newData => {
   data.value.block = newData.block;
 };
 
-if (import.meta.client) {
+onMounted(() => {
   window.addEventListener('pointermove', handleParallax);
-}
+});
 onUnmounted(() => {
   window.removeEventListener('pointermove', handleParallax);
 });

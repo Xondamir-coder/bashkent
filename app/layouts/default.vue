@@ -79,22 +79,6 @@ const isHeaderPresent = computed(() => route.path !== '/select');
 const pages = ['portfolio', 'architecture', 'formula', 'housing', 'infrastructure'];
 const LOADER_DURATION = 4;
 
-router.beforeEach((to, from, next) => {
-  if (pages.includes(to.name)) {
-    newPageName.value = to.name;
-    showPageLoader.value = true;
-
-    setTimeout(() => {
-      next();
-    }, 500);
-    setTimeout(() => {
-      showPageLoader.value = false;
-    }, LOADER_DURATION * 1000);
-  } else {
-    next();
-  }
-});
-
 const toggleMenu = () => {
   showMenu.value = !showMenu.value;
 };
@@ -104,12 +88,31 @@ const toggleModal = () => {
 };
 
 if (import.meta.client) {
+  router.beforeEach((to, from, next) => {
+    if (pages.includes(to.name)) {
+      newPageName.value = to.name;
+      showPageLoader.value = true;
+
+      // let navigation continue immediately
+      next();
+
+      // just handle loader timings separately
+      setTimeout(() => {
+        showPageLoader.value = false;
+      }, LOADER_DURATION * 1000);
+    } else {
+      next();
+    }
+  });
+}
+
+onMounted(() => {
   document.addEventListener('click', e => {
     if (showMenu.value && !e.target.closest('.menu') && !e.target.closest('.sidebar__ham')) {
       showMenu.value = false;
     }
   });
-}
+});
 </script>
 
 <style lang="scss" scoped>
