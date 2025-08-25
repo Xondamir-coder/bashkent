@@ -3,7 +3,7 @@
     <!-- <AppPreloader /> -->
     <AppHeader v-if="isHeaderPresent" @toggle-modal="toggleModal" />
     <Transition name="slide-in">
-      <AppMenu v-if="showMenu" />
+      <AppMenu v-if="showMenu" @toggle-modal="toggleModal" @toggle-menu="toggleMenu" />
     </Transition>
     <AppSidebar :show-menu="showMenu" @toggle-menu="toggleMenu" />
     <slot />
@@ -25,6 +25,7 @@ const toggleMenu = () => {
   showMenu.value = !showMenu.value;
 };
 const toggleModal = () => {
+  showMenu.value = false;
   showModal.value = !showModal.value;
 };
 
@@ -45,11 +46,15 @@ if (import.meta.client) {
 }
 .slide-in-enter-active,
 .slide-in-leave-active {
-  transition: transform 1s cubic-bezier(0.215, 0.61, 0.355, 1);
+  transition: all 0.7s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 .slide-in-enter-from,
 .slide-in-leave-to {
   transform: translateX(-100%);
+  @media screen and (max-width: 900px) {
+    transform: scale(1.1);
+    opacity: 0;
+  }
 }
 .fade-enter-active,
 .fade-leave-active {
@@ -59,7 +64,10 @@ if (import.meta.client) {
 .fade-leave-to {
   opacity: 0;
 }
+.fade-enter-from > * {
+  transform: translateX(100%);
+}
 .fade-leave-to > * {
-  transform: translateY(50px);
+  transform: translateX(100%);
 }
 </style>

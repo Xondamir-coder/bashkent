@@ -3,20 +3,23 @@
     <div class="menu__top">
       <h2 class="heading-large">Меню</h2>
       <nav class="menu__nav">
-        <NuxtLink to="/" class="menu__link" active-class="active">Главная</NuxtLink>
-        <NuxtLink to="/infrastructure" class="menu__link" active-class="active"
-          >Инфраструктура</NuxtLink
+        <NuxtLink
+          v-for="(link, index) in links"
+          :key="index"
+          :to="link.path"
+          class="menu__link"
+          active-class="active"
+          @click="$emit('toggle-menu')"
         >
-        <NuxtLink to="/plans" class="menu__link" active-class="active">Планировки</NuxtLink>
-        <NuxtLink to="/catalog" class="menu__link" active-class="active">Каталог</NuxtLink>
-        <NuxtLink to="/contacts" class="menu__link" active-class="active">Контакты</NuxtLink>
+          {{ link.name }}
+        </NuxtLink>
       </nav>
     </div>
     <div class="menu__bottom">
       <div class="menu__bottom-header">
         <h3 class="menu__subtitle">SOTUV OFISI</h3>
         <p>
-          100073, O‘zbekiston, Toshkent shahri, <br />
+          100073, O‘zbekiston, Toshkent shahri, <br >
           Yashnobod tumani, Jarqo‘rg‘on ko‘chasi, 47
         </p>
         <p>Dushanba-Yakshanba: 9:00 dan 19:00 gacha</p>
@@ -39,16 +42,59 @@
         </a>
       </div>
     </div>
+    <div class="menu__cta">
+      <button class="menu__button">
+        <SvgVideocam class="menu__button-icon" />
+        <span>Онлайн-трансляция</span>
+      </button>
+      <button class="menu__button" @click="$emit('toggle-modal')">
+        <span>Записаться на встречу</span>
+      </button>
+    </div>
   </div>
 </template>
 
 <script setup>
-import { SvgCallEnd, SvgTelegram } from '#components';
+const links = computed(() => [
+  {
+    name: 'Главная',
+    path: '/'
+  },
+  {
+    name: 'О проекте',
+    path: '/about'
+  },
+  {
+    name: 'Наши проекты',
+    path: '/portfolio'
+  },
+  {
+    name: 'Архитектура',
+    path: '/architecture'
+  },
+  {
+    name: 'Формулы успеха',
+    path: '/formula'
+  },
+  {
+    name: 'Жилой фонд',
+    path: '/housing'
+  },
+  {
+    name: 'Инфраструктура',
+    path: '/infrastructure'
+  },
+  {
+    name: 'Рядом с вами',
+    path: '/contacts'
+  }
+]);
+defineEmits(['toggle-modal', 'toggle-menu']);
 </script>
 
 <style lang="scss" scoped>
 .menu {
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 0;
   background: #012320cc;
@@ -60,36 +106,77 @@ import { SvgCallEnd, SvgTelegram } from '#components';
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  gap: 10rem;
-  min-width: 45%;
+  gap: max(3rem, 24px);
+  min-width: max(45%, 375px);
   min-height: 100%;
   height: 100%;
   overflow-y: auto;
   padding-left: var(--sidebar-width);
   padding-right: 4.3rem;
   z-index: 15;
+  @media screen and (max-width: 900px) {
+    padding-left: 0;
+    padding-top: calc(var(--header-height) + max(2.2rem, 22px));
+    padding-bottom: max(2rem, 20px);
+  }
+  @media screen and (max-width: vars.$bp-small-mobile) {
+    min-width: 100%;
+  }
+  h2 {
+    @media screen and (max-width: 900px) {
+      font-size: max(2rem, 20px);
+    }
+  }
   h2,
   .menu__link,
   .menu__bottom {
-    padding-left: 3.2rem;
+    padding-left: max(3.2rem, 16px);
+  }
+  &__cta {
+    display: flex;
+    flex-direction: column;
+    gap: max(1.3rem, 13px);
+    padding-left: max(1.6rem, 16px);
+    @media screen and (min-width: 900px) {
+      display: none;
+    }
+  }
+  &__button {
+    padding-block: max(1.2rem, 10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: max(1rem, 10px);
+    background-color: vars.$near-white;
+    border-radius: max(0.8rem, 8px);
+    color: vars.$black-medium;
+    font-weight: 500;
+    &:last-child {
+      background-color: vars.$gold;
+      color: #fff;
+    }
+    &-icon {
+      width: max(2.4rem, 24px);
+    }
   }
   &__subtitle {
     font-family: vars.$font-angst;
-    font-size: 3.2rem;
+    font-size: max(3.2rem, 20px);
   }
   &__top {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: max(2rem, 12px);
   }
   &__bottom {
     display: flex;
     flex-direction: column;
-    gap: 3.2rem;
+    gap: max(3.2rem, 20px);
     &-header {
       display: flex;
       flex-direction: column;
-      gap: 2rem;
+      gap: max(2rem, 12px);
+      font-size: max(1.6rem, 12px);
     }
   }
   &__nav {
@@ -98,11 +185,10 @@ import { SvgCallEnd, SvgTelegram } from '#components';
   }
   &__item {
     display: flex;
-    gap: 1rem;
+    gap: max(1rem, 10px);
     align-items: center;
-    padding-block: 1.7rem;
+    padding-block: max(1.7rem, 10px);
     border-top: 1px solid #ffffff1f;
-    border-bottom: 1px solid #ffffff1f;
     span {
       &:last-of-type {
         margin-left: auto;
@@ -114,10 +200,9 @@ import { SvgCallEnd, SvgTelegram } from '#components';
     flex-direction: column;
   }
   &__link {
-    font-size: 2rem;
-    font-family: vars.$font-gothic-a1;
-    font-weight: 800;
-    padding-block: 1.8rem;
+    font-size: max(2rem, 14px);
+    font-weight: 500;
+    padding-block: max(1rem, 10px);
     position: relative;
     &::before {
       content: '';
@@ -132,7 +217,7 @@ import { SvgCallEnd, SvgTelegram } from '#components';
       transform-origin: bottom;
     }
     &.active {
-      background: linear-gradient(90deg, rgba(39, 162, 154, 0) 0%, rgba(39, 162, 154, 0.2) 100%);
+      background: linear-gradient(-90deg, rgba(39, 162, 154, 0) 0%, rgba(39, 162, 154, 0.2) 100%);
       &::before {
         transform: scaleY(1);
       }
@@ -140,7 +225,7 @@ import { SvgCallEnd, SvgTelegram } from '#components';
   }
   &__item {
     &-icon {
-      width: 2.4rem;
+      width: max(2.4rem, 20px);
     }
   }
 }

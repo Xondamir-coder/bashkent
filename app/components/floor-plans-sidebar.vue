@@ -37,7 +37,7 @@
               name="area"
               class="sidebar__form-input"
               placeholder="от"
-            />
+            >
             <span>м²</span>
           </div>
           <div class="sidebar__form-style">
@@ -47,7 +47,7 @@
               name="area"
               class="sidebar__form-input"
               placeholder="до"
-            />
+            >
             <span>м²</span>
           </div>
         </div>

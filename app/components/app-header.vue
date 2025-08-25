@@ -1,5 +1,5 @@
 <template>
-  <header class="header" :class="{ 'header--plan': isPlanHeader }">
+  <header class="header" :class="{ 'header--plan': isPlanHeader, 'header--variant': isVariant }">
     <div class="header__left">
       <NuxtLink to="/select" class="header__button">
         <SvgKeyboardArrowLeft v-if="isPlanHeader" class="header__button-icon" />
@@ -37,6 +37,11 @@
 <script setup>
 const emits = defineEmits(['toggle-modal']);
 
+const paths = ['about', 'portfolio', 'architecture', 'housing'];
+
+const route = useRoute();
+const isVariant = computed(() => paths.includes(route.path.slice(1)));
+
 defineProps({
   isPlanHeader: {
     default: false,
@@ -72,6 +77,15 @@ defineProps({
       .header__right,
       .header__left {
         display: none;
+      }
+    }
+  }
+  &--variant {
+    .header__tel {
+      color: #fff;
+      fill: vars.$gold;
+      div {
+        background-color: #fff;
       }
     }
   }
@@ -136,7 +150,7 @@ defineProps({
     display: flex;
     align-items: center;
     gap: 1rem;
-    color: vars.$black-medium;
+    fill: #fff;
     // &:hover .header__tel-box {
     //   background-color: vars.$gold-dark;
     //   transform: scale(1.15);

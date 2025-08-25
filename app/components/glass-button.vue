@@ -51,6 +51,7 @@ defineEmits(['click']);
   &__icon {
     display: flex;
     width: 57.2%;
+    fill: vars.$teal;
   }
 }
 </style>

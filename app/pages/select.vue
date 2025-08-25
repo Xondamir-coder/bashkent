@@ -14,7 +14,7 @@
         <p>Выбирайте по цене и площади</p>
       </div>
     </NuxtLink>
-    <NuxtLink to="/master-plan" class="select__right">
+    <NuxtLink to="/masterplan" class="select__right">
       <NuxtPicture src="/images/select-banner.jpg" alt="banner" class="select__banner" />
       <SvgRadialPattern class="select__pattern" />
       <div class="select__content">

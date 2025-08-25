@@ -1,11 +1,16 @@
 <template>
-  <input v-model="model" class="form-input" @input="checkInput" >
+  <input v-if="!isTextArea" v-model="model" class="form-input" @input="checkInput" >
+  <textarea v-else v-model="model" rows="5" class="form-input" @input="checkInput" />
 </template>
 
 <script setup>
 // eslint-disable-next-line vue/require-prop-types
 const model = defineModel();
 const attrs = useAttrs();
+
+defineProps({
+  isTextArea: Boolean
+});
 
 const checkInput = () => {
   if (attrs.type === 'tel') {
@@ -17,12 +22,11 @@ const checkInput = () => {
 
 <style lang="scss" scoped>
 .form-input {
-  padding-block: 1.9rem;
-  border-radius: 1.2rem;
-  padding-inline: 2rem;
+  padding-block: max(1.9rem, 14px);
+  padding-inline: max(2rem, 16px);
+  border-radius: max(1.2rem, 8px);
   background-color: #ffffff;
   border: 1px solid #d6d7d7;
-  font-weight: 400;
   &::placeholder {
     color: #b2b5b5;
     opacity: 1;
