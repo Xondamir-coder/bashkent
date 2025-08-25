@@ -22,6 +22,9 @@
 
 <script setup>
 const currentPage = ref(0);
+useHead({
+  title: 'Infrastructure'
+});
 </script>
 
 <style lang="scss" scoped>

@@ -25,3 +25,4 @@ export const toRoman = num => {
   }
   return result;
 };
+export const showPreloader = ref(true);

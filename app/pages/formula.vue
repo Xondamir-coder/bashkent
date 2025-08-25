@@ -71,6 +71,10 @@ const items = [
     text: 'Подстанции'
   }
 ];
+
+useHead({
+  title: 'Formula'
+});
 </script>
 
 <style lang="scss" scoped>
@@ -78,7 +82,7 @@ const items = [
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 5rem;
+  gap: 3rem;
   position: relative;
   flex: 1;
   overflow: hidden;

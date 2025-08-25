@@ -39,6 +39,10 @@ const blockLinks = [
   'Зона отдыха',
   'Автостоянки'
 ];
+
+useHead({
+  title: 'Architecture'
+});
 </script>
 
 <style lang="scss" scoped>

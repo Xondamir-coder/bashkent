@@ -13,6 +13,10 @@
   </main>
 </template>
 
-<script setup></script>
+<script setup>
+useHead({
+  title: 'Portfolio'
+});
+</script>
 
 <style lang="scss" scoped></style>

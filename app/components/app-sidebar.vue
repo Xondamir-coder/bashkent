@@ -3,7 +3,7 @@
     <button class="sidebar__key">
       <SvgKey />
     </button>
-    <button class="sidebar__logo" @click="reloadPage">
+    <button class="sidebar__logo" @click="$router.push('/')">
       <SvgLogo />
     </button>
     <SvgLogoMobile class="sidebar__logo--mobile" />

@@ -14,14 +14,26 @@
           src="~/assets/images/home-flower.jpg"
           alt="home flower"
           class="home__content-bottom-image"
-        >
+        />
         <span>Новая философия городской </span>
       </div>
     </div>
   </main>
 </template>
 
-<script setup></script>
+<script setup>
+const router = useRouter();
+
+useScrollPage(direction => {
+  if (direction === 'next') {
+    router.push('/about');
+  }
+});
+
+useHead({
+  title: 'Home'
+});
+</script>
 
 <style lang="scss" scoped>
 .home {

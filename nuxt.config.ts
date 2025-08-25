@@ -13,6 +13,11 @@ export default defineNuxtConfig({
   image: {
     format: ['avif']
   },
+  app: {
+    head: {
+      titleTemplate: '%s - Bashkent'
+    }
+  },
   vite: {
     css: {
       preprocessorOptions: {

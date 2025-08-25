@@ -4,7 +4,7 @@
     <div class="about__wrapper">
       <div class="about__header">
         <h2 class="heading-large">
-          Что такое <br >
+          Что такое <br />
           Bashkent Residence?
         </h2>
         <div class="about__header-content">
@@ -39,7 +39,11 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+useHead({
+  title: 'About'
+});
+</script>
 
 <style lang="scss" scoped>
 .about {
