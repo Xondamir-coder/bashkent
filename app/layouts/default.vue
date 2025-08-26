@@ -125,7 +125,6 @@ if (import.meta.client) {
     }
   });
 }
-
 onMounted(() => {
   document.addEventListener('click', e => {
     if (showMenu.value && !e.target.closest('.menu') && !e.target.closest('.sidebar__ham')) {
@@ -169,7 +168,7 @@ onMounted(() => {
 }
 .scale-out-enter-active,
 .scale-out-leave-active {
-  transition: all 0.5s ease;
+  transition: all 0.3s ease;
 }
 .scale-out-enter-from,
 .scale-out-leave-to {

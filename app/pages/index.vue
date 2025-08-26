@@ -1,52 +1,224 @@
 <template>
-  <main class="home" :class="{ hidden: showPreloader }">
+  <main class="home" :class="{ hidden: showPreloader || showPageLoader }" ref="homeRef">
     <SvgBigPattern class="home__pattern" />
-    <NuxtPicture src="/images/home/wave.png" alt="wave" class="home__image" />
-    <NuxtPicture src="/images/home/building-small.png" alt="small building" class="home__image" />
-    <NuxtPicture src="/images/home/tree.png" alt="tree" class="home__image" />
-    <NuxtPicture src="/images/home/building-big.png" alt="big building" class="home__image" />
-    <NuxtPicture src="/images/home/rotated-tree.png" alt="rotated tree" class="home__image" />
+    <NuxtPicture data-depth="0.2" src="/images/home/wave.png" alt="wave" class="home__image" />
+    <NuxtPicture
+      data-depth="0.3"
+      src="/images/home/building-small.png"
+      alt="small building"
+      class="home__image"
+    />
+    <NuxtPicture data-depth=".35" src="/images/home/tree.png" alt="tree" class="home__image" />
+    <NuxtPicture
+      data-depth=".6"
+      src="/images/home/building-big.png"
+      alt="big building"
+      class="home__image"
+    />
+    <NuxtPicture
+      data-depth="1"
+      src="/images/home/rotated-tree.png"
+      alt="rotated tree"
+      class="home__image"
+    />
     <div class="home__content">
-      <p class="home__content-text">Новый этап архитектуры.</p>
-      <h1 class="heading-extra-large">жизни Город Бухара</h1>
+      <p class="home__content-text" ref="textRef">Новый этап архитектуры.</p>
+      <h1 class="heading-extra-large" ref="titleRef">жизни Город Бухара</h1>
       <div class="home__content-bottom">
         <img
           src="~/assets/images/home-flower.jpg"
           alt="home flower"
           class="home__content-bottom-image"
         />
-        <span>Новая философия городской </span>
+        <span ref="subtextRef">Новая философия городской </span>
       </div>
     </div>
   </main>
 </template>
 
 <script setup>
-const { showPreloader } = useLoader();
+import { SplitText } from 'gsap/SplitText';
+
+const { $gsap } = useNuxtApp();
+const { showPreloader, showPageLoader } = useLoader();
 const router = useRouter();
+
+const titleRef = ref();
+const textRef = ref();
+const subtextRef = ref();
+const homeRef = ref();
+let tl;
+
+// 🔒 store cleanup refs
+let cleanupParallax = null;
+
+const handleParallax = () => {
+  const images = homeRef.value.querySelectorAll('.home__image');
+
+  const layers = Array.from(images).map(img => ({
+    el: img,
+    depth: parseFloat(img.dataset.depth)
+  }));
+
+  let targetX = 0;
+  let targetY = 0;
+  let currentX = 0;
+  let currentY = 0;
+  let rafId;
+
+  const mouseMoveHandler = e => {
+    targetX = (e.clientX / window.innerWidth - 0.5) * 2;
+    targetY = (e.clientY / window.innerHeight - 0.5) * 2;
+  };
+
+  window.addEventListener('mousemove', mouseMoveHandler);
+
+  function animate() {
+    currentX += (targetX - currentX) * 0.15;
+    currentY += (targetY - currentY) * 0.15;
+
+    layers.forEach(({ el, depth }) => {
+      el.style.transform = `translate3d(${currentX * depth * 30}px, ${currentY * depth * 30}px, 0)`;
+    });
+
+    rafId = requestAnimationFrame(animate);
+  }
+
+  animate();
+
+  cleanupParallax = () => {
+    window.removeEventListener('mousemove', mouseMoveHandler);
+    cancelAnimationFrame(rafId);
+  };
+};
+
+const handleTextAnimations = () => {
+  tl = $gsap.timeline({ paused: true });
+  const { lines: textLines } = SplitText.create(textRef.value, {
+    type: 'lines',
+    mask: 'lines'
+  });
+  const { words: titleWords } = SplitText.create(titleRef.value, {
+    type: 'words',
+    mask: 'words'
+  });
+  const { words: subtextWords } = SplitText.create(subtextRef.value, {
+    type: 'words',
+    mask: 'words'
+  });
+
+  tl.from(textLines, {
+    yPercent: 80,
+    opacity: 0,
+    ease: 'power3.out',
+    stagger: 0.12,
+    duration: 0.7
+  });
+  tl.from(
+    titleWords,
+    {
+      yPercent: 100,
+      opacity: 0,
+      ease: 'power3.out',
+      stagger: 0.08,
+      duration: 0.8
+    },
+    '-=0.3'
+  );
+  tl.from(
+    subtextWords,
+    {
+      yPercent: 60,
+      opacity: 0,
+      ease: 'power2.out',
+      stagger: 0.05,
+      duration: 0.6
+    },
+    '-=0.4'
+  );
+};
+
+watch([showPreloader, showPageLoader], ([preloaderVal, pageLoaderVal]) => {
+  if (!preloaderVal || !pageLoaderVal) {
+    tl.restart();
+  }
+});
+
+onMounted(() => {
+  handleTextAnimations();
+  if (window.innerWidth > 1024) handleParallax();
+});
+
+onUnmounted(() => {
+  if (tl) tl.kill();
+  if (cleanupParallax) cleanupParallax();
+});
+
+useHead({ title: 'Home' });
 
 useScrollPage(direction => {
   if (direction === 'next') {
     router.push('/about');
   }
 });
-
-useHead({
-  title: 'Home'
-});
 </script>
 
 <style lang="scss" scoped>
+@use 'sass:math';
+
 .home {
   @include mix.block-padding;
   background: linear-gradient(180deg, #ffffff 15.8%, #f9e9d8 100%);
   display: flex;
   position: relative;
-  transition: all 0.3s;
   overflow: hidden;
   &.hidden {
-    opacity: 0;
-    transform: translate(10%);
+    .home__image {
+      $transforms: (
+        1: (
+          0.95,
+          -3deg,
+          -4px 2px
+        ),
+        2: (
+          1.08,
+          5deg,
+          6px -3px
+        ),
+        3: (
+          1.02,
+          -2deg,
+          -2px -4px
+        ),
+        4: (
+          0.98,
+          4deg,
+          3px 5px
+        ),
+        5: (
+          1.1,
+          -6deg,
+          -5px 1px
+        )
+      );
+
+      @for $i from 1 through 5 {
+        &:nth-of-type(#{$i}) {
+          $values: map-get($transforms, $i);
+
+          & > * {
+            scale: nth($values, 1);
+            rotate: nth($values, 2);
+            translate: nth($values, 3);
+            opacity: 0;
+          }
+        }
+      }
+
+      & > * {
+        opacity: 0;
+      }
+    }
   }
 
   &__pattern {
@@ -64,11 +236,33 @@ useHead({
     }
   }
   &__image {
+    --perspective: -4%;
     position: absolute;
     z-index: 1;
-    bottom: 0;
+    bottom: var(--perspective);
+    transition: none;
+    will-change: transform;
+    // transition: all 0.5s;
+    // @for $i from 1 through 5 {
+    //   &:nth-of-type(#{$i}) {
+    //     transition-delay: $i * 0.1s;
+    //   }
+    // }
+    @media screen and (max-width: vars.$bp-ipad-pro) {
+      --perspective: 0;
+    }
+    & > * {
+      transition: all 0.5s;
+    }
+    @for $i from 1 through 5 {
+      &:nth-child(#{$i}) {
+        & > * {
+          transition-delay: $i * 0.1s;
+        }
+      }
+    }
     &:first-of-type {
-      right: 0;
+      right: var(--perspective);
       width: 100%;
       min-width: 132vh;
       @media screen and (max-width: vars.$bp-large-mobile) {
@@ -83,13 +277,13 @@ useHead({
       }
     }
     &:nth-of-type(3) {
-      left: 0;
+      left: var(--perspective);
       width: 32.5%;
       min-width: 226px;
       z-index: 2;
     }
     &:nth-of-type(4) {
-      right: 0;
+      right: var(--perspective);
       width: 51%;
       min-width: 60vh;
       @media screen and (max-width: vars.$bp-large-mobile) {
@@ -97,9 +291,9 @@ useHead({
       }
     }
     &:last-of-type {
-      top: 0;
+      top: var(--perspective);
       bottom: auto;
-      right: 0;
+      right: var(--perspective);
       width: 21%;
       min-width: 125px;
     }

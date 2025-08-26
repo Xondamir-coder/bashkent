@@ -13,13 +13,9 @@ export default callback => {
 
     callback(direction);
 
-    // Force scroll to top
-    window.scrollTo({ top: 0, behavior: 'instant' });
-
     // Keep checking + fixing scroll during lock
     const fixScroll = () => {
       if (isGlobalLocked) {
-        window.scrollTo(0, 0);
         requestAnimationFrame(fixScroll);
       }
     };
@@ -30,6 +26,9 @@ export default callback => {
     globalUnlockTimer = setTimeout(() => {
       isGlobalLocked = false;
     }, lockTime);
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }, lockTime * 0.5);
   }
 
   function atTop() {

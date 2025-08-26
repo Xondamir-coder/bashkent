@@ -1,17 +1,24 @@
 <template>
-  <div class="portfolio-section">
+  <section class="portfolio-section">
     <SvgPattern class="pattern portfolio-section__pattern" />
     <div class="portfolio-section__content">
-      <h2 class="heading-large">{{ title }}</h2>
-      <p class="portfolio-section__content-text">
+      <h2 ref="titleRef" class="heading-large">{{ title }}</h2>
+      <p ref="textRef" class="portfolio-section__content-text">
         {{ text }}
       </p>
     </div>
     <NuxtPicture :src="imgSrc" alt="section banner" class="portfolio-section__image" />
-  </div>
+  </section>
 </template>
 
 <script setup>
+import { SplitText } from 'gsap/SplitText';
+
+const titleRef = ref();
+const textRef = ref();
+const wordsSplit = ref([]);
+const linesSplit = ref([]);
+
 defineProps({
   imgSrc: {
     required: true,
@@ -26,6 +33,23 @@ defineProps({
     type: String
   }
 });
+defineExpose({
+  titleRef,
+  textRef,
+  wordsSplit,
+  linesSplit
+});
+
+onMounted(() => {
+  wordsSplit.value = SplitText.create(titleRef.value, {
+    type: 'words',
+    mask: 'words'
+  });
+  linesSplit.value = SplitText.create(textRef.value, {
+    type: 'lines',
+    mask: 'lines'
+  });
+});
 </script>
 
 <style lang="scss" scoped>
@@ -34,7 +58,14 @@ defineProps({
   position: relative;
   overflow: hidden;
   grid-template-columns: 1.12fr 1fr;
-
+  transition: opacity 0.5s;
+  &:not(.active) {
+    pointer-events: none;
+    opacity: 0;
+    .portfolio-section__image > * {
+      transform: scale(1.1);
+    }
+  }
   &:first-child {
     .portfolio-section__content {
       padding-left: var(--block-padding-left);
@@ -101,6 +132,9 @@ defineProps({
   }
   &__image {
     height: 100dvh;
+    & > * {
+      transition: all 0.5s;
+    }
     @media screen and (max-width: 900px) {
       height: auto;
       order: -1;
