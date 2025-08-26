@@ -22,6 +22,16 @@
 
 <script setup>
 const currentPage = ref(0);
+const router = useRouter();
+
+useScrollPage(direction => {
+  if (direction === 'next') {
+    router.push('/contacts');
+  } else {
+    router.push('/housing');
+  }
+});
+
 useHead({
   title: 'Infrastructure'
 });

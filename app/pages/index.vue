@@ -1,5 +1,5 @@
 <template>
-  <main class="home">
+  <main class="home" :class="{ hidden: showPreloader }">
     <SvgBigPattern class="home__pattern" />
     <NuxtPicture src="/images/home/wave.png" alt="wave" class="home__image" />
     <NuxtPicture src="/images/home/building-small.png" alt="small building" class="home__image" />
@@ -22,6 +22,7 @@
 </template>
 
 <script setup>
+const { showPreloader } = useLoader();
 const router = useRouter();
 
 useScrollPage(direction => {
@@ -41,7 +42,13 @@ useHead({
   background: linear-gradient(180deg, #ffffff 15.8%, #f9e9d8 100%);
   display: flex;
   position: relative;
+  transition: all 0.3s;
   overflow: hidden;
+  &.hidden {
+    opacity: 0;
+    transform: translate(10%);
+  }
+
   &__pattern {
     position: absolute;
     z-index: 1;

@@ -1,10 +1,10 @@
 <template>
-  <div class="about">
+  <main class="about">
     <SvgRadialGradientBg />
     <div class="about__wrapper">
       <div class="about__header">
         <h2 class="heading-large">
-          Что такое <br >
+          Что такое <br />
           Bashkent Residence?
         </h2>
         <div class="about__header-content">
@@ -36,10 +36,19 @@
         </div>
       </div>
     </div>
-  </div>
+  </main>
 </template>
 
 <script setup>
+const router = useRouter();
+useScrollPage(direction => {
+  if (direction === 'next') {
+    router.push('/portfolio');
+  } else {
+    router.push('/');
+  }
+});
+
 useHead({
   title: 'About'
 });

@@ -27,10 +27,9 @@
 </template>
 
 <script setup>
+const router = useRouter();
 const currentPage = ref(0);
-
 const changePage = index => (currentPage.value = index);
-
 const blockLinks = [
   'Террасы',
   'Панорамные окна',
@@ -39,6 +38,13 @@ const blockLinks = [
   'Зона отдыха',
   'Автостоянки'
 ];
+useScrollPage(direction => {
+  if (direction === 'next') {
+    router.push('/formula');
+  } else {
+    router.push('/portfolio');
+  }
+});
 
 useHead({
   title: 'Architecture'

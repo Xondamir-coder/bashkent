@@ -19,6 +19,8 @@
 <script setup>
 import imgSrc from '/images/formula-1.jpg';
 
+const router = useRouter();
+
 const items = [
   {
     image: imgSrc,
@@ -71,6 +73,14 @@ const items = [
     text: 'Подстанции'
   }
 ];
+
+useScrollPage(direction => {
+  if (direction === 'next') {
+    router.push('/housing');
+  } else {
+    router.push('/architecture');
+  }
+});
 
 useHead({
   title: 'Formula'

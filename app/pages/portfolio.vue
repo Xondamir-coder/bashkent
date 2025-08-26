@@ -14,6 +14,15 @@
 </template>
 
 <script setup>
+const router = useRouter();
+useScrollPage(direction => {
+  if (direction === 'next') {
+    router.push('/architecture');
+  } else {
+    router.push('/about');
+  }
+});
+
 useHead({
   title: 'Portfolio'
 });

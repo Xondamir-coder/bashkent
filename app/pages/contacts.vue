@@ -4,6 +4,13 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+const router = useRouter();
+useScrollPage(direction => {
+  if (direction === 'prev') {
+    router.push('/infrastructure');
+  }
+});
+</script>
 
 <style lang="scss" scoped></style>

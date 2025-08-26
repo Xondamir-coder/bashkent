@@ -131,7 +131,7 @@ defineProps({
       border-radius: inherit;
       z-index: 1;
       transform-origin: left;
-      animation: animate-bar 4s forwards ease-in-out;
+      animation: animate-bar 2s forwards ease-in-out;
     }
   }
   &__texts {

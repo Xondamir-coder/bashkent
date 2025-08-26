@@ -9,15 +9,8 @@
 </template>
 
 <script setup>
+const { togglePreloader } = useLoader();
 const { $gsap } = useNuxtApp();
-
-const emits = defineEmits(['hide-preloader']);
-defineProps({
-  showPreloader: {
-    required: true,
-    type: Boolean
-  }
-});
 
 const animateLogo = () => {
   const duration = 2; // seconds
@@ -25,16 +18,14 @@ const animateLogo = () => {
   $gsap.set('.preloader__logo', { opacity: 1 });
 
   const tl = $gsap.timeline({
-    onComplete: () => {
-      emits('hide-preloader');
-    }
+    onComplete: togglePreloader
   });
   tl.from('.preloader__logo-icon path', { duration: duration, drawSVG: 0, stagger: 0.08 });
   $gsap.from('.preloader__logo-text path', { duration: duration * 15, drawSVG: 0, stagger: 0.08 });
   tl.to('.preloader__logo path', { fill: '#fff' });
 };
 
-onMounted(() => animateLogo());
+onMounted(animateLogo);
 </script>
 
 <style lang="scss" scoped>

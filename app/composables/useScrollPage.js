@@ -1,14 +1,34 @@
+// 🔒 Global lock state
+let isGlobalLocked = false;
+let globalUnlockTimer = null;
+
 export default callback => {
   let touchStartY = 0;
-  let isLocked = false; // prevents multiple triggers
-  const lockTime = 800; // ms delay before allowing another trigger
+  const lockTime = 3000; // 3s minimum lock
+  const minDelta = 30; // threshold for trackpad/touch
 
   function triggerOnce(direction) {
-    if (isLocked) return;
-    isLocked = true;
+    if (isGlobalLocked) return;
+    isGlobalLocked = true;
+
     callback(direction);
-    setTimeout(() => {
-      isLocked = false;
+
+    // Force scroll to top
+    window.scrollTo({ top: 0, behavior: 'instant' });
+
+    // Keep checking + fixing scroll during lock
+    const fixScroll = () => {
+      if (isGlobalLocked) {
+        window.scrollTo(0, 0);
+        requestAnimationFrame(fixScroll);
+      }
+    };
+    requestAnimationFrame(fixScroll);
+
+    // Unlock after 3s
+    if (globalUnlockTimer) clearTimeout(globalUnlockTimer);
+    globalUnlockTimer = setTimeout(() => {
+      isGlobalLocked = false;
     }, lockTime);
   }
 
@@ -21,9 +41,16 @@ export default callback => {
   }
 
   function onWheel(e) {
-    if (e.deltaY > 0 && atBottom()) {
+    if (isGlobalLocked) {
+      e.preventDefault(); // kill leftover momentum
+      return;
+    }
+
+    if (e.deltaY > minDelta && atBottom()) {
+      e.preventDefault();
       triggerOnce('next');
-    } else if (e.deltaY < 0 && atTop()) {
+    } else if (e.deltaY < -minDelta && atTop()) {
+      e.preventDefault();
       triggerOnce('prev');
     }
   }
@@ -33,18 +60,20 @@ export default callback => {
   }
 
   function onTouchEnd(e) {
+    if (isGlobalLocked) return;
+
     const touchEndY = e.changedTouches[0].clientY;
     const deltaY = touchStartY - touchEndY;
 
-    if (deltaY > 50 && atBottom()) {
+    if (deltaY > minDelta && atBottom()) {
       triggerOnce('next');
-    } else if (deltaY < -50 && atTop()) {
+    } else if (deltaY < -minDelta && atTop()) {
       triggerOnce('prev');
     }
   }
 
   onMounted(() => {
-    window.addEventListener('wheel', onWheel, { passive: true });
+    window.addEventListener('wheel', onWheel, { passive: false });
     window.addEventListener('touchstart', onTouchStart, { passive: true });
     window.addEventListener('touchend', onTouchEnd, { passive: true });
   });

@@ -1,38 +1,60 @@
 <template>
   <div class="layout">
     <Transition name="scale-out">
-      <AppPreloader
-        v-if="showPreloader"
-        :show-preloader="showPreloader"
-        @hide-preloader="showPreloader = false"
-      />
+      <AppPreloader v-if="showPreloader" />
     </Transition>
     <Transition name="scale-out">
       <PageLoader v-if="showPageLoader" :data="pageLoaderData" />
     </Transition>
-    <AppHeader v-if="isHeaderPresent" @toggle-modal="toggleModal" />
+    <AppHeader v-if="isHeaderPresent" @toggle-modal="toggleContactsModal" />
     <Transition name="slide-in">
-      <AppMenu v-if="showMenu" @toggle-modal="toggleModal" @toggle-menu="toggleMenu" />
+      <AppMenu v-if="showMenu" @toggle-modal="toggleContactsModal" @toggle-menu="toggleMenu" />
     </Transition>
     <AppSidebar :show-menu="showMenu" @toggle-menu="toggleMenu" />
     <slot />
     <Transition name="fade">
-      <ContactsModal v-if="showModal" @toggle-modal="toggleModal" />
+      <ContactsModal v-if="showContactsModal" @toggle-modal="toggleContactsModal" />
     </Transition>
   </div>
 </template>
 
 <script setup>
-const showMenu = ref(false);
-const showModal = ref(false);
-const showPreloader = ref(true);
-const showPageLoader = ref(false);
-const newPageName = ref('');
-
+const { showPreloader, showPageLoader, togglePageLoader } = useLoader();
 const route = useRoute();
 const router = useRouter();
 
+const showMenu = ref(false);
+const showContactsModal = ref(false);
+const newPageName = ref('');
+
+const pages = [
+  'index',
+  'about',
+  'portfolio',
+  'architecture',
+  'formula',
+  'housing',
+  'infrastructure'
+];
+const PAGE_LOADER_DURATION = 2;
+
 const data = computed(() => [
+  {
+    name: 'index',
+    title: 'Добро пожаловать в Bashkent Residence',
+    texts: [
+      'Bashkent Residence - это ваш дом в историческом центре Бухары',
+      'В комплексе есть закрытый двор, детская площадка, спортзал ...'
+    ]
+  },
+  {
+    name: 'about',
+    title: 'О комплексе',
+    texts: [
+      'Bashkent Residence - это жилой комплекс в историческом центре Бухары',
+      '1600 квартир на 10-12 этажах с 2 лифтами, грузовым лифтом, мусоропроводом и видеонаблюдением.'
+    ]
+  },
   {
     name: 'portfolio',
     title: 'Надёжность, проверенная временем',
@@ -76,30 +98,28 @@ const data = computed(() => [
 const pageLoaderData = computed(() => data.value.find(item => item.name === newPageName.value));
 const isHeaderPresent = computed(() => route.path !== '/select');
 
-const pages = ['portfolio', 'architecture', 'formula', 'housing', 'infrastructure'];
-const LOADER_DURATION = 4;
-
 const toggleMenu = () => {
   showMenu.value = !showMenu.value;
 };
-const toggleModal = () => {
+const toggleContactsModal = () => {
   showMenu.value = false;
-  showModal.value = !showModal.value;
+  showContactsModal.value = !showContactsModal.value;
 };
 
 if (import.meta.client) {
   router.beforeEach((to, from, next) => {
     if (pages.includes(to.name)) {
       newPageName.value = to.name;
-      showPageLoader.value = true;
+      togglePageLoader();
 
-      // let navigation continue immediately
-      next();
+      setTimeout(() => {
+        next();
+      }, 500);
 
       // just handle loader timings separately
       setTimeout(() => {
-        showPageLoader.value = false;
-      }, LOADER_DURATION * 1000);
+        togglePageLoader();
+      }, PAGE_LOADER_DURATION * 1000);
     } else {
       next();
     }
