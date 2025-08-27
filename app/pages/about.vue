@@ -1,19 +1,19 @@
 <template>
-  <main class="about">
+  <main class="about" ref="containerRef">
     <SvgRadialGradientBg />
     <div class="about__wrapper">
       <div class="about__header">
-        <h2 class="heading-large">
+        <h2 ref="titleRef" class="heading-large">
           Что такое <br />
           Bashkent Residence?
         </h2>
         <div class="about__header-content">
-          <p>
+          <p ref="textRef">
             <b>Bashkent Residence</b> - это не просто жилой комплекс. Это - среда жизни, в которой
             объединены современные стандарты архитектуры, продуманная инфраструктура, эстетика
             городского комфорта и стремление к гармонии с окружающей средой.
           </p>
-          <p>
+          <p ref="subtextRef">
             Вдохновлённый успешным одноимённым проектом в Ташкенте, новый Bashkent Residence в
             Бухаре вобрал в себя всё лучшее от столичного масштаба, адаптированное к уникальному
             историческому и культурному контексту древнего города.
@@ -40,7 +40,92 @@
 </template>
 
 <script setup>
+import { SplitText } from 'gsap/SplitText';
+
 const router = useRouter();
+const { $gsap } = useNuxtApp();
+const { showPreloader, showPageLoader } = useLoader();
+
+let tl;
+
+const titleRef = ref();
+const textRef = ref();
+const subtextRef = ref();
+const containerRef = ref();
+
+// useImageParallax(containerRef, { selector: '.about__picture', strength: 50, ease: 0.1 });
+
+onMounted(() => {
+  tl = $gsap.timeline();
+
+  // Splits
+  const titleSplit = SplitText.create(titleRef.value, {
+    type: 'words',
+    mask: 'words'
+  });
+  const textSplit = SplitText.create(textRef.value, {
+    type: 'lines',
+    mask: 'lines'
+  });
+  const subtextSplit = SplitText.create(subtextRef.value, {
+    type: 'lines',
+    mask: 'lines'
+  });
+
+  // Animations
+  tl.from(titleSplit.words, {
+    yPercent: 100,
+    ease: 'power3.out',
+    stagger: 0.12,
+    duration: 0.7
+  });
+  tl.from(
+    textSplit.lines,
+    {
+      yPercent: 100,
+      ease: 'power3.out',
+      stagger: 0.12,
+      duration: 0.7
+    },
+    '-=.8'
+  );
+  tl.from(
+    subtextSplit.lines,
+    {
+      yPercent: 100,
+      ease: 'power3.out',
+      stagger: 0.12,
+      duration: 0.7
+    },
+    '-=.8'
+  );
+  tl.from(
+    '.about__image img',
+    {
+      scale: 1.1,
+      opacity: 0,
+      duration: 0.7
+    },
+    0.25
+  );
+  tl.from(
+    '.about__picture img',
+    {
+      stagger: 0.1,
+      scale: 0.85,
+      opacity: 0
+    },
+    0.5
+  );
+});
+onUnmounted(() => {
+  if (tl) tl.kill();
+});
+
+watch([showPreloader, showPageLoader], () => {
+  if (!showPreloader.value && !showPageLoader.value) tl.restart();
+});
+
 useScrollPage(direction => {
   if (direction === 'next') {
     router.push('/portfolio');
@@ -48,7 +133,6 @@ useScrollPage(direction => {
     router.push('/');
   }
 });
-
 useHead({
   title: 'About'
 });
@@ -74,12 +158,13 @@ useHead({
     }
   }
   &__play {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     display: flex;
     width: max(12.3rem, 90px);
-    place-self: center;
   }
   &__picture {
-    position: absolute;
     z-index: 2;
     &:nth-child(2) {
       width: 30%;
@@ -105,27 +190,29 @@ useHead({
   }
 
   &__image {
-    aspect-ratio: 1160/460;
+    position: absolute;
+    inset: 0;
+    // height: 100%;
+    // aspect-ratio: 1160/460;
     @media screen and (max-width: vars.$bp-large-mobile) {
-      aspect-ratio: 375/210;
+      // aspect-ratio: 375/210;
     }
   }
   &__container {
+    flex: 1;
     position: relative;
     padding-right: var(--block-spacing);
-    display: grid;
     @media screen and (max-width: vars.$bp-large-mobile) {
       padding-right: 0;
     }
-    & > *:not(.about__picture) {
-      grid-area: 1/1/2/2;
+    & > * {
+      position: absolute;
     }
   }
   &__box {
-    margin-right: calc(var(--block-spacing) * -1);
-    margin-bottom: 2.4rem;
+    right: calc(var(--block-spacing) * -0.75);
+    bottom: 2.4rem;
     z-index: 2;
-    place-self: flex-end;
     max-width: 37ch;
     padding-block: max(1.9rem, 15px);
     background-color: vars.$gold;

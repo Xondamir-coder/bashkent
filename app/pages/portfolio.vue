@@ -95,15 +95,13 @@ const onTouchStart = e => {
   startY = e.touches[0].clientY;
 };
 
-const startSectionAnimation = () => {
-  timelines[0].play();
-};
-
 watch(currentSection, (newVal, oldVal) => {
   if (timelines?.[oldVal]) timelines[oldVal].reverse();
   if (timelines?.[newVal]) timelines[newVal].play();
 });
-watch([showPreloader, showPageLoader], startSectionAnimation);
+watch([showPreloader, showPageLoader], () => {
+  if (!showPreloader.value && !showPageLoader.value) timelines[0].restart();
+});
 
 onMounted(() => {
   window.addEventListener('wheel', handleScrollOrSwipe, { passive: false });
@@ -132,16 +130,16 @@ onMounted(() => {
         duration: 0.9
       },
       '-=0.5'
-    ); // overlap for smoother flow
+    );
 
     return tl;
   });
 });
-
 onUnmounted(() => {
   window.removeEventListener('wheel', handleScrollOrSwipe);
   window.removeEventListener('touchend', handleScrollOrSwipe);
   window.removeEventListener('touchstart', onTouchStart);
+  timelines.forEach(tl => tl.kill());
 });
 
 useHead({

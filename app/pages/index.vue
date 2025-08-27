@@ -1,5 +1,5 @@
 <template>
-  <main class="home" :class="{ hidden: showPreloader || showPageLoader }" ref="homeRef">
+  <main ref="homeRef" class="home" :class="{ hidden: showPreloader || showPageLoader }">
     <SvgBigPattern class="home__pattern" />
     <NuxtPicture data-depth="0.2" src="/images/home/wave.png" alt="wave" class="home__image" />
     <NuxtPicture
@@ -22,8 +22,8 @@
       class="home__image"
     />
     <div class="home__content">
-      <p class="home__content-text" ref="textRef">Новый этап архитектуры.</p>
-      <h1 class="heading-extra-large" ref="titleRef">жизни Город Бухара</h1>
+      <p ref="textRef" class="home__content-text">Новый этап архитектуры.</p>
+      <h1 ref="titleRef" class="heading-extra-large">жизни Город Бухара</h1>
       <div class="home__content-bottom">
         <img
           src="~/assets/images/home-flower.jpg"
@@ -47,56 +47,15 @@ const titleRef = ref();
 const textRef = ref();
 const subtextRef = ref();
 const homeRef = ref();
-let tl;
 
 // 🔒 store cleanup refs
-let cleanupParallax = null;
-
-const handleParallax = () => {
-  const images = homeRef.value.querySelectorAll('.home__image');
-
-  const layers = Array.from(images).map(img => ({
-    el: img,
-    depth: parseFloat(img.dataset.depth)
-  }));
-
-  let targetX = 0;
-  let targetY = 0;
-  let currentX = 0;
-  let currentY = 0;
-  let rafId;
-
-  const mouseMoveHandler = e => {
-    targetX = (e.clientX / window.innerWidth - 0.5) * 2;
-    targetY = (e.clientY / window.innerHeight - 0.5) * 2;
-  };
-
-  window.addEventListener('mousemove', mouseMoveHandler);
-
-  function animate() {
-    currentX += (targetX - currentX) * 0.15;
-    currentY += (targetY - currentY) * 0.15;
-
-    layers.forEach(({ el, depth }) => {
-      el.style.transform = `translate3d(${currentX * depth * 30}px, ${currentY * depth * 30}px, 0)`;
-    });
-
-    rafId = requestAnimationFrame(animate);
-  }
-
-  animate();
-
-  cleanupParallax = () => {
-    window.removeEventListener('mousemove', mouseMoveHandler);
-    cancelAnimationFrame(rafId);
-  };
-};
+let tl;
 
 const handleTextAnimations = () => {
-  tl = $gsap.timeline({ paused: true });
-  const { lines: textLines } = SplitText.create(textRef.value, {
-    type: 'lines',
-    mask: 'lines'
+  tl = $gsap.timeline();
+  const { words: textWords } = SplitText.create(textRef.value, {
+    type: 'words',
+    mask: 'words'
   });
   const { words: titleWords } = SplitText.create(titleRef.value, {
     type: 'words',
@@ -107,9 +66,8 @@ const handleTextAnimations = () => {
     mask: 'words'
   });
 
-  tl.from(textLines, {
-    yPercent: 80,
-    opacity: 0,
+  tl.from(textWords, {
+    yPercent: 100,
     ease: 'power3.out',
     stagger: 0.12,
     duration: 0.7
@@ -118,44 +76,40 @@ const handleTextAnimations = () => {
     titleWords,
     {
       yPercent: 100,
-      opacity: 0,
-      ease: 'power3.out',
-      stagger: 0.08,
-      duration: 0.8
+      rotation: 10,
+      transformOrigin: 'left',
+      ease: 'power2.out',
+      stagger: 0.1,
+      duration: 0.7
     },
-    '-=0.3'
+    '-=0.5'
   );
   tl.from(
     subtextWords,
     {
-      yPercent: 60,
-      opacity: 0,
+      yPercent: 100,
       ease: 'power2.out',
       stagger: 0.05,
       duration: 0.6
     },
-    '-=0.4'
+    '-=0.5'
   );
 };
 
-watch([showPreloader, showPageLoader], ([preloaderVal, pageLoaderVal]) => {
-  if (!preloaderVal || !pageLoaderVal) {
-    tl.restart();
-  }
+useImageParallax(homeRef, { selector: '.home__image', strength: 50, ease: 0.1 });
+
+watch([showPreloader, showPageLoader], () => {
+  if (!showPreloader.value && !showPageLoader.value) tl.restart();
 });
 
 onMounted(() => {
   handleTextAnimations();
-  if (window.innerWidth > 1024) handleParallax();
 });
-
 onUnmounted(() => {
   if (tl) tl.kill();
-  if (cleanupParallax) cleanupParallax();
 });
 
 useHead({ title: 'Home' });
-
 useScrollPage(direction => {
   if (direction === 'next') {
     router.push('/about');
@@ -165,6 +119,8 @@ useScrollPage(direction => {
 
 <style lang="scss" scoped>
 @use 'sass:math';
+@use 'sass:map';
+@use 'sass:list';
 
 .home {
   @include mix.block-padding;
@@ -204,12 +160,12 @@ useScrollPage(direction => {
 
       @for $i from 1 through 5 {
         &:nth-of-type(#{$i}) {
-          $values: map-get($transforms, $i);
+          $values: map.get($transforms, $i);
 
           & > * {
-            scale: nth($values, 1);
-            rotate: nth($values, 2);
-            translate: nth($values, 3);
+            scale: list.nth($values, 1);
+            rotate: list.nth($values, 2);
+            translate: list.nth($values, 3);
             opacity: 0;
           }
         }

@@ -52,8 +52,8 @@ a {
 picture {
   display: flex;
   overflow: hidden;
-  transition-property: opacity, transform;
-  transition-duration: vars.$dt;
+  // transition-property: opacity, transform;
+  // transition-duration: vars.$dt;
 }
 img {
   object-fit: cover;

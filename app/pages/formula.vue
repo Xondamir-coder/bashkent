@@ -121,7 +121,9 @@ useHead({
   }
   &__list {
     display: grid;
+    // align-content: flex-end;
     grid-template-columns: repeat(auto-fit, minmax(max(20rem, 166px), 1fr));
+    grid-auto-rows: min(21.6rem, 22vh);
     column-gap: max(1.5rem, 11px);
     row-gap: max(2rem, 11px);
   }
@@ -129,7 +131,7 @@ useHead({
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    aspect-ratio: 232/224;
+    // aspect-ratio: 232/224;
     border-radius: max(1.2rem, 12px);
     background-color: vars.$light-grey;
     padding: max(1.7rem, 12px);

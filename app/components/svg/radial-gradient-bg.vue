@@ -66,12 +66,11 @@
     }
   }
   &__pattern {
-    width: min(79%, 100dvh);
+    width: min(79%, 120dvh);
     min-width: 600px;
     position: absolute;
     left: 50%;
     &:nth-of-type(2) {
-      top: 0;
       transform: translateX(-50%);
       @media screen and (max-width: vars.$bp-large-mobile) {
         transform: translate(-50%, -30%);

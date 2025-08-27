@@ -3,9 +3,9 @@
     <Transition name="scale-out">
       <AppPreloader v-if="showPreloader" />
     </Transition>
-    <Transition name="scale-out">
+    <!-- <Transition name="scale-out">
       <PageLoader v-if="showPageLoader" :data="pageLoaderData" />
-    </Transition>
+    </Transition> -->
     <AppHeader v-if="isHeaderPresent" @toggle-modal="toggleContactsModal" />
     <Transition name="slide-in">
       <AppMenu v-if="showMenu" @toggle-modal="toggleContactsModal" @toggle-menu="toggleMenu" />
@@ -136,7 +136,9 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .layout {
+  max-height: 100dvh;
   min-height: 100dvh;
+  max-width: 100dvw;
   min-width: 100dvw;
   display: flex;
 }

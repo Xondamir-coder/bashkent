@@ -35,7 +35,7 @@
       <p>
         {{ data.floors }}
         <span>этажей</span>
-        <br />
+        <br >
         {{ data.apartments }}
         <span>квартир</span>
       </p>
