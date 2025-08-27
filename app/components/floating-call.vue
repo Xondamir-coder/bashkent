@@ -30,6 +30,7 @@ defineProps({
     height: max(3.8rem, 48px);
   }
   &__icon {
+    fill: #fff;
     width: 50%;
   }
 }

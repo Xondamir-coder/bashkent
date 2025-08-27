@@ -14,17 +14,16 @@
 </template>
 
 <script setup>
+import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
-
-const { $gsap } = useNuxtApp();
 
 const titleRef = ref();
 const textsRef = ref([]);
 const textsContainerRef = ref();
 
 onMounted(() => {
-  $gsap.set(titleRef.value, { opacity: 1 });
-  $gsap.set(textsContainerRef.value, { opacity: 1 });
+  gsap.set(titleRef.value, { opacity: 1 });
+  gsap.set(textsContainerRef.value, { opacity: 1 });
 
   const titleSplit = SplitText.create(titleRef.value, {
     type: 'chars, words',
@@ -37,7 +36,7 @@ onMounted(() => {
     })
   );
 
-  const tl = $gsap.timeline();
+  const tl = gsap.timeline();
 
   // animate title
   tl.from(titleSplit.chars, {

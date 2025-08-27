@@ -1,5 +1,5 @@
 <template>
-  <main class="formula">
+  <main class="formula" :class="{ hidden: showPreloader || showPageLoader }">
     <h2 class="heading-large">Цифры говорят сами за себя:</h2>
     <SvgFadingPattern class="formula__pattern" />
     <ul class="formula__list">
@@ -17,9 +17,12 @@
 </template>
 
 <script setup>
+import gsap from 'gsap';
 import imgSrc from '/images/formula-1.jpg';
+import { SplitText } from 'gsap/SplitText';
 
 const router = useRouter();
+const { showPageLoader, showPreloader } = useLoader();
 
 const items = [
   {
@@ -73,6 +76,53 @@ const items = [
     text: 'Подстанции'
   }
 ];
+let tl;
+
+watch([showPreloader, showPageLoader], () => {
+  if (!showPreloader.value && !showPageLoader.value) tl.restart();
+});
+
+onMounted(() => {
+  tl = gsap.timeline();
+
+  SplitText.create('.formula h2', {
+    type: 'words',
+    mask: 'words',
+    onSplit: self => {
+      tl.from(self.words, {
+        yPercent: 150,
+        skewY: 20,
+        opacity: 0,
+        ease: 'power4.out',
+        stagger: 0.15,
+        duration: 1
+      });
+    }
+  });
+  SplitText.create('.formula__item-title', {
+    type: 'chars',
+    mask: 'chars',
+    onSplit: self => {
+      tl.from(
+        self.chars,
+        {
+          duration: 0.6,
+          yPercent: 'random([-100, 100])',
+          xPercent: 'random([-100, 100])',
+          stagger: {
+            from: 'random',
+            amount: 0.2
+          },
+          ease: 'power3.out'
+        },
+        '-=0.5'
+      );
+    }
+  });
+});
+onUnmounted(() => {
+  tl.kill();
+});
 
 useScrollPage(direction => {
   if (direction === 'next') {
@@ -92,14 +142,11 @@ useHead({
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 3rem;
+  gap: max(3rem, 20px);
   position: relative;
   flex: 1;
   overflow: hidden;
   @include mix.block-padding;
-  @media screen and (max-width: 900px) {
-    gap: 180px;
-  }
   h2 {
     @media screen and (min-width: 500px) {
       max-width: 15ch;
@@ -126,6 +173,13 @@ useHead({
     grid-auto-rows: min(21.6rem, 22vh);
     column-gap: max(1.5rem, 11px);
     row-gap: max(2rem, 11px);
+    @media screen and (max-width: 900px) {
+      grid-template-columns: repeat(auto-fit, minmax(max(20rem, 120px), 1fr));
+      grid-auto-rows: auto;
+      & > * {
+        aspect-ratio: 166/120;
+      }
+    }
   }
   &__item {
     display: flex;

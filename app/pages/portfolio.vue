@@ -13,13 +13,12 @@
 </template>
 
 <script setup>
+import gsap from 'gsap';
 import imgSrc1 from '/images/portfolio-1.jpg';
 import imgSrc2 from '/images/portfolio-2.jpg';
 
 const router = useRouter();
-const { $gsap } = useNuxtApp();
 const { showPreloader, showPageLoader } = useLoader();
-
 let timelines;
 const sectionRefs = ref([]);
 const currentSection = ref(0);
@@ -109,7 +108,7 @@ onMounted(() => {
   window.addEventListener('touchstart', onTouchStart);
 
   timelines = sectionRefs.value.map(section => {
-    const tl = $gsap.timeline({ paused: true });
+    const tl = gsap.timeline({ paused: true });
     tl.from(section.wordsSplit.words, {
       yPercent: 120,
       opacity: 0,

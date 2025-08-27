@@ -35,7 +35,7 @@
       <p>
         {{ data.floors }}
         <span>этажей</span>
-        <br >
+        <br />
         {{ data.apartments }}
         <span>квартир</span>
       </p>
@@ -44,7 +44,7 @@
 </template>
 
 <script setup>
-const { $gsap } = useNuxtApp();
+import gsap from 'gsap';
 
 const data = ref({
   block: 4,
@@ -227,7 +227,7 @@ const handleParallax = e => {
   const xVal = (e.clientX / window.innerWidth) * 2 - 1;
   const yVal = (e.clientY / window.innerHeight) * 2 - 1;
 
-  $gsap.to('.masterplan__wrapper', {
+  gsap.to('.masterplan__wrapper', {
     x: -xVal * window.innerWidth * 0.1,
     y: -yVal * window.innerHeight * 0.1,
     duration: 0.8,

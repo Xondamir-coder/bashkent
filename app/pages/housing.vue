@@ -1,13 +1,38 @@
 <template>
   <main ref="containerRef" class="housing">
     <div class="housing__box">
-      <div>Естественное освещение и вентиляция</div>
+      <div>
+        <div>Естественное</div>
+        <div>освещение и</div>
+        <div>вентиляция</div>
+      </div>
+      <div>
+        <div>Естественное</div>
+        <div>освещение и</div>
+        <div>вентиляция</div>
+      </div>
     </div>
     <div class="housing__box">
-      <div>Возможность выбора этажности и вида</div>
+      <div>
+        <div>Возможность выбора</div>
+        <div>этажности и вида</div>
+      </div>
+      <div>
+        <div>Возможность</div>
+        <div>выбора</div>
+        <div>этажности и вида</div>
+      </div>
     </div>
     <div class="housing__box">
-      <div>Эргономичная кухня, балконы, гардеробные</div>
+      <div>
+        <div>Эргономичная кухня,</div>
+        <div>балконы, гардеробные</div>
+      </div>
+      <div>
+        <div>Эргономичная</div>
+        <div>кухня, балконы,</div>
+        <div>гардеробные</div>
+      </div>
     </div>
     <div class="housing__box">
       <div>Готовность к ремонту / готовый ремонт</div>
@@ -20,14 +45,17 @@
 </template>
 
 <script setup>
-// const router = useRouter();
-const { $gsap } = useNuxtApp();
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+const router = useRouter();
 
 let tl;
 const containerRef = ref();
 
 onMounted(() => {
-  tl = $gsap.timeline({
+  gsap.registerPlugin(ScrollTrigger);
+  tl = gsap.timeline({
     scrollTrigger: {
       trigger: containerRef.value,
       start: 'top top',
@@ -58,13 +86,17 @@ onMounted(() => {
 useHead({
   title: 'Housing'
 });
-// useScrollPage(direction => {
-//   if (direction === 'next') {
-//     router.push('/infrastructure');
-//   } else {
-//     router.push('/formula');
-//   }
-// });
+
+onUnmounted(() => {
+  if (tl) tl.kill();
+});
+useScrollPage(direction => {
+  if (direction === 'next') {
+    router.push('/infrastructure');
+  } else {
+    router.push('/formula');
+  }
+});
 </script>
 
 <style lang="scss" scoped>
@@ -90,7 +122,39 @@ useHead({
     color: #fff;
     text-transform: uppercase;
     left: var(--block-padding-left);
-    max-width: 19ch;
+    &:last-of-type {
+      max-width: 19ch;
+      @media screen and (max-width: vars.$bp-small-mobile) {
+        max-width: 18ch;
+      }
+    }
+    &:not(:last-of-type) {
+      & > * {
+        &:first-child {
+          max-width: 19ch;
+          & > *:nth-child(2) {
+            padding-left: max(3rem, 30px);
+          }
+          & > *:nth-child(3) {
+            padding-left: max(1.5rem, 15px);
+          }
+          @media screen and (max-width: vars.$bp-small-mobile) {
+            display: none;
+          }
+        }
+        &:last-child {
+          & > *:nth-child(2) {
+            padding-left: 20px;
+          }
+          & > *:nth-child(3) {
+            padding-left: 40px;
+          }
+          @media screen and (min-width: vars.$bp-small-mobile) {
+            display: none;
+          }
+        }
+      }
+    }
 
     // & > * {
     //   &:nth-child(2) {

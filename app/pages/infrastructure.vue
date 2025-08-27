@@ -1,10 +1,29 @@
 <template>
-  <main class="infrastructure">
+  <main
+    class="infrastructure"
+    :class="{ hidden: showPreloader || showPageLoader }"
+    ref="containerRef"
+  >
     <SvgFadingPattern class="infrastructure__pattern" />
     <SvgFadingPattern class="infrastructure__pattern" />
-    <NuxtPicture class="infrastructure__picture" src="/images/picnic.jpg" alt="picnic" />
-    <NuxtPicture class="infrastructure__picture" src="/images/hugging.jpg" alt="hugging" />
-    <NuxtPicture class="infrastructure__picture" src="/images/camera.png" alt="cameras" />
+    <NuxtPicture
+      data-depth="0.4"
+      class="infrastructure__parallax infrastructure__picture"
+      src="/images/picnic.jpg"
+      alt="picnic"
+    />
+    <NuxtPicture
+      data-depth="0.45"
+      class="infrastructure__parallax infrastructure__picture"
+      src="/images/hugging.jpg"
+      alt="hugging"
+    />
+    <NuxtPicture
+      data-depth="0.8"
+      class="infrastructure__parallax infrastructure__picture"
+      src="/images/camera.png"
+      alt="cameras"
+    />
     <div class="infrastructure__content">
       <h2 class="heading-large">Безопасность нового поколения</h2>
       <p class="infrastructure__content-text">
@@ -14,15 +33,75 @@
     </div>
     <PageCounter v-model="currentPage" :pages="6" />
     <div class="infrastructure__box">
-      <NuxtPicture class="infrastructure__box-picture" src="/images/street.jpg" alt="street" />
-      <NuxtPicture class="infrastructure__box-picture" src="/images/tree.png" alt="tree" />
+      <NuxtPicture
+        data-depth=".2"
+        class="infrastructure__parallax infrastructure__box-picture"
+        src="/images/street.jpg"
+        alt="street"
+      />
+      <NuxtPicture
+        data-depth="0.5"
+        class="infrastructure__parallax infrastructure__box-picture"
+        src="/images/tree.png"
+        alt="tree"
+      />
     </div>
   </main>
 </template>
 
 <script setup>
-const currentPage = ref(0);
+import gsap from 'gsap';
+import { SplitText } from 'gsap/SplitText';
+
+const { showPreloader, showPageLoader } = useLoader();
 const router = useRouter();
+
+const currentPage = ref(0);
+const containerRef = ref();
+
+let tl;
+
+watch([showPreloader, showPageLoader], () => {
+  if (!showPreloader.value && !showPageLoader.value) tl.restart();
+});
+
+useImageParallax(containerRef, { selector: '.infrastructure__parallax' });
+
+onMounted(() => {
+  tl = gsap.timeline();
+  SplitText.create('.infrastructure h2', {
+    type: 'words',
+    mask: 'words',
+    onSplit: self => {
+      tl.from(self.words, {
+        yPercent: 100,
+        skewY: 20,
+        opacity: 0,
+        ease: 'power4.out',
+        stagger: 0.15,
+        duration: 1
+      });
+    }
+  });
+  SplitText.create('.infrastructure__content-text', {
+    type: 'lines',
+    mask: 'lines',
+    onSplit: self => {
+      tl.from(
+        self.lines,
+        {
+          yPercent: 100,
+          skewY: 20,
+          opacity: 0,
+          ease: 'power4.out',
+          stagger: 0.15,
+          duration: 1
+        },
+        '-=0.6'
+      );
+    }
+  });
+});
 
 useScrollPage(direction => {
   if (direction === 'next') {
@@ -47,8 +126,27 @@ useHead({
   @media screen and (max-width: 900px) {
     padding-inline: var(--block-spacing);
   }
+  &.hidden {
+    picture > * {
+      transform: translateY(50px);
+      opacity: 0;
+    }
+  }
+  picture {
+    & > * {
+      transition: all 0.5s;
+    }
+    @for $i from 1 through 10 {
+      &:nth-child(#{$i}) {
+        & > * {
+          transition-delay: $i * 0.1s;
+        }
+      }
+    }
+  }
   &__picture {
     width: max(32rem, 160px);
+
     &:first-of-type {
       bottom: 19.1%;
       right: 3.2rem;
@@ -98,7 +196,7 @@ useHead({
         width: 50%;
         align-self: flex-start;
         justify-self: flex-end;
-        transform: translate(40%, 20%);
+        translate: 40% 20%;
       }
     }
   }

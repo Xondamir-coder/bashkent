@@ -51,6 +51,9 @@ export default (containerRef, options = {}) => {
     };
   };
 
-  onMounted(() => initParallax());
+  onMounted(() => {
+    if (window.innerWidth < 1024) return;
+    initParallax();
+  });
   onBeforeUnmount(() => cleanupFn && cleanupFn());
 };

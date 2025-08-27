@@ -28,6 +28,9 @@
 }
 
 html {
+  font-kerning: none;
+  text-rendering: optimizeSpeed;
+
   // based on 1440px -> 1rem = 10px, scales infinitely, maitains same ratio across screens
   font-size: calc(100vw / (1440 / 10));
 }

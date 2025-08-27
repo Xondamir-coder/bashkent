@@ -1,5 +1,5 @@
 <template>
-  <main class="architecture">
+  <main class="architecture" :class="{ hidden: showPreloader || showPageLoader }">
     <NuxtPicture src="/images/architecture-bg.jpg" alt="banner" class="architecture__banner" />
     <div class="architecture__content">
       <h2 class="heading-large">Просторные террасы для отдыха и встреч</h2>
@@ -27,9 +27,14 @@
 </template>
 
 <script setup>
+import gsap from 'gsap';
+import { SplitText } from 'gsap/SplitText';
+
+const { showPreloader, showPageLoader } = useLoader();
 const router = useRouter();
+
 const currentPage = ref(0);
-const changePage = index => (currentPage.value = index);
+
 const blockLinks = [
   'Террасы',
   'Панорамные окна',
@@ -38,6 +43,52 @@ const blockLinks = [
   'Зона отдыха',
   'Автостоянки'
 ];
+let tl;
+
+watch([showPreloader, showPageLoader], () => {
+  if (!showPreloader.value && !showPageLoader.value) tl.restart();
+});
+
+onMounted(() => {
+  tl = gsap.timeline();
+
+  SplitText.create('.architecture h2', {
+    type: 'words',
+    mask: 'words',
+    onSplit: self => {
+      tl.from(self.words, {
+        yPercent: 120,
+        rotationX: -90,
+        opacity: 0,
+        transformOrigin: '50% 100%',
+        ease: 'back.out(1.7)',
+        stagger: 0.08,
+        duration: 0.8
+      });
+    }
+  });
+
+  SplitText.create('.architecture .architecture__content-text', {
+    type: 'lines',
+    mask: 'lines',
+    onSplit: self => {
+      tl.from(
+        self.lines,
+        {
+          yPercent: 120,
+          opacity: 0,
+          ease: 'elastic.out(1, 0.5)',
+          duration: 1.2,
+          stagger: 0.1
+        },
+        '-=0.6'
+      );
+    }
+  });
+});
+
+const changePage = index => (currentPage.value = index);
+
 useScrollPage(direction => {
   if (direction === 'next') {
     router.push('/formula');
@@ -58,6 +109,20 @@ useHead({
   flex-direction: column;
   position: relative;
   padding-bottom: max(2.4rem, 16px);
+  &.hidden {
+    .architecture__banner > * {
+      opacity: 0;
+      transform: scale(1.1);
+    }
+    .architecture__bottom > * {
+      @for $i from 1 through 2 {
+        &:nth-child(#{$i}) {
+          transform: translateY(25px);
+          opacity: 0;
+        }
+      }
+    }
+  }
   &__banner {
     z-index: -1;
     position: absolute;
@@ -65,12 +130,22 @@ useHead({
     width: 100%;
     height: 100%;
     & > * {
+      transition: all 1s;
       object-position: 34%;
     }
   }
   &__bottom {
     display: flex;
     justify-content: space-between;
+    & > * {
+      transition-property: opacity, transform;
+      transition-duration: 0.5s;
+      @for $i from 1 through 2 {
+        &:nth-child(#{$i}) {
+          transition-delay: $i * 0.2s + 0.5s;
+        }
+      }
+    }
     @media screen and (max-width: vars.$bp-ipad-pro) {
       justify-content: center;
     }

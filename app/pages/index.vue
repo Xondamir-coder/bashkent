@@ -37,9 +37,9 @@
 </template>
 
 <script setup>
+import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
 
-const { $gsap } = useNuxtApp();
 const { showPreloader, showPageLoader } = useLoader();
 const router = useRouter();
 
@@ -52,7 +52,7 @@ const homeRef = ref();
 let tl;
 
 const handleTextAnimations = () => {
-  tl = $gsap.timeline();
+  tl = gsap.timeline();
   const { words: textWords } = SplitText.create(textRef.value, {
     type: 'words',
     mask: 'words'

@@ -9,23 +9,28 @@
 </template>
 
 <script setup>
+import gsap from 'gsap';
+import DrawSVGPlugin from 'gsap/DrawSVGPlugin';
+
 const { togglePreloader } = useLoader();
-const { $gsap } = useNuxtApp();
 
 const animateLogo = () => {
   const duration = 2; // seconds
 
-  $gsap.set('.preloader__logo', { opacity: 1 });
+  gsap.set('.preloader__logo', { opacity: 1 });
 
-  const tl = $gsap.timeline({
+  const tl = gsap.timeline({
     onComplete: togglePreloader
   });
   tl.from('.preloader__logo-icon path', { duration: duration, drawSVG: 0, stagger: 0.08 });
-  $gsap.from('.preloader__logo-text path', { duration: duration * 15, drawSVG: 0, stagger: 0.08 });
+  gsap.from('.preloader__logo-text path', { duration: duration * 15, drawSVG: 0, stagger: 0.08 });
   tl.to('.preloader__logo path', { fill: '#fff' });
 };
 
-onMounted(animateLogo);
+onMounted(() => {
+  gsap.registerPlugin(DrawSVGPlugin);
+  animateLogo();
+});
 </script>
 
 <style lang="scss" scoped>

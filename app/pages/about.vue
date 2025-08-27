@@ -40,10 +40,10 @@
 </template>
 
 <script setup>
+import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
 
 const router = useRouter();
-const { $gsap } = useNuxtApp();
 const { showPreloader, showPageLoader } = useLoader();
 
 let tl;
@@ -56,7 +56,7 @@ const containerRef = ref();
 // useImageParallax(containerRef, { selector: '.about__picture', strength: 50, ease: 0.1 });
 
 onMounted(() => {
-  tl = $gsap.timeline();
+  tl = gsap.timeline();
 
   // Splits
   const titleSplit = SplitText.create(titleRef.value, {
@@ -142,6 +142,7 @@ useHead({
 .about {
   background: linear-gradient(246.98deg, #0b726b 0%, #065650 94.35%);
   display: flex;
+  overflow: hidden;
 
   &__wrapper {
     @include mix.block-padding;
@@ -204,6 +205,7 @@ useHead({
     padding-right: var(--block-spacing);
     @media screen and (max-width: vars.$bp-large-mobile) {
       padding-right: 0;
+      aspect-ratio: 375/210;
     }
     & > * {
       position: absolute;
@@ -222,11 +224,11 @@ useHead({
     @media screen and (max-width: vars.$bp-large-mobile) {
       font-weight: 400;
       padding-inline: 13px;
-      margin-bottom: 0;
-      margin-right: 0;
-      align-self: flex-end;
-      justify-self: center;
-      transform: translateY(50%);
+      bottom: 0;
+      left: 50%;
+      right: auto;
+      transform: translate(-50%, 50%);
+      width: 100%;
     }
   }
   &__banner {
