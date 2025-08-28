@@ -1,8 +1,8 @@
 <template>
   <main
+    ref="containerRef"
     class="infrastructure"
     :class="{ hidden: showPreloader || showPageLoader }"
-    ref="containerRef"
   >
     <SvgFadingPattern class="infrastructure__pattern" />
     <SvgFadingPattern class="infrastructure__pattern" />

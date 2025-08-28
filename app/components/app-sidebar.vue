@@ -7,13 +7,7 @@
       <SvgLogo />
     </button>
     <SvgLogoMobile class="sidebar__logo--mobile" />
-    <button class="sidebar__ham" :class="{ active: showMenu }" @click="emits('toggle-menu')">
-      <div class="sidebar__ham-box">
-        <SvgHam class="sidebar__ham-icon" />
-        <SvgClose class="sidebar__ham-icon" />
-      </div>
-      <span class="sidebar__ham-text">Меню</span>
-    </button>
+    <SidebarHam :show-menu="showMenu" @click="emits('toggle-menu')" />
     <SvgSidebarPattern class="sidebar__pattern" />
     <div class="sidebar__bottom">
       <span class="sidebar__bottom-text"> Калькулятор </span>
@@ -96,52 +90,6 @@ const emits = defineEmits(['toggle-menu']);
       line-height: 135%;
       color: vars.$teal-very-light;
       transform: rotate(-90deg);
-    }
-  }
-  &__ham {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: max(1.2rem, 8px);
-    padding: max(1.2rem, 5px);
-    @media screen and (max-width: 900px) {
-      flex-direction: row;
-      .sidebar__ham-box {
-        order: 1;
-      }
-    }
-    &.active .sidebar__ham-icon {
-      &:first-child {
-        opacity: 0;
-        transform: scale(0);
-      }
-      &:last-child {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-    &-text {
-      color: #fff;
-      font-weight: 500;
-      line-height: 135%;
-      @media screen and (max-width: 900px) {
-        display: none;
-      }
-    }
-    &-box {
-      display: grid;
-    }
-    &-icon {
-      grid-area: 1/1/2/2;
-      width: max(2.4rem, 24px);
-      transition-property: transform, opacity;
-      transition-duration: vars.$dt;
-      fill: #fff;
-
-      &:last-child {
-        opacity: 0;
-        transform: scale(0);
-      }
     }
   }
   &__logo {

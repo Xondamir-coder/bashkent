@@ -29,7 +29,7 @@
           src="~/assets/images/home-flower.jpg"
           alt="home flower"
           class="home__content-bottom-image"
-        />
+        >
         <span ref="subtextRef">Новая философия городской </span>
       </div>
     </div>

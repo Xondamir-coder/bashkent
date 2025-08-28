@@ -19,7 +19,7 @@
       <div class="menu__bottom-header">
         <h3 class="menu__subtitle">SOTUV OFISI</h3>
         <p>
-          100073, O‘zbekiston, Toshkent shahri, <br >
+          100073, O‘zbekiston, Toshkent shahri, <br />
           Yashnobod tumani, Jarqo‘rg‘on ko‘chasi, 47
         </p>
         <p>Dushanba-Yakshanba: 9:00 dan 19:00 gacha</p>
@@ -177,6 +177,14 @@ defineEmits(['toggle-modal', 'toggle-menu']);
       flex-direction: column;
       gap: max(2rem, 12px);
       font-size: max(1.6rem, 12px);
+      & > * {
+        animation: slide-from-bottom-20 0.5s backwards;
+        @for $i from 1 through 3 {
+          &:nth-child(#{$i}) {
+            animation-delay: $i * 0.1s + 0.8s;
+          }
+        }
+      }
     }
   }
   &__nav {
@@ -189,6 +197,15 @@ defineEmits(['toggle-modal', 'toggle-menu']);
     align-items: center;
     padding-block: max(1.7rem, 10px);
     border-top: 1px solid #ffffff1f;
+    animation: slide-from-bottom-20 0.5s backwards;
+    @for $i from 1 through 10 {
+      &:nth-child(#{$i}) {
+        animation-delay: $i * 0.1s + 1.1s;
+      }
+    }
+    &:hover {
+      background-color: #ffffff0e;
+    }
     span {
       &:last-of-type {
         margin-left: auto;
@@ -204,6 +221,12 @@ defineEmits(['toggle-modal', 'toggle-menu']);
     font-weight: 500;
     padding-block: max(1rem, 10px);
     position: relative;
+    animation: slide-from-left-20 0.5s backwards;
+    @for $i from 1 through 10 {
+      &:nth-child(#{$i}) {
+        animation-delay: $i * 0.1s;
+      }
+    }
     &::before {
       content: '';
       left: 0;
@@ -215,6 +238,9 @@ defineEmits(['toggle-modal', 'toggle-menu']);
       transition: transform vars.$dt;
       transform: scaleY(0);
       transform-origin: bottom;
+    }
+    &:not(.active):hover {
+      transform: translateX(10px);
     }
     &.active {
       background: linear-gradient(-90deg, rgba(39, 162, 154, 0) 0%, rgba(39, 162, 154, 0.2) 100%);

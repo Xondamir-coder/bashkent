@@ -223,6 +223,7 @@ useHead({
       inset: 0;
       width: 100%;
       height: 100%;
+      transition: all vars.$dt;
       &::after {
         opacity: 0;
         transition: opacity vars.$dt;

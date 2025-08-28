@@ -90,6 +90,7 @@ defineProps({
     }
   }
   &__floating {
+    fill: #fff;
     position: fixed;
     z-index: 15;
     right: max(16px, 1.6rem);
@@ -151,6 +152,9 @@ defineProps({
     align-items: center;
     gap: 1rem;
     fill: #fff;
+    &:hover {
+      color: vars.$gold;
+    }
     // &:hover .header__tel-box {
     //   background-color: vars.$gold-dark;
     //   transform: scale(1.15);

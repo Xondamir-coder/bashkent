@@ -127,7 +127,7 @@ if (import.meta.client) {
 }
 onMounted(() => {
   document.addEventListener('click', e => {
-    if (showMenu.value && !e.target.closest('.menu') && !e.target.closest('.sidebar__ham')) {
+    if (showMenu.value && !e.target.closest('.menu') && !e.target.closest('.ham__container')) {
       showMenu.value = false;
     }
   });
@@ -146,7 +146,8 @@ onMounted(() => {
 }
 .slide-in-enter-from,
 .slide-in-leave-to {
-  transform: translateX(-100%);
+  transform: translateX(-20%);
+  opacity: 0;
   @media screen and (max-width: 900px) {
     transform: scale(1.1);
     opacity: 0;
@@ -162,7 +163,8 @@ onMounted(() => {
 }
 .fade-enter-from > *,
 .fade-leave-to > * {
-  transform: translateX(100%);
+  transform: translateX(20%);
+  opacity: 0;
 }
 
 .scale-out-enter-active,

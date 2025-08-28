@@ -1,10 +1,10 @@
 <template>
-  <main class="about" ref="containerRef">
+  <main ref="containerRef" class="about">
     <SvgRadialGradientBg />
     <div class="about__wrapper">
       <div class="about__header">
         <h2 ref="titleRef" class="heading-large">
-          Что такое <br />
+          Что такое <br >
           Bashkent Residence?
         </h2>
         <div class="about__header-content">
