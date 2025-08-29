@@ -3,7 +3,7 @@
     <GlassButton class="select__glass" @click="$router.back()">
       <SvgClose class="fill-teal" />
     </GlassButton>
-    <NuxtLink to="/floor-plans" class="select__left">
+    <NuxtLink to="/advanced-search" class="select__left">
       <NuxtPicture src="/images/select-banner.jpg" alt="banner" class="select__banner" />
       <SvgRadialPattern class="select__pattern" />
       <div class="select__content">

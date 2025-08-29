@@ -32,7 +32,7 @@ const crumbs = computed(() => [
   },
   {
     name: 'Планировки',
-    path: '/floor-plans'
+    path: '/advanced-search'
   }
 ]);
 const items = computed(() =>

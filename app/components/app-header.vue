@@ -2,7 +2,7 @@
   <header class="header" :class="{ 'header--plan': isPlanHeader, 'header--variant': isVariant }">
     <div class="header__left">
       <NuxtLink to="/select" class="header__button">
-        <SvgKeyboardArrowLeft v-if="isPlanHeader" class="header__button-icon" />
+        <SvgKeyboardArrowLeft class="header__button-icon" />
         <span>{{ isPlanHeader ? 'Вернуться' : 'Выбрать квартиру' }}</span>
       </NuxtLink>
       <button class="header__button">
@@ -10,11 +10,11 @@
         <span>Онлайн-трансляция</span>
       </button>
     </div>
-    <button v-if="isPlanHeader" class="header__back" @click="$router.back()">
+    <button class="header__back" @click="$router.back()">
       <SvgKeyboardArrowLeft />
     </button>
-    <SvgHeaderLogo v-if="isPlanHeader" class="header__logo" />
-    <FloatingCall v-if="isPlanHeader" :clickable="true" class="header__call" />
+    <SvgHeaderLogo class="header__logo" />
+    <FloatingCall :clickable="true" class="header__call" />
     <div class="header__right">
       <a href="tel:+998 78 148 55 55" class="header__tel">
         <FloatingCall />
@@ -31,7 +31,7 @@
       </button>
     </div>
   </header>
-  <FloatingCall v-if="!isPlanHeader" :clickable="true" class="header__floating" />
+  <FloatingCall :clickable="true" class="header__floating" />
 </template>
 
 <script setup>
@@ -68,11 +68,22 @@ defineProps({
     @media screen and (max-width: 900px) {
       display: none;
     }
+    .header__call,
+    .header__back,
+    .header__logo {
+      display: none;
+    }
+    .header__button:first-child svg {
+      display: none;
+    }
   }
   &--plan {
     position: absolute;
     padding-left: var(--block-spacing);
     padding-top: max(2rem, 16px);
+    .header__floating {
+      display: none;
+    }
     @media screen and (max-width: 900px) {
       .header__right,
       .header__left {
@@ -100,6 +111,7 @@ defineProps({
     }
   }
   &__call {
+    fill: #fff;
     width: max(4.2rem, 42px);
     height: max(4.2rem, 42px);
     @media screen and (min-width: 900px) {
