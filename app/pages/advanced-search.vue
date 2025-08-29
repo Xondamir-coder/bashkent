@@ -2,7 +2,7 @@
   <main class="floor-plans">
     <div class="floor-plans__top">
       <AppBreadcrumbs :crumbs="crumbs" />
-      <h1 class="heading-large" id="floor-plans-title">Планировки</h1>
+      <h1 id="floor-plans-title" class="heading-large">Планировки</h1>
     </div>
     <div class="floor-plans__wrapper">
       <FloorPlansSidebar />

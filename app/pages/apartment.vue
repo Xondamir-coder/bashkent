@@ -8,14 +8,11 @@
           <span>Апартамент</span>
         </div>
         <ul class="apartment__details apartment__details--desktop">
-          <li v-for="(detail, index) in apartmentDetails" :key="index" class="apartment__detail">
-            <span>{{ detail.name }}:</span>
-            <span>{{ detail.value }}</span>
-          </li>
+          <DetailsItem v-for="(detail, index) in apartmentDetails" :key="index" :detail />
         </ul>
       </div>
       <div class="apartment__middle">
-        <img :src="apartmentData.img" alt="apartment banner" class="apartment__banner" />
+        <img :src="apartmentData.img" alt="apartment banner" class="apartment__banner" >
         <PageNav v-model="currentPage" :pages="[1, 2, 3, 4]" />
       </div>
       <ul class="apartment__details apartment__details--mobile">
@@ -25,24 +22,15 @@
         </li>
       </ul>
       <div class="apartment__cta">
-        <button class="apartment__button">
-          <div class="apartment__button-box">
-            <SvgLock class="apartment__button-icon" />
-          </div>
-          <span>ЗАБРОНИРОВАТЬ</span>
-        </button>
-        <button class="apartment__button">
-          <div class="apartment__button-box">
-            <SvgCall class="apartment__button-icon" />
-          </div>
-          <span>ЗАПИСАТЬСЯ НА ПРОСМОТР</span>
-        </button>
-        <button class="apartment__button">
-          <div class="apartment__button-box">
-            <SvgArticle class="apartment__button-icon" />
-          </div>
-          <span>СКАЧАТЬ PDF</span>
-        </button>
+        <ColoredButton text="ЗАБРОНИРОВАТЬ" color="teal">
+          <SvgLock />
+        </ColoredButton>
+        <ColoredButton text="ЗАПИСАТЬСЯ НА ПРОСМОТР" color="gold">
+          <SvgCall />
+        </ColoredButton>
+        <ColoredButton text="СКАЧАТЬ PDF" color="orange">
+          <SvgArticle />
+        </ColoredButton>
       </div>
     </div>
   </main>
@@ -161,24 +149,6 @@ definePageMeta({
       }
     }
   }
-  &__detail {
-    padding-block: max(2.5rem, 15px);
-    padding-inline: max(2.1rem, 21px);
-    border-radius: max(0.8rem, 8px);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: vars.$near-white;
-    animation: slide-from-bottom-20 0.5s backwards;
-    @for $i from 1 through 10 {
-      &:nth-child(#{$i}) {
-        animation-delay: $i * 0.05s;
-      }
-    }
-    span:last-child {
-      font-weight: 900;
-    }
-  }
   &__left {
     display: flex;
     flex-direction: column;
@@ -200,71 +170,6 @@ definePageMeta({
     display: flex;
     flex-direction: column;
     gap: max(2.4rem, 20px);
-  }
-  &__button {
-    display: flex;
-    align-items: center;
-    gap: max(1rem, 10px);
-    font-weight: 500;
-    text-wrap: nowrap;
-    font-size: max(1.4rem, 14px);
-    animation: slide-from-right-20 0.5s backwards;
-    @for $i from 1 through 3 {
-      &:nth-child(#{$i}) {
-        animation-delay: $i * 0.1s;
-      }
-    }
-
-    &:first-child {
-      &:hover {
-        color: vars.$teal;
-        .apartment__button-icon {
-          fill: vars.$teal;
-        }
-      }
-      .apartment__button-box {
-        background-color: vars.$teal;
-      }
-    }
-    &:nth-child(2) {
-      &:hover {
-        color: vars.$gold;
-        .apartment__button-icon {
-          fill: vars.$gold;
-        }
-      }
-      .apartment__button-box {
-        background-color: vars.$gold;
-      }
-    }
-    &:last-child {
-      &:hover {
-        color: vars.$orange;
-        .apartment__button-icon {
-          fill: vars.$orange;
-        }
-      }
-      .apartment__button-box {
-        background-color: vars.$orange;
-      }
-    }
-    &:hover {
-      .apartment__button-box {
-        background-color: #fff;
-      }
-    }
-    &-box {
-      width: max(3.8rem, 38px);
-      height: max(3.8rem, 38px);
-      border-radius: 50%;
-      transition: background-color vars.$dt;
-      @include mix.flex-center;
-    }
-    &-icon {
-      width: 47.4%;
-      fill: #fff;
-      transition: fill vars.$dt;
-    }
   }
 }
 </style>

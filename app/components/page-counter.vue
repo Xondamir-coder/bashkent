@@ -21,8 +21,9 @@
 </template>
 
 <script setup>
-// eslint-disable-next-line vue/require-prop-types
-const model = defineModel();
+const model = defineModel({
+  type: Number
+});
 const props = defineProps({
   pages: {
     required: true,

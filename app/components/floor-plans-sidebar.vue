@@ -9,52 +9,34 @@
       <button @click="resetFilters">Сбросить фильтры</button>
     </div>
     <form class="sidebar__form" @submit.prevent="submitForm">
-      <div class="sidebar__form-row">
-        <span class="sidebar__form-label">Этаж</span>
-        <div class="sidebar__form-box">
-          <div class="sidebar__form-select sidebar__form-style">
-            <span>1</span>
-            <SvgKeyboardArrowLeft class="sidebar__form-arrow" />
-          </div>
-        </div>
-      </div>
-      <div class="sidebar__form-row">
-        <span class="sidebar__form-label">Тип планировки</span>
-        <div class="sidebar__form-box">
-          <div class="sidebar__form-select sidebar__form-style">
-            <span>Студия</span>
-            <SvgKeyboardArrowLeft class="sidebar__form-arrow" />
-          </div>
-        </div>
-      </div>
-      <div class="sidebar__form-row">
-        <span class="sidebar__form-label">Площадь - м²</span>
+      <FilterRow label="Этаж" fake-selected="1" />
+      <FilterRow label="Тип планировки" fake-selected="Студия" />
+      <FilterRow type="range" label="Площадь - м²">
         <div class="sidebar__form-rangebox">
-          <div class="sidebar__form-style">
+          <div class="filter-item">
             <input
               id="area-ffrom"
               type="number"
               name="area"
               class="sidebar__form-input"
               placeholder="от"
-            />
+            >
             <span>м²</span>
           </div>
-          <div class="sidebar__form-style">
+          <div class="filter-item">
             <input
               id="area-to"
               type="number"
               name="area"
               class="sidebar__form-input"
               placeholder="до"
-            />
+            >
             <span>м²</span>
           </div>
         </div>
-      </div>
-      <div class="sidebar__form-row">
-        <span class="sidebar__form-label">Кол-во комнат</span>
-        <div class="sidebar__form-numbers sidebar__form-style">
+      </FilterRow>
+      <FilterRow type="numbers" label="Кол-во комнат">
+        <div class="sidebar__form-numbers filter-item">
           <button
             v-for="number in 4"
             :key="number"
@@ -65,25 +47,9 @@
             {{ number }}
           </button>
         </div>
-      </div>
-      <div class="sidebar__form-row">
-        <span class="sidebar__form-label">Тип жилья</span>
-        <div class="sidebar__form-box">
-          <div class="sidebar__form-select sidebar__form-style">
-            <span>С ремонтом</span>
-            <SvgKeyboardArrowLeft class="sidebar__form-arrow" />
-          </div>
-        </div>
-      </div>
-      <div class="sidebar__form-row">
-        <span class="sidebar__form-label">Срок сдачи</span>
-        <div class="sidebar__form-box">
-          <div class="sidebar__form-select sidebar__form-style">
-            <span>2025</span>
-            <SvgKeyboardArrowLeft class="sidebar__form-arrow" />
-          </div>
-        </div>
-      </div>
+      </FilterRow>
+      <FilterRow label="Тип жилья" fake-selected="С ремонтом" />
+      <FilterRow label="Срок сдачи" fake-selected="2025" />
     </form>
     <button class="sidebar__submit" @click="submitForm">Подбор</button>
   </div>
@@ -167,14 +133,6 @@ const resetFilters = () => {
     flex-direction: column;
     gap: max(1.6rem, 12px);
 
-    &-style {
-      padding: max(1.6rem, 14px);
-      background-color: #fff;
-      border-radius: max(1.2rem, 10px);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
     &-numbers {
       display: flex;
       gap: 1.5rem;
