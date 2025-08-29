@@ -32,6 +32,12 @@ defineProps({
     display: flex;
     align-items: center;
     gap: inherit;
+    animation: slide-from-left-20 0.5s backwards;
+    @for $i from 1 through 10 {
+      &:nth-child(#{$i}) {
+        animation-delay: ($i - 1) * 0.1s;
+      }
+    }
     &:first-child {
       color: vars.$darker-grey;
     }

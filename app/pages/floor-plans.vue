@@ -2,7 +2,7 @@
   <main class="floor-plans">
     <div class="floor-plans__top">
       <AppBreadcrumbs :crumbs="crumbs" />
-      <h1 class="heading-large">Планировки</h1>
+      <h1 class="heading-large" id="floor-plans-title">Планировки</h1>
     </div>
     <div class="floor-plans__wrapper">
       <FloorPlansSidebar />
@@ -21,7 +21,9 @@
 </template>
 
 <script setup>
+import { SplitText } from 'gsap/SplitText';
 import imgSrc from '/images/apt-banner.png';
+import gsap from 'gsap';
 
 const crumbs = computed(() => [
   {
@@ -46,8 +48,27 @@ const items = computed(() =>
   })
 );
 
+onMounted(() => {
+  SplitText.create('#floor-plans-title', {
+    type: 'chars',
+    mask: 'chars',
+    onSplit: self => {
+      gsap.from(self.chars, {
+        yPercent: 100,
+        xPercent: -100,
+        stagger: 0.025,
+        ease: 'power2.out'
+      });
+    }
+  });
+});
+
 definePageMeta({
-  layout: 'floor-plans'
+  layout: 'only-header'
+});
+
+useHead({
+  title: 'Floor plans'
 });
 </script>
 
@@ -94,6 +115,7 @@ definePageMeta({
     }
   }
   &__container {
+    animation: slide-from-bottom-50 0.5s backwards 0.4s;
     display: flex;
     flex-direction: column;
     gap: max(2.4rem, 16px);

@@ -37,7 +37,7 @@
               name="area"
               class="sidebar__form-input"
               placeholder="от"
-            >
+            />
             <span>м²</span>
           </div>
           <div class="sidebar__form-style">
@@ -47,7 +47,7 @@
               name="area"
               class="sidebar__form-input"
               placeholder="до"
-            >
+            />
             <span>м²</span>
           </div>
         </div>
@@ -109,6 +109,7 @@ const resetFilters = () => {
   font-weight: 500;
   display: flex;
   flex-direction: column;
+  animation: slide-from-bottom-50 0.5s backwards 0.3s;
   @media screen and (min-width: 700px) {
     gap: max(2.4rem, 16px);
     background-color: vars.$near-white;

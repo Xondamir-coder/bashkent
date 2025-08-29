@@ -28,7 +28,11 @@
   </main>
 </template>
 
-<script setup></script>
+<script setup>
+useHead({
+  title: 'Select'
+});
+</script>
 
 <style lang="scss" scoped>
 @mixin hide-banner {
