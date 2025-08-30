@@ -96,7 +96,7 @@ const data = computed(() => [
   }
 ]);
 const pageLoaderData = computed(() => data.value.find(item => item.name === newPageName.value));
-const isHeaderPresent = computed(() => route.path !== '/select');
+const isHeaderPresent = computed(() => !route.path.includes('/select'));
 
 const toggleMenu = () => {
   showMenu.value = !showMenu.value;
@@ -108,8 +108,9 @@ const toggleContactsModal = () => {
 
 if (import.meta.client) {
   router.beforeEach((to, from, next) => {
-    if (pages.includes(to.name)) {
-      newPageName.value = to.name;
+    const pathName = to.name.split('__')[0];
+    if (pages.includes(pathName)) {
+      newPageName.value = pathName;
       togglePageLoader();
 
       setTimeout(() => {

@@ -1,7 +1,7 @@
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
-  modules: ['@nuxt/eslint', '@nuxtjs/google-fonts', '@nuxt/image'],
+  modules: ['@nuxt/eslint', '@nuxtjs/google-fonts', '@nuxt/image', '@nuxtjs/i18n'],
   css: ['~/assets/scss/main.scss'],
   googleFonts: {
     display: 'swap',
@@ -9,6 +9,32 @@ export default defineNuxtConfig({
       Inter: [400, 500, 600, 700],
       'Gothic A1': [800]
     }
+  },
+  i18n: {
+    defaultLocale: 'en',
+    baseUrl: 'https://bashkent.netlify.app',
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: 'i18n_redirected',
+      redirectOn: 'root'
+    },
+    locales: [
+      {
+        code: 'en',
+        language: 'en-US',
+        file: 'en.json'
+      },
+      {
+        code: 'ru',
+        language: 'ru-RU',
+        file: 'ru.json'
+      },
+      {
+        code: 'uz',
+        language: 'uz-UZ',
+        file: 'uz.json'
+      }
+    ]
   },
   image: {
     format: ['avif']

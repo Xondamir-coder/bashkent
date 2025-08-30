@@ -2,7 +2,7 @@
   <main class="calculator">
     <AppBreadcrumbs :crumbs />
     <div class="calculator__header">
-      <h1 class="heading-large">Калькулятор</h1>
+      <h1 class="heading-large">{{ $t('title') }}</h1>
       <span>Рассчитайте стоимость своей квартиры</span>
     </div>
     <div class="calculator__container">

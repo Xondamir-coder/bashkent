@@ -1,0 +1,204 @@
+{
+  "home": {
+    "label": "A new stage of architecture.",
+    "title": "Life in the City of Bukhara",
+    "subtitle": "A new philosophy of urban living"
+  },
+
+  "select-apt": "Select an apartment",
+  "live": "Live broadcast",
+  "book-appointment": "Book an appointment",
+  "layouts": "Layouts",
+  "filters": "Filters",
+  "reset-filters": "Reset filters",
+  "floor": "Floor",
+  "layout-type": "Layout type",
+  "area": "Area - m²",
+  "number-of-rooms": "Number of rooms",
+  "type-of-housing": "Type of housing",
+  "deadline": "Completion date",
+  "apply-filter": "Apply filter",
+  "available-x-apartments": "{count} apartments available",
+  "see-more-x": "See more {count}",
+  "apt": "Apartment",
+  "book": "BOOK",
+  "book-meeting": "SCHEDULE A VIEWING",
+  "download-pdf": "DOWNLOAD PDF",
+  "share": "Share",
+  "leave-enquiry": "Leave a request",
+  "print": "Print",
+
+  "menu": {
+    "label": "Menu",
+    "office": "Sales office",
+    "address": "100073, Uzbekistan, Tashkent city, Yashnobod district, Jarg‘or‘g‘on street, 47",
+    "timing": "Monday-Sunday: 9:00 to 19:00",
+    "cta": [
+      {
+        "label": "Address",
+        "value": "Bukhara city"
+      },
+      {
+        "label": "Phone",
+        "value": "(78) 148-55-55"
+      },
+      {
+        "label": "Telegram",
+        "value": "bashkent_residence"
+      }
+    ],
+    "nav": [
+      { "name": "Home", "path": "/" },
+      { "name": "About project", "path": "/about" },
+      { "name": "Our projects", "path": "/portfolio" },
+      { "name": "Architecture", "path": "/architecture" },
+      { "name": "Formulas of success", "path": "/formula" },
+      { "name": "Housing stock", "path": "/housing" },
+      { "name": "Infrastructure", "path": "/infrastructure" },
+      { "name": "Nearby", "path": "/contacts" }
+    ]
+  },
+
+  "about": {
+    "title": "What is Bashkent Residence?",
+    "text1": "Bashkent Residence is not just a residential complex...",
+    "text2": "Inspired by a successful project...",
+    "videoText": "Here, space ceases to be..."
+  },
+
+  "portfolio": {
+    "title": ["AGMK production plants in Almalyk", "University of Social Innovations, Tashkent"],
+    "text": [
+      "On the territory of AGMK in the city of Almalyk...",
+      "The International University is operating in Tashkent..."
+    ]
+  },
+
+  "architecture": {
+    "title": "Spacious terraces for relaxation and meetings",
+    "text": "Enjoy panoramic views...",
+    "nav": [
+      "Terraces",
+      "Panoramic windows",
+      "Facade lighting",
+      "Bike paths",
+      "Recreation area",
+      "Parking lots"
+    ]
+  },
+
+  "formula": {
+    "title": "Numbers speak for themselves:",
+    "items": [
+      { "image": "imgSrc", "amount": "38", "text": "Residential buildings" },
+      { "image": "imgSrc", "amount": "2928", "text": "Apartments" },
+      { "image": "imgSrc", "amount": "17,890.2 m²", "text": "Green area" },
+      { "image": "imgSrc", "amount": "5,451.2 m²", "text": "Children's and sports grounds" },
+      { "image": "imgSrc", "amount": "2", "text": "School and kindergarten" },
+      { "image": "imgSrc", "amount": "1", "text": "Wellness complex" },
+      { "image": "imgSrc", "amount": "1", "text": "Commercial buildings" },
+      { "image": "imgSrc", "amount": "1,660", "text": "Parking spaces" },
+      { "image": "imgSrc", "amount": "1", "text": "Commercial buildings" },
+      { "image": "imgSrc", "amount": "4", "text": "Substations" }
+    ]
+  },
+
+  "infrastructure": {
+    "title": "Next-generation security",
+    "text": "Modern technologies that ensure the protection of your home and round-the-clock monitoring of the territory, creating maximum comfort and safety for residents."
+  },
+
+  "contacts": {
+    "title": "Nearby",
+    "items": [
+      { "name": "Full list", "icon": "SvgStraightHam" },
+      { "name": "Shopping centers and stores", "icon": "SvgCart" },
+      { "name": "Gymnasiums and schools", "icon": "SvgBell" },
+      { "name": "Parks and squares", "icon": "SvgTrees" },
+      { "name": "Universities", "icon": "SvgSchool" },
+      { "name": "Theaters", "icon": "SvgTheatherMasks" },
+      { "name": "Cultural and leisure facilities", "icon": "SvgBuilding" }
+    ]
+  },
+
+  "select": {
+    "title-1": "Selection by characteristics",
+    "text-1": "Choose by price and area",
+    "title-2": "Visual search",
+    "text-2": "Choose on the facade"
+  },
+
+  "calculator": {
+    "label": "Calculator",
+    "text": "Calculate the cost of your apartment",
+    "desired-layout": "Desired layout",
+    "params": "Calculation parameters",
+    "discount": "Discount",
+    "included": "Included in the price",
+    "calculate-price": "Calculate cost",
+    "results": "Calculation results",
+    "apt-price": "Apartment cost",
+    "also": "including:"
+  },
+
+  "modal": {
+    "title": "We will answer all questions",
+    "form": {
+      "name": "Name",
+      "phone": "Phone number",
+      "message": "Comment",
+      "submit": "Send",
+      "copyright": "I consent to the processing of personal data",
+      "author": "Head of Sales Department Sergey Obozny"
+    }
+  },
+
+  "page-loader": [
+    {
+      "title": "Welcome to Bashkent Residence",
+      "texts": [
+        "Bashkent Residence is your home in the historic center of Bukhara",
+        "The complex includes a closed courtyard, a children's playground, a gym ..."
+      ]
+    },
+    {
+      "title": "About the complex",
+      "texts": [
+        "Bashkent Residence is a residential complex in the historic center of Bukhara",
+        "1600 apartments in 10-12 storey buildings with 2 elevators, a freight elevator, garbage chute and video surveillance."
+      ]
+    },
+    {
+      "title": "Reliability, verified by time",
+      "texts": [
+        "The developer is DUNE GROUP. Since 2019, DUNE GROUP has been implementing ambitious construction projects in Uzbekistan, combining technical expertise and a sense of architectural tact.",
+        "The company is focused on sustainable development, safety, technology, and architectural expression."
+      ]
+    },
+    {
+      "title": "Architecture of a new lifestyle",
+      "texts": [
+        "Bashkent Residence is designed as a closed quarter with full infrastructure.",
+        "The complex includes 38 residential buildings, built using monolithic technology, with enhanced sound insulation, thoughtfully designed entrance groups, high-speed passenger and freight elevators, and facade cladding made of artificial liquid stone."
+      ]
+    },
+    {
+      "title": "An environment that makes you want to live",
+      "texts": [
+        "The complex covers 103,446 m², with almost a third dedicated to green areas and recreational spaces."
+      ]
+    },
+    {
+      "title": "Apartments that breathe",
+      "texts": [
+        "Each apartment in Bashkent Residence is not just a home, but a personal space where you can comfortably live, relax, raise children, and welcome guests."
+      ]
+    },
+    {
+      "title": "Infrastructure and amenities",
+      "texts": [
+        "Bashkent Residence is not just a residential complex, it is a thoughtfully designed living environment."
+      ]
+    }
+  ]
+}

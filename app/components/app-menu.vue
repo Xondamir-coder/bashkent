@@ -19,7 +19,7 @@
       <div class="menu__bottom-header">
         <h3 class="menu__subtitle">SOTUV OFISI</h3>
         <p>
-          100073, O‘zbekiston, Toshkent shahri, <br >
+          100073, O‘zbekiston, Toshkent shahri, <br />
           Yashnobod tumani, Jarqo‘rg‘on ko‘chasi, 47
         </p>
         <p>Dushanba-Yakshanba: 9:00 dan 19:00 gacha</p>

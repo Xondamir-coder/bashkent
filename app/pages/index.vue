@@ -22,15 +22,15 @@
       class="home__image"
     />
     <div class="home__content">
-      <p ref="textRef" class="home__content-text">Новый этап архитектуры.</p>
-      <h1 ref="titleRef" class="heading-extra-large">жизни Город Бухара</h1>
+      <p ref="textRef" class="home__content-text">{{ $t('home.label') }}</p>
+      <h1 ref="titleRef" class="heading-extra-large">{{ $t('home.title') }}</h1>
       <div class="home__content-bottom">
         <img
           src="~/assets/images/home-flower.jpg"
           alt="home flower"
           class="home__content-bottom-image"
-        >
-        <span ref="subtextRef">Новая философия городской </span>
+        />
+        <span ref="subtextRef">{{ $t('home.subtitle') }}</span>
       </div>
     </div>
   </main>

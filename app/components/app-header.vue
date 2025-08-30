@@ -1,5 +1,8 @@
 <template>
   <header class="header" :class="{ 'header--plan': isPlanHeader, 'header--variant': isVariant }">
+    <!-- <button @click="$i18n.setLocale('ru')">Ru</button>
+    <button @click="$i18n.setLocale('en')">En</button>
+    <button @click="$i18n.setLocale('uz')">Uz</button> -->
     <div class="header__left">
       <NuxtLink to="/select" class="header__button">
         <SvgKeyboardArrowLeft class="header__button-icon" />
