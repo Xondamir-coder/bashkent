@@ -1,0 +1,25 @@
+@use '../abstracts/variables' as vars;
+
+.filter-item {
+  padding: max(1.6rem, 14px);
+  background-color: #fff;
+  border-radius: max(1.2rem, 10px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.calculator-box {
+  background-color: vars.$near-white;
+  border-radius: max(2rem, 8px);
+  padding-block: max(2.4rem, 16px);
+  padding-inline: max(2rem, 16px);
+  display: flex;
+  flex-direction: column;
+  gap: max(2rem, 16px);
+  animation: slide-from-bottom-20 0.5s backwards;
+  @for $i from 1 through 3 {
+    &:nth-child(#{$i}) {
+      animation-delay: $i * 0.1s;
+    }
+  }
+}

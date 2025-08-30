@@ -6,7 +6,7 @@
       <span>Рассчитайте стоимость своей квартиры</span>
     </div>
     <div class="calculator__container">
-      <div class="calculator__plan calculator__box">
+      <div class="calculator__plan calculator-box">
         <span class="calculator__label">Желаемая планировка</span>
         <FilterRow :no-label="true" fake-selected="1 комн. 48,76" />
         <div class="calculator__plan-box">
@@ -21,15 +21,19 @@
           </ul>
         </div>
       </div>
-      <div class="calculator__params calculator__box">
+      <div class="calculator__params calculator-box">
         <span class="calculator__label">Параметры расчета</span>
         <FilterRow label="Этаж" fake-selected="1" />
         <FilterRow label="Срок сдачи" fake-selected="2026" />
         <RangeSlider v-model="percentage" />
-        <div class="calculator__params-bottom" />
+        <div class="calculator__params-bottom">
+          <span>Скидка: <span class="clr-teal">16%</span></span>
+          <span>Включено в стоимость</span>
+        </div>
       </div>
       <button class="calculator__button">Рассчитать стоимость</button>
     </div>
+    <CalculatorResult />
   </main>
 </template>
 
@@ -85,12 +89,20 @@ useHead({
   &__button {
     background-color: vars.$teal;
     padding-block: max(1.4rem, 12px);
-    grid-column: span 2;
     color: #fff;
     border-radius: max(1.2rem, 8px);
+    @media screen and (min-width: vars.$bp-large-mobile) {
+      grid-column: span 2;
+    }
     &:hover {
       background-color: vars.$teal-dark;
     }
+  }
+  &__params-bottom {
+    display: flex;
+    flex-direction: column;
+    font-size: max(1.2rem, 12px);
+    gap: max(0.4rem, 4px);
   }
   &__label {
     font-weight: 600;
@@ -101,15 +113,9 @@ useHead({
     row-gap: max(3.2rem, 16px);
     column-gap: max(2rem, 16px);
     grid-template-columns: 1.241fr 1fr;
-  }
-  &__box {
-    background-color: vars.$near-white;
-    border-radius: max(2rem, 8px);
-    padding-block: max(2.4rem, 16px);
-    padding-inline: max(2rem, 16px);
-    display: flex;
-    flex-direction: column;
-    gap: max(2rem, 16px);
+    @media screen and (max-width: vars.$bp-large-mobile) {
+      grid-template-columns: 1fr;
+    }
   }
   &__plan {
     &-box {
@@ -122,6 +128,7 @@ useHead({
     &-detail {
       padding-block: max(1.8rem, 14px);
       padding-inline: max(1.6rem, 16px);
+      font-size: max(1.4rem, 14px);
       @media screen and (max-width: vars.$bp-small-mobile) {
         padding-inline: 21px;
       }
