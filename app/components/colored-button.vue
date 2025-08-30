@@ -31,7 +31,7 @@ defineProps({
   text-wrap: nowrap;
   font-size: max(1.4rem, 14px);
   animation: slide-from-right-20 0.5s backwards;
-  @for $i from 1 through 3 {
+  @for $i from 1 through 10 {
     &:nth-child(#{$i}) {
       animation-delay: $i * 0.1s;
     }

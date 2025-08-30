@@ -34,6 +34,20 @@
       <button class="calculator__button">Рассчитать стоимость</button>
     </div>
     <CalculatorResult />
+    <div class="calculator__bottom">
+      <ColoredButton color="teal" text="Распечатать">
+        <SvgPrint />
+      </ColoredButton>
+      <ColoredButton color="orange" text="СКАЧАТЬ PDF">
+        <SvgArticle />
+      </ColoredButton>
+      <ColoredButton color="teal" text="Поделиться">
+        <SvgShare />
+      </ColoredButton>
+      <ColoredButton color="gold" text="Оставить заявку">
+        <SvgCall />
+      </ColoredButton>
+    </div>
   </main>
 </template>
 
@@ -86,6 +100,12 @@ useHead({
   flex-direction: column;
   gap: max(1.6rem, 12px);
   padding-bottom: max(3rem, 24px);
+  &__bottom {
+    margin-top: max(1.6rem, 4px);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, max-content));
+    gap: max(2.4rem, 20px);
+  }
   &__button {
     background-color: vars.$teal;
     padding-block: max(1.4rem, 12px);
@@ -109,6 +129,7 @@ useHead({
     font-size: max(2rem, 14px);
   }
   &__container {
+    margin-top: max(2rem, 12px);
     display: grid;
     row-gap: max(3.2rem, 16px);
     column-gap: max(2rem, 16px);
