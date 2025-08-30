@@ -3,9 +3,7 @@
     <button class="sidebar__key">
       <SvgKey />
     </button>
-    <button class="sidebar__logo" @click="$router.push('/')">
-      <SvgLogo />
-    </button>
+    <SvgLogo class="sidebar__logo" />
     <SvgLogoMobile class="sidebar__logo--mobile" />
     <SidebarHam :show-menu="showMenu" @click="emits('toggle-menu')" />
     <SvgSidebarPattern class="sidebar__pattern" />
