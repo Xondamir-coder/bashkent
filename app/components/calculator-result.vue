@@ -1,6 +1,6 @@
 <template>
   <div class="result calculator-box">
-    <h2 class="result__title">Результаты расчета</h2>
+    <h2 class="result__title">{{ $t('calculator.results') }}</h2>
     <ul class="result__list">
       <li v-for="(item, i) in items" :key="i" class="result__item">
         <div class="result__item-header">
@@ -8,11 +8,11 @@
           <p class="result__item-label">{{ item.desc }}</p>
         </div>
         <div class="result__item-top">
-          <span class="result__item-label">Стоимость квартиры</span>
+          <span class="result__item-label">{{ $t('calculator.apt-price') }}</span>
           <span class="result__item-top-price">{{ item.price }}</span>
         </div>
         <div class="result__item-content">
-          <span class="result__item-label">в том числе:</span>
+          <span class="result__item-label">{{ $t('calculator.also') }}</span>
           <ul class="result__item-list">
             <DetailsItem v-for="(detail, index) in item.details" :key="index" :detail />
           </ul>

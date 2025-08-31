@@ -3,26 +3,26 @@
     <GlassButton class="select__glass" @click="$router.back()">
       <SvgClose class="fill-teal" />
     </GlassButton>
-    <NuxtLink to="/advanced-search" class="select__left">
+    <NuxtLink :to="$localePath('/advanced-search')" class="select__left">
       <NuxtPicture src="/images/select-banner.jpg" alt="banner" class="select__banner" />
       <SvgRadialPattern class="select__pattern" />
       <div class="select__content">
         <div class="select__icon-box">
           <SvgFilter class="select__icon" />
         </div>
-        <h2 class="heading-large">Подбор по характеристикам</h2>
-        <p>Выбирайте по цене и площади</p>
+        <h2 class="heading-large">{{ $t('select.title-1') }}</h2>
+        <p>{{ $t('select.text-1') }}</p>
       </div>
     </NuxtLink>
-    <NuxtLink to="/masterplan" class="select__right">
+    <NuxtLink :to="$localePath('/masterplan')" class="select__right">
       <NuxtPicture src="/images/select-banner.jpg" alt="banner" class="select__banner" />
       <SvgRadialPattern class="select__pattern" />
       <div class="select__content">
         <div class="select__icon-box">
           <SvgVisibility class="select__icon" />
         </div>
-        <h2 class="heading-large">Визуальный поиск</h2>
-        <p>Выбирайте на фасаде</p>
+        <h2 class="heading-large">{{ $t('select.title-2') }}</h2>
+        <p>{{ $t('select.text-2') }}</p>
       </div>
     </NuxtLink>
   </main>

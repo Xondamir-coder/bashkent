@@ -5,14 +5,14 @@
       <div class="apartment__left">
         <div class="apartment__left-top">
           <h1 class="heading-large">№ 814</h1>
-          <span>Апартамент</span>
+          <span>{{ $t('apt') }}</span>
         </div>
         <ul class="apartment__details apartment__details--desktop">
           <DetailsItem v-for="(detail, index) in apartmentDetails" :key="index" :detail />
         </ul>
       </div>
       <div class="apartment__middle">
-        <img :src="apartmentData.img" alt="apartment banner" class="apartment__banner" >
+        <img :src="apartmentData.img" alt="apartment banner" class="apartment__banner" />
         <PageNav v-model="currentPage" :pages="[1, 2, 3, 4]" />
       </div>
       <ul class="apartment__details apartment__details--mobile">
@@ -22,13 +22,13 @@
         </li>
       </ul>
       <div class="apartment__cta">
-        <ColoredButton text="ЗАБРОНИРОВАТЬ" color="teal">
+        <ColoredButton :text="$t('book')" color="teal">
           <SvgLock />
         </ColoredButton>
-        <ColoredButton text="ЗАПИСАТЬСЯ НА ПРОСМОТР" color="gold">
+        <ColoredButton :text="$t('book-meeting')" color="gold">
           <SvgCall />
         </ColoredButton>
-        <ColoredButton text="СКАЧАТЬ PDF" color="orange">
+        <ColoredButton :text="$t('download-pdf')" color="orange">
           <SvgArticle />
         </ColoredButton>
       </div>
@@ -40,14 +40,15 @@
 import imgSrc from '/images/apt.png';
 
 const currentPage = ref(1);
+const { t } = useI18n();
 
 const crumbs = computed(() => [
   {
-    name: 'Plans',
+    name: t('apts'),
     path: '/apartments'
   },
   {
-    name: 'Plans',
+    name: t('apt'),
     path: '/apartments'
   }
 ]);

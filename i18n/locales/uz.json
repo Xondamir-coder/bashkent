@@ -1,49 +1,50 @@
 {
   "home": {
     "label": "Arxitekturaning yangi bosqichi.",
-    "title": "Buxoro shahri hayoti",
+    "title": "Buxoro shahridagi hayot",
     "subtitle": "Shahar hayotining yangi falsafasi"
   },
 
-  "select-apt": "Kvartira tanlash",
+  "select-apt": "Xonadon tanlash",
   "live": "Jonli efir",
   "book-appointment": "Uchrashuvga yozilish",
   "layouts": "Rejalar",
   "filters": "Filtrlar",
-  "reset-filters": "Filtrlarni tozalash",
+  "reset-filters": "Filtrlarni bekor qilish",
   "floor": "Qavat",
   "layout-type": "Reja turi",
   "area": "Maydon - m²",
   "number-of-rooms": "Xonalar soni",
   "type-of-housing": "Uy-joy turi",
   "deadline": "Topshirish muddati",
-  "apply-filter": "Saralash",
-  "available-x-apartments": "{count} ta kvartira mavjud",
-  "see-more-x": "Yana {count} ko‘rish",
-  "apt": "Kvartira",
+  "apply-filter": "Tanlash",
+  "available-x-apartments": "Mavjud {count} xonadon",
+  "see-more-x": "Yana {count} ni ko‘rsatish",
+  "apt": "Xonadon",
+  "apts": "Xonadonlar",
   "book": "BRON QILISH",
   "book-meeting": "KO‘RISHGA YOZILISH",
   "download-pdf": "PDF YUKLAB OLISH",
   "share": "Ulashish",
   "leave-enquiry": "So‘rov qoldirish",
   "print": "Chop etish",
+  "back": "Orqaga",
+  "address": "Manzil",
+  "phone": "Telefon",
+  "telegram": "Telegram",
 
   "menu": {
     "label": "Menyu",
     "office": "Savdo ofisi",
     "address": "100073, O‘zbekiston, Toshkent shahri, Yashnobod tumani, Jarqo‘rg‘on ko‘chasi, 47",
     "timing": "Dushanba-Yakshanba: 9:00 dan 19:00 gacha",
-    "cta": [
-      { "label": "Manzil", "value": "Buxoro shahri" },
-      { "label": "Telefon", "value": "(78) 148-55-55" },
-      { "label": "Telegram", "value": "bashkent_residence" }
-    ],
+    "bukhara": "Buxoro shahri",
     "nav": [
-      { "name": "Bosh sahifa", "path": "/" },
+      { "name": "Asosiy", "path": "/" },
       { "name": "Loyiha haqida", "path": "/about" },
-      { "name": "Bizning loyihalar", "path": "/portfolio" },
+      { "name": "Loyihalarimiz", "path": "/portfolio" },
       { "name": "Arxitektura", "path": "/architecture" },
-      { "name": "Muvaffaqiyat formulalari", "path": "/formula" },
+      { "name": "Muvaffaqiyat formulasi", "path": "/formula" },
       { "name": "Uy-joy fondi", "path": "/housing" },
       { "name": "Infratuzilma", "path": "/infrastructure" },
       { "name": "Yaqiningizda", "path": "/contacts" }
@@ -52,66 +53,74 @@
 
   "about": {
     "title": "Bashkent Residence nima?",
-    "text1": "Bashkent Residence — bu oddiygina turar-joy majmuasi emas...",
-    "text2": "Muvaffaqiyatli loyiha asosida ilhomlangan...",
-    "videoText": "Bu yerda makon oddiygina bo‘lishni to‘xtatadi..."
+    "text1": "bu shunchaki turar-joy majmuasi emas. Bu — zamonaviy arxitektura standartlari, puxta o‘ylangan infratuzilma, shahar qulayligi estetikasini va atrof-muhit bilan uyg‘unlikka intilishni birlashtirgan hayot muhitidir.",
+    "text2": "Toshkentdagi muvaffaqiyatli hamnom loyiha ilhomida, Buxorodagi yangi Bashkent Residence poytaxt miqyosining eng yaxshilarini qadimiy shahar tarixiy va madaniy kontekstiga moslashtirib o‘zida mujassam etdi.",
+    "video-text": "Bu yerda maydon shunchaki kvadrat metr emas — u sizning shaxsingizning davomi, didingiz va kelajak uchun g‘amxo‘rligingizning aksidir."
   },
 
   "portfolio": {
-    "title": [
-      "Olmaliqdagi O‘ZMT (AGMK) ishlab chiqarish zavodlari",
-      "Ijtimoiy innovatsiyalar universiteti, Toshkent"
-    ],
-    "text": [
-      "Olmaliq shahridagi O‘ZMT hududida...",
-      "Toshkentda Xalqaro universitet faoliyat yuritmoqda..."
+    "items": [
+      {
+        "title": "Olmaliqdagi OTMK ishlab chiqarish zavodlari",
+        "text": "Toshkent viloyati Olmaliq shahridagi OTMK hududida to‘liq qayta ishlash va mahsulot chiqarishni ta’minlovchi zamonaviy ishlab chiqarish zavodlari joylashgan",
+        "image": "/images/portfolio-1.jpg"
+      },
+      {
+        "title": "Ijtimoiy innovatsiyalar universiteti, Toshkent",
+        "text": "Toshkentda ijtimoiy va texnologik o‘zgarishlar sohasida yangi avlod mutaxassislarini tayyorlaydigan Xalqaro ijtimoiy innovatsiyalar universiteti faoliyat yuritadi",
+        "image": "/images/portfolio-2.jpg"
+      }
     ]
   },
 
   "architecture": {
-    "title": "Dam olish va uchrashuvlar uchun keng terassalar",
-    "text": "Panoramali manzaralardan bahramand bo‘ling...",
+    "title": "Dam olish va uchrashuvlar uchun keng terrasalar",
+    "text": "Panoramali manzaralar va toza havodan bahramand bo‘ling — tijorat joylari ustida joylashgan keng terrasalar dam olish, uchrashuv va yoqimli vaqt o‘tkazish uchun ideal maskan.",
     "nav": [
-      "Terassalar",
-      "Panoramali derazalar",
-      "Fasad yoritgichlari",
-      "Velosiped yo‘llari",
+      "Terrasalar",
+      "Panoramali oynalar",
+      "Fasad yoritgichi",
+      "Veloyo‘llar",
       "Dam olish zonasi",
       "Avtoturargohlar"
     ]
   },
 
   "formula": {
-    "title": "Raqamlar o‘z-o‘zidan gapiradi:",
+    "title": "Raqamlar o‘zlari gapiradi:",
     "items": [
-      { "image": "imgSrc", "amount": "38", "text": "Turar-joy binolari" },
-      { "image": "imgSrc", "amount": "2928", "text": "Kvartiralar" },
-      { "image": "imgSrc", "amount": "17 890,2 m²", "text": "Yashil hudud" },
-      { "image": "imgSrc", "amount": "5 451,2 m²", "text": "Bolalar va sport maydonchalari" },
-      { "image": "imgSrc", "amount": "2", "text": "Maktab va bolalar bog‘chasi" },
-      { "image": "imgSrc", "amount": "1", "text": "Sog‘lomlashtirish majmuasi" },
-      { "image": "imgSrc", "amount": "1", "text": "Tijorat binolari" },
-      { "image": "imgSrc", "amount": "1 660", "text": "Avtoturargoh joylari" },
-      { "image": "imgSrc", "amount": "1", "text": "Tijorat binolari" },
-      { "image": "imgSrc", "amount": "4", "text": "Podstansiyalar" }
+      { "image": "/images/formula-1.jpg", "amount": "38", "text": "Turar-joy binolari" },
+      { "image": "/images/formula-1.jpg", "amount": "2928", "text": "Xonadonlar" },
+      { "image": "/images/formula-1.jpg", "amount": "17 890,2 m²", "text": "Yashil hudud" },
+      {
+        "image": "/images/formula-1.jpg",
+        "amount": "5 451,2 m²",
+        "text": "Bolalar va sport maydonchalari"
+      },
+      { "image": "/images/formula-1.jpg", "amount": "2", "text": "Maktab va bog‘cha" },
+      { "image": "/images/formula-1.jpg", "amount": "1", "text": "Sog‘lomlashtirish majmuasi" },
+      { "image": "/images/formula-1.jpg", "amount": "1", "text": "Tijorat binolari" },
+      { "image": "/images/formula-1.jpg", "amount": "1 660", "text": "Avtoturargoh joylari" },
+      { "image": "/images/formula-1.jpg", "amount": "1", "text": "Tijorat binolari" },
+      { "image": "/images/formula-1.jpg", "amount": "4", "text": "Podstansiyalar" }
     ]
   },
 
   "infrastructure": {
     "title": "Yangi avlod xavfsizligi",
-    "text": "Zamonaviy texnologiyalar sizning uyingizni himoya qiladi va hududni tunu-kun nazorat qilib, aholi uchun maksimal qulaylik va xavfsizlik yaratadi."
+    "text": "Zamonaviy texnologiyalar uyingizni himoya qiladi va hududni kecha-kunduz nazorat qiladi, aholiga maksimal qulaylik va xavfsizlik yaratadi."
   },
 
   "contacts": {
     "title": "Yaqiningizda",
-    "items": [
-      { "name": "To‘liq ro‘yxat", "icon": "SvgStraightHam" },
-      { "name": "Savdo markazlari va do‘konlar", "icon": "SvgCart" },
-      { "name": "Gimnaziya va maktablar", "icon": "SvgBell" },
-      { "name": "Bog‘lar va xiyobonlar", "icon": "SvgTrees" },
-      { "name": "Oliy o‘quv yurtlari", "icon": "SvgSchool" },
-      { "name": "Teatrlar", "icon": "SvgTheatherMasks" },
-      { "name": "Madaniy va dam olish maskanlari", "icon": "SvgBuilding" }
+    "names": [
+      "To‘liq ro‘yxat",
+      "Savdo markazlari va do‘konlar",
+      "Gimnaziyalar va maktablar",
+      "Bog‘lar va maydonlar",
+      "Oliy o‘quv yurtlari",
+      "Teatrlar",
+      "Madaniyat va hordiq maskanlari"
     ]
   },
 
@@ -119,19 +128,22 @@
     "title-1": "Xususiyatlar bo‘yicha tanlash",
     "text-1": "Narx va maydon bo‘yicha tanlang",
     "title-2": "Vizual qidiruv",
-    "text-2": "Fasad bo‘yicha tanlang"
+    "text-2": "Fasadda tanlang",
+    "floors": "qavatlari",
+    "block": "korpus",
+    "apts": "xonadonlari"
   },
 
   "calculator": {
     "label": "Kalkulyator",
-    "text": "Kvartirangiz narxini hisoblang",
-    "desired-layout": "Kerakli reja",
+    "text": "Xonadoningiz narxini hisoblang",
+    "desired-layout": "Istalgan reja",
     "params": "Hisoblash parametrlari",
     "discount": "Chegirma",
     "included": "Narxga kiritilgan",
     "calculate-price": "Narxni hisoblash",
     "results": "Hisoblash natijalari",
-    "apt-price": "Kvartira narxi",
+    "apt-price": "Xonadon narxi",
     "also": "jumladan:"
   },
 
@@ -143,56 +155,80 @@
       "message": "Izoh",
       "submit": "Yuborish",
       "copyright": "Shaxsiy ma’lumotlarni qayta ishlashga roziman",
-      "author": "Savdo bo‘limi boshlig‘i Sergey Obozniy"
+      "author": "Savdo bo‘limi rahbari Sergey Obozniy"
     }
   },
 
   "page-loader": [
     {
-      "title": "Bashkent Residence’ga xush kelibsiz",
+      "title": "Bashkent Residence ga xush kelibsiz",
       "texts": [
-        "Bashkent Residence — Buxoro tarixiy markazidagi uyingiz",
-        "Majmua yopiq hovli, bolalar maydonchasi, sport zali bilan jihozlangan ..."
+        "Bashkent Residence — bu Buxoro tarixiy markazidagi uyingiz",
+        "Majmuada yopiq hovli, bolalar maydonchasi, sport zali, gimnaziya, do‘konlar va kafe mavjud"
       ]
     },
     {
       "title": "Majmua haqida",
       "texts": [
-        "Bashkent Residence — Buxoro tarixiy markazida joylashgan turar-joy majmuasi",
-        "10–12 qavatli binolarda 1600 ta xonadon, 2 ta lift, yuk tashuvchi lift, chiqindi tashlash tizimi va videokuzatuv mavjud."
+        "Bashkent Residence — Buxoro tarixiy markazidagi turar-joy majmuasi",
+        "10–12 qavatli binolarda 1600 ta xonadon, 2 ta lift, yuk tashuvchi lift, chiqindi quvuri va videokuzatuv mavjud."
       ]
     },
     {
-      "title": "Vaqt bilan sinovdan o‘tgan ishonchlilik",
+      "title": "Vaqt sinovidan o‘tgan ishonchlilik",
       "texts": [
-        "Quruvchi — DUNE GROUP. 2019-yildan beri DUNE GROUP O‘zbekistonda texnik tajriba va me’moriy didni uyg‘unlashtirgan holda yirik loyihalarni amalga oshirib kelmoqda.",
-        "Kompaniya barqaror rivojlanish, xavfsizlik, texnologiyalar va me’moriy ifodaga e’tibor qaratadi."
+        "Quruvchi — DUNE GROUP. 2019 yildan beri kompaniya O‘zbekistonda yirik loyihalarni amalga oshirib, texnik tajriba va arxitektura didini uyg‘unlashtirib kelmoqda.",
+        "Kompaniya barqaror rivojlanish, xavfsizlik, texnologiya va arxitektura ifodasiga e’tibor qaratadi."
       ]
     },
     {
-      "title": "Yangi turmush tarzi me’morchiligi",
+      "title": "Yangi hayot tarzi arxitekturasi",
       "texts": [
-        "Bashkent Residence yopiq hudud sifatida, to‘liq infratuzilma bilan loyihalashtirilgan.",
-        "Kompleks 38 ta monolit texnologiyada qurilgan turar-joy binosidan iborat bo‘lib, ovoz izolyatsiyasi kuchaytirilgan, o‘ylangan kirish guruhlari, tezkor yo‘lovchi va yuk liftlari, hamda sun’iy suyuq tosh bilan qoplangan fasadlarga ega."
+        "Bashkent Residence to‘liq infratuzilmaga ega yopiq kvartal sifatida loyihalashtirilgan.",
+        "Majmuaga monolit texnologiyada qurilgan, kuchaytirilgan ovoz izolyatsiyasi, qulay kirish guruhlari, yuqori tezlikdagi yo‘lovchi va yuk liftlari, hamda sun’iy suyuq tosh bilan bezatilgan fasadli 38 ta turar-joy binolari kiradi."
       ]
     },
     {
-      "title": "Yashash istagini uyg‘otuvchi muhit",
+      "title": "Yashashni xohlaydigan muhit",
       "texts": [
-        "Majmua maydoni 103 446 m² bo‘lib, uning qariyb uchdan bir qismi yashil hududlar va dam olish joylariga ajratilgan."
+        "Majmua maydoni 103 446 m² bo‘lib, uning qariyb uchdan biri yashil hudud va dam olish joylariga ajratilgan."
       ]
     },
     {
-      "title": "Nafas oluvchi xonadonlar",
+      "title": "Nafas oladigan xonadonlar",
       "texts": [
-        "Bashkent Residence’dagi har bir xonadon shunchaki uy emas, balki qulay yashash, dam olish, farzand tarbiyalash va mehmon kutib olish uchun shaxsiy makondir."
+        "Bashkent Residence dagi har bir xonadon shunchaki uy emas, balki qulay yashash, dam olish, farzand tarbiyalash va mehmon qabul qilish uchun shaxsiy makondir."
       ]
     },
     {
       "title": "Infratuzilma va qulayliklar",
       "texts": [
-        "Bashkent Residence shunchaki turar-joy majmuasi emas, balki o‘ylangan yashash muhiti hisoblanadi."
+        "Bashkent Residence — bu shunchaki turar-joy majmuasi emas, balki puxta o‘ylangan hayot muhiti."
       ]
     }
-  ]
+  ],
+
+  "housing": {
+    "boxes": [
+      {
+        "variant1": ["Tabiiy", "yoritish va", "shamollatish"],
+        "variant2": ["Tabiiy", "yoritish va", "shamollatish"]
+      },
+      {
+        "variant1": ["Qavat va manzarani", "tanlash imkoniyati"],
+        "variant2": ["Imkoniyat", "qavat va manzarani", "tanlash"]
+      },
+      {
+        "variant1": ["Ergonomik oshxona,", "balkonlar, garderoblar"],
+        "variant2": ["Ergonomik", "oshxona, balkonlar,", "garderoblar"]
+      },
+      { "single": "Ta’mirga tayyor / tayyor ta’mir" }
+    ],
+    "images": [
+      { "src": "/images/housing-4.jpg", "alt": "uy-joy 4" },
+      { "src": "/images/housing-3.jpg", "alt": "uy-joy 3" },
+      { "src": "/images/housing-2.jpg", "alt": "uy-joy 2" },
+      { "src": "/images/housing.jpg", "alt": "uy-joy banner" }
+    ]
+  }
 }

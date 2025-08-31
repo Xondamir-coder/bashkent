@@ -22,11 +22,31 @@
 const { showPreloader, showPageLoader, togglePageLoader } = useLoader();
 const route = useRoute();
 const router = useRouter();
+const { tm, rt } = useI18n();
 
+const isHeaderPresent = computed(() => !route.path.includes('/select'));
+
+// menu & modal
 const showMenu = ref(false);
 const showContactsModal = ref(false);
-const newPageName = ref('');
+const toggleMenu = () => {
+  showMenu.value = !showMenu.value;
+};
+const toggleContactsModal = () => {
+  showMenu.value = false;
+  showContactsModal.value = !showContactsModal.value;
+};
 
+// page loader
+const newPageName = ref('');
+const pageLoaderData = computed(() => data.value.find(item => item.name === newPageName.value));
+const data = computed(() =>
+  pages.map((page, i) => ({
+    name: page,
+    title: rt(tm('page-loader')[i].title),
+    texts: tm('page-loader')[i].texts
+  }))
+);
 const pages = [
   'index',
   'about',
@@ -38,77 +58,9 @@ const pages = [
 ];
 const PAGE_LOADER_DURATION = 2;
 
-const data = computed(() => [
-  {
-    name: 'index',
-    title: 'Добро пожаловать в Bashkent Residence',
-    texts: [
-      'Bashkent Residence - это ваш дом в историческом центре Бухары',
-      'В комплексе есть закрытый двор, детская площадка, спортзал ...'
-    ]
-  },
-  {
-    name: 'about',
-    title: 'О комплексе',
-    texts: [
-      'Bashkent Residence - это жилой комплекс в историческом центре Бухары',
-      '1600 квартир на 10-12 этажах с 2 лифтами, грузовым лифтом, мусоропроводом и видеонаблюдением.'
-    ]
-  },
-  {
-    name: 'portfolio',
-    title: 'Надёжность, проверенная временем',
-    texts: [
-      'Застройщик — DUNE GROUP С 2019 года DUNE GROUP реализует амбициозные строительные проекты в Узбекистане, совмещая техническую экспертизу и чувство архитектурного такта.',
-      'Компания делает ставку на устойчивое развитие, безопасность, технологичность и архитектурную выразительность.'
-    ]
-  },
-  {
-    name: 'architecture',
-    title: 'Архитектура нового образа жизни',
-    texts: [
-      'Bashkent Residence спроектирован как замкнутый квартал с полной инфраструктурой.',
-      'Комплекс включает 38 жилых здания, выполненных по монолитной технологии, с повышенной звукоизоляцией, продуманными входными группами, скоростными двумя ( пасажирский и грузовой) лифтами и фасадной отделкой из искусственного жидкогокамня'
-    ],
-    color: 'yellow'
-  },
-  {
-    name: 'formula',
-    title: 'Среда, в которой хочется жить',
-    texts: [
-      'Территория комплекса - 103 446 м², из которых почти треть отведена под зелёные зоны и места отдыха.'
-    ]
-  },
-  {
-    name: 'housing',
-    title: 'Квартиры, которые дышат',
-    texts: [
-      'Каждая квартира в Bashkent Residence — это не просто жильё, а личное пространство, в котором легко жить, отдыхать, воспитывать детей и встречать гостей.'
-    ],
-    color: 'yellow'
-  },
-  {
-    name: 'infrastructure',
-    title: 'Инфраструктура и благоустройство',
-    texts: [
-      'Bashkent Residence — это не просто жилые дома, это интеллектуально спроектированная среда обитания'
-    ]
-  }
-]);
-const pageLoaderData = computed(() => data.value.find(item => item.name === newPageName.value));
-const isHeaderPresent = computed(() => !route.path.includes('/select'));
-
-const toggleMenu = () => {
-  showMenu.value = !showMenu.value;
-};
-const toggleContactsModal = () => {
-  showMenu.value = false;
-  showContactsModal.value = !showContactsModal.value;
-};
-
 if (import.meta.client) {
   router.beforeEach((to, from, next) => {
-    const pathName = to.name.split('__')[0];
+    const pathName = to.name.split('___')[0];
     if (pages.includes(pathName)) {
       newPageName.value = pathName;
       togglePageLoader();
@@ -126,6 +78,7 @@ if (import.meta.client) {
     }
   });
 }
+
 onMounted(() => {
   document.addEventListener('click', e => {
     if (showMenu.value && !e.target.closest('.menu') && !e.target.closest('.ham__container')) {

@@ -30,14 +30,14 @@
     >
       <h2 class="masterplan__box-title">
         {{ toRoman(data.block) }}
-        <span>корпус</span>
+        <span>{{ $t('select.block') }}</span>
       </h2>
       <p>
         {{ data.floors }}
-        <span>этажей</span>
-        <br >
+        <span>{{ $t('select.floors') }}</span>
+        <br />
         {{ data.apartments }}
-        <span>квартир</span>
+        <span>{{ $t('select.apts') }}</span>
       </p>
     </div>
   </main>

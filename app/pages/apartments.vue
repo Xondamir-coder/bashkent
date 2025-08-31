@@ -2,7 +2,7 @@
   <main class="apartments">
     <div class="apartments__top">
       <AppBreadcrumbs :crumbs="crumbs" />
-      <h1 class="heading-large apartments__title">Планировки</h1>
+      <h1 class="heading-large apartments__title">{{ $t('layouts') }}</h1>
     </div>
     <div class="apartments__container">
       <NuxtPicture src="/images/apts.png" alt="apartments banner" class="apartments__banner" />
@@ -24,13 +24,15 @@
 import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
 
+const { t } = useI18n();
+
 const crumbs = computed(() => [
   {
-    name: 'Plans',
+    name: t('apts'),
     path: '/apartments'
   },
   {
-    name: 'Plans',
+    name: t('apts'),
     path: '/apartments'
   }
 ]);

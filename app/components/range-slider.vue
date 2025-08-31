@@ -4,7 +4,7 @@
     <div class="range-slider__value">{{ model }}%</div>
 
     <!-- Slider -->
-    <input v-model="model" type="range" min="10" max="100" step="1" class="range-slider__input" />
+    <input v-model="model" type="range" min="10" max="100" step="1" class="range-slider__input" >
 
     <!-- Labels -->
     <div class="range-slider__labels">

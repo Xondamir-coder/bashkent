@@ -1,54 +1,36 @@
 <template>
   <main ref="containerRef" class="housing">
-    <div class="housing__box">
-      <div>
-        <div>Естественное</div>
-        <div>освещение и</div>
-        <div>вентиляция</div>
+    <div v-for="(box, i) in $tm('housing.boxes')" :key="i" class="housing__box">
+      <div v-if="box.variant1">
+        <div v-for="(line, j) in box.variant1" :key="j">
+          {{ $rt(line) }}
+        </div>
       </div>
-      <div>
-        <div>Естественное</div>
-        <div>освещение и</div>
-        <div>вентиляция</div>
+
+      <div v-if="box.variant2">
+        <div v-for="(line, j) in box.variant2" :key="j">
+          {{ $rt(line) }}
+        </div>
       </div>
-    </div>
-    <div class="housing__box">
-      <div>
-        <div>Возможность выбора</div>
-        <div>этажности и вида</div>
-      </div>
-      <div>
-        <div>Возможность</div>
-        <div>выбора</div>
-        <div>этажности и вида</div>
+
+      <div v-if="box.single">
+        {{ $rt(box.single) }}
       </div>
     </div>
-    <div class="housing__box">
-      <div>
-        <div>Эргономичная кухня,</div>
-        <div>балконы, гардеробные</div>
-      </div>
-      <div>
-        <div>Эргономичная</div>
-        <div>кухня, балконы,</div>
-        <div>гардеробные</div>
-      </div>
-    </div>
-    <div class="housing__box">
-      <div>Готовность к ремонту / готовый ремонт</div>
-    </div>
-    <NuxtPicture src="/images/housing-4.jpg" alt="housing 4" class="housing__banner" />
-    <NuxtPicture src="/images/housing-3.jpg" alt="housing 3" class="housing__banner" />
-    <NuxtPicture src="/images/housing-2.jpg" alt="housing 2" class="housing__banner" />
-    <NuxtPicture src="/images/housing.jpg" alt="housing banner" class="housing__banner" />
+
+    <NuxtPicture
+      v-for="(img, i) in $tm('housing.images')"
+      :key="i"
+      :src="$rt(img.src)"
+      :alt="$rt(img.alt)"
+      class="housing__banner"
+    />
   </main>
 </template>
 
 <script setup>
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-const router = useRouter();
 
 let tl;
 const containerRef = ref();
@@ -92,9 +74,9 @@ onUnmounted(() => {
 });
 useScrollPage(direction => {
   if (direction === 'next') {
-    router.push('/infrastructure');
+    useLocaleNavigate('/infrastructure');
   } else {
-    router.push('/formula');
+    useLocaleNavigate('/formula');
   }
 });
 </script>

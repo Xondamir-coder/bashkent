@@ -4,40 +4,39 @@
       <h2 class="heading-large">Меню</h2>
       <nav class="menu__nav">
         <NuxtLink
-          v-for="(link, index) in links"
+          v-for="(link, index) in $tm('menu.nav')"
           :key="index"
-          :to="link.path"
+          :to="$localePath($rt(link.path))"
           class="menu__link"
           active-class="active"
           @click="$emit('toggle-menu')"
         >
-          {{ link.name }}
+          {{ $rt(link.name) }}
         </NuxtLink>
       </nav>
     </div>
     <div class="menu__bottom">
       <div class="menu__bottom-header">
-        <h3 class="menu__subtitle">SOTUV OFISI</h3>
+        <h3 class="menu__subtitle">{{ $t('menu.office') }}</h3>
         <p>
-          100073, O‘zbekiston, Toshkent shahri, <br />
-          Yashnobod tumani, Jarqo‘rg‘on ko‘chasi, 47
+          {{ $t('menu.address') }}
         </p>
-        <p>Dushanba-Yakshanba: 9:00 dan 19:00 gacha</p>
+        <p>{{ $t('menu.timing') }}</p>
       </div>
       <div class="menu__list">
         <a class="menu__item" href="https://maps.app.goo.gl/jJozY1KSuyT9hoWu8" target="_blank">
           <SvgPin class="menu__item-icon" />
-          <span>Адрес:</span>
-          <span>г. Бухара,</span>
+          <span>{{ $t('address') }}:</span>
+          <span>{{ $t('menu.bukhara') }}</span>
         </a>
         <a class="menu__item" href="tel:+998 78 148 55 55">
           <SvgCallEnd class="menu__item-icon" />
-          <span>Телефон:</span>
+          <span>{{ $t('phone') }}:</span>
           <span>(78) 148-55-55</span>
         </a>
         <a class="menu__item" href="https://t.me/bashkent_residence">
           <SvgTelegram class="menu__item-icon" />
-          <span>Telegram:</span>
+          <span>{{ $t('telegram') }}:</span>
           <span>@bashkent_residence</span>
         </a>
       </div>
@@ -55,40 +54,6 @@
 </template>
 
 <script setup>
-const links = computed(() => [
-  {
-    name: 'Главная',
-    path: '/'
-  },
-  {
-    name: 'О проекте',
-    path: '/about'
-  },
-  {
-    name: 'Наши проекты',
-    path: '/portfolio'
-  },
-  {
-    name: 'Архитектура',
-    path: '/architecture'
-  },
-  {
-    name: 'Формулы успеха',
-    path: '/formula'
-  },
-  {
-    name: 'Жилой фонд',
-    path: '/housing'
-  },
-  {
-    name: 'Инфраструктура',
-    path: '/infrastructure'
-  },
-  {
-    name: 'Рядом с вами',
-    path: '/contacts'
-  }
-]);
 defineEmits(['toggle-modal', 'toggle-menu']);
 </script>
 
@@ -131,6 +96,11 @@ defineEmits(['toggle-modal', 'toggle-menu']);
   .menu__link,
   .menu__bottom {
     padding-left: max(3.2rem, 16px);
+  }
+  &__bottom {
+    p {
+      max-width: 30ch;
+    }
   }
   &__cta {
     display: flex;

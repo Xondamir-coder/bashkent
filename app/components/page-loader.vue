@@ -5,7 +5,7 @@
       <h2 ref="titleRef" class="heading-large page-loader__title">{{ data.title }}</h2>
       <div ref="textsContainerRef" class="page-loader__texts">
         <p v-for="text in data.texts" :key="text" ref="textsRef">
-          {{ text }}
+          {{ $rt(text) }}
         </p>
       </div>
       <div class="page-loader__bar" />

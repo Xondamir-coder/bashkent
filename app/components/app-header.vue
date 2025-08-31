@@ -4,13 +4,13 @@
     <button @click="$i18n.setLocale('en')">En</button>
     <button @click="$i18n.setLocale('uz')">Uz</button> -->
     <div class="header__left">
-      <NuxtLink to="/select" class="header__button">
+      <NuxtLink :to="$localePath('/select')" class="header__button">
         <SvgKeyboardArrowLeft class="header__button-icon" />
-        <span>{{ isPlanHeader ? 'Вернуться' : 'Выбрать квартиру' }}</span>
+        <span>{{ isPlanHeader ? $t('back') : $t('select-apt') }}</span>
       </NuxtLink>
       <button class="header__button">
         <SvgVideocam class="header__button-icon" />
-        <span>Онлайн-трансляция</span>
+        <span>{{ $t('live') }}</span>
       </button>
     </div>
     <button class="header__back" @click="$router.back()">
@@ -30,7 +30,7 @@
         </button>
       </div>
       <button class="header__button header__button--gold" @click="emits('toggle-modal')">
-        Записаться на встречу
+        {{ $t('book-appointment') }}
       </button>
     </div>
   </header>

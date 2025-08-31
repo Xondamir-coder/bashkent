@@ -1,27 +1,32 @@
 <template>
   <main class="portfolio">
     <PortfolioSection
-      v-for="(section, index) in data"
+      v-for="(section, index) in $tm('portfolio.items')"
       :key="index"
       ref="sectionRefs"
       :class="{ active: currentSection === index }"
-      :img-src="section.image"
-      :title="section.title"
-      :text="section.text"
+      :img-src="$rt(section.image)"
+      :title="$rt(section.title)"
+      :text="$rt(section.text)"
     />
   </main>
 </template>
 
 <script setup>
+// imports
 import gsap from 'gsap';
 import imgSrc1 from '/images/portfolio-1.jpg';
 import imgSrc2 from '/images/portfolio-2.jpg';
 
-const router = useRouter();
+// router and composables
+
 const { showPreloader, showPageLoader } = useLoader();
+
+// state
 let timelines;
 const sectionRefs = ref([]);
 const currentSection = ref(0);
+
 const data = computed(() => [
   {
     image: imgSrc1,
@@ -35,25 +40,23 @@ const data = computed(() => [
   }
 ]);
 
+// scroll/swipe helpers
 let startY = 0;
 let isLocked = false;
-const lockTime = 1000; // 1s cooldown
-const swipeThreshold = 60; // px for touch swipe
-const wheelThreshold = 30; // min delta for wheel/trackpad
+const lockTime = 1000;
+const swipeThreshold = 60;
+const wheelThreshold = 30;
 
 const lock = () => {
   isLocked = true;
   setTimeout(() => (isLocked = false), lockTime);
 };
 
-const atTop = () => {
-  return window.scrollY === 0;
-};
+const atTop = () => window.scrollY === 0;
+const atBottom = () =>
+  Math.ceil(window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight;
 
-const atBottom = () => {
-  return Math.ceil(window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight;
-};
-
+// scroll/swipe handler
 const handleScrollOrSwipe = e => {
   if (isLocked) return;
 
@@ -64,44 +67,43 @@ const handleScrollOrSwipe = e => {
     deltaY = e.deltaY;
   } else if (e.type === 'touchend') {
     const endY = e.changedTouches[0].clientY;
-    deltaY = startY - endY; // swipe up = positive deltaY
+    deltaY = startY - endY;
     if (Math.abs(deltaY) < swipeThreshold) return;
   }
 
   if (deltaY > 0 && atBottom()) {
-    // scrolling/swiping up
     if (currentSection.value === data.value.length - 1) {
-      router.push('/architecture');
-      lock();
-      return;
+      useLocaleNavigate('/architecture');
+      return lock();
     }
     currentSection.value++;
     lock();
   } else if (deltaY < 0 && atTop()) {
-    // scrolling/swiping down
     if (currentSection.value === 0) {
-      router.push('/about');
-      lock();
-      return;
+      useLocaleNavigate('/about');
+      return lock();
     }
     currentSection.value--;
     lock();
   }
 };
 
-// Swipe on touch devices
+// touch start handler
 const onTouchStart = e => {
   startY = e.touches[0].clientY;
 };
 
+// watchers
 watch(currentSection, (newVal, oldVal) => {
   if (timelines?.[oldVal]) timelines[oldVal].reverse();
   if (timelines?.[newVal]) timelines[newVal].play();
 });
+
 watch([showPreloader, showPageLoader], () => {
   if (!showPreloader.value && !showPageLoader.value) timelines[0].restart();
 });
 
+// lifecycle
 onMounted(() => {
   window.addEventListener('wheel', handleScrollOrSwipe, { passive: false });
   window.addEventListener('touchend', handleScrollOrSwipe, { passive: false });
@@ -130,10 +132,10 @@ onMounted(() => {
       },
       '-=0.5'
     );
-
     return tl;
   });
 });
+
 onUnmounted(() => {
   window.removeEventListener('wheel', handleScrollOrSwipe);
   window.removeEventListener('touchend', handleScrollOrSwipe);
@@ -141,9 +143,8 @@ onUnmounted(() => {
   timelines.forEach(tl => tl.kill());
 });
 
-useHead({
-  title: 'Portfolio'
-});
+// head
+useHead({ title: 'Portfolio' });
 </script>
 
 <style lang="scss" scoped>

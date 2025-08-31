@@ -2,17 +2,17 @@
   <main class="floor-plans">
     <div class="floor-plans__top">
       <AppBreadcrumbs :crumbs="crumbs" />
-      <h1 id="floor-plans-title" class="heading-large">Планировки</h1>
+      <h1 id="floor-plans-title" class="heading-large">{{ $t('layouts') }}</h1>
     </div>
     <div class="floor-plans__wrapper">
       <FloorPlansSidebar />
       <div class="floor-plans__container">
-        <span class="floor-plans__label">Доступно 99 квартир</span>
+        <span class="floor-plans__label">{{ $t('available-x-apartments', { count: 87 }) }}</span>
         <div class="floor-plans__list">
           <FloorPlansItem v-for="(item, index) in items" :key="index" :data="item" />
         </div>
         <button class="floor-plans__button">
-          <span>Смотреть ещё 87</span>
+          <span>{{ $t('see-more-x', { count: 6 }) }}</span>
           <SvgKeyboardArrowLeft class="floor-plans__arrow" />
         </button>
       </div>
@@ -25,13 +25,15 @@ import { SplitText } from 'gsap/SplitText';
 import imgSrc from '/images/apt-banner.png';
 import gsap from 'gsap';
 
+const { t } = useI18n();
+
 const crumbs = computed(() => [
   {
-    name: 'Выбрать квартиру',
+    name: t('select-apt'),
     path: '/select'
   },
   {
-    name: 'Планировки',
+    name: t('layouts'),
     path: '/advanced-search'
   }
 ]);

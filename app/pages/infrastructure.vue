@@ -25,10 +25,9 @@
       alt="cameras"
     />
     <div class="infrastructure__content">
-      <h2 class="heading-large">Безопасность нового поколения</h2>
+      <h2 class="heading-large">{{ $t('infrastructure.title') }}</h2>
       <p class="infrastructure__content-text">
-        Современные технологии, которые обеспечат защиту вашего дома и круглосуточный контроль за
-        территорией, создавая максимальный комфорт и безопасность для жителей.
+        {{ $t('infrastructure.text') }}
       </p>
     </div>
     <PageCounter v-model="currentPage" :pages="6" />
@@ -54,7 +53,6 @@ import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
 
 const { showPreloader, showPageLoader } = useLoader();
-const router = useRouter();
 
 const currentPage = ref(0);
 const containerRef = ref();
@@ -105,9 +103,9 @@ onMounted(() => {
 
 useScrollPage(direction => {
   if (direction === 'next') {
-    router.push('/contacts');
+    useLocaleNavigate('/contacts');
   } else {
-    router.push('/housing');
+    useLocaleNavigate('/housing');
   }
 });
 

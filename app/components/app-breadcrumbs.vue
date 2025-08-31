@@ -3,7 +3,7 @@
     <NuxtLink
       v-for="(crumb, index) in crumbs"
       :key="index"
-      :to="crumb.path"
+      :to="$localePath(crumb.path)"
       class="breadcrumbs__link"
     >
       <span>{{ crumb.name }}</span>

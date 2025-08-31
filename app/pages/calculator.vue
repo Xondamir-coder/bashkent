@@ -2,12 +2,12 @@
   <main class="calculator">
     <AppBreadcrumbs :crumbs />
     <div class="calculator__header">
-      <h1 class="heading-large">{{ $t('title') }}</h1>
-      <span>Рассчитайте стоимость своей квартиры</span>
+      <h1 class="heading-large">{{ $t('calculator.label') }}</h1>
+      <span>{{ $t('calculator.text') }}</span>
     </div>
     <div class="calculator__container">
       <div class="calculator__plan calculator-box">
-        <span class="calculator__label">Желаемая планировка</span>
+        <span class="calculator__label">{{ $t('calculator.desired-layout') }}</span>
         <FilterRow :no-label="true" fake-selected="1 комн. 48,76" />
         <div class="calculator__plan-box">
           <NuxtPicture src="/images/calc-apt.png" alt="apartment" class="calculator__plan-image" />
@@ -22,29 +22,29 @@
         </div>
       </div>
       <div class="calculator__params calculator-box">
-        <span class="calculator__label">Параметры расчета</span>
-        <FilterRow label="Этаж" fake-selected="1" />
-        <FilterRow label="Срок сдачи" fake-selected="2026" />
+        <span class="calculator__label">{{ $t('calculator.params') }}</span>
+        <FilterRow :label="$t('floor')" fake-selected="1" />
+        <FilterRow :label="$t('deadline')" fake-selected="2026" />
         <RangeSlider v-model="percentage" />
         <div class="calculator__params-bottom">
-          <span>Скидка: <span class="clr-teal">16%</span></span>
-          <span>Включено в стоимость</span>
+          <span>{{ $t('calculator.discount') }}: <span class="clr-teal">16%</span></span>
+          <span>{{ $t('calculator.included') }}</span>
         </div>
       </div>
-      <button class="calculator__button">Рассчитать стоимость</button>
+      <button class="calculator__button">{{ $t('calculator.calculate-price') }}</button>
     </div>
     <CalculatorResult />
     <div class="calculator__bottom">
-      <ColoredButton color="teal" text="Распечатать">
+      <ColoredButton color="teal" :text="$t('print')">
         <SvgPrint />
       </ColoredButton>
-      <ColoredButton color="orange" text="СКАЧАТЬ PDF">
+      <ColoredButton color="orange" :text="$t('download-pdf')">
         <SvgArticle />
       </ColoredButton>
-      <ColoredButton color="teal" text="Поделиться">
+      <ColoredButton color="teal" :text="$t('share')">
         <SvgShare />
       </ColoredButton>
-      <ColoredButton color="gold" text="Оставить заявку">
+      <ColoredButton color="gold" :text="$t('leave-enquiry')">
         <SvgCall />
       </ColoredButton>
     </div>
@@ -52,6 +52,8 @@
 </template>
 
 <script setup>
+const { t } = useI18n();
+
 const planDetails = computed(() => [
   {
     name: 'Площадь',
@@ -72,11 +74,11 @@ const planDetails = computed(() => [
 ]);
 const crumbs = computed(() => [
   {
-    name: 'Выбрать квартиру',
+    name: t('select-apt'),
     path: '/select'
   },
   {
-    name: 'Планировки',
+    name: t('calculator.label'),
     path: '/advanced-search'
   }
 ]);
@@ -101,10 +103,15 @@ useHead({
   gap: max(1.6rem, 12px);
   padding-bottom: max(3rem, 24px);
   &__bottom {
+    display: flex;
     margin-top: max(1.6rem, 4px);
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, max-content));
-    gap: max(2.4rem, 20px);
+    // display: grid;
+    // grid-template-columns: repeat(auto-fit, minmax(200px, max-content));
+    gap: max(6rem, 20px);
+    flex-wrap: wrap;
+    @media screen and (max-width: vars.$bp-small-mobile) {
+      flex-direction: column;
+    }
   }
   &__button {
     background-color: vars.$teal;

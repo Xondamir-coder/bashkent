@@ -4,19 +4,12 @@
     <div class="about__wrapper">
       <div class="about__header">
         <h2 ref="titleRef" class="heading-large">
-          Что такое <br >
-          Bashkent Residence?
+          {{ $t('about.title') }}
         </h2>
         <div class="about__header-content">
-          <p ref="textRef">
-            <b>Bashkent Residence</b> - это не просто жилой комплекс. Это - среда жизни, в которой
-            объединены современные стандарты архитектуры, продуманная инфраструктура, эстетика
-            городского комфорта и стремление к гармонии с окружающей средой.
-          </p>
+          <p ref="textRef"><b>Bashkent Residence</b> - {{ $t('about.text1') }}</p>
           <p ref="subtextRef">
-            Вдохновлённый успешным одноимённым проектом в Ташкенте, новый Bashkent Residence в
-            Бухаре вобрал в себя всё лучшее от столичного масштаба, адаптированное к уникальному
-            историческому и культурному контексту древнего города.
+            {{ $t('about.text2') }}
           </p>
         </div>
       </div>
@@ -30,8 +23,7 @@
         </button>
         <div class="about__box">
           <p>
-            Здесь пространство перестаёт быть просто квадратными метрами - оно становится
-            продолжением вашей личности, отражением вашего вкуса и заботы о будущем.
+            {{ $t('about.video-text') }}
           </p>
         </div>
       </div>
@@ -43,7 +35,6 @@
 import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
 
-const router = useRouter();
 const { showPreloader, showPageLoader } = useLoader();
 
 let tl;
@@ -128,9 +119,9 @@ watch([showPreloader, showPageLoader], () => {
 
 useScrollPage(direction => {
   if (direction === 'next') {
-    router.push('/portfolio');
+    useLocaleNavigate('/portfolio');
   } else {
-    router.push('/');
+    useLocaleNavigate('/');
   }
 });
 useHead({

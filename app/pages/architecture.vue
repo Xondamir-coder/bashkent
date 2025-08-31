@@ -2,26 +2,24 @@
   <main class="architecture" :class="{ hidden: showPreloader || showPageLoader }">
     <NuxtPicture src="/images/architecture-bg.jpg" alt="banner" class="architecture__banner" />
     <div class="architecture__content">
-      <h2 class="heading-large">Просторные террасы для отдыха и встреч</h2>
+      <h2 class="heading-large">{{ $t('architecture.title') }}</h2>
       <p class="architecture__content-text">
-        Наслаждайтесь панорамными видами и свежим воздухом на просторных террасах, расположенных
-        прямо над коммерческими помещениями — идеальное место для отдыха, встреч и приятного
-        времяпрепровождения
+        {{ $t('architecture.text') }}
       </p>
     </div>
     <div class="architecture__bottom">
       <div class="architecture__nav">
         <button
-          v-for="(name, i) in blockLinks"
+          v-for="(name, i) in $tm('architecture.nav')"
           :key="i"
           class="architecture__nav-item"
           :class="{ active: currentPage === i }"
           @click="changePage(i)"
         >
-          {{ name }}
+          {{ $rt(name) }}
         </button>
       </div>
-      <PageCounter v-model="currentPage" :pages="blockLinks.length" />
+      <PageCounter v-model="currentPage" :pages="$tm('architecture.nav').length" />
     </div>
   </main>
 </template>
@@ -31,18 +29,9 @@ import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
 
 const { showPreloader, showPageLoader } = useLoader();
-const router = useRouter();
 
 const currentPage = ref(0);
 
-const blockLinks = [
-  'Террасы',
-  'Панорамные окна',
-  'Фасадная подсветка',
-  'Велодорожки',
-  'Зона отдыха',
-  'Автостоянки'
-];
 let tl;
 
 watch([showPreloader, showPageLoader], () => {
@@ -91,9 +80,9 @@ const changePage = index => (currentPage.value = index);
 
 useScrollPage(direction => {
   if (direction === 'next') {
-    router.push('/formula');
+    useLocaleNavigate('/formula');
   } else {
-    router.push('/portfolio');
+    useLocaleNavigate('/portfolio');
   }
 });
 

@@ -1,6 +1,6 @@
 <template>
   <main class="contacts">
-    <h1 class="heading-large">Рядом с вами</h1>
+    <h1 class="heading-large">{{ $t('contacts.title') }}</h1>
     <SvgBigPattern class="contacts__pattern" />
     <div class="contacts__list">
       <button
@@ -30,48 +30,33 @@ import {
   SvgTrees
 } from '#components';
 
-const router = useRouter();
+const { tm, rt } = useI18n();
 
 const currentItem = ref(0);
-
 const changeItem = index => {
   currentItem.value = index;
 };
 
-const items = computed(() => [
-  {
-    name: 'Весь список',
-    icon: SvgStraightHam
-  },
-  {
-    name: 'ТРК И МАГАЗИНЫ',
-    icon: SvgCart
-  },
-  {
-    name: 'ГИМНАЗИИ И ШКОЛЫ',
-    icon: SvgBell
-  },
-  {
-    name: 'ПАРКИ И СКВЕРЫ ',
-    icon: SvgTrees
-  },
-  {
-    name: 'ВУЗЫ ',
-    icon: SvgSchool
-  },
-  {
-    name: 'ТЕАТРЫ ',
-    icon: SvgTheatherMasks
-  },
-  {
-    name: 'Культурные объекты и отдых',
-    icon: SvgBuilding
-  }
-]);
+const icons = [
+  SvgStraightHam,
+  SvgCart,
+  SvgBell,
+  SvgTrees,
+  SvgSchool,
+  SvgTheatherMasks,
+  SvgBuilding
+];
+const names = computed(() => tm('contacts.names'));
+const items = computed(() =>
+  icons.map((icon, i) => ({
+    icon,
+    name: rt(names.value[i])
+  }))
+);
 
 useScrollPage(direction => {
   if (direction === 'prev') {
-    router.push('/infrastructure');
+    useLocaleNavigate('/infrastructure');
   }
 });
 useHead({ title: 'Contacts' });

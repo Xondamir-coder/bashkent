@@ -29,7 +29,7 @@
           src="~/assets/images/home-flower.jpg"
           alt="home flower"
           class="home__content-bottom-image"
-        />
+        >
         <span ref="subtextRef">{{ $t('home.subtitle') }}</span>
       </div>
     </div>
@@ -41,7 +41,6 @@ import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
 
 const { showPreloader, showPageLoader } = useLoader();
-const router = useRouter();
 
 const titleRef = ref();
 const textRef = ref();
@@ -112,7 +111,7 @@ onUnmounted(() => {
 useHead({ title: 'Home' });
 useScrollPage(direction => {
   if (direction === 'next') {
-    router.push('/about');
+    useLocaleNavigate('/about');
   }
 });
 </script>

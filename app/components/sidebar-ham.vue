@@ -3,7 +3,7 @@
     <div class="ham">
       <div class="ham__bar" />
     </div>
-    <span class="ham__text">Меню</span>
+    <span class="ham__text">{{ $t('menu.label') }}</span>
   </button>
 </template>
 

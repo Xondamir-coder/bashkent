@@ -5,12 +5,12 @@
       <button class="contacts-modal__close" @click="emits('toggle-modal')">
         <SvgClose />
       </button>
-      <h3 class="contacts-modal__title">Ответим на все вопросы</h3>
+      <h3 class="contacts-modal__title">{{ $t('modal.title') }}</h3>
       <form class="contacts-modal__form" @submit.prevent="submitForm">
         <FormInput
           id="name-field"
           v-model="userData.name"
-          placeholder="Имя"
+          :placeholder="$t('modal.form.name')"
           type="text"
           required
           @input="sanitizeName"
@@ -18,25 +18,25 @@
         <FormInput
           id="tel-field"
           v-model="userData.tel"
-          placeholder="Номер телефона"
+          :placeholder="$t('modal.form.phone')"
           type="tel"
           required
         />
         <FormInput
           id="comment-field"
           v-model="userData.comment"
-          placeholder="Комментарий"
+          :placeholder="$t('modal.form.message')"
           :is-text-area="true"
           required
         />
         <div class="contacts-modal__form-bottom">
-          <button class="contacts-modal__button">Отправить</button>
-          <p>Я даю согласие на обработку персональных данных</p>
+          <button class="contacts-modal__button">{{ $t('modal.form.submit') }}</button>
+          <p>{{ $t('modal.form.copyright') }}</p>
         </div>
       </form>
       <div class="contacts-modal__info">
-        <img src="~/assets/images/man.jpg" alt="man" class="contacts-modal__image" >
-        <p>Rуководитель отдела продаж Сергей Обозный</p>
+        <img src="~/assets/images/man.jpg" alt="man" class="contacts-modal__image" />
+        <p>{{ $t('modal.form.author') }}</p>
       </div>
     </div>
   </div>
@@ -60,6 +60,7 @@ const sanitizeName = () => {
 
 <style lang="scss" scoped>
 .contacts-modal {
+  width: 100%;
   max-width: max(36.11111%, 450px);
   background-color: vars.$light-grey;
   padding: max(2.4rem, 24px);
@@ -87,6 +88,9 @@ const sanitizeName = () => {
     background-color: vars.$teal;
     border-radius: max(1.2rem, 8px);
     color: #fff;
+    &:hover {
+      background-color: vars.$teal-dark;
+    }
     @media screen and (max-width: vars.$bp-small-mobile) {
       max-width: 207px;
     }
@@ -123,7 +127,7 @@ const sanitizeName = () => {
     }
   }
   &__title {
-    max-width: 12ch;
+    max-width: 15ch;
     font-weight: bold;
     font-size: max(2.8rem, 28px);
     font-family: vars.$font-angst;

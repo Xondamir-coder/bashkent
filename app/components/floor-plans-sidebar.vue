@@ -1,17 +1,17 @@
 <template>
   <div class="sidebar">
     <button class="sidebar__button">
-      <span>Фильтры</span>
+      <span>{{ $t('filters') }}</span>
       <SvgFilter class="sidebar__button-icon" />
     </button>
     <div class="sidebar__top">
-      <span class="sidebar__label">Фильтры</span>
-      <button @click="resetFilters">Сбросить фильтры</button>
+      <span class="sidebar__label">{{ $t('filters') }}</span>
+      <button @click="resetFilters">{{ $t('reset-filters') }}</button>
     </div>
     <form class="sidebar__form" @submit.prevent="submitForm">
-      <FilterRow label="Этаж" fake-selected="1" />
-      <FilterRow label="Тип планировки" fake-selected="Студия" />
-      <FilterRow type="range" label="Площадь - м²">
+      <FilterRow :label="$t('floor')" fake-selected="1" />
+      <FilterRow :label="$t('layout-type')" fake-selected="Студия" />
+      <FilterRow type="range" :label="$t('area')">
         <div class="sidebar__form-rangebox">
           <div class="filter-item">
             <input
@@ -20,7 +20,7 @@
               name="area"
               class="sidebar__form-input"
               placeholder="от"
-            >
+            />
             <span>м²</span>
           </div>
           <div class="filter-item">
@@ -30,12 +30,12 @@
               name="area"
               class="sidebar__form-input"
               placeholder="до"
-            >
+            />
             <span>м²</span>
           </div>
         </div>
       </FilterRow>
-      <FilterRow type="numbers" label="Кол-во комнат">
+      <FilterRow type="numbers" :label="$t('number-of-rooms')">
         <div class="sidebar__form-numbers filter-item">
           <button
             v-for="number in 4"
@@ -48,10 +48,10 @@
           </button>
         </div>
       </FilterRow>
-      <FilterRow label="Тип жилья" fake-selected="С ремонтом" />
-      <FilterRow label="Срок сдачи" fake-selected="2025" />
+      <FilterRow :label="$t('type-of-housing')" fake-selected="С ремонтом" />
+      <FilterRow :label="$t('deadline')" fake-selected="2025" />
     </form>
-    <button class="sidebar__submit" @click="submitForm">Подбор</button>
+    <button class="sidebar__submit" @click="submitForm">{{ $t('apply-filter') }}</button>
   </div>
 </template>
 

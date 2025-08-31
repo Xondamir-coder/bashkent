@@ -8,7 +8,7 @@
     <SidebarHam :show-menu="showMenu" @click="emits('toggle-menu')" />
     <SvgSidebarPattern class="sidebar__pattern" />
     <div class="sidebar__bottom">
-      <span class="sidebar__bottom-text"> Калькулятор </span>
+      <span class="sidebar__bottom-text">{{ $t('calculator.label') }}</span>
       <GlassButton>
         <SvgCalculator />
       </GlassButton>
