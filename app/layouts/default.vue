@@ -38,17 +38,8 @@ const toggleContactsModal = () => {
 };
 
 // page loader
-const newPageName = ref('');
-const pageLoaderData = computed(() => data.value.find(item => item.name === newPageName.value));
-const data = computed(() =>
-  pages.map((page, i) => ({
-    name: page,
-    title: rt(tm('page-loader')[i].title),
-    texts: tm('page-loader')[i].texts
-  }))
-);
 const pages = [
-  'index',
+  // 'index',
   'about',
   'portfolio',
   'architecture',
@@ -57,6 +48,16 @@ const pages = [
   'infrastructure'
 ];
 const PAGE_LOADER_DURATION = 2;
+const newPageName = ref('');
+const pageLoaderData = computed(() => data.value.find(item => item.name === newPageName.value));
+const data = computed(() =>
+  pages.map((page, i) => ({
+    name: page,
+    title: rt(tm('page-loader')[i].title),
+    texts: tm('page-loader')[i].texts,
+    color: i % 2 === 0 ? 'yellow' : ''
+  }))
+);
 
 if (import.meta.client) {
   router.beforeEach((to, from, next) => {

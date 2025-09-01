@@ -22,16 +22,19 @@ export default defineNuxtConfig({
       {
         code: 'en',
         language: 'en-US',
+        name: 'Eng',
         file: 'en.json'
       },
       {
         code: 'ru',
         language: 'ru-RU',
+        name: 'Рус',
         file: 'ru.json'
       },
       {
         code: 'uz',
         language: 'uz-UZ',
+        name: "O'zb",
         file: 'uz.json'
       }
     ]

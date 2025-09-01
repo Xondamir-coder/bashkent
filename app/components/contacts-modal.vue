@@ -35,7 +35,7 @@
         </div>
       </form>
       <div class="contacts-modal__info">
-        <img src="~/assets/images/man.jpg" alt="man" class="contacts-modal__image" />
+        <img src="~/assets/images/man.jpg" alt="man" class="contacts-modal__image" >
         <p>{{ $t('modal.form.author') }}</p>
       </div>
     </div>

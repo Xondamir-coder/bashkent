@@ -9,9 +9,11 @@
     <SvgSidebarPattern class="sidebar__pattern" />
     <div class="sidebar__bottom">
       <span class="sidebar__bottom-text">{{ $t('calculator.label') }}</span>
-      <GlassButton>
-        <SvgCalculator />
-      </GlassButton>
+      <NuxtLink :to="$localePath('/calculator')">
+        <GlassButton>
+          <SvgCalculator />
+        </GlassButton>
+      </NuxtLink>
     </div>
   </div>
 </template>

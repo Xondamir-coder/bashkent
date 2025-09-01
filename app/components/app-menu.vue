@@ -44,10 +44,10 @@
     <div class="menu__cta">
       <button class="menu__button">
         <SvgVideocam class="menu__button-icon" />
-        <span>Онлайн-трансляция</span>
+        <span>{{ $t('live') }}</span>
       </button>
       <button class="menu__button" @click="$emit('toggle-modal')">
-        <span>Записаться на встречу</span>
+        <span>{{ $t('book-appointment') }}</span>
       </button>
     </div>
   </div>

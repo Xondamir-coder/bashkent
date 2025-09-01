@@ -4,7 +4,7 @@
     <button @click="$i18n.setLocale('en')">En</button>
     <button @click="$i18n.setLocale('uz')">Uz</button> -->
     <div class="header__left">
-      <NuxtLink :to="$localePath('/select')" class="header__button">
+      <NuxtLink :to="$localePath(isPlanHeader ? '/' : '/select')" class="header__button">
         <SvgKeyboardArrowLeft class="header__button-icon" />
         <span>{{ isPlanHeader ? $t('back') : $t('select-apt') }}</span>
       </NuxtLink>
@@ -25,7 +25,7 @@
       </a>
       <div class="header__dropdown">
         <button class="header__select">
-          <span>Рус</span>
+          <span>{{ $i18n.localeProperties.value.name }}</span>
           <SvgChevronDown class="header__select-icon" />
         </button>
       </div>

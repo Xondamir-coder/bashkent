@@ -12,7 +12,7 @@
         </ul>
       </div>
       <div class="apartment__middle">
-        <img :src="apartmentData.img" alt="apartment banner" class="apartment__banner" />
+        <img :src="apartmentData.img" alt="apartment banner" class="apartment__banner" >
         <PageNav v-model="currentPage" :pages="[1, 2, 3, 4]" />
       </div>
       <ul class="apartment__details apartment__details--mobile">
