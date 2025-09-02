@@ -4,10 +4,13 @@
     <button @click="$i18n.setLocale('en')">En</button>
     <button @click="$i18n.setLocale('uz')">Uz</button> -->
     <div class="header__left">
-      <NuxtLink :to="$localePath(isPlanHeader ? '/' : '/select')" class="header__button">
+      <button
+        class="header__button"
+        @click="isPlanHeader ? $router.back() : navigateTo($localePath('/select'))"
+      >
         <SvgKeyboardArrowLeft class="header__button-icon" />
         <span>{{ isPlanHeader ? $t('back') : $t('select-apt') }}</span>
-      </NuxtLink>
+      </button>
       <button class="header__button">
         <SvgVideocam class="header__button-icon" />
         <span>{{ $t('live') }}</span>

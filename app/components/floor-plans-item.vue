@@ -1,5 +1,5 @@
 <template>
-  <div class="item">
+  <NuxtLink :to="$localePath('/apartment')" class="item">
     <div class="item__top">
       <span class="item__label">
         {{ data.type }}
@@ -23,7 +23,7 @@
         {{ tag.text }}
       </span>
     </div>
-  </div>
+  </NuxtLink>
 </template>
 
 <script setup>
@@ -44,6 +44,10 @@ defineProps({
   flex-direction: column;
   align-items: flex-start;
   gap: max(1.6rem, 12px);
+  transition: all vars.$dt;
+  &:hover {
+    box-shadow: 0px 4px 32px 0px #0000001f;
+  }
   &__tags {
     display: flex;
     gap: max(1rem, 10px);
