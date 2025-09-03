@@ -1,11 +1,25 @@
 <template>
   <main class="architecture" :class="{ hidden: showPreloader || showPageLoader }">
-    <NuxtPicture src="/images/architecture-bg.jpg" alt="banner" class="architecture__banner" />
-    <div class="architecture__content">
-      <h2 class="heading-large">{{ $t('architecture.title') }}</h2>
-      <p class="architecture__content-text">
-        {{ $t('architecture.text') }}
-      </p>
+    <NuxtPicture
+      v-for="(pic, index) in pics"
+      :key="index"
+      :src="`/images/${pic}`"
+      alt="banner"
+      class="architecture__banner"
+      :class="{ hidden: index !== currentPage }"
+    />
+    <div class="architecture__box">
+      <div
+        v-for="(content, index) in contents"
+        :key="index"
+        class="architecture__content"
+        :class="{ hidden: index !== currentPage }"
+      >
+        <h2 class="heading-large">{{ content.title }}</h2>
+        <p class="architecture__content-text">
+          {{ content.text }}
+        </p>
+      </div>
     </div>
     <div class="architecture__bottom">
       <div class="architecture__nav">
@@ -28,20 +42,53 @@
 import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
 
+// Composables
 const { showPreloader, showPageLoader } = useLoader();
+const { tm, t } = useI18n();
 
+// State
 const currentPage = ref(0);
+const changePage = index => (currentPage.value = index);
 
-let tl;
+const pics = [
+  'architecture-bg.jpg',
+  'housing.jpg',
+  'architecture-bg.jpg',
+  'housing.jpg',
+  'architecture-bg.jpg',
+  'housing.jpg'
+];
+const contents = computed(() =>
+  Array(tm('architecture.nav').length).fill({
+    title: t('architecture.title'),
+    text: t('architecture.text')
+  })
+);
 
+// GSAP timeline
+const tl = gsap.timeline();
+
+// Watchers
 watch([showPreloader, showPageLoader], () => {
-  if (!showPreloader.value && !showPageLoader.value) tl.restart();
+  if (!showPreloader.value && !showPageLoader.value) {
+    tl.restart();
+  }
 });
+const handleKeyup = e => {
+  if (e.key === 'ArrowRight' && currentPage.value < tm('architecture.nav').length - 1) {
+    changePage(currentPage.value + 1);
+  }
+  if (e.key === 'ArrowLeft' && currentPage.value > 0) {
+    changePage(currentPage.value - 1);
+  }
+};
 
+// Lifecycle
 onMounted(() => {
-  tl = gsap.timeline();
+  document.addEventListener('keyup', handleKeyup);
 
-  SplitText.create('.architecture h2', {
+  // Animate title
+  SplitText.create('.architecture__content:first-child h2', {
     type: 'words',
     mask: 'words',
     onSplit: self => {
@@ -57,7 +104,8 @@ onMounted(() => {
     }
   });
 
-  SplitText.create('.architecture .architecture__content-text', {
+  // Animate text
+  SplitText.create('.architecture__content:first-child .architecture__content-text', {
     type: 'lines',
     mask: 'lines',
     onSplit: self => {
@@ -75,9 +123,12 @@ onMounted(() => {
     }
   });
 });
+onUnmounted(() => {
+  document.removeEventListener('keyup', handleKeyup);
+  if (tl) tl.kill();
+});
 
-const changePage = index => (currentPage.value = index);
-
+// Scroll navigation
 useScrollPage(direction => {
   if (direction === 'next') {
     useLocaleNavigate('/formula');
@@ -86,6 +137,7 @@ useScrollPage(direction => {
   }
 });
 
+// Head meta
 useHead({
   title: 'Architecture'
 });
@@ -118,6 +170,10 @@ useHead({
     inset: 0;
     width: 100%;
     height: 100%;
+    &.hidden > * {
+      opacity: 0;
+      transform: scale(1.05);
+    }
     & > * {
       transition: all 1s;
       object-position: 34%;
@@ -173,16 +229,29 @@ useHead({
       }
     }
   }
-  &__content {
+  &__box {
+    display: grid;
     min-width: max(343px, 34.3rem);
     margin-block: auto;
+    @media screen and (min-width: vars.$bp-large-mobile) {
+      max-width: 42%;
+    }
+    & > * {
+      grid-area: 1/1/2/2;
+    }
+  }
+  &__content {
     display: flex;
     flex-direction: column;
     gap: max(2.4rem, 24px);
     color: #fff;
-    @media screen and (min-width: vars.$bp-large-mobile) {
-      max-width: 42%;
+    transition: all 1s;
+    &.hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(15%);
     }
+
     @media screen and (max-width: vars.$bp-large-mobile) {
       margin-top: auto;
       margin-bottom: max(6rem, 60px);

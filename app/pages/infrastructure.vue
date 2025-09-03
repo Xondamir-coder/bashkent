@@ -24,11 +24,18 @@
       src="/images/camera.png"
       alt="cameras"
     />
-    <div class="infrastructure__content">
-      <h2 class="heading-large">{{ $t('infrastructure.title') }}</h2>
-      <p class="infrastructure__content-text">
-        {{ $t('infrastructure.text') }}
-      </p>
+    <div class="infrastructure__content-box">
+      <div
+        v-for="(content, index) in contents"
+        :key="index"
+        class="infrastructure__content"
+        :class="{ hidden: index !== currentPage }"
+      >
+        <h2 class="heading-large">{{ content.title }}</h2>
+        <p class="infrastructure__content-text">
+          {{ content.text }}
+        </p>
+      </div>
     </div>
     <PageCounter v-model="currentPage" :pages="6" />
     <div class="infrastructure__box">
@@ -52,22 +59,49 @@
 import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
 
+// Composables
 const { showPreloader, showPageLoader } = useLoader();
+const { t } = useI18n();
 
+// State
 const currentPage = ref(0);
 const containerRef = ref();
+const tl = gsap.timeline();
 
-let tl;
+const contents = computed(() =>
+  Array(6).fill({
+    title: t('infrastructure.title'),
+    text: t('infrastructure.text')
+  })
+);
 
+// Functions
+const changePage = newPage => (currentPage.value = newPage);
+
+const handleKeyup = e => {
+  if (e.key === 'ArrowRight' && currentPage.value < 5) {
+    changePage(currentPage.value + 1);
+  }
+  if (e.key === 'ArrowLeft' && currentPage.value > 0) {
+    changePage(currentPage.value - 1);
+  }
+};
+
+// Watchers
 watch([showPreloader, showPageLoader], () => {
-  if (!showPreloader.value && !showPageLoader.value) tl.restart();
+  if (!showPreloader.value && !showPageLoader.value) {
+    tl.restart();
+  }
 });
 
+// Effects
 useImageParallax(containerRef, { selector: '.infrastructure__parallax' });
 
 onMounted(() => {
-  tl = gsap.timeline();
-  SplitText.create('.infrastructure h2', {
+  document.addEventListener('keyup', handleKeyup);
+
+  // Animate title
+  SplitText.create('.infrastructure__content:first-of-type h2', {
     type: 'words',
     mask: 'words',
     onSplit: self => {
@@ -81,7 +115,9 @@ onMounted(() => {
       });
     }
   });
-  SplitText.create('.infrastructure__content-text', {
+
+  // Animate text
+  SplitText.create('.infrastructure__content:first-of-type p', {
     type: 'lines',
     mask: 'lines',
     onSplit: self => {
@@ -101,6 +137,12 @@ onMounted(() => {
   });
 });
 
+onUnmounted(() => {
+  document.removeEventListener('keyup', handleKeyup);
+  tl.kill();
+});
+
+// Scroll navigation
 useScrollPage(direction => {
   if (direction === 'next') {
     useLocaleNavigate('/contacts');
@@ -109,6 +151,7 @@ useScrollPage(direction => {
   }
 });
 
+// Head meta
 useHead({
   title: 'Infrastructure'
 });
@@ -121,6 +164,7 @@ useHead({
   position: relative;
   align-items: center;
   overflow: hidden;
+  padding-bottom: max(3.2rem, 16px);
   @media screen and (max-width: 900px) {
     padding-inline: var(--block-spacing);
   }
@@ -199,6 +243,7 @@ useHead({
     }
   }
   &__pattern {
+    z-index: -1;
     width: max(56.4%, 437px);
     left: 50%;
     transform: translate(-50%, 0);
@@ -215,13 +260,30 @@ useHead({
     margin-bottom: max(3.2rem, 16px);
   }
   &__content {
-    z-index: 3;
-    margin-block: auto;
     display: flex;
     align-items: center;
     flex-direction: column;
     gap: max(2.4rem, 24px);
     text-align: center;
+    & > * {
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    &.hidden {
+      pointer-events: none;
+
+      & > *:first-child {
+        opacity: 0;
+        transform: scale(1.15) translateY(-10px);
+        filter: blur(4px);
+      }
+
+      & > *:last-child {
+        opacity: 0;
+        transform: scale(0.85) translateY(10px);
+        filter: blur(4px);
+      }
+    }
+
     @media screen and (min-width: 768px) {
       max-width: max(53.3rem, 343px);
     }
@@ -230,6 +292,14 @@ useHead({
       background-color: rgba(#fff, 0.3);
       backdrop-filter: blur(5px);
       border-radius: 12px;
+    }
+    &-box {
+      margin-block: auto;
+      z-index: 3;
+      display: grid;
+      & > * {
+        grid-area: 1/1/2/2;
+      }
     }
     &-text {
       font-size: max(1.8rem, 14px);
