@@ -16,7 +16,7 @@ pages:
   # - pm2 delete chorvoqdarvozasi
   - NODE_OPTIONS="--max-old-space-size=1024" npm run build
   # - pm2 restart chorvoqdarvozasi
-   - pm2 start .output/server/index.mjs --name bashkent --env PORT=3001
+  - pm2 start .output/server/index.mjs --name bashkent --env PORT=3001
   artifacts:
     paths:
     - ./*
