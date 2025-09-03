@@ -1,21 +1,24 @@
 <template>
   <main class="contacts">
-    <h1 class="heading-large">{{ $t('contacts.title') }}</h1>
-    <SvgBigPattern class="contacts__pattern" />
-    <div class="contacts__list">
-      <button
-        v-for="(item, index) in items"
-        :key="index"
-        class="contacts__button"
-        :class="{ active: index === currentItem }"
-        @click="changeItem(index)"
-      >
-        <div class="contacts__button-box">
-          <component :is="item.icon" class="contacts__button-icon" />
-        </div>
-        <span>{{ item.name }}</span>
-      </button>
+    <div class="contacts__content">
+      <h1 class="heading-large">{{ $t('contacts.title') }}</h1>
+      <SvgBigPattern class="contacts__pattern" />
+      <div class="contacts__list">
+        <button
+          v-for="marker in markers"
+          :key="marker.id"
+          class="contacts__button"
+          :class="{ active: currentMarkers.includes(marker.id) }"
+          @click="changeItem(marker.id)"
+        >
+          <div class="contacts__button-box">
+            <component :is="marker.icon" class="contacts__button-icon" />
+          </div>
+          <span>{{ marker.name }}</span>
+        </button>
+      </div>
     </div>
+    <ContactsMap v-model="currentMarkers" :markers :center />
   </main>
 </template>
 
@@ -32,24 +35,56 @@ import {
 
 const { tm, rt } = useI18n();
 
-const currentItem = ref(0);
+const currentMarkers = ref([0]);
+
 const changeItem = index => {
-  currentItem.value = index;
+  if (index !== 0 && currentMarkers.value.includes(0)) {
+    currentMarkers.value.splice(0, 1);
+  }
+  if (currentMarkers.value.includes(index)) {
+    currentMarkers.value = currentMarkers.value.filter(i => i !== index);
+    return;
+  }
+  currentMarkers.value.push(index);
 };
 
-const icons = [
-  SvgStraightHam,
-  SvgCart,
-  SvgBell,
-  SvgTrees,
-  SvgSchool,
-  SvgTheatherMasks,
-  SvgBuilding
-];
+const center = [39.766295, 64.433676];
+const data = computed(() => [
+  {
+    icon: SvgStraightHam,
+    coords: [39.749189, 64.42201]
+  },
+  {
+    icon: SvgCart,
+    coords: [39.768567, 64.438233]
+  },
+  {
+    icon: SvgBell,
+    coords: [39.801709, 64.402136]
+  },
+  {
+    icon: SvgTrees,
+    coords: [39.753328, 64.354371]
+  },
+  {
+    icon: SvgSchool,
+    coords: [39.841044, 64.47802]
+  },
+  {
+    icon: SvgTheatherMasks,
+    coords: [39.704466, 64.435547]
+  },
+  {
+    icon: SvgBuilding,
+    coords: [39.745586, 64.611865]
+  }
+]);
+
 const names = computed(() => tm('contacts.names'));
-const items = computed(() =>
-  icons.map((icon, i) => ({
-    icon,
+const markers = computed(() =>
+  data.value.map((obj, i) => ({
+    ...obj,
+    id: i,
     name: rt(names.value[i])
   }))
 );
@@ -66,22 +101,28 @@ useHead({ title: 'Contacts' });
 .contacts {
   @include mix.block-padding;
   padding-top: calc(var(--header-height) + max(3.2rem, 30px));
-  display: flex;
-  flex-direction: column;
-  gap: max(3.2rem, 20px);
   position: relative;
+  overflow: hidden;
+  display: flex;
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: max(3.2rem, 20px);
+  }
   &__pattern {
     position: absolute;
     left: 0;
     bottom: 0;
-    z-index: -1;
+    z-index: 6;
     width: 56%;
     transform: translate(-15%, 37%);
+    z-index: 11;
     @media screen and (max-width: vars.$bp-large-mobile) {
       display: none;
     }
   }
   &__list {
+    z-index: 12;
     align-self: flex-start;
     display: flex;
     align-items: flex-start;

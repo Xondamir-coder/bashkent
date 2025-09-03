@@ -1,7 +1,13 @@
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
-  modules: ['@nuxt/eslint', '@nuxtjs/google-fonts', '@nuxt/image', '@nuxtjs/i18n'],
+  modules: [
+    '@nuxt/eslint',
+    '@nuxtjs/google-fonts',
+    '@nuxt/image',
+    '@nuxtjs/i18n',
+    '@nuxtjs/leaflet'
+  ],
   css: ['~/assets/scss/main.scss'],
   googleFonts: {
     display: 'swap',
