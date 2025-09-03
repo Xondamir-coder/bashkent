@@ -102,8 +102,9 @@ useHead({ title: 'Contacts' });
   @include mix.block-padding;
   padding-top: calc(var(--header-height) + max(3.2rem, 30px));
   position: relative;
-  overflow: hidden;
   display: flex;
+  overflow: hidden;
+  max-height: 100vh;
   &__content {
     display: flex;
     flex-direction: column;
@@ -115,7 +116,7 @@ useHead({ title: 'Contacts' });
     bottom: 0;
     z-index: 6;
     width: 56%;
-    transform: translate(-15%, 37%);
+    transform: translate(-15%, 50%);
     z-index: 11;
     @media screen and (max-width: vars.$bp-large-mobile) {
       display: none;
@@ -128,6 +129,14 @@ useHead({ title: 'Contacts' });
     align-items: flex-start;
     flex-direction: column;
     gap: max(3.2rem, 20px);
+    @media screen and (min-width: vars.$bp-large-mobile) {
+      overflow-y: auto;
+      flex: 1;
+      scroll-snap-type: y mandatory;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
     @media screen and (max-width: vars.$bp-large-mobile) {
       display: grid;
       align-self: stretch;

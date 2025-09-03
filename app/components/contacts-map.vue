@@ -62,12 +62,12 @@ const filteredMarkers = computed(() =>
   &::after {
     content: '';
     position: absolute;
-    width: 70%;
+    width: 50%;
     height: 100%;
-    background: linear-gradient(304.81deg, rgba(255, 255, 255, 0) 36.36%, #ffffff 79.5%);
+    background: linear-gradient(270deg, rgba(255, 255, 255, 0) 36.36%, #fff 85.5%);
     left: 0;
     top: 0;
-    z-index: 10;
+    z-index: 6;
     pointer-events: none;
   }
 }
