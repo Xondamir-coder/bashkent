@@ -10,13 +10,13 @@ pages:
   - ls -la
   # - export PM2_HOME=/home/ubuntu/.pm2
   - pm2 status
-  # - pm2 delete bashkent
+  - pm2 delete bashkent
   # - pm2 status
   # - pm2 restart bashkent 
   # - pm2 delete bashkent
   - NODE_OPTIONS="--max-old-space-size=1024" npm run build
-  - pm2 restart bashkent
-  # - pm2 start .output/server/index.mjs --name bashkent --env PORT=3001
+  # - pm2 restart bashkent
+  - PORT=3001 pm2 start .output/server/index.mjs --name bashkent
   artifacts:
     paths:
     - ./*
