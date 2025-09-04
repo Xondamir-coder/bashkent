@@ -18,7 +18,7 @@
       </div>
     </div>
 
-    <NuxtPicture
+    <img
       v-for="(img, i) in $tm('housing.images')"
       :key="i"
       :src="$rt(img.src)"

@@ -10,7 +10,7 @@
         <span class="calculator__label">{{ $t('calculator.desired-layout') }}</span>
         <FilterRow :no-label="true" fake-selected="1 комн. 48,76" />
         <div class="calculator__plan-box">
-          <NuxtPicture src="/images/calc-apt.png" alt="apartment" class="calculator__plan-image" />
+          <img src="/images/calc-apt.png" alt="apartment" class="calculator__plan-image" />
           <ul class="calculator__plan-details">
             <DetailsItem
               v-for="(detail, i) in planDetails"

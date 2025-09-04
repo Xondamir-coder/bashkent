@@ -10,11 +10,7 @@
         <p class="formula__item-text">
           {{ $rt(item.text) }}
         </p>
-        <NuxtPicture
-          src="/images/formula-1.jpg"
-          :alt="$rt(item.text)"
-          class="formula__item-image"
-        />
+        <img src="/images/formula-1.jpg" :alt="$rt(item.text)" class="formula__item-image" />
       </li>
     </ul>
   </main>
