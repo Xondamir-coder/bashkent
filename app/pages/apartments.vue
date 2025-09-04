@@ -5,7 +5,7 @@
       <h1 class="heading-large apartments__title">{{ $t('layouts') }}</h1>
     </div>
     <div class="apartments__container">
-      <NuxtPicture src="/images/apts.png" alt="apartments banner" class="apartments__banner" />
+      <img src="/images/apts.png" alt="apartments banner" class="apartments__banner" />
       <div class="apartments__numbers">
         <button
           v-for="number in [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]"

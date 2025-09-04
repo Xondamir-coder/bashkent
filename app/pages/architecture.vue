@@ -1,6 +1,6 @@
 <template>
   <main class="architecture" :class="{ hidden: showPreloader || showPageLoader }">
-    <NuxtPicture
+    <img
       v-for="(pic, index) in pics"
       :key="index"
       :src="`/images/${pic}`"

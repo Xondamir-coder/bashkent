@@ -6,19 +6,19 @@
   >
     <SvgFadingPattern class="infrastructure__pattern" />
     <SvgFadingPattern class="infrastructure__pattern" />
-    <NuxtPicture
+    <img
       data-depth="0.4"
       class="infrastructure__parallax infrastructure__picture"
       src="/images/picnic.jpg"
       alt="picnic"
     />
-    <NuxtPicture
+    <img
       data-depth="0.45"
       class="infrastructure__parallax infrastructure__picture"
       src="/images/hugging.jpg"
       alt="hugging"
     />
-    <NuxtPicture
+    <img
       data-depth="0.8"
       class="infrastructure__parallax infrastructure__picture"
       src="/images/camera.png"
@@ -39,13 +39,13 @@
     </div>
     <PageCounter v-model="currentPage" :pages="6" />
     <div class="infrastructure__box">
-      <NuxtPicture
+      <img
         data-depth=".2"
         class="infrastructure__parallax infrastructure__box-picture"
         src="/images/street.jpg"
         alt="street"
       />
-      <NuxtPicture
+      <img
         data-depth="0.5"
         class="infrastructure__parallax infrastructure__box-picture"
         src="/images/tree.png"

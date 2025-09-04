@@ -4,11 +4,7 @@
       <SvgClose />
     </GlassButton>
     <div class="masterplan__wrapper">
-      <NuxtPicture
-        src="/images/masterplan.jpg"
-        alt="masterplan banner"
-        class="masterplan__picture"
-      />
+      <img src="/images/masterplan.jpg" alt="masterplan banner" class="masterplan__picture" />
       <svg
         class="masterplan__overlay"
         xmlns="http://www.w3.org/2000/svg"
@@ -35,7 +31,7 @@
       <p>
         {{ data.floors }}
         <span>{{ $t('select.floors') }}</span>
-        <br >
+        <br />
         {{ data.apartments }}
         <span>{{ $t('select.apts') }}</span>
       </p>
