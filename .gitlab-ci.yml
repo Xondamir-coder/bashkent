@@ -2,7 +2,7 @@ image: node:18
 pages:  
   stage: deploy  
   before_script:
-  - npm -v
+  - export PM2_HOME=/root/.pm2
   # - pm2 status
   script:
   - cp -r -u * /var/www/bashkent.projectview.uz
@@ -14,8 +14,8 @@ pages:
   # - pm2 status
   # - pm2 restart bashkent 
   # - pm2 delete bashkent
-  # - NODE_OPTIONS="--max-old-space-size=1024" npm run build
-  # - pm2 restart bashkent
+  - NODE_OPTIONS="--max-old-space-size=1024" npm run build
+  - pm2 restart bashkent
   # - PORT=3001 pm2 start .output/server/index.mjs --name bashkent
   artifacts:
     paths:
