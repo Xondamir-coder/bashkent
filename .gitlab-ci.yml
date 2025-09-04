@@ -15,8 +15,8 @@ pages:
   # - pm2 restart bashkent 
   # - pm2 delete bashkent
   - NODE_OPTIONS="--max-old-space-size=1024" npm run build
-  - pm2 restart bashkent
-  # - PORT=3001 pm2 start .output/server/index.mjs --name bashkent
+  # - pm2 restart bashkent
+  - PORT=3001 pm2 start .output/server/index.mjs --name bashkent
   artifacts:
     paths:
     - ./*
