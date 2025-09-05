@@ -1,0 +1,1 @@
+import{_ as e,c as o,o as n,a,O as _}from"./BN17mzRD.js";const c={class:"glass-button__icon"},l={__name:"GlassButton",emits:["click"],setup(r){return(s,t)=>(n(),o("button",{class:"glass-button",onClick:t[0]||(t[0]=i=>s.$emit("click"))},[a("div",c,[_(s.$slots,"default",{},void 0)])]))}},d=e(l,[["__scopeId","data-v-7e53656f"]]);export{d as _};
