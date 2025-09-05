@@ -3,6 +3,8 @@ let isGlobalLocked = false;
 let globalUnlockTimer = null;
 
 export default callback => {
+  if (!import.meta.client) return;
+
   let touchStartY = 0;
   const lockTime = 3000; // 3s minimum lock
   const minDelta = 30; // threshold for trackpad/touch

@@ -14,10 +14,10 @@
         </div>
       </div>
       <div class="about__container">
-        <img src="/images/home/buildings.jpg" class="about__image" />
-        <img src="/images/home/tree-top.png" class="about__picture" />
-        <img src="/images/home/light.png" class="about__picture" />
-        <img src="/images/home/tree-2.png" class="about__picture" />
+        <NuxtPicture src="/images/home/buildings.jpg" class="about__image" />
+        <NuxtPicture src="/images/home/tree-top.png" class="about__picture" />
+        <NuxtPicture src="/images/home/light.png" class="about__picture" />
+        <NuxtPicture src="/images/home/tree-2.png" class="about__picture" />
         <button class="about__play">
           <SvgVideoPlayText />
         </button>

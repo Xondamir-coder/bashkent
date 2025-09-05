@@ -1,10 +1,10 @@
 <template>
-  <div class="page-loader" :class="{ yellow: data.color === 'yellow' }">
-    <SvgRadialGradientBg :class="{ yellow: data.color === 'yellow' }" />
+  <div class="page-loader" :class="{ yellow: data?.color === 'yellow' }">
+    <SvgRadialGradientBg :class="{ yellow: data?.color === 'yellow' }" />
     <div class="page-loader__content">
-      <h2 ref="titleRef" class="heading-large page-loader__title">{{ data.title }}</h2>
+      <h2 ref="titleRef" class="heading-large page-loader__title">{{ data?.title }}</h2>
       <div ref="textsContainerRef" class="page-loader__texts">
-        <p v-for="text in data.texts" :key="text" ref="textsRef">
+        <p v-for="text in data?.texts" :key="text" ref="textsRef">
           {{ $rt(text) }}
         </p>
       </div>
@@ -25,45 +25,33 @@ onMounted(() => {
   gsap.set(titleRef.value, { opacity: 1 });
   gsap.set(textsContainerRef.value, { opacity: 1 });
 
-  const titleSplit = SplitText.create(titleRef.value, {
+  SplitText.create(titleRef.value, {
     type: 'chars, words',
-    mask: 'chars'
-  });
-  const textsSplit = Array.from(textsRef.value).map(text =>
-    SplitText.create(text, {
-      type: 'lines',
-      mask: 'lines'
-    })
-  );
-
-  const tl = gsap.timeline();
-
-  // animate title
-  tl.from(titleSplit.chars, {
-    duration: 0.6,
-    yPercent: 'random([-100, 100])',
-    xPercent: 'random([-100, 100])',
-    stagger: {
-      from: 'random',
-      amount: 0.6
-    },
-    ease: 'power3.out'
-  });
-
-  // animate texts one by one, sequentially
-  textsSplit.forEach(split => {
-    tl.from(
-      split.lines,
-      {
-        yPercent: 100,
+    mask: 'chars',
+    onSplit: self => {
+      gsap.from(self.chars, {
+        duration: 0.6,
+        yPercent: 'random([-100, 100])',
+        xPercent: 'random([-100, 100])',
         stagger: {
-          each: 0.1,
-          from: 0
+          from: 'random',
+          amount: 0.6
         },
         ease: 'power3.out'
-      },
-      '-=0.5'
-    ); // 👈 no offset, so it plays after the previous one
+      });
+    }
+  });
+  SplitText.create(textsRef.value, {
+    type: 'lines',
+    mask: 'lines',
+    onSplit: self => {
+      gsap.from(self.lines, {
+        delay: 0.3,
+        yPercent: 100,
+        stagger: 0.1,
+        ease: 'power3.out'
+      });
+    }
   });
 });
 

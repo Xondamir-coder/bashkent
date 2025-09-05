@@ -9,7 +9,8 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "lint": "eslint .",
-    "lint:fix": "eslint --fix"
+    "lint:fix": "eslint --fix",
+    "push": "nuxt generate && git push"
   },
   "dependencies": {
     "@nuxt/eslint": "^1.9.0",
@@ -20,7 +21,6 @@
     "eslint": "^9.33.0",
     "gsap": "^3.13.0",
     "nuxt": "^4.0.3",
-    "parallax-js": "^3.1.0",
     "vue": "^3.5.18",
     "vue-router": "^4.5.1"
   },

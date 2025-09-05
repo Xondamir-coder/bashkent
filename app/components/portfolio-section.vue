@@ -7,7 +7,7 @@
         {{ text }}
       </p>
     </div>
-    <img :src="imgSrc" alt="section banner" class="portfolio-section__image" />
+    <NuxtPicture :src="imgSrc" alt="section banner" class="portfolio-section__image" />
   </section>
 </template>
 

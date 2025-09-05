@@ -3,9 +3,11 @@
     <Transition name="scale-out">
       <AppPreloader v-if="showPreloader" />
     </Transition>
-    <Transition name="scale-out">
-      <PageLoader v-if="showPageLoader" :data="pageLoaderData" />
-    </Transition>
+    <ClientOnly>
+      <Transition name="scale-out">
+        <PageLoader v-if="showPageLoader" :data="pageLoaderData" />
+      </Transition>
+    </ClientOnly>
     <AppHeader v-if="isHeaderPresent" @toggle-modal="toggleContactsModal" />
     <Transition name="slide-in">
       <AppMenu v-if="showMenu" @toggle-modal="toggleContactsModal" @toggle-menu="toggleMenu" />
@@ -19,10 +21,11 @@
 </template>
 
 <script setup>
-const { showPreloader, showPageLoader, togglePageLoader } = useLoader();
+const { showPreloader, showPageLoader } = useLoader();
 const route = useRoute();
-const router = useRouter();
 const { tm, rt } = useI18n();
+const newPageName = useState('newPageName');
+const pages = useState('pages');
 
 const isHeaderPresent = computed(() => !route.path.includes('/select'));
 
@@ -38,47 +41,17 @@ const toggleContactsModal = () => {
 };
 
 // page loader
-const pages = [
-  // 'index',
-  'about',
-  'portfolio',
-  'architecture',
-  'formula',
-  'housing',
-  'infrastructure'
-];
-const PAGE_LOADER_DURATION = 2;
-const newPageName = ref('');
-const pageLoaderData = computed(() => data.value.find(item => item.name === newPageName.value));
 const data = computed(() =>
-  pages.map((page, i) => ({
+  pages.value.map((page, i) => ({
     name: page,
     title: rt(tm('page-loader')[i].title),
     texts: tm('page-loader')[i].texts,
     color: i % 2 === 0 ? 'yellow' : ''
   }))
 );
-
-if (import.meta.client) {
-  router.beforeEach((to, from, next) => {
-    const pathName = to.name.split('___')[0];
-    if (pages.includes(pathName)) {
-      newPageName.value = pathName;
-      togglePageLoader();
-
-      setTimeout(() => {
-        next();
-      }, 500);
-
-      // just handle loader timings separately
-      setTimeout(() => {
-        togglePageLoader();
-      }, PAGE_LOADER_DURATION * 1000);
-    } else {
-      next();
-    }
-  });
-}
+const pageLoaderData = computed(() => {
+  return data.value.find(item => item.name === newPageName.value) || {};
+});
 
 onMounted(() => {
   document.addEventListener('click', e => {
@@ -124,7 +97,7 @@ onMounted(() => {
 
 .scale-out-enter-active,
 .scale-out-leave-active {
-  transition: all 0.3s ease;
+  transition: all 1s ease;
 }
 .scale-out-enter-from,
 .scale-out-leave-to {

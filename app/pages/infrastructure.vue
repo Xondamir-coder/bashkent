@@ -6,19 +6,19 @@
   >
     <SvgFadingPattern class="infrastructure__pattern" />
     <SvgFadingPattern class="infrastructure__pattern" />
-    <img
+    <NuxtPicture
       data-depth="0.4"
       class="infrastructure__parallax infrastructure__picture"
       src="/images/picnic.jpg"
       alt="picnic"
     />
-    <img
+    <NuxtPicture
       data-depth="0.45"
       class="infrastructure__parallax infrastructure__picture"
       src="/images/hugging.jpg"
       alt="hugging"
     />
-    <img
+    <NuxtPicture
       data-depth="0.8"
       class="infrastructure__parallax infrastructure__picture"
       src="/images/camera.png"
@@ -39,13 +39,13 @@
     </div>
     <PageCounter v-model="currentPage" :pages="6" />
     <div class="infrastructure__box">
-      <img
+      <NuxtPicture
         data-depth=".2"
         class="infrastructure__parallax infrastructure__box-picture"
         src="/images/street.jpg"
         alt="street"
       />
-      <img
+      <NuxtPicture
         data-depth="0.5"
         class="infrastructure__parallax infrastructure__box-picture"
         src="/images/tree.png"
@@ -66,7 +66,7 @@ const { t } = useI18n();
 // State
 const currentPage = ref(0);
 const containerRef = ref();
-const tl = gsap.timeline();
+let tl;
 
 const contents = computed(() =>
   Array(6).fill({
@@ -100,6 +100,7 @@ useImageParallax(containerRef, { selector: '.infrastructure__parallax' });
 onMounted(() => {
   document.addEventListener('keyup', handleKeyup);
 
+  tl = gsap.timeline();
   // Animate title
   SplitText.create('.infrastructure__content:first-of-type h2', {
     type: 'words',
@@ -142,7 +143,6 @@ onUnmounted(() => {
   tl.kill();
 });
 
-// Scroll navigation
 useScrollPage(direction => {
   if (direction === 'next') {
     useLocaleNavigate('/contacts');

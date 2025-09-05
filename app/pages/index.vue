@@ -1,21 +1,21 @@
 <template>
   <main ref="homeRef" class="home" :class="{ hidden: showPreloader || showPageLoader }">
     <SvgBigPattern class="home__pattern" />
-    <img data-depth="0.2" src="/images/home/wave.png" alt="wave" class="home__image" />
-    <img
+    <NuxtPicture data-depth="0.2" src="/images/home/wave.png" alt="wave" class="home__image" />
+    <NuxtPicture
       data-depth="0.3"
       src="/images/home/building-small.png"
       alt="small building"
       class="home__image"
     />
-    <img data-depth=".35" src="/images/home/tree.png" alt="tree" class="home__image" />
-    <img
+    <NuxtPicture data-depth=".35" src="/images/home/tree.png" alt="tree" class="home__image" />
+    <NuxtPicture
       data-depth=".6"
       src="/images/home/building-big.png"
       alt="big building"
       class="home__image"
     />
-    <img
+    <NuxtPicture
       data-depth="1"
       src="/images/home/rotated-tree.png"
       alt="rotated tree"
@@ -29,7 +29,7 @@
           src="~/assets/images/home-flower.jpg"
           alt="home flower"
           class="home__content-bottom-image"
-        />
+        >
         <span ref="subtextRef">{{ $t('home.subtitle') }}</span>
       </div>
     </div>

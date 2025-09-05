@@ -1,9 +1,9 @@
 <template>
   <main class="architecture" :class="{ hidden: showPreloader || showPageLoader }">
-    <img
+    <NuxtPicture
       v-for="(pic, index) in pics"
       :key="index"
-      :src="`/images/${pic}`"
+      :src="pic"
       alt="banner"
       class="architecture__banner"
       :class="{ hidden: index !== currentPage }"
@@ -41,32 +41,27 @@
 <script setup>
 import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
+import archBg from '/images/architecture-bg.jpg';
+import housingBg from '/images/housing.jpg';
 
 // Composables
 const { showPreloader, showPageLoader } = useLoader();
-const { tm, t } = useI18n();
+const { t } = useI18n();
 
 // State
 const currentPage = ref(0);
 const changePage = index => (currentPage.value = index);
 
-const pics = [
-  'architecture-bg.jpg',
-  'housing.jpg',
-  'architecture-bg.jpg',
-  'housing.jpg',
-  'architecture-bg.jpg',
-  'housing.jpg'
-];
+const pics = [archBg, housingBg, archBg, housingBg, archBg, housingBg];
 const contents = computed(() =>
-  Array(tm('architecture.nav').length).fill({
+  Array(6).fill({
     title: t('architecture.title'),
     text: t('architecture.text')
   })
 );
 
 // GSAP timeline
-const tl = gsap.timeline();
+let tl;
 
 // Watchers
 watch([showPreloader, showPageLoader], () => {
@@ -75,7 +70,7 @@ watch([showPreloader, showPageLoader], () => {
   }
 });
 const handleKeyup = e => {
-  if (e.key === 'ArrowRight' && currentPage.value < tm('architecture.nav').length - 1) {
+  if (e.key === 'ArrowRight' && currentPage.value < 5) {
     changePage(currentPage.value + 1);
   }
   if (e.key === 'ArrowLeft' && currentPage.value > 0) {
@@ -86,6 +81,8 @@ const handleKeyup = e => {
 // Lifecycle
 onMounted(() => {
   document.addEventListener('keyup', handleKeyup);
+
+  tl = gsap.timeline();
 
   // Animate title
   SplitText.create('.architecture__content:first-child h2', {

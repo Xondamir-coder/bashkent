@@ -1,4 +1,6 @@
 export default (containerRef, options = {}) => {
+  if (!import.meta.client) return;
+
   let rafId;
   let cleanupFn;
 

@@ -12,9 +12,9 @@
         </ul>
       </div>
       <div class="apartment__middle">
-        <img :src="apartmentData.img" alt="apartment banner" class="apartment__banner" >
+        <NuxtPicture :src="apartmentData.img" alt="apartment banner" class="apartment__banner" >
         <PageNav v-model="currentPage" :pages="[1, 2, 3, 4]" />
-      </div>
+      </nuxtpicture></div>
       <ul class="apartment__details apartment__details--mobile">
         <li v-for="(detail, index) in apartmentDetails" :key="index" class="apartment__detail">
           <span>{{ detail.name }}:</span>

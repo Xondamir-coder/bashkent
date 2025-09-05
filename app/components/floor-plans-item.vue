@@ -8,7 +8,7 @@
         {{ data.desc }}
       </p>
     </div>
-    <img :src="data.image" class="item__image" />
+    <NuxtPicture :src="data.image" class="item__image" />
     <span class="item__area">
       {{ data.area }}
     </span>

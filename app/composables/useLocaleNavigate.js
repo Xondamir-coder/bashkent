@@ -1,5 +1,6 @@
-// utils/navigation.ts
 export default path => {
+  if (!import.meta.client) return;
+
   const localePath = useLocalePath();
-  return navigateTo(localePath(path));
+  navigateTo(localePath(path));
 };
