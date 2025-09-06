@@ -2,7 +2,11 @@ image: node:18
 pages:
   stage: deploy
   before_script:
-#    - export PM2_HOME=/root/.pm2
+  - rm -rf /var/www/bashkent-residence.uz/*
+  - rm -rf .output/
+  - rm -rf .nuxt/
+
+  #  - export PM2_HOME=/root/.pm2
   - npm -v
   script:
   - cp -r -u * /var/www/bashkent-residence.uz
@@ -14,7 +18,7 @@ pages:
   # - pm2 status
   # - pm2 restart bashkent
   # - pm2 delete bashkent
-  - NODE_OPTIONS="--max-old-space-size=1024" npm run generate
+  # - NODE_OPTIONS="--max-old-space-size=1024" npm run generate
 #   - pm2 restart bashkent
   # - PORT=3001 pm2 start .output/server/index.mjs --name bashkent
   artifacts:
