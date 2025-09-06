@@ -2,6 +2,7 @@ image: node:18
 pages:
   stage: deploy
   before_script:
+  - git config --global --add safe.directory $CI_PROJECT_DIR
 #    - export PM2_HOME=/root/.pm2
   - npm -v
   script:
