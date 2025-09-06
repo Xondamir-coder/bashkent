@@ -11,6 +11,8 @@
           {{ $rt(item.text) }}
         </p>
         <NuxtPicture
+          format="avif"
+          sizes="(max-width: 640px) 640px, 1280px"
           src="/images/formula-1.jpg"
           :alt="$rt(item.text)"
           class="formula__item-image"

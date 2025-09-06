@@ -45,10 +45,6 @@ export default defineNuxtConfig({
       }
     ]
   },
-  image: {
-    format: ['avif']
-    // provider: 'none'
-  },
   app: {
     head: {
       titleTemplate: '%s - Bashkent'

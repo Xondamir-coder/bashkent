@@ -5,6 +5,8 @@
     </GlassButton>
     <div class="masterplan__wrapper">
       <NuxtPicture
+        format="avif"
+        sizes="(max-width: 640px) 640px, 1280px"
         src="/images/masterplan.jpg"
         alt="masterplan banner"
         class="masterplan__picture"
@@ -35,7 +37,7 @@
       <p>
         {{ data.floors }}
         <span>{{ $t('select.floors') }}</span>
-        <br >
+        <br />
         {{ data.apartments }}
         <span>{{ $t('select.apts') }}</span>
       </p>

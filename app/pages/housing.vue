@@ -19,6 +19,8 @@
     </div>
 
     <NuxtPicture
+      format="avif"
+      sizes="(max-width: 640px) 640px, 1280px"
       v-for="(img, i) in $tm('housing.images')"
       :key="i"
       :src="$rt(img.src)"

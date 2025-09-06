@@ -7,18 +7,24 @@
     <SvgFadingPattern class="infrastructure__pattern" />
     <SvgFadingPattern class="infrastructure__pattern" />
     <NuxtPicture
+      format="avif"
+      sizes="(max-width: 640px) 640px, 1280px"
       data-depth="0.4"
       class="infrastructure__parallax infrastructure__picture"
       src="/images/picnic.jpg"
       alt="picnic"
     />
     <NuxtPicture
+      format="avif"
+      sizes="(max-width: 640px) 640px, 1280px"
       data-depth="0.45"
       class="infrastructure__parallax infrastructure__picture"
       src="/images/hugging.jpg"
       alt="hugging"
     />
     <NuxtPicture
+      format="avif"
+      sizes="(max-width: 640px) 640px, 1280px"
       data-depth="0.8"
       class="infrastructure__parallax infrastructure__picture"
       src="/images/camera.png"
@@ -40,12 +46,16 @@
     <PageCounter v-model="currentPage" :pages="6" />
     <div class="infrastructure__box">
       <NuxtPicture
+        format="avif"
+        sizes="(max-width: 640px) 640px, 1280px"
         data-depth=".2"
         class="infrastructure__parallax infrastructure__box-picture"
         src="/images/street.jpg"
         alt="street"
       />
       <NuxtPicture
+        format="avif"
+        sizes="(max-width: 640px) 640px, 1280px"
         data-depth="0.5"
         class="infrastructure__parallax infrastructure__box-picture"
         src="/images/tree.png"

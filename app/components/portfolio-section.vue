@@ -7,7 +7,13 @@
         {{ text }}
       </p>
     </div>
-    <NuxtPicture :src="imgSrc" alt="section banner" class="portfolio-section__image" />
+    <NuxtPicture
+      format="avif"
+      sizes="(max-width: 640px) 640px, 1280px"
+      :src="imgSrc"
+      alt="section banner"
+      class="portfolio-section__image"
+    />
   </section>
 </template>
 

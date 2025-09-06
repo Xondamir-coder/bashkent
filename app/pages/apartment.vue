@@ -12,9 +12,16 @@
         </ul>
       </div>
       <div class="apartment__middle">
-        <NuxtPicture :src="apartmentData.img" alt="apartment banner" class="apartment__banner" >
-        <PageNav v-model="currentPage" :pages="[1, 2, 3, 4]" />
-      </nuxtpicture></div>
+        <NuxtPicture
+          format="avif"
+          sizes="(max-width: 640px) 640px, 1280px"
+          :src="apartmentData.img"
+          alt="apartment banner"
+          class="apartment__banner"
+        >
+          <PageNav v-model="currentPage" :pages="[1, 2, 3, 4]" />
+        </NuxtPicture>
+      </div>
       <ul class="apartment__details apartment__details--mobile">
         <li v-for="(detail, index) in apartmentDetails" :key="index" class="apartment__detail">
           <span>{{ detail.name }}:</span>

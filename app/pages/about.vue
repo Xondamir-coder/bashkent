@@ -14,10 +14,30 @@
         </div>
       </div>
       <div class="about__container">
-        <NuxtPicture src="/images/home/buildings.jpg" class="about__image" />
-        <NuxtPicture src="/images/home/tree-top.png" class="about__picture" />
-        <NuxtPicture src="/images/home/light.png" class="about__picture" />
-        <NuxtPicture src="/images/home/tree-2.png" class="about__picture" />
+        <NuxtPicture
+          format="avif"
+          sizes="(max-width: 640px) 640px, 1280px"
+          src="/images/home/buildings.jpg"
+          class="about__image"
+        />
+        <NuxtPicture
+          format="avif"
+          sizes="(max-width: 640px) 640px, 1280px"
+          src="/images/home/tree-top.png"
+          class="about__picture"
+        />
+        <NuxtPicture
+          format="avif"
+          sizes="(max-width: 640px) 640px, 1280px"
+          src="/images/home/light.png"
+          class="about__picture"
+        />
+        <NuxtPicture
+          format="avif"
+          sizes="(max-width: 640px) 640px, 1280px"
+          src="/images/home/tree-2.png"
+          class="about__picture"
+        />
         <button class="about__play">
           <SvgVideoPlayText />
         </button>
