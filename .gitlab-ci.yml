@@ -2,9 +2,7 @@ image: node:18
 pages:
   stage: deploy
   before_script:
-  - rm -rf /var/www/bashkent-residence.uz/*
-  - rm -rf .output/
-  - rm -rf .nuxt/
+  - rm -rf /var/www/bashkent-residence.uz/.[!.]* /var/www/bashkent-residence.uz/..?*
 
   #  - export PM2_HOME=/root/.pm2
   - npm -v
