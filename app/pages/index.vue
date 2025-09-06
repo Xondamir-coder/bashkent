@@ -49,7 +49,7 @@
           src="~/assets/images/home-flower.jpg"
           alt="home flower"
           class="home__content-bottom-image"
-        />
+        >
         <span ref="subtextRef">{{ $t('home.subtitle') }}</span>
       </div>
     </div>

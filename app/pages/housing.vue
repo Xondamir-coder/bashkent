@@ -19,10 +19,10 @@
     </div>
 
     <NuxtPicture
-      format="avif"
-      sizes="(max-width: 640px) 640px, 1280px"
       v-for="(img, i) in $tm('housing.images')"
       :key="i"
+      format="avif"
+      sizes="(max-width: 640px) 640px, 1280px"
       :src="$rt(img.src)"
       :alt="$rt(img.alt)"
       class="housing__banner"

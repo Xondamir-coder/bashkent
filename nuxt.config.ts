@@ -45,6 +45,11 @@ export default defineNuxtConfig({
       }
     ]
   },
+  nitro: {
+    output: {
+      dir: 'dist'
+    }
+  },
   app: {
     head: {
       titleTemplate: '%s - Bashkent'

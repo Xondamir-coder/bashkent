@@ -37,7 +37,7 @@
       <p>
         {{ data.floors }}
         <span>{{ $t('select.floors') }}</span>
-        <br />
+        <br >
         {{ data.apartments }}
         <span>{{ $t('select.apts') }}</span>
       </p>

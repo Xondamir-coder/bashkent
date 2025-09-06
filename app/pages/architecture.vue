@@ -1,10 +1,10 @@
 <template>
   <main class="architecture" :class="{ hidden: showPreloader || showPageLoader }">
     <NuxtPicture
-      format="avif"
-      sizes="(max-width: 640px) 640px, 1280px"
       v-for="(pic, index) in pics"
       :key="index"
+      format="avif"
+      sizes="(max-width: 640px) 640px, 1280px"
       :src="pic"
       alt="banner"
       class="architecture__banner"
