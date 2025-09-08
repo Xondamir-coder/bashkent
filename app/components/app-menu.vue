@@ -15,6 +15,18 @@
         </NuxtLink>
       </nav>
     </div>
+    <div class="menu__cta">
+      <button class="menu__button">
+        <SvgVideocam class="menu__button-icon" />
+        <span>{{ $t('live') }}</span>
+      </button>
+      <NuxtLink :to="$localePath('/select')" class="menu__button">
+        <span>{{ $t('select-apt') }}</span>
+      </NuxtLink>
+      <button class="menu__button" @click="$emit('toggle-modal')">
+        <span>{{ $t('book-appointment') }}</span>
+      </button>
+    </div>
     <div class="menu__bottom">
       <div class="menu__bottom-header">
         <h3 class="menu__subtitle">{{ $t('menu.office') }}</h3>
@@ -23,6 +35,7 @@
         </p>
         <p>{{ $t('menu.timing') }}</p>
       </div>
+
       <div class="menu__list">
         <a class="menu__item" href="https://maps.app.goo.gl/jJozY1KSuyT9hoWu8" target="_blank">
           <SvgPin class="menu__item-icon" />
@@ -40,15 +53,6 @@
           <span>@bashkent_residence</span>
         </a>
       </div>
-    </div>
-    <div class="menu__cta">
-      <button class="menu__button">
-        <SvgVideocam class="menu__button-icon" />
-        <span>{{ $t('live') }}</span>
-      </button>
-      <button class="menu__button" @click="$emit('toggle-modal')">
-        <span>{{ $t('book-appointment') }}</span>
-      </button>
     </div>
   </div>
 </template>
@@ -121,6 +125,12 @@ defineEmits(['toggle-modal', 'toggle-menu']);
     border-radius: max(0.8rem, 8px);
     color: vars.$black-medium;
     font-weight: 500;
+    animation: slide-from-bottom-20 0.5s backwards;
+    @for $i from 1 through 3 {
+      &:nth-child(#{$i}) {
+        animation-delay: $i * 0.1s + 0.5s;
+      }
+    }
     &:last-child {
       background-color: vars.$gold;
       color: #fff;
@@ -170,7 +180,7 @@ defineEmits(['toggle-modal', 'toggle-menu']);
     animation: slide-from-bottom-20 0.5s backwards;
     @for $i from 1 through 10 {
       &:nth-child(#{$i}) {
-        animation-delay: $i * 0.1s + 1.1s;
+        animation-delay: $i * 0.1s + 0.9s;
       }
     }
     &:hover {

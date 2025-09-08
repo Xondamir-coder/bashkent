@@ -1,12 +1,23 @@
 <template>
   <div class="sidebar">
-    <button class="sidebar__key">
-      <SvgKey />
-    </button>
     <SvgLogo class="sidebar__logo" />
     <SvgLogoMobile class="sidebar__logo--mobile" />
-    <SidebarHam :show-menu="showMenu" @click="emits('toggle-menu')" />
-    <SvgSidebarPattern class="sidebar__pattern" />
+    <div class="sidebar__pattern-box">
+      <SvgSidebarPattern class="sidebar__pattern" />
+    </div>
+    <SidebarHam :show-menu="showMenu" @click="emits('toggle-menu')" class="sidebar__ham--mobile" />
+    <div class="sidebar__mobile">
+      <NuxtLink :to="$localePath('/calculator')">
+        <SvgCalculator class="sidebar__mobile-icon" />
+      </NuxtLink>
+      <div class="sidebar__dropdown" data-lang-dropdown>
+        <button @click="showLangDropdown = !showLangDropdown">
+          <SvgGlobe class="sidebar__mobile-icon" />
+        </button>
+        <LangDropdown v-model="showLangDropdown" />
+      </div>
+      <SidebarHam :show-menu="showMenu" @click="emits('toggle-menu')" />
+    </div>
     <div class="sidebar__bottom">
       <span class="sidebar__bottom-text">{{ $t('calculator.label') }}</span>
       <NuxtLink :to="$localePath('/calculator')">
@@ -23,6 +34,7 @@ defineProps({
   showMenu: Boolean
 });
 const emits = defineEmits(['toggle-menu']);
+const showLangDropdown = ref(false);
 </script>
 
 <style lang="scss" scoped>
@@ -36,7 +48,6 @@ const emits = defineEmits(['toggle-menu']);
   position: fixed;
   left: 0;
   top: 0;
-  overflow: hidden;
   @media screen and (min-width: 900px) {
     flex-direction: column;
     min-height: 100%;
@@ -51,8 +62,24 @@ const emits = defineEmits(['toggle-menu']);
     border-bottom-right-radius: max(0.8rem, 8px);
     border-bottom: 1px solid vars.$teal-light;
   }
+  &__ham--mobile {
+    @media screen and (max-width: 900px) {
+      display: none;
+    }
+  }
+  &__dropdown {
+    position: relative;
+  }
   &__key {
     @include mix.flex-center;
+  }
+  &__mobile {
+    display: flex;
+    gap: max(2rem, 20px);
+    &-icon {
+      width: max(2.4rem, 24px);
+      fill: #fff;
+    }
     @media screen and (min-width: 900px) {
       display: none;
     }
@@ -64,7 +91,12 @@ const emits = defineEmits(['toggle-menu']);
   }
   &__pattern {
     position: absolute;
-    pointer-events: none;
+    &-box {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
     @media screen and (min-width: 900px) {
       width: 500%;
       top: 50%;
@@ -82,6 +114,7 @@ const emits = defineEmits(['toggle-menu']);
     flex-direction: column;
     align-items: center;
     gap: max(calc(1.8rem * 3.5), 80px);
+    fill: vars.$teal;
     @media screen and (max-width: 900px) {
       display: none;
     }

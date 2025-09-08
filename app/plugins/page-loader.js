@@ -1,13 +1,13 @@
 export default defineNuxtPlugin(() => {
   const newPageName = useState('newPageName', () => '');
   const pages = useState('pages', () => [
-    '/',
-    '/about',
-    '/portfolio',
-    '/architecture',
-    '/formula',
-    '/housing',
-    '/infrastructure'
+    'index',
+    'about',
+    'portfolio',
+    'architecture',
+    'formula',
+    'housing',
+    'infrastructure'
   ]);
 
   const router = useRouter();
@@ -19,8 +19,9 @@ export default defineNuxtPlugin(() => {
   if (!import.meta.client) return;
 
   router.beforeEach(async to => {
-    if (pages.value.includes(to.path)) {
-      newPageName.value = to.path;
+    const pageName = to.name.split('___')[0];
+    if (pages.value.includes(pageName)) {
+      newPageName.value = pageName;
       showPageLoader.value = true;
 
       // delay navigation

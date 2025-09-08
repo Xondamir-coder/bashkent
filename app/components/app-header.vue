@@ -26,11 +26,16 @@
         <FloatingCall />
         <span>(78) 148-55-55</span>
       </a>
-      <div class="header__dropdown">
-        <button class="header__select">
+      <div class="header__dropdown-box" data-lang-dropdown>
+        <button
+          class="header__select"
+          @click="showLangDropdown = !showLangDropdown"
+          :class="{ active: showLangDropdown }"
+        >
           <span>{{ $i18n.localeProperties.value.name }}</span>
           <SvgChevronDown class="header__select-icon" />
         </button>
+        <LangDropdown v-model="showLangDropdown" />
       </div>
       <button class="header__button header__button--gold" @click="emits('toggle-modal')">
         {{ $t('book-appointment') }}
@@ -41,13 +46,11 @@
 </template>
 
 <script setup>
-const emits = defineEmits(['toggle-modal']);
-
-const paths = ['about', 'portfolio', 'architecture', 'housing'];
-
 const route = useRoute();
+const emits = defineEmits(['toggle-modal']);
+const paths = ['about', 'portfolio', 'architecture', 'housing'];
 const isVariant = computed(() => paths.includes(route.path.slice(1)));
-
+const showLangDropdown = ref(false);
 defineProps({
   isPlanHeader: {
     default: false,
@@ -186,16 +189,29 @@ defineProps({
     align-items: center;
     gap: 1rem;
     font-weight: 500;
+    stroke: vars.$black-medium;
+    border: 1px solid transparent;
+    &.active {
+      background-color: #f7f7f7;
+      border-color: #d6d7d7;
+      color: vars.$teal;
+      stroke: vars.$teal;
+      .header__select-icon {
+        transform: rotate(180deg);
+      }
+    }
     &:hover {
       background-color: vars.$grey;
     }
     &-icon {
       fill: none;
       width: 2.4rem;
+      transition: transform vars.$dt, stroke vars.$dt;
     }
   }
-  &__dropdown {
+  &__dropdown-box {
     display: flex;
+    position: relative;
   }
   &__logo {
     width: max(18.3rem, 117px);

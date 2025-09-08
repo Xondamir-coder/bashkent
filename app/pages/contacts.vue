@@ -105,10 +105,19 @@ useHead({ title: 'Contacts' });
   display: flex;
   overflow: hidden;
   max-height: 100vh;
+  @media screen and (max-width: vars.$bp-large-mobile) {
+    padding: 0;
+    padding-top: calc(var(--header-height) + max(3rem, 30px));
+    display: grid;
+    grid-auto-rows: max-content 1fr;
+  }
   &__content {
     display: flex;
     flex-direction: column;
     gap: max(3.2rem, 20px);
+    @media screen and (max-width: vars.$bp-large-mobile) {
+      padding-left: var(--block-padding-left);
+    }
   }
   &__pattern {
     position: absolute;
@@ -140,7 +149,7 @@ useHead({ title: 'Contacts' });
     @media screen and (max-width: vars.$bp-large-mobile) {
       display: grid;
       align-self: stretch;
-      max-width: calc(100vw - (var(--block-spacing) * 2));
+      max-width: calc(100vw - (var(--block-spacing)));
       grid-template-columns: repeat(3, minmax(250px, 1fr));
       overflow-x: auto;
       scrollbar-width: 0;

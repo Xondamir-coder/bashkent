@@ -3,7 +3,7 @@
     <h2 class="heading-large">{{ $t('formula.title') }}</h2>
     <SvgFadingPattern class="formula__pattern" />
     <ul class="formula__list">
-      <li v-for="(item, i) in $tm('formula.items')" :key="i" class="formula__item">
+      <li v-for="(item, i) in items" :key="i" class="formula__item">
         <h3 class="formula__item-title">
           {{ $rt(item.amount) }}
         </h3>
@@ -13,7 +13,7 @@
         <NuxtPicture
           format="avif"
           sizes="(max-width: 640px) 640px, 1280px"
-          src="/images/formula-1.jpg"
+          :src="item.image"
           :alt="$rt(item.text)"
           class="formula__item-image"
         />
@@ -25,15 +25,45 @@
 <script setup>
 import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
+import imgSrc1 from '/images/formula-1.jpg';
+import imgSrc2 from '/images/formula-2.jpg';
+import imgSrc3 from '/images/formula-3.jpg';
+import imgSrc4 from '/images/formula-4.jpg';
+import imgSrc5 from '/images/formula-5.jpg';
+import imgSrc6 from '/images/formula-6.jpg';
+import imgSrc7 from '/images/formula-7.jpg';
+import imgSrc8 from '/images/formula-8.jpg';
+import imgSrc9 from '/images/formula-9.jpg';
+import imgSrc10 from '/images/formula-10.jpg';
 
 const { showPageLoader, showPreloader } = useLoader();
+const { tm } = useI18n();
 
-let tl;
+const images = [
+  imgSrc1,
+  imgSrc2,
+  imgSrc3,
+  imgSrc4,
+  imgSrc5,
+  imgSrc6,
+  imgSrc7,
+  imgSrc8,
+  imgSrc9,
+  imgSrc10
+];
+const items = computed(() =>
+  images.map((img, i) => ({
+    amount: tm('formula.items')[i].amount,
+    text: tm('formula.items')[i].text,
+    image: img
+  }))
+);
 
 watch([showPreloader, showPageLoader], () => {
   if (!showPreloader.value && !showPageLoader.value) tl.restart();
 });
 
+let tl;
 onMounted(() => {
   tl = gsap.timeline();
 

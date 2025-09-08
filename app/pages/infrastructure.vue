@@ -280,7 +280,8 @@ useHead({
     }
     &.hidden {
       pointer-events: none;
-
+      backdrop-filter: none;
+      background-color: transparent;
       & > *:first-child {
         opacity: 0;
         transform: scale(1.15) translateY(-10px);

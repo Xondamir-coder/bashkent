@@ -56,9 +56,16 @@ const filteredMarkers = computed(() =>
   overflow: hidden;
   position: absolute;
   right: 0;
-  top: 0;
-  width: 59%;
-  height: 100%;
+  @media screen and (min-width: vars.$bp-large-mobile) {
+    top: 0;
+    width: 59%;
+    height: 100%;
+  }
+  @media screen and (max-width: vars.$bp-large-mobile) {
+    overflow: visible;
+    bottom: 0;
+    position: relative;
+  }
   &::after {
     content: '';
     position: absolute;
@@ -69,6 +76,12 @@ const filteredMarkers = computed(() =>
     top: 0;
     z-index: 6;
     pointer-events: none;
+    @media screen and (max-width: vars.$bp-large-mobile) {
+      background: linear-gradient(0, rgba(255, 255, 255, 0) 36.36%, #fff 85.5%);
+      height: 80%;
+      width: 100%;
+      top: -1%;
+    }
   }
 }
 

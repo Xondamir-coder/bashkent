@@ -25,6 +25,9 @@ defineProps({
     gap: max(1.2rem, 8px);
     padding: max(1.2rem, 5px);
     transition: letter-spacing vars.$dt;
+    @media screen and (max-width: 900px) {
+      padding: 0;
+    }
     &:not(.active):hover {
       letter-spacing: 4px;
       .ham {
