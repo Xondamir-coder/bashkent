@@ -1,20 +1,9 @@
 <template>
   <div class="layout">
-    <AppHeader :is-plan-header="true" @toggle-modal="toggleModal" />
+    <AppHeader :is-plan-header="true" />
     <slot />
-    <Transition name="fade">
-      <ContactsModal v-if="showModal" @toggle-modal="toggleModal" />
-    </Transition>
   </div>
 </template>
-
-<script setup>
-const showModal = ref(false);
-
-const toggleModal = () => {
-  showModal.value = !showModal.value;
-};
-</script>
 
 <style lang="scss" scoped>
 .layout {

@@ -5,7 +5,7 @@
     <div class="sidebar__pattern-box">
       <SvgSidebarPattern class="sidebar__pattern" />
     </div>
-    <SidebarHam :show-menu="showMenu" @click="emits('toggle-menu')" class="sidebar__ham--mobile" />
+    <SidebarHam :show-menu="showMenu" class="sidebar__ham--mobile" @click="emits('toggle-menu')" />
     <div class="sidebar__mobile">
       <NuxtLink :to="$localePath('/calculator')">
         <SvgCalculator class="sidebar__mobile-icon" />

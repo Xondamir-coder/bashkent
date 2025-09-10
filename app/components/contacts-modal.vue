@@ -1,57 +1,132 @@
 <template>
-  <div class="contacts-modal__container" @click.self="emits('toggle-modal')">
-    <div class="contacts-modal">
-      <SvgFadingPattern class="contacts-modal__pattern" />
-      <button class="contacts-modal__close" @click="emits('toggle-modal')">
-        <SvgClose />
-      </button>
-      <h3 class="contacts-modal__title">{{ $t('modal.title') }}</h3>
-      <form class="contacts-modal__form" @submit.prevent="submitForm">
-        <FormInput
-          id="name-field"
-          v-model="userData.name"
-          :placeholder="$t('modal.form.name')"
-          type="text"
-          required
-          @input="sanitizeName"
-        />
-        <FormInput
-          id="tel-field"
-          v-model="userData.tel"
-          :placeholder="$t('modal.form.phone')"
-          type="tel"
-          required
-        />
-        <FormInput
-          id="comment-field"
-          v-model="userData.comment"
-          :placeholder="$t('modal.form.message')"
-          :is-text-area="true"
-          required
-        />
-        <div class="contacts-modal__form-bottom">
-          <button class="contacts-modal__button">{{ $t('modal.form.submit') }}</button>
-          <p>{{ $t('modal.form.copyright') }}</p>
+  <Transition name="slide-in">
+    <div
+      v-if="showContactsModal"
+      class="contacts-modal__container"
+      @click.self="toggleContactsModal"
+    >
+      <div class="contacts-modal">
+        <SvgFadingPattern class="contacts-modal__pattern" />
+        <button class="contacts-modal__close" @click="toggleContactsModal">
+          <SvgClose />
+        </button>
+        <h3 class="contacts-modal__title">{{ $t('modal.title') }}</h3>
+        <form class="contacts-modal__form" @submit.prevent="submitForm">
+          <FormInput
+            id="name-field"
+            v-model="userData.name"
+            :placeholder="$t('modal.form.name')"
+            type="text"
+            required
+            @input="sanitizeName"
+          />
+          <FormInput
+            id="tel-field"
+            v-model="userData.tel"
+            :placeholder="$t('modal.form.phone')"
+            type="tel"
+            maxlength="17"
+            required
+            @click="prependCountry"
+            @focus="prependCountry"
+            @input="validateInput"
+          />
+          <FormInput
+            id="comment-field"
+            v-model="userData.comment"
+            :placeholder="$t('modal.form.message')"
+            :is-text-area="true"
+            required
+          />
+          <div class="contacts-modal__form-bottom">
+            <button class="contacts-modal__button" :disabled="isLoading || !isFormValid">
+              <span v-if="!isLoading && !successMessage"> {{ $t('modal.form.submit') }}</span>
+              <span v-else-if="isLoading">{{ $t('modal.form.loading') }}</span>
+              <span v-else-if="successMessage">{{ successMessage }}</span>
+            </button>
+            <p>{{ $t('modal.form.copyright') }}</p>
+          </div>
+        </form>
+        <div class="contacts-modal__info">
+          <img src="~/assets/images/man.jpg" alt="man" class="contacts-modal__image" />
+          <p>{{ $t('modal.form.author') }}</p>
         </div>
-      </form>
-      <div class="contacts-modal__info">
-        <img src="~/assets/images/man.jpg" alt="man" class="contacts-modal__image" >
-        <p>{{ $t('modal.form.author') }}</p>
       </div>
     </div>
-  </div>
+  </Transition>
 </template>
 
 <script setup>
+const { toggleContactsModal, showContactsModal } = useAppState();
+const { locale } = useI18n();
+
+const isLoading = ref(false);
+const successMessage = ref('');
 const userData = ref({
   name: '',
   tel: '',
   comment: ''
 });
-const emits = defineEmits(['toggle-modal']);
+const isFormValid = computed(
+  () => userData.value.name && userData.value.tel.length === 17 && userData.value.comment
+);
 
-const submitForm = () => {
-  console.log(userData.value);
+const COUNTRY_CODE = '+998 ';
+const LENGTHS_WITH_SPACE = [7, 11, 14];
+
+const prependCountry = () =>
+  userData.value.tel.includes(COUNTRY_CODE) || (userData.value.tel = COUNTRY_CODE);
+const validateInput = e => {
+  // Validate
+  const regex = /^[\d\s+]+$/;
+  if (!regex.test(userData.value.tel)) {
+    userData.value.tel = userData.value.tel.slice(0, -1);
+  }
+
+  // Always prepend country
+  if (userData.value.tel.length < COUNTRY_CODE.length) {
+    userData.value.tel = COUNTRY_CODE;
+  }
+
+  // Don't add space on deletion
+  if (e.inputType === 'deleteContentBackward') {
+    return;
+  }
+
+  // Add spaces
+  if (LENGTHS_WITH_SPACE.includes(userData.value.tel.length)) {
+    userData.value.tel = `${userData.value.tel} `;
+  }
+};
+const submitForm = async () => {
+  const url = 'https://api.projectview.uz/api/front/enquiry';
+  const strippedPhone = userData.value.tel.replace(/\s|\+/g, '');
+  try {
+    isLoading.value = true;
+    const res = await $fetch(url, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json'
+      },
+      body: objectToFormData({
+        name: userData.value.name,
+        phone: strippedPhone,
+        comment: userData.value.comment
+      })
+    });
+    successMessage.value = res.message[locale.value];
+  } catch (error) {
+    console.error(error);
+  } finally {
+    userData.value.comment = '';
+    userData.value.name = '';
+    userData.value.tel = '';
+    isLoading.value = false;
+    setTimeout(() => {
+      successMessage.value = '';
+      toggleContactsModal();
+    }, 1000);
+  }
 };
 const sanitizeName = () => {
   userData.value.name = userData.value.name.replace(/\d+/g, '');
@@ -88,7 +163,10 @@ const sanitizeName = () => {
     background-color: vars.$teal;
     border-radius: max(1.2rem, 8px);
     color: #fff;
-    &:hover {
+    &:disabled {
+      opacity: 0.5;
+    }
+    &:not(:disabled):hover {
       background-color: vars.$teal-dark;
     }
     @media screen and (max-width: vars.$bp-small-mobile) {
@@ -158,5 +236,18 @@ const sanitizeName = () => {
     display: grid;
     justify-items: flex-end;
   }
+}
+.slide-in-enter-active,
+.slide-in-leave-active {
+  transition: opacity 0.5s;
+}
+.slide-in-enter-from,
+.slide-in-leave-to {
+  opacity: 0;
+}
+.slide-in-enter-from > *,
+.slide-in-leave-to > * {
+  transform: translateX(20%);
+  opacity: 0;
 }
 </style>

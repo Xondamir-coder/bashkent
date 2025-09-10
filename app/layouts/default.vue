@@ -8,36 +8,26 @@
         <PageLoader v-if="showPageLoader" :data="pageLoaderData" />
       </Transition>
     </ClientOnly>
-    <AppHeader v-if="isHeaderPresent" @toggle-modal="toggleContactsModal" />
+    <AppHeader />
     <Transition name="slide-in">
-      <AppMenu v-if="showMenu" @toggle-modal="toggleContactsModal" @toggle-menu="toggleMenu" />
+      <AppMenu v-if="showMenu" @toggle-menu="toggleMenu" />
     </Transition>
     <AppSidebar :show-menu="showMenu" @toggle-menu="toggleMenu" />
     <slot />
-    <Transition name="fade">
-      <ContactsModal v-if="showContactsModal" @toggle-modal="toggleContactsModal" />
-    </Transition>
   </div>
 </template>
 
 <script setup>
 const { showPreloader, showPageLoader } = useLoader();
-const route = useRoute();
 const { tm, rt } = useI18n();
+
 const newPageName = useState('newPageName');
 const pages = useState('pages');
 
-const isHeaderPresent = computed(() => !route.path.includes('/select'));
-
-// menu & modal
+// menu
 const showMenu = ref(false);
-const showContactsModal = ref(false);
 const toggleMenu = () => {
   showMenu.value = !showMenu.value;
-};
-const toggleContactsModal = () => {
-  showMenu.value = false;
-  showContactsModal.value = !showContactsModal.value;
 };
 
 // page loader
@@ -80,19 +70,6 @@ onMounted(() => {
     transform: scale(1.1);
     opacity: 0;
   }
-}
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s;
-}
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-.fade-enter-from > *,
-.fade-leave-to > * {
-  transform: translateX(20%);
-  opacity: 0;
 }
 
 .scale-out-enter-active,

@@ -5,6 +5,13 @@
     "subtitle": "A new philosophy of urban living"
   },
 
+  "just-area": "Area",
+  "rooms": "Rooms",
+  "condition": "Condition",
+  "type": "Type",
+  "m": "m",
+  "from": "from",
+  "to": "to",
   "select-apt": "Select an apartment",
   "live": "Live broadcast",
   "book-appointment": "Book an appointment",
@@ -156,7 +163,8 @@
       "message": "Comment",
       "submit": "Send",
       "copyright": "I agree to the processing of personal data",
-      "author": "Head of sales department Sergey Obozny"
+      "author": "Head of sales department Sergey Obozny",
+      "loading": "Sending..."
     }
   },
 

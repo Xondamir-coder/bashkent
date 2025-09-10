@@ -9,29 +9,36 @@
       <button @click="resetFilters">{{ $t('reset-filters') }}</button>
     </div>
     <form class="sidebar__form" @submit.prevent="submitForm">
-      <FilterRow :label="$t('floor')" fake-selected="1" />
-      <FilterRow :label="$t('layout-type')" fake-selected="Студия" />
+      <FilterRow
+        v-model="selectedFloor"
+        :label="$t('floor')"
+        :options="floors"
+        :is-from-api="false"
+      />
+      <FilterRow v-model="layoutType" :label="$t('layout-type')" :options="filters.types" />
       <FilterRow type="range" :label="$t('area')">
         <div class="sidebar__form-rangebox">
           <div class="filter-item">
             <input
-              id="area-ffrom"
+              id="area-from"
+              v-model="area.start"
               type="number"
               name="area"
               class="sidebar__form-input"
-              placeholder="от"
-            >
-            <span>м²</span>
+              :placeholder="$t('from')"
+            />
+            <span>{{ $t('m') }}²</span>
           </div>
           <div class="filter-item">
             <input
               id="area-to"
+              v-model="area.end"
               type="number"
               name="area"
               class="sidebar__form-input"
-              placeholder="до"
-            >
-            <span>м²</span>
+              :placeholder="$t('to')"
+            />
+            <span>{{ $t('m') }}²</span>
           </div>
         </div>
       </FilterRow>
@@ -48,15 +55,26 @@
           </button>
         </div>
       </FilterRow>
-      <FilterRow :label="$t('type-of-housing')" fake-selected="С ремонтом" />
-      <FilterRow :label="$t('deadline')" fake-selected="2025" />
+      <FilterRow v-model="condition" :label="$t('type-of-housing')" :options="filters.conditions" />
+      <FilterRow :label="$t('deadline')" />
     </form>
     <button class="sidebar__submit" @click="submitForm">{{ $t('apply-filter') }}</button>
   </div>
 </template>
 
 <script setup>
+const floors = Array.from({ length: 12 }, (_, i) => i + 1);
+
 const selectedNumber = ref(1);
+const selectedFloor = ref();
+const layoutType = ref();
+const condition = ref();
+const area = ref({
+  start: null,
+  end: null
+});
+
+const { filters } = useAppState();
 
 const submitForm = () => {
   console.log(selectedNumber.value);
@@ -66,6 +84,10 @@ const changeNumber = number => {
 };
 const resetFilters = () => {
   selectedNumber.value = 1;
+  layoutType.value = filters.value.types[0];
+  condition.value = filters.value.conditions[0];
+  area.value.start = null;
+  area.value.end = null;
 };
 </script>
 
@@ -171,6 +193,15 @@ const resetFilters = () => {
       display: flex;
       & > * {
         flex: 1;
+      }
+    }
+    &-input {
+      -moz-appearance: textfield; /* Firefox */
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        /* display: none; <- Crashes Chrome on hover */
+        -webkit-appearance: none;
+        margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
       }
     }
     &-row {

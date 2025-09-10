@@ -2,6 +2,10 @@
   <NuxtLayout>
     <NuxtPage />
   </NuxtLayout>
+  <ContactsModal />
 </template>
 
-<script setup></script>
+<script setup>
+const { fetchFilters } = useAppState();
+fetchFilters();
+</script>

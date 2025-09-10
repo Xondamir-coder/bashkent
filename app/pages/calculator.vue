@@ -8,7 +8,7 @@
     <div class="calculator__container">
       <div class="calculator__plan calculator-box">
         <span class="calculator__label">{{ $t('calculator.desired-layout') }}</span>
-        <FilterRow :no-label="true" fake-selected="1 комн. 48,76" />
+        <FilterRow :no-label="true" />
         <div class="calculator__plan-box">
           <NuxtPicture
             format="avif"
@@ -29,8 +29,13 @@
       </div>
       <div class="calculator__params calculator-box">
         <span class="calculator__label">{{ $t('calculator.params') }}</span>
-        <FilterRow :label="$t('floor')" fake-selected="1" />
-        <FilterRow :label="$t('deadline')" fake-selected="2026" />
+        <FilterRow
+          v-model="selectedFloor"
+          :label="$t('floor')"
+          :options="floors"
+          :is-from-api="false"
+        />
+        <FilterRow :label="$t('deadline')" />
         <RangeSlider v-model="percentage" />
         <div class="calculator__params-bottom">
           <span>{{ $t('calculator.discount') }}: <span class="clr-teal">16%</span></span>
@@ -62,19 +67,19 @@ const { t } = useI18n();
 
 const planDetails = computed(() => [
   {
-    name: 'Площадь',
+    name: t('just-area'),
     value: '48,76 м2'
   },
   {
-    name: 'Этаж',
+    name: t('rooms'),
     value: 'Тип 3.3'
   },
   {
-    name: 'Этаж',
+    name: t('type'),
     value: '1 комн.'
   },
   {
-    name: 'Этаж',
+    name: t('condition'),
     value: ' Готовый ремонт'
   }
 ]);
@@ -88,13 +93,14 @@ const crumbs = computed(() => [
     path: '/advanced-search'
   }
 ]);
+const floors = Array.from({ length: 12 }, (_, i) => i + 1);
 
 const percentage = ref('10');
+const selectedFloor = ref();
 
 definePageMeta({
   layout: 'only-header'
 });
-
 useHead({
   title: 'Calculator'
 });

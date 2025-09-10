@@ -1,8 +1,9 @@
 <template>
-  <header class="header" :class="{ 'header--plan': isPlanHeader, 'header--variant': isVariant }">
-    <!-- <button @click="$i18n.setLocale('ru')">Ru</button>
-    <button @click="$i18n.setLocale('en')">En</button>
-    <button @click="$i18n.setLocale('uz')">Uz</button> -->
+  <header
+    v-if="!$route.path.includes('/select')"
+    class="header"
+    :class="{ 'header--plan': isPlanHeader, 'header--variant': isVariant }"
+  >
     <div class="header__left">
       <button
         class="header__button"
@@ -29,15 +30,18 @@
       <div class="header__dropdown-box" data-lang-dropdown>
         <button
           class="header__select"
-          @click="showLangDropdown = !showLangDropdown"
           :class="{ active: showLangDropdown }"
+          @click="showLangDropdown = !showLangDropdown"
         >
           <span>{{ $i18n.localeProperties.value.name }}</span>
           <SvgChevronDown class="header__select-icon" />
         </button>
         <LangDropdown v-model="showLangDropdown" />
       </div>
-      <button class="header__button header__button--gold" @click="emits('toggle-modal')">
+      <button
+        class="header__button header__button--gold"
+        @click="useAppState().toggleContactsModal"
+      >
         {{ $t('book-appointment') }}
       </button>
     </div>
@@ -47,10 +51,12 @@
 
 <script setup>
 const route = useRoute();
-const emits = defineEmits(['toggle-modal']);
+
 const paths = ['about', 'portfolio', 'architecture', 'housing'];
-const isVariant = computed(() => paths.includes(route.path.slice(1)));
+
 const showLangDropdown = ref(false);
+const isVariant = computed(() => paths.includes(route.path.slice(1)));
+
 defineProps({
   isPlanHeader: {
     default: false,

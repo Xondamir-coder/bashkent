@@ -5,6 +5,13 @@
     "subtitle": "Shahar hayotining yangi falsafasi"
   },
 
+  "just-area": "Maydon",
+  "rooms": "Xonalar",
+  "condition": "Holat",
+  "type": "Turi",
+  "m": "m",
+  "from": "dan",
+  "to": "gacha",
   "select-apt": "Xonadon tanlash",
   "live": "Jonli efir",
   "book-appointment": "Uchrashuvga yozilish",
@@ -155,7 +162,8 @@
       "message": "Izoh",
       "submit": "Yuborish",
       "copyright": "Shaxsiy ma’lumotlarni qayta ishlashga roziman",
-      "author": "Savdo bo‘limi rahbari Sergey Obozniy"
+      "author": "Savdo bo‘limi rahbari Sergey Obozniy",
+      "loading": "Yuborilmoqda..."
     }
   },
 
