@@ -96,13 +96,56 @@ const crumbs = computed(() => [
 const floors = Array.from({ length: 12 }, (_, i) => i + 1);
 
 const percentage = ref('10');
-const selectedFloor = ref();
+const selectedFloor = useState('selectedFloor', () => 1);
 
 definePageMeta({
   layout: 'only-header'
 });
 useHead({
-  title: 'Calculator'
+  title: 'Apartment Price Calculator – Bashkent Residence',
+  meta: [
+    {
+      name: 'description',
+      content:
+        'Calculate your apartment price at Bashkent Residence in Bukhara. Choose layout, floor, and completion date to view detailed payment and pricing options.'
+    },
+    {
+      name: 'keywords',
+      content:
+        'apartment calculator Bukhara, Bashkent Residence calculator, apartment price, layout selection, floor choice, completion date, payment options'
+    },
+    {
+      name: 'author',
+      content: 'https://spacelabs.studio'
+    },
+    {
+      name: 'publisher',
+      content: 'Spacelabs'
+    },
+    // Open Graph
+    {
+      property: 'og:title',
+      content: 'Apartment Price Calculator – Bashkent Residence'
+    },
+    {
+      property: 'og:description',
+      content:
+        'Use the Bashkent Residence calculator to find the price of your apartment in Bukhara by selecting layout, floor, and completion date.'
+    },
+    {
+      property: 'og:url',
+      content: 'https://bashkent-residence.uz/calculator'
+    },
+    {
+      property: 'og:type',
+      content: 'website'
+    },
+    {
+      property: 'og:image',
+      content: 'imgSrc'
+    }
+  ],
+  link: [{ rel: 'canonical', href: 'https://bashkent-residence.uz/calculator' }]
 });
 </script>
 

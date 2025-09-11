@@ -22,6 +22,7 @@
           :key="index"
           :d="path.d"
           class="masterplan__overlay-path"
+          @click="goToBuilding(path)"
           @pointerenter="assignData(path)"
         />
       </svg>
@@ -37,7 +38,7 @@
       <p>
         {{ data.floors }}
         <span>{{ $t('select.floors') }}</span>
-        <br >
+        <br />
         {{ data.apartments }}
         <span>{{ $t('select.apts') }}</span>
       </p>
@@ -301,6 +302,9 @@ const assignData = newData => {
   data.value.floors = newData.floors;
   data.value.block = newData.block;
 };
+const goToBuilding = () => {
+  // useLocaleNavigate('apartments');
+};
 
 onMounted(() => {
   window.addEventListener('pointermove', handleParallax);
@@ -308,10 +312,58 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener('pointermove', handleParallax);
 });
+
+useHead({
+  title: 'Masterplan & Interactive Map',
+  meta: [
+    {
+      name: 'description',
+      content:
+        'View the interactive masterplan of Bashkent Residence in Bukhara with phases, buildings, floors, and apartments.'
+    },
+    {
+      name: 'keywords',
+      content:
+        'masterplan Bukhara, residential complex plan, Bashkent Residence plan, building plan, apartment map, interactive masterplan'
+    },
+    {
+      name: 'author',
+      content: 'https://spacelabs.studio'
+    },
+    {
+      name: 'publisher',
+      content: 'Spacelabs'
+    },
+    // Open Graph
+    {
+      property: 'og:title',
+      content: 'Masterplan & Interactive Map'
+    },
+    {
+      property: 'og:description',
+      content:
+        'Explore the Bashkent Residence masterplan: interactive map of buildings, floors, and apartments.'
+    },
+    {
+      property: 'og:url',
+      content: 'https://bashkent-residence.uz/masterplan'
+    },
+    {
+      property: 'og:type',
+      content: 'website'
+    },
+    {
+      property: 'og:image',
+      content: 'imgSrc'
+    }
+  ],
+  link: [{ rel: 'canonical', href: 'https://bashkent-residence.uz/masterplan' }]
+});
 </script>
 
 <style lang="scss" scoped>
 .masterplan {
+  user-select: none;
   position: relative;
   overflow: hidden;
   &:has(.masterplan__overlay path:hover) .masterplan__box {
@@ -357,6 +409,7 @@ onUnmounted(() => {
   &__overlay {
     z-index: 2;
     &-path {
+      cursor: pointer;
       transition: fill vars.$dt;
       fill: transparent;
       &:hover {

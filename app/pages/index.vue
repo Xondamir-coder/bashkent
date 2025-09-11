@@ -49,7 +49,7 @@
           src="~/assets/images/home-flower.jpg"
           alt="home flower"
           class="home__content-bottom-image"
-        >
+        />
         <span ref="subtextRef">{{ $t('home.subtitle') }}</span>
       </div>
     </div>
@@ -128,7 +128,53 @@ onUnmounted(() => {
   if (tl) tl.kill();
 });
 
-useHead({ title: 'Home' });
+useHead({
+  title: 'Modern Apartments in Bukhara',
+  meta: [
+    {
+      name: 'description',
+      content:
+        'Discover Bashkent Residence in Bukhara: modern apartments with urban comfort, thoughtful infrastructure, and a touch of history. Find your new home today.'
+    },
+    {
+      name: 'keywords',
+      content:
+        'apartments in Bukhara, real estate Bukhara, buy apartment Bukhara, Bashkent Residence, modern housing Bukhara'
+    },
+    {
+      name: 'author',
+      content: 'https://spacelabs.studio'
+    },
+    {
+      name: 'publisher',
+      content: 'Spacelabs'
+    },
+    // Open Graph
+    {
+      property: 'og:title',
+      content: 'Modern Apartments in Bukhara'
+    },
+    {
+      property: 'og:description',
+      content:
+        'Discover Bashkent Residence in Bukhara: modern apartments with urban comfort, thoughtful infrastructure, and a touch of history.'
+    },
+    {
+      property: 'og:url',
+      content: 'https://bashkent-residence.uz/'
+    },
+    {
+      property: 'og:type',
+      content: 'website'
+    },
+    {
+      property: 'og:image',
+      content: 'imgSrc'
+    }
+  ],
+  link: [{ rel: 'canonical', href: 'https://bashkent-residence.uz/' }]
+});
+
 useScrollPage(direction => {
   if (direction === 'next') {
     useLocaleNavigate('/about');

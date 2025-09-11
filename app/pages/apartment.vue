@@ -52,11 +52,11 @@ const { t } = useI18n();
 const crumbs = computed(() => [
   {
     name: t('apts'),
-    path: '/apartments'
+    path: '/floors'
   },
   {
     name: t('apt'),
-    path: '/apartments'
+    path: '/floors'
   }
 ]);
 

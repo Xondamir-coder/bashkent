@@ -94,7 +94,52 @@ useScrollPage(direction => {
     useLocaleNavigate('/infrastructure');
   }
 });
-useHead({ title: 'Contacts' });
+useHead({
+  title: 'Contacts & Nearby Facilities',
+  meta: [
+    {
+      name: 'description',
+      content:
+        'Contact Bashkent Residence and explore nearby facilities: shopping, schools, parks, universities, theaters, and cultural spots in Bukhara.'
+    },
+    {
+      name: 'keywords',
+      content:
+        'contacts Bukhara, nearby facilities, shopping malls, stores, schools, parks, universities, theaters, cultural and leisure facilities'
+    },
+    {
+      name: 'author',
+      content: 'https://spacelabs.studio'
+    },
+    {
+      name: 'publisher',
+      content: 'Spacelabs'
+    },
+    // Open Graph
+    {
+      property: 'og:title',
+      content: 'Contacts & Nearby Facilities'
+    },
+    {
+      property: 'og:description',
+      content:
+        'Find contacts and nearby facilities: shopping, schools, parks, universities, theaters, and cultural spots near Bashkent Residence in Bukhara.'
+    },
+    {
+      property: 'og:url',
+      content: 'https://bashkent-residence.uz/contacts'
+    },
+    {
+      property: 'og:type',
+      content: 'website'
+    },
+    {
+      property: 'og:image',
+      content: 'imgSrc'
+    }
+  ],
+  link: [{ rel: 'canonical', href: 'https://bashkent-residence.uz/contacts' }]
+});
 </script>
 
 <style lang="scss" scoped>

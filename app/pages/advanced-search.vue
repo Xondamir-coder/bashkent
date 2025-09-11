@@ -70,7 +70,50 @@ definePageMeta({
 });
 
 useHead({
-  title: 'Floor plans'
+  title: 'Advanced Apartment Search',
+  meta: [
+    {
+      name: 'description',
+      content:
+        'Filter apartments in Bukhara by floor, layout, area, rooms, renovation type, and completion date. View detailed apartment cards.'
+    },
+    {
+      name: 'keywords',
+      content:
+        'advanced apartment search Bukhara, apartment filter floor, apartment filter layout, apartment by area, apartment by rooms, renovated apartments, completion date apartments, apartment listings Bukhara'
+    },
+    {
+      name: 'author',
+      content: 'https://spacelabs.studio'
+    },
+    {
+      name: 'publisher',
+      content: 'Spacelabs'
+    },
+    // Open Graph
+    {
+      property: 'og:title',
+      content: 'Advanced Apartment Search – Filters & Results'
+    },
+    {
+      property: 'og:description',
+      content:
+        'Filter apartments in Bukhara by floor, layout, area, rooms, renovation type, and completion date. Browse detailed listings.'
+    },
+    {
+      property: 'og:url',
+      content: 'https://bashkent-residence.uz/advanced-search'
+    },
+    {
+      property: 'og:type',
+      content: 'website'
+    },
+    {
+      property: 'og:image',
+      content: 'imgSrc'
+    }
+  ],
+  link: [{ rel: 'canonical', href: 'https://bashkent-residence.uz/advanced-search' }]
 });
 </script>
 

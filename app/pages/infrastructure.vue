@@ -163,7 +163,50 @@ useScrollPage(direction => {
 
 // Head meta
 useHead({
-  title: 'Infrastructure'
+  title: 'Infrastructure & Security in Bukhara',
+  meta: [
+    {
+      name: 'description',
+      content:
+        'Next-generation security and modern technologies ensure safety, comfort, and 24/7 monitoring for residents in Bashkent Residence, Bukhara.'
+    },
+    {
+      name: 'keywords',
+      content:
+        'infrastructure Bukhara, modern technologies, home security, 24/7 monitoring, safe residential complex, comfortable living'
+    },
+    {
+      name: 'author',
+      content: 'https://spacelabs.studio'
+    },
+    {
+      name: 'publisher',
+      content: 'Spacelabs'
+    },
+    // Open Graph
+    {
+      property: 'og:title',
+      content: 'Infrastructure & Security – Modern Comfort in Bukhara'
+    },
+    {
+      property: 'og:description',
+      content:
+        'Discover Bashkent Residence infrastructure: next-gen security, modern tech, and 24/7 monitoring for maximum comfort and safety.'
+    },
+    {
+      property: 'og:url',
+      content: 'https://bashkent-residence.uz/infrastructure'
+    },
+    {
+      property: 'og:type',
+      content: 'website'
+    },
+    {
+      property: 'og:image',
+      content: 'imgSrc'
+    }
+  ],
+  link: [{ rel: 'canonical', href: 'https://bashkent-residence.uz/infrastructure' }]
 });
 </script>
 

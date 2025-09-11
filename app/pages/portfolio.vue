@@ -144,7 +144,52 @@ onUnmounted(() => {
 });
 
 // head
-useHead({ title: 'Portfolio' });
+useHead({
+  title: 'Portfolio Projects in Uzbekistan',
+  meta: [
+    {
+      name: 'description',
+      content:
+        'Explore Bashkent Residence portfolio projects in Uzbekistan, including AGMK production plants in Almalyk and the University of Social Innovations in Tashkent.'
+    },
+    {
+      name: 'keywords',
+      content:
+        'AGMK Almalyk, production plants Uzbekistan, industrial facilities, University of Social Innovations Tashkent, social innovations, technology university'
+    },
+    {
+      name: 'author',
+      content: 'https://spacelabs.studio'
+    },
+    {
+      name: 'publisher',
+      content: 'Spacelabs'
+    },
+    // Open Graph
+    {
+      property: 'og:title',
+      content: 'Portfolio Projects in Uzbekistan'
+    },
+    {
+      property: 'og:description',
+      content:
+        'Discover Bashkent Residence portfolio: AGMK production plants in Almalyk and the University of Social Innovations in Tashkent.'
+    },
+    {
+      property: 'og:url',
+      content: 'https://bashkent-residence.uz/portfolio'
+    },
+    {
+      property: 'og:type',
+      content: 'website'
+    },
+    {
+      property: 'og:image',
+      content: 'imgSrc'
+    }
+  ],
+  link: [{ rel: 'canonical', href: 'https://bashkent-residence.uz/portfolio' }]
+});
 </script>
 
 <style lang="scss" scoped>

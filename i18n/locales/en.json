@@ -2,7 +2,10 @@
   "home": {
     "label": "A new stage of architecture.",
     "title": "Life in the City of Bukhara",
-    "subtitle": "A new philosophy of urban living"
+    "subtitle": "A new philosophy of urban living",
+    "seo": {
+      "title": "Home"
+    }
   },
 
   "just-area": "Area",

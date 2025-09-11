@@ -115,7 +115,50 @@ useScrollPage(direction => {
 });
 
 useHead({
-  title: 'Formula'
+  title: 'Formula for Success',
+  meta: [
+    {
+      name: 'description',
+      content:
+        'Discover Bashkent Residence in Bukhara by the numbers: 38 buildings, 2928 apartments, green zones, sports grounds, schools, wellness complex, parking.'
+    },
+    {
+      name: 'keywords',
+      content:
+        'Bashkent Residence numbers, residential buildings Bukhara, apartments Bukhara, green zones, sports grounds, school, wellness complex, parking spaces'
+    },
+    {
+      name: 'author',
+      content: 'https://spacelabs.studio'
+    },
+    {
+      name: 'publisher',
+      content: 'Spacelabs'
+    },
+    // Open Graph
+    {
+      property: 'og:title',
+      content: 'Formula for Success – Bashkent Residence in Numbers'
+    },
+    {
+      property: 'og:description',
+      content:
+        'Explore Bashkent Residence in Bukhara: 38 buildings, 2928 apartments, green zones, sports grounds, schools, wellness complex, and parking.'
+    },
+    {
+      property: 'og:url',
+      content: 'https://bashkent-residence.uz/formula-for-success'
+    },
+    {
+      property: 'og:type',
+      content: 'website'
+    },
+    {
+      property: 'og:image',
+      content: 'imgSrc'
+    }
+  ],
+  link: [{ rel: 'canonical', href: 'https://bashkent-residence.uz/formula-for-success' }]
 });
 </script>
 

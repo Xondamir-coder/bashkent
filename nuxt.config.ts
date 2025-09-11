@@ -6,7 +6,8 @@ export default defineNuxtConfig({
     '@nuxtjs/google-fonts',
     '@nuxt/image',
     '@nuxtjs/i18n',
-    '@nuxtjs/leaflet'
+    '@nuxtjs/leaflet',
+    '@nuxtjs/seo'
   ],
   css: ['~/assets/scss/main.scss'],
   googleFonts: {
@@ -18,7 +19,8 @@ export default defineNuxtConfig({
   },
   i18n: {
     defaultLocale: 'en',
-    baseUrl: 'https://bashkent.netlify.app',
+    strategy: 'prefix_except_default',
+    baseUrl: 'https://bashkent-residence.uz',
     detectBrowserLanguage: {
       useCookie: true,
       cookieKey: 'i18n_redirected',
@@ -52,7 +54,7 @@ export default defineNuxtConfig({
   },
   app: {
     head: {
-      titleTemplate: '%s - Bashkent'
+      titleTemplate: '%s - Bashkent Residence'
     }
   },
   vite: {

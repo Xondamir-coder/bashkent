@@ -68,7 +68,50 @@ onMounted(() => {
 });
 
 useHead({
-  title: 'Housing'
+  title: 'Housing Options & Apartment Features in Bukhara',
+  meta: [
+    {
+      name: 'description',
+      content:
+        'Explore modern apartments in Bukhara with natural lighting, ventilation, ergonomic kitchens, balconies, wardrobes, and flexible renovation options.'
+    },
+    {
+      name: 'keywords',
+      content:
+        'housing Bukhara, apartments Bukhara, natural lighting, ventilation, ergonomic kitchen, balconies, wardrobes, ready for renovation, finished renovation, choose floor, choose view'
+    },
+    {
+      name: 'author',
+      content: 'https://spacelabs.studio'
+    },
+    {
+      name: 'publisher',
+      content: 'Spacelabs'
+    },
+    // Open Graph
+    {
+      property: 'og:title',
+      content: 'Housing Options & Apartment Features in Bukhara'
+    },
+    {
+      property: 'og:description',
+      content:
+        'Modern apartments in Bukhara with natural lighting, ventilation, ergonomic kitchens, balconies, wardrobes, and flexible renovation options.'
+    },
+    {
+      property: 'og:url',
+      content: 'https://bashkent-residence.uz/housing'
+    },
+    {
+      property: 'og:type',
+      content: 'website'
+    },
+    {
+      property: 'og:image',
+      content: 'imgSrc'
+    }
+  ],
+  link: [{ rel: 'canonical', href: 'https://bashkent-residence.uz/housing' }]
 });
 
 onUnmounted(() => {

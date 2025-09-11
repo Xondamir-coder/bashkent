@@ -145,7 +145,50 @@ useScrollPage(direction => {
   }
 });
 useHead({
-  title: 'About'
+  title: 'About Bashkent Residence in Bukhara',
+  meta: [
+    {
+      name: 'description',
+      content:
+        'Learn about Bashkent Residence in Bukhara – modern architecture, thoughtful infrastructure, and comfortable living in harmony with the city.'
+    },
+    {
+      name: 'keywords',
+      content:
+        'about Bashkent Residence, apartments in Bukhara, residential complex Bukhara, modern housing Bukhara'
+    },
+    {
+      name: 'author',
+      content: 'https://spacelabs.studio'
+    },
+    {
+      name: 'publisher',
+      content: 'Spacelabs'
+    },
+    // Open Graph
+    {
+      property: 'og:title',
+      content: 'About Bashkent Residence in Bukhara'
+    },
+    {
+      property: 'og:description',
+      content:
+        'Discover Bashkent Residence in Bukhara – modern living with comfort and cultural harmony.'
+    },
+    {
+      property: 'og:url',
+      content: 'https://bashkent-residence.uz/about'
+    },
+    {
+      property: 'og:type',
+      content: 'website'
+    },
+    {
+      property: 'og:image',
+      content: 'imgSrc'
+    }
+  ],
+  link: [{ rel: 'canonical', href: 'https://bashkent-residence.uz/about' }]
 });
 </script>
 
