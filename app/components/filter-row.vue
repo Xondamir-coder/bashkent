@@ -35,7 +35,7 @@ const showDropdown = ref(false);
 const model = defineModel({
   type: [Object, Number]
 });
-const props = defineProps({
+defineProps({
   options: {
     type: Array,
     default: () => []
@@ -53,8 +53,6 @@ const props = defineProps({
     type: String
   }
 });
-
-model.value = props.options[0];
 
 const selectOption = opt => {
   model.value = opt;
@@ -93,9 +91,12 @@ const selectOption = opt => {
     display: flex;
     & > * {
       flex: 1;
+      border: 1px solid transparent;
       &.active {
         color: vars.$teal;
         fill: vars.$teal;
+        border-color: #d6d7d7;
+
         .filter-row__arrow {
           transform: rotate(90deg);
         }
