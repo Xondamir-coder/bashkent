@@ -60,51 +60,12 @@ onMounted(() => {
   });
 });
 
-useHead({
+useSeoMeta({
   title: 'Floor Layouts & Apartment Plans',
-  meta: [
-    {
-      name: 'description',
-      content:
-        'Browse detailed floor layouts with apartment sketches. Select a floor number on the right to view available apartments and their positioning.'
-    },
-    {
-      name: 'keywords',
-      content:
-        'floor layouts Bukhara, apartment plans Bukhara, floor sketches, apartment positioning, Bashkent Residence floors, floor navigation'
-    },
-    {
-      name: 'author',
-      content: 'https://spacelabs.studio'
-    },
-    {
-      name: 'publisher',
-      content: 'Spacelabs'
-    },
-    // Open Graph
-    {
-      property: 'og:title',
-      content: 'Floor Layouts & Apartment Plans'
-    },
-    {
-      property: 'og:description',
-      content:
-        'Explore interactive floor layouts and apartment sketches. Navigate floors on the right to see available apartments and layouts.'
-    },
-    {
-      property: 'og:url',
-      content: 'https://bashkent-residence.uz/floors'
-    },
-    {
-      property: 'og:type',
-      content: 'website'
-    },
-    {
-      property: 'og:image',
-      content: 'imgSrc'
-    }
-  ],
-  link: [{ rel: 'canonical', href: 'https://bashkent-residence.uz/floors' }]
+  description:
+    'Browse detailed floor layouts with apartment sketches. Select a floor number on the right to view available apartments and their positioning.',
+  keywords:
+    'floor layouts Bukhara, apartment plans Bukhara, floor sketches, apartment positioning, Bashkent Residence floors, floor navigation'
 });
 
 definePageMeta({

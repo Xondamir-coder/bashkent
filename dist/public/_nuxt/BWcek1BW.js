@@ -1,0 +1,1 @@
+import{b as t}from"./IbQbeng8.js";import{_ as r,c as a,o as n,b as s,S as c}from"./Z5996nLj.js";import"./Bc7tlpZ1.js";import"./D-JJ1LmB.js";import"./ebI3LJv4.js";const _={},d={class:"layout"};function p(e,i){const o=t;return n(),a("div",d,[s(o,{"is-plan-header":!0}),c(e.$slots,"default",{},void 0)])}const h=r(_,[["render",p],["__scopeId","data-v-a538b937"]]);export{h as default};

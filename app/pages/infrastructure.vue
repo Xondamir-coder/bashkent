@@ -71,7 +71,7 @@ import { SplitText } from 'gsap/SplitText';
 
 // Composables
 const { showPreloader, showPageLoader } = useLoader();
-const { t } = useI18n();
+const { t, locale } = useI18n();
 
 // State
 const currentPage = ref(0);
@@ -162,51 +162,10 @@ useScrollPage(direction => {
 });
 
 // Head meta
-useHead({
-  title: 'Infrastructure & Security in Bukhara',
-  meta: [
-    {
-      name: 'description',
-      content:
-        'Next-generation security and modern technologies ensure safety, comfort, and 24/7 monitoring for residents in Bashkent Residence, Bukhara.'
-    },
-    {
-      name: 'keywords',
-      content:
-        'infrastructure Bukhara, modern technologies, home security, 24/7 monitoring, safe residential complex, comfortable living'
-    },
-    {
-      name: 'author',
-      content: 'https://spacelabs.studio'
-    },
-    {
-      name: 'publisher',
-      content: 'Spacelabs'
-    },
-    // Open Graph
-    {
-      property: 'og:title',
-      content: 'Infrastructure & Security – Modern Comfort in Bukhara'
-    },
-    {
-      property: 'og:description',
-      content:
-        'Discover Bashkent Residence infrastructure: next-gen security, modern tech, and 24/7 monitoring for maximum comfort and safety.'
-    },
-    {
-      property: 'og:url',
-      content: 'https://bashkent-residence.uz/infrastructure'
-    },
-    {
-      property: 'og:type',
-      content: 'website'
-    },
-    {
-      property: 'og:image',
-      content: 'imgSrc'
-    }
-  ],
-  link: [{ rel: 'canonical', href: 'https://bashkent-residence.uz/infrastructure' }]
+useSeoMeta({
+  title: seo[locale.value]['infrastructure'].title,
+  description: seo[locale.value]['infrastructure'].description,
+  keywords: seo[locale.value]['infrastructure'].keywords
 });
 </script>
 

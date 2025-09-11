@@ -41,51 +41,11 @@
 </template>
 
 <script setup>
-useHead({
-  title: 'Selection Method',
-  meta: [
-    {
-      name: 'description',
-      content:
-        'Choose how you want to search: use visual selection on the masterplan facade or advanced filters by price and area.'
-    },
-    {
-      name: 'keywords',
-      content:
-        'selection method, apartment search options, visual search masterplan, facade selection, advanced filters, choose by price, choose by area'
-    },
-    {
-      name: 'author',
-      content: 'https://spacelabs.studio'
-    },
-    {
-      name: 'publisher',
-      content: 'Spacelabs'
-    },
-    // Open Graph
-    {
-      property: 'og:title',
-      content: 'Selection Method – Visual or Advanced Filtering'
-    },
-    {
-      property: 'og:description',
-      content:
-        'Decide how to proceed: explore with visual search on the masterplan facade or use advanced filtering by price and area.'
-    },
-    {
-      property: 'og:url',
-      content: 'https://bashkent-residence.uz/select'
-    },
-    {
-      property: 'og:type',
-      content: 'website'
-    },
-    {
-      property: 'og:image',
-      content: 'imgSrc'
-    }
-  ],
-  link: [{ rel: 'canonical', href: 'https://bashkent-residence.uz/select' }]
+const { locale } = useI18n();
+useSeoMeta({
+  title: seo[locale.value]['select'].title,
+  description: seo[locale.value]['select'].description,
+  keywords: seo[locale.value]['select'].keywords
 });
 </script>
 

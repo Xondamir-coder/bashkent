@@ -17,6 +17,12 @@ export default defineNuxtConfig({
       'Gothic A1': [800]
     }
   },
+  seo: {
+    meta: {
+      author: 'https://spacelabs.studio',
+      publisher: 'Spacelabs'
+    }
+  },
   i18n: {
     defaultLocale: 'en',
     strategy: 'prefix_except_default',

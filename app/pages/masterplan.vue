@@ -313,51 +313,11 @@ onUnmounted(() => {
   window.removeEventListener('pointermove', handleParallax);
 });
 
-useHead({
-  title: 'Masterplan & Interactive Map',
-  meta: [
-    {
-      name: 'description',
-      content:
-        'View the interactive masterplan of Bashkent Residence in Bukhara with phases, buildings, floors, and apartments.'
-    },
-    {
-      name: 'keywords',
-      content:
-        'masterplan Bukhara, residential complex plan, Bashkent Residence plan, building plan, apartment map, interactive masterplan'
-    },
-    {
-      name: 'author',
-      content: 'https://spacelabs.studio'
-    },
-    {
-      name: 'publisher',
-      content: 'Spacelabs'
-    },
-    // Open Graph
-    {
-      property: 'og:title',
-      content: 'Masterplan & Interactive Map'
-    },
-    {
-      property: 'og:description',
-      content:
-        'Explore the Bashkent Residence masterplan: interactive map of buildings, floors, and apartments.'
-    },
-    {
-      property: 'og:url',
-      content: 'https://bashkent-residence.uz/masterplan'
-    },
-    {
-      property: 'og:type',
-      content: 'website'
-    },
-    {
-      property: 'og:image',
-      content: 'imgSrc'
-    }
-  ],
-  link: [{ rel: 'canonical', href: 'https://bashkent-residence.uz/masterplan' }]
+const { locale } = useI18n();
+useSeoMeta({
+  title: seo[locale.value]['masterplan'].title,
+  description: seo[locale.value]['masterplan'].description,
+  keywords: seo[locale.value]['masterplan'].keywords
 });
 </script>
 

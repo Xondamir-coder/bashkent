@@ -48,7 +48,7 @@ import housingBg from '/images/housing.jpg';
 
 // Composables
 const { showPreloader, showPageLoader } = useLoader();
-const { t } = useI18n();
+const { t, locale } = useI18n();
 
 // State
 const currentPage = ref(0);
@@ -137,51 +137,10 @@ useScrollPage(direction => {
 });
 
 // Head meta
-useHead({
-  title: 'Architecture & Design Features',
-  meta: [
-    {
-      name: 'description',
-      content:
-        'Explore Bashkent Residence architecture in Bukhara: terraces, panoramic windows, facade lighting, bicycle paths, recreation areas, and parking.'
-    },
-    {
-      name: 'keywords',
-      content:
-        'Bashkent Residence architecture, terraces Bukhara, panoramic windows, facade lighting, bicycle paths, recreation area, parking'
-    },
-    {
-      name: 'author',
-      content: 'https://spacelabs.studio'
-    },
-    {
-      name: 'publisher',
-      content: 'Spacelabs'
-    },
-    // Open Graph
-    {
-      property: 'og:title',
-      content: 'Architecture & Design Features'
-    },
-    {
-      property: 'og:description',
-      content:
-        'Discover Bashkent Residence in Bukhara: terraces, panoramic windows, facade lighting, bicycle paths, recreation areas, and parking.'
-    },
-    {
-      property: 'og:url',
-      content: 'https://bashkent-residence.uz/architecture'
-    },
-    {
-      property: 'og:type',
-      content: 'website'
-    },
-    {
-      property: 'og:image',
-      content: 'imgSrc'
-    }
-  ],
-  link: [{ rel: 'canonical', href: 'https://bashkent-residence.uz/architecture' }]
+useSeoMeta({
+  title: seo[locale.value]['architecture'].title,
+  description: seo[locale.value]['architecture'].description,
+  keywords: seo[locale.value]['architecture'].keywords
 });
 </script>
 
