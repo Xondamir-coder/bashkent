@@ -14,7 +14,7 @@ export default defineNuxtPlugin(() => {
   const { showPageLoader } = useLoader();
 
   const PAGE_LOADER_DURATION = 1;
-  const PAGE_DELAY = 1;
+  const PAGE_DELAY = 0.85;
 
   if (!import.meta.client) return;
 
