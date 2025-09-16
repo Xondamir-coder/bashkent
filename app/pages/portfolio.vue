@@ -14,16 +14,12 @@
 
 <script setup>
 // imports
-import gsap from 'gsap';
+// import gsap from 'gsap';
 import imgSrc1 from '/images/portfolio-1.jpg';
 import imgSrc2 from '/images/portfolio-2.jpg';
 
-// router and composables
-
-const { showPreloader, showPageLoader } = useLoader();
-
 // state
-let timelines;
+// let timelines;
 const sectionRefs = ref([]);
 const currentSection = ref(0);
 
@@ -94,13 +90,8 @@ const onTouchStart = e => {
 };
 
 // watchers
-watch(currentSection, (newVal, oldVal) => {
-  if (timelines?.[oldVal]) timelines[oldVal].reverse();
-  if (timelines?.[newVal]) timelines[newVal].play();
-});
-
-watch([showPreloader, showPageLoader], () => {
-  if (!showPreloader.value && !showPageLoader.value) timelines[0].restart();
+watch(currentSection, () => {
+  console.log(currentSection.value);
 });
 
 // lifecycle
@@ -108,39 +99,12 @@ onMounted(() => {
   window.addEventListener('wheel', handleScrollOrSwipe, { passive: false });
   window.addEventListener('touchend', handleScrollOrSwipe, { passive: false });
   window.addEventListener('touchstart', onTouchStart);
-
-  timelines = sectionRefs.value.map(section => {
-    const tl = gsap.timeline({ paused: true });
-    tl.from(section.wordsSplit.words, {
-      yPercent: 120,
-      opacity: 0,
-      rotateX: -90,
-      transformOrigin: 'top center',
-      ease: 'back.out(1.7)',
-      stagger: 0.08,
-      duration: 0.8
-    });
-    tl.from(
-      section.linesSplit.lines,
-      {
-        yPercent: 150,
-        opacity: 0,
-        skewY: 6,
-        ease: 'power4.out',
-        stagger: 0.15,
-        duration: 0.9
-      },
-      '-=0.5'
-    );
-    return tl;
-  });
 });
 
 onUnmounted(() => {
   window.removeEventListener('wheel', handleScrollOrSwipe);
   window.removeEventListener('touchend', handleScrollOrSwipe);
   window.removeEventListener('touchstart', onTouchStart);
-  timelines.forEach(tl => tl.kill());
 });
 
 // head

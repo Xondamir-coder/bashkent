@@ -14,12 +14,9 @@
         </div>
       </div>
       <div class="about__container">
-        <NuxtPicture
-          format="avif"
-          sizes="(max-width: 640px) 640px, 1280px"
-          src="/images/home/buildings.jpg"
-          class="about__image"
-        />
+        <video ref="videoRef" muted loop class="about__video">
+          <source src="/videos/city.mp4" type="video/mp4" />
+        </video>
         <NuxtPicture
           format="avif"
           sizes="(max-width: 640px) 640px, 1280px"
@@ -38,8 +35,12 @@
           src="/images/home/tree-2.png"
           class="about__picture"
         />
-        <button class="about__play">
-          <SvgVideoPlayText />
+        <button class="about__play" @click="handlePlay">
+          <SvgPlayText class="about__play-text" />
+          <div class="about__play-box">
+            <SvgPlay class="about__play-icon" :class="{ paused: !isPaused }" />
+            <SvgPause class="about__play-icon" :class="{ paused: isPaused }" />
+          </div>
         </button>
         <div class="about__box">
           <p>
@@ -59,10 +60,21 @@ const { showPreloader, showPageLoader } = useLoader();
 
 let tl;
 
+const isPaused = ref(true);
 const titleRef = ref();
 const textRef = ref();
 const subtextRef = ref();
 const containerRef = ref();
+const videoRef = ref();
+
+const handlePlay = () => {
+  if (isPaused.value) {
+    videoRef.value.play();
+  } else {
+    videoRef.value.pause();
+  }
+  isPaused.value = !isPaused.value;
+};
 
 // useImageParallax(containerRef, { selector: '.about__picture', strength: 50, ease: 0.1 });
 
@@ -111,15 +123,6 @@ onMounted(() => {
     '-=.8'
   );
   tl.from(
-    '.about__image img',
-    {
-      scale: 1.1,
-      opacity: 0,
-      duration: 0.7
-    },
-    0.25
-  );
-  tl.from(
     '.about__picture img',
     {
       stagger: 0.1,
@@ -154,6 +157,11 @@ useSeoMeta({
 </script>
 
 <style lang="scss" scoped>
+@keyframes rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
 .about {
   background: linear-gradient(246.98deg, #0b726b 0%, #065650 94.35%);
   display: flex;
@@ -176,9 +184,39 @@ useSeoMeta({
   &__play {
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-70%, -50%);
     display: flex;
     width: max(12.3rem, 90px);
+    height: max(12.3rem, 90px);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &-text {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      animation: rotate 15s infinite linear;
+    }
+    &-icon {
+      width: 30%;
+      grid-area: 1/1/2/2;
+      transform: rotate(-45deg);
+      transition: scale vars.$dt;
+      &.paused {
+        scale: 0;
+      }
+    }
+    &-box {
+      width: 50%;
+      height: 50%;
+      background-color: vars.$gold;
+      border-radius: max(1.5rem, 10px);
+      transform: rotate(45deg);
+      display: grid;
+      place-items: center;
+    }
   }
   &__picture {
     z-index: 2;
@@ -213,6 +251,12 @@ useSeoMeta({
     @media screen and (max-width: vars.$bp-large-mobile) {
       // aspect-ratio: 375/210;
     }
+  }
+  &__video {
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
   &__container {
     flex: 1;

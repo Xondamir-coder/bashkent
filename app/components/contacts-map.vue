@@ -3,6 +3,8 @@
     <LMap
       ref="map"
       :zoom="14"
+      :max-zoom="14"
+      :min-zoom="14"
       :center="center"
       :use-global-leaflet="false"
       style="height: 100%; width: 100%"

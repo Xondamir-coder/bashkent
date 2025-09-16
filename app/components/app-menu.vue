@@ -42,10 +42,10 @@
           <span>{{ $t('address') }}:</span>
           <span>{{ $t('menu.bukhara') }}</span>
         </a>
-        <a class="menu__item" href="tel:+998 78 148 55 55">
+        <a class="menu__item" href="tel:+998 55 307 55 55">
           <SvgCallEnd class="menu__item-icon" />
           <span>{{ $t('phone') }}:</span>
-          <span>(78) 148-55-55</span>
+          <span>(55) 307-55-55</span>
         </a>
         <a class="menu__item" href="https://t.me/bashkent_residence">
           <SvgTelegram class="menu__item-icon" />

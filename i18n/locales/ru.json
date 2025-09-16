@@ -154,8 +154,8 @@
   "menu": {
     "label": "Меню",
     "office": "Офис продаж",
-    "address": "100073, O‘zbekiston, Toshkent shahri, Yashnobod tumani, Jarqo‘rg‘on ko‘chasi, 47",
-    "timing": "Dushanba-Yakshanba: 9:00 dan 19:00 gacha",
+    "адрес": "г. Бухара, ул. С.Айни, дом 92/7",
+    "timing": "Понедельник-Суббота: с 9:00 до 19:00",
     "bukhara": "город Бухара",
     "nav": [
       {

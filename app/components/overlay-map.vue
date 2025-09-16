@@ -6,7 +6,6 @@
 
     <div class="overlay__wrapper">
       <img :src="image" alt="overlay banner" class="overlay__picture" />
-
       <svg
         class="overlay__container"
         xmlns="http://www.w3.org/2000/svg"
@@ -65,9 +64,11 @@ const handleParallax = e => {
 };
 
 onMounted(() => {
+  if (window.innerWidth < 1280) return;
   window.addEventListener('pointermove', handleParallax);
 });
 onUnmounted(() => {
+  if (window.innerWidth < 1280) return;
   window.removeEventListener('pointermove', handleParallax);
 });
 </script>

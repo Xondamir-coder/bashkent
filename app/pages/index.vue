@@ -156,48 +156,8 @@ useScrollPage(direction => {
   overflow: hidden;
   &.hidden {
     .home__image {
-      $transforms: (
-        1: (
-          0.95,
-          -3deg,
-          -4px 2px
-        ),
-        2: (
-          1.08,
-          5deg,
-          6px -3px
-        ),
-        3: (
-          1.02,
-          -2deg,
-          -2px -4px
-        ),
-        4: (
-          0.98,
-          4deg,
-          3px 5px
-        ),
-        5: (
-          1.1,
-          -6deg,
-          -5px 1px
-        )
-      );
-
-      @for $i from 1 through 5 {
-        &:nth-of-type(#{$i}) {
-          $values: map.get($transforms, $i);
-
-          & > * {
-            scale: list.nth($values, 1);
-            rotate: list.nth($values, 2);
-            translate: list.nth($values, 3);
-            opacity: 0;
-          }
-        }
-      }
-
       & > * {
+        transform: translateY(10%);
         opacity: 0;
       }
     }

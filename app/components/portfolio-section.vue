@@ -65,12 +65,30 @@ onMounted(() => {
   overflow: hidden;
   grid-template-columns: 1.12fr 1fr;
   transition: opacity 0.5s;
-  &:not(.active) {
-    pointer-events: none;
-    opacity: 0;
-    .portfolio-section__image > * {
-      transform: scale(1.1);
+
+  &:first-child {
+    &:not(.active) {
+      .portfolio-section__content {
+        transform: translateY(15%);
+      }
+      .portfolio-section__image {
+        transform: translateY(-15%);
+      }
     }
+  }
+  &:last-child {
+    &:not(.active) {
+      .portfolio-section__content {
+        transform: translateY(100%);
+      }
+      .portfolio-section__image {
+        transform: translateY(-10%);
+        clip-path: inset(0 0 100% 0);
+      }
+    }
+  }
+  &:last-child .portfolio-section__content {
+    background-color: #fff;
   }
   &:first-child {
     .portfolio-section__content {
@@ -91,6 +109,7 @@ onMounted(() => {
     }
   }
   &:last-child {
+    z-index: 5;
     .portfolio-section__content {
       padding-inline: var(--block-spacing);
     }
@@ -114,15 +133,18 @@ onMounted(() => {
     grid-auto-rows: max-content;
     padding-block: max(1.6rem, 16px);
   }
+  & > * {
+    transition: all 1.3s;
+  }
   &__pattern {
+    z-index: 5;
     position: absolute;
     min-width: 340px;
     width: 56.4%;
-    z-index: -1;
   }
   &__content {
-    align-self: center;
     display: flex;
+    justify-content: center;
     flex-direction: column;
     gap: 2.4rem;
     @media screen and (max-width: 900px) {
@@ -138,9 +160,8 @@ onMounted(() => {
   }
   &__image {
     height: 100dvh;
-    & > * {
-      transition: all 0.5s;
-    }
+    clip-path: inset(0 0 0 0);
+
     @media screen and (max-width: 900px) {
       height: auto;
       order: -1;

@@ -1,10 +1,10 @@
 <template>
   <div class="layout">
-    <Transition name="scale-out">
+    <Transition name="slide-out">
       <AppPreloader v-if="showPreloader" />
     </Transition>
     <ClientOnly>
-      <Transition name="scale-out">
+      <Transition name="page">
         <PageLoader v-if="showPageLoader" :data="pageLoaderData" />
       </Transition>
     </ClientOnly>
@@ -71,6 +71,15 @@ onMounted(() => {
     opacity: 0;
   }
 }
+.page-enter-active,
+.page-leave-active {
+  transition: all 1s;
+}
+.page-enter-from,
+.page-leave-to {
+  transform: scale(1.1);
+  opacity: 0;
+}
 
 .scale-out-enter-active,
 .scale-out-leave-active {
@@ -79,6 +88,15 @@ onMounted(() => {
 .scale-out-enter-from,
 .scale-out-leave-to {
   transform: scale(1.1);
+  opacity: 0;
+}
+.slide-out-enter-active,
+.slide-out-leave-active {
+  transition: all 0.6s ease;
+}
+.slide-out-enter-from,
+.slide-out-leave-to {
+  transform: translateY(-100%);
   opacity: 0;
 }
 </style>
