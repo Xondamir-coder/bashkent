@@ -111,6 +111,9 @@ onUnmounted(() => {
     inset: 0;
     width: 100%;
     height: 100%;
+    @media screen and (max-width: 1280px) {
+      overflow: auto;
+    }
   }
   &__close {
     position: absolute !important;
@@ -133,11 +136,15 @@ onUnmounted(() => {
   &__container {
     position: absolute;
     inset: 0;
-    top: 50%;
-    left: 55%;
-    width: 120%;
-    height: 120%;
-    transform: translate(-50%, -50%);
+    width: auto;
+    height: 100%;
+    @media screen and (min-width: 1280px) {
+      top: 50%;
+      left: 55%;
+      width: 120%;
+      height: 120%;
+      transform: translate(-50%, -50%);
+    }
   }
 }
 </style>
