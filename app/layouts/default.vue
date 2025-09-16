@@ -23,10 +23,12 @@ const { tm, rt } = useI18n();
 
 const newPageName = useState('newPageName');
 const pages = useState('pages');
+const isGoingForward = useState('isGoingForward');
 
 // menu
 const showMenu = ref(false);
 const toggleMenu = () => {
+  isGoingForward.value = true;
   showMenu.value = !showMenu.value;
 };
 

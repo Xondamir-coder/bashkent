@@ -192,6 +192,9 @@ useSeoMeta({
     display: flex;
     align-items: center;
     justify-content: center;
+    @media screen and (max-width: vars.$bp-large-mobile) {
+      transform: translate(-50%, -50%);
+    }
     &-text {
       position: absolute;
       inset: 0;

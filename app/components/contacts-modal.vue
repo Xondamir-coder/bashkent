@@ -57,9 +57,9 @@
 </template>
 
 <script setup>
-const { toggleContactsModal, showContactsModal } = useAppState();
 const { locale } = useI18n();
 
+const showContactsModal = ref(false);
 const isLoading = ref(false);
 const successMessage = ref('');
 const userData = ref({
@@ -70,6 +70,10 @@ const userData = ref({
 const isFormValid = computed(
   () => userData.value.name && userData.value.tel.length === 17 && userData.value.comment
 );
+
+const toggleContactsModal = () => {
+  showContactsModal.value = !showContactsModal.value;
+};
 
 const COUNTRY_CODE = '+998 ';
 const LENGTHS_WITH_SPACE = [7, 11, 14];

@@ -42,6 +42,7 @@ let isLocked = false;
 const lockTime = 1000;
 const swipeThreshold = 60;
 const wheelThreshold = 30;
+const timeoutAfterPageLoader = 1500;
 
 const lock = () => {
   isLocked = true;
@@ -89,16 +90,13 @@ const onTouchStart = e => {
   startY = e.touches[0].clientY;
 };
 
-// watchers
-watch(currentSection, () => {
-  console.log(currentSection.value);
-});
-
 // lifecycle
 onMounted(() => {
-  window.addEventListener('wheel', handleScrollOrSwipe, { passive: false });
-  window.addEventListener('touchend', handleScrollOrSwipe, { passive: false });
-  window.addEventListener('touchstart', onTouchStart);
+  setTimeout(() => {
+    window.addEventListener('wheel', handleScrollOrSwipe, { passive: false });
+    window.addEventListener('touchend', handleScrollOrSwipe, { passive: false });
+    window.addEventListener('touchstart', onTouchStart);
+  }, timeoutAfterPageLoader);
 });
 
 onUnmounted(() => {

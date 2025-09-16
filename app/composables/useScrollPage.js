@@ -8,6 +8,8 @@ export default callback => {
   let touchStartY = 0;
   const lockTime = 3000; // 3s minimum lock
   const minDelta = 30; // threshold for trackpad/touch
+  const isGoingForward = useState('isGoingForward');
+  const timeoutAfterPageLoader = 1500;
 
   function triggerOnce(direction) {
     if (isGlobalLocked) return;
@@ -50,9 +52,11 @@ export default callback => {
     if (e.deltaY > minDelta && atBottom()) {
       e.preventDefault();
       triggerOnce('next');
+      isGoingForward.value = true;
     } else if (e.deltaY < -minDelta && atTop()) {
       e.preventDefault();
       triggerOnce('prev');
+      isGoingForward.value = false;
     }
   }
 
@@ -73,13 +77,30 @@ export default callback => {
     }
   }
 
+  const { showPageLoader } = useLoader();
+
+  watch(showPageLoader, () => {
+    if (!import.meta.client) return;
+    if (!showPageLoader.value) {
+      setTimeout(() => {
+        window.addEventListener('wheel', onWheel, { passive: false });
+        window.addEventListener('touchstart', onTouchStart, { passive: true });
+        window.addEventListener('touchend', onTouchEnd, { passive: true });
+      }, timeoutAfterPageLoader);
+    }
+  });
+
   onMounted(() => {
+    if (showPageLoader.value || !import.meta.client) return;
+
     window.addEventListener('wheel', onWheel, { passive: false });
     window.addEventListener('touchstart', onTouchStart, { passive: true });
     window.addEventListener('touchend', onTouchEnd, { passive: true });
   });
 
   onUnmounted(() => {
+    if (!import.meta.client) return;
+
     window.removeEventListener('wheel', onWheel);
     window.removeEventListener('touchstart', onTouchStart);
     window.removeEventListener('touchend', onTouchEnd);

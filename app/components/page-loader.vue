@@ -8,7 +8,9 @@
           {{ $rt(text) }}
         </p>
       </div>
-      <div class="page-loader__bar" />
+      <div class="page-loader__bar">
+        <div class="page-loader__bar--inner"></div>
+      </div>
     </div>
   </div>
 </template>
@@ -17,14 +19,77 @@
 import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
 
+// loader state
+const { showPageLoader } = useLoader();
+
+// refs
 const titleRef = ref();
 const textsRef = ref([]);
 const textsContainerRef = ref();
 
+// direction state (forward or backward)
+const isGoingForward = useState('isGoingForward', () => true);
+
+// progress values
+let progress = isGoingForward.value ? 0 : 1; // bar progress: 0 → 1
+let startY = 0; // for touch tracking
+
+// animate the bar based on progress
+const animateBar = () => {
+  gsap.to('.page-loader__bar--inner', {
+    scaleX: progress,
+    duration: 0.5,
+    ease: 'power2.out'
+  });
+};
+
+// handle wheel event
+const onWheel = e => {
+  progress += e.deltaY * 0.001; // sensitivity
+  progress = Math.max(0, Math.min(1, progress)); // clamp
+  animateBar();
+
+  // exit loader when bar is full or empty depending on direction
+  if (!isGoingForward.value && progress <= 0) {
+    showPageLoader.value = false;
+  }
+  if (isGoingForward.value && progress >= 1) {
+    showPageLoader.value = false;
+  }
+};
+
+// handle touch start
+const onTouchStart = e => {
+  startY = e.touches[0].clientY;
+};
+
+// handle touch move (swipe)
+const onTouchMove = e => {
+  const delta = startY - e.touches[0].clientY;
+  progress += delta * 0.002; // sensitivity
+  progress = Math.max(0, Math.min(1, progress)); // clamp
+  startY = e.touches[0].clientY;
+  animateBar();
+
+  // exit loader when bar is full or empty depending on direction
+  if (!isGoingForward.value && progress <= 0) {
+    showPageLoader.value = false;
+  }
+  if (isGoingForward.value && progress >= 1) {
+    showPageLoader.value = false;
+  }
+};
+
+// setup animations and listeners
 onMounted(() => {
+  // set initial states
   gsap.set(titleRef.value, { opacity: 1 });
   gsap.set(textsContainerRef.value, { opacity: 1 });
+  gsap.set('.page-loader__bar--inner', {
+    scaleX: isGoingForward.value ? 0 : 1
+  });
 
+  // animate title chars
   SplitText.create(titleRef.value, {
     type: 'chars, words',
     mask: 'chars',
@@ -33,14 +98,13 @@ onMounted(() => {
         duration: 0.6,
         yPercent: 'random([-100, 100])',
         xPercent: 'random([-100, 100])',
-        stagger: {
-          from: 'random',
-          amount: 0.6
-        },
+        stagger: { from: 'random', amount: 0.6 },
         ease: 'power3.out'
       });
     }
   });
+
+  // animate text lines
   SplitText.create(textsRef.value, {
     type: 'lines',
     mask: 'lines',
@@ -53,8 +117,23 @@ onMounted(() => {
       });
     }
   });
+
+  // delay input listeners so animation plays first
+  setTimeout(() => {
+    window.addEventListener('wheel', onWheel, { passive: true });
+    window.addEventListener('touchstart', onTouchStart, { passive: true });
+    window.addEventListener('touchmove', onTouchMove, { passive: true });
+  }, 1000);
 });
 
+// cleanup
+onBeforeUnmount(() => {
+  window.removeEventListener('wheel', onWheel);
+  window.removeEventListener('touchstart', onTouchStart);
+  window.removeEventListener('touchmove', onTouchMove);
+});
+
+// props
 defineProps({
   data: {
     required: true,
@@ -107,8 +186,8 @@ defineProps({
     border-radius: 1.5rem;
     background-color: #ffffff33;
     position: relative;
-    &::after {
-      content: '';
+    overflow: hidden;
+    &--inner {
       position: absolute;
       top: 0;
       left: 0;
@@ -118,7 +197,6 @@ defineProps({
       border-radius: inherit;
       z-index: 1;
       transform-origin: left;
-      animation: animate-bar 2s forwards ease-in-out;
     }
   }
   &__texts {

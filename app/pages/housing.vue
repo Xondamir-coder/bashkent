@@ -36,9 +36,25 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 let tl;
 const containerRef = ref();
+const { showPageLoader } = useLoader();
+
+const timeoutAfterPageLoader = 1500;
+
+watch(showPageLoader, () => {
+  if (!import.meta.client) return;
+
+  if (!showPageLoader.value) {
+    setTimeout(() => {
+      document.body.classList.remove('no-scroll');
+    }, timeoutAfterPageLoader);
+  }
+});
 
 onMounted(() => {
   gsap.registerPlugin(ScrollTrigger);
+
+  document.body.classList.add('no-scroll');
+
   tl = gsap.timeline({
     scrollTrigger: {
       trigger: containerRef.value,

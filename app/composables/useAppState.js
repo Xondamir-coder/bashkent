@@ -5,9 +5,6 @@ export default () => {
   // API related
   const filters = useState('filters', () => null);
 
-  // Others
-  const showContactsModal = useState('showContactsModal', () => false);
-
   // Functions
   const fetchFilters = async () => {
     try {
@@ -18,14 +15,9 @@ export default () => {
       console.error(err);
     }
   };
-  const toggleContactsModal = () => {
-    showContactsModal.value = !showContactsModal.value;
-  };
 
   return {
     filters,
-    showContactsModal,
-    fetchFilters,
-    toggleContactsModal
+    fetchFilters
   };
 };
