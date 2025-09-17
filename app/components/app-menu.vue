@@ -23,7 +23,7 @@
       <NuxtLink :to="$localePath('/select')" class="menu__button">
         <span>{{ $t('select-apt') }}</span>
       </NuxtLink>
-      <button class="menu__button" @click="useAppState().toggleContactsModal">
+      <button class="menu__button" @click="showContactsModal = true">
         <span>{{ $t('book-appointment') }}</span>
       </button>
     </div>
@@ -59,6 +59,8 @@
 
 <script setup>
 defineEmits(['toggle-menu']);
+
+const showContactsModal = useState('showContactsModal');
 </script>
 
 <style lang="scss" scoped>

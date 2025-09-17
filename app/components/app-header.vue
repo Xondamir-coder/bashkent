@@ -38,10 +38,7 @@
         </button>
         <LangDropdown v-model="showLangDropdown" />
       </div>
-      <button
-        class="header__button header__button--gold"
-        @click="useAppState().toggleContactsModal"
-      >
+      <button class="header__button header__button--gold" @click="showContactsModal = true">
         {{ $t('book-appointment') }}
       </button>
     </div>
@@ -53,6 +50,8 @@
 const route = useRoute();
 
 const paths = ['about', 'portfolio', 'architecture', 'housing'];
+
+const showContactsModal = useState('showContactsModal');
 
 const showLangDropdown = ref(false);
 const isVariant = computed(() => paths.includes(route.path.slice(1)));

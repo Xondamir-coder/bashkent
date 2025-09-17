@@ -59,7 +59,8 @@
 <script setup>
 const { locale } = useI18n();
 
-const showContactsModal = ref(false);
+const showContactsModal = useState('showContactsModal', () => false);
+
 const isLoading = ref(false);
 const successMessage = ref('');
 const userData = ref({
