@@ -474,3 +474,4 @@ export const seo = {
     }
   }
 };
+export const TEL_NUMBER = '+998 55 307 55 55';

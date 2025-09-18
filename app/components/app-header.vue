@@ -23,9 +23,9 @@
     <SvgHeaderLogo class="header__logo" />
     <FloatingCall :clickable="true" class="header__call" />
     <div class="header__right">
-      <a href="tel:+998 78 148 55 55" class="header__tel">
+      <a :href="`tel:${TEL_NUMBER}`" class="header__tel">
         <FloatingCall />
-        <span>(78) 148-55-55</span>
+        <span>{{ TEL_NUMBER }}</span>
       </a>
       <div class="header__dropdown-box" data-lang-dropdown>
         <button

@@ -30,9 +30,7 @@
     <div class="menu__bottom">
       <div class="menu__bottom-header">
         <h3 class="menu__subtitle">{{ $t('menu.office') }}</h3>
-        <p>
-          {{ $t('menu.address') }}
-        </p>
+        <p>Office location</p>
         <p>{{ $t('menu.timing') }}</p>
       </div>
 
@@ -40,12 +38,12 @@
         <a class="menu__item" href="https://maps.app.goo.gl/jJozY1KSuyT9hoWu8" target="_blank">
           <SvgPin class="menu__item-icon" />
           <span>{{ $t('address') }}:</span>
-          <span>{{ $t('menu.bukhara') }}</span>
+          <span class="menu__item-address">{{ $t('menu.address') }}</span>
         </a>
-        <a class="menu__item" href="tel:+998 55 307 55 55">
+        <a class="menu__item" :href="`tel:${TEL_NUMBER}`">
           <SvgCallEnd class="menu__item-icon" />
           <span>{{ $t('phone') }}:</span>
-          <span>(55) 307-55-55</span>
+          <span>{{ TEL_NUMBER }}</span>
         </a>
         <a class="menu__item" href="https://t.me/bashkent_residence">
           <SvgTelegram class="menu__item-icon" />
@@ -180,6 +178,11 @@ const showContactsModal = useState('showContactsModal');
     padding-block: max(1.7rem, 10px);
     border-top: 1px solid #ffffff1f;
     animation: slide-from-bottom-20 0.5s backwards;
+    &-address {
+      max-width: 25ch;
+      text-align: right;
+      line-height: 1.6;
+    }
     @for $i from 1 through 10 {
       &:nth-child(#{$i}) {
         animation-delay: $i * 0.1s + 0.9s;

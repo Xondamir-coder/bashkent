@@ -2,7 +2,7 @@
   <div v-if="!clickable" class="floating-call">
     <SvgCall class="floating-call__icon" />
   </div>
-  <a v-else href="tel:+998 78 148 55 55" class="floating-call">
+  <a v-else :href="`tel:${TEL_NUMBER}`" class="floating-call">
     <SvgCall class="floating-call__icon" />
   </a>
 </template>
