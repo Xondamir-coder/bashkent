@@ -1,0 +1,50 @@
+{
+  "home": {
+    "title": "Buxorodagi zamonaviy kvartiralar",
+    "description": "Buxorodagi Bashkent Residence: shahar qulayligi, puxta infratuzilma va tarixiy ta'sir bilan zamonaviy kvartiralar. Yangi uyingizni toping."
+  },
+  "about": {
+    "title": "Buxorodagi Bashkent Residence haqida",
+    "description": "Bashkent Residence bilan tanishing – zamonaviy arxitektura, puxta infratuzilma va shahar bilan uyg‘un qulay yashash."
+  },
+  "advanced-search": {
+    "title": "Kengaytirilgan kvartira qidiruvi",
+    "description": "Buxorodagi kvartiralarni qavat, reja, maydon, xonalar soni, ta’mirlash turi va topshirish sanasi bo‘yicha filtrlash. Batafsil kartochkalarni ko‘ring."
+  },
+  "architecture": {
+    "title": "Arxitektura va dizayn xususiyatlari",
+    "description": "Bashkent Residence arxitekturasini o‘rganing: terraslar, panoramik oynalar, fasad yoritilishi, velosiped yo‘llari, dam olish zonalari va parking."
+  },
+  "calculator": {
+    "title": "Kvartira narxini hisoblash – Bashkent Residence",
+    "description": "Buxorodagi Bashkent Residence kvartira narxini hisoblang: reja, qavat va topshirish sanasini tanlab to‘lov variantlarini ko‘ring."
+  },
+  "contacts": {
+    "title": "Kontaktlar va yaqin atrofdagi obyektlar",
+    "description": "Bashkent Residence bilan bog‘laning va yaqin atrofdagi obyektlarni o‘rganing: do‘konlar, maktablar, bog‘lar, universitetlar va madaniy joylar."
+  },
+  "formula": {
+    "title": "Muvaffaqiyat formulasi",
+    "description": "Bashkent Residence’ni raqamlar orqali kashf eting: 38 bino, 2928 kvartira, yashil zonalar, sport maydonchalari, maktablar, sog‘lomlashtirish kompleksi, parking."
+  },
+  "housing": {
+    "title": "Buxorodagi uy-joy variantlari va kvartira xususiyatlari",
+    "description": "Buxorodagi zamonaviy kvartiralarni o‘rganing: tabiiy yorug‘lik, shamollatish, ergonomik oshxonalar, balkonlar, shkaflar va moslashuvchan ta’mirlash variantlari."
+  },
+  "infrastructure": {
+    "title": "Buxorodagi infratuzilma va xavfsizlik",
+    "description": "Bashkent Residence xavfsizlik, qulaylik va 24/7 nazorat bilan yangi avlod texnologiyalarini taqdim etadi."
+  },
+  "masterplan": {
+    "title": "Masterplan va interaktiv xarita",
+    "description": "Buxorodagi Bashkent Residence interaktiv masterplanini ko‘ring: fazalar, binolar, qavatlar va kvartiralar bilan."
+  },
+  "portfolio": {
+    "title": "O‘zbekiston bo‘ylab portfolio loyihalari",
+    "description": "Bashkent Residence portfolio loyihalari: Almalykdagi AGMK ishlab chiqarish korxonalari va Toshkentdagi Ijtimoiy Innovatsiyalar Universiteti."
+  },
+  "select": {
+    "title": "Tanlash usuli – Vizual yoki ilg‘or filtrlash",
+    "description": "Qidirishni tanlang: masterplan fasadida vizual tanlash yoki narx va maydon bo‘yicha ilg‘or filtrlardan foydalaning."
+  }
+}

@@ -83,12 +83,7 @@ onMounted(() => {
   });
 });
 
-const { locale } = useI18n();
-useSeoMeta({
-  title: seo[locale.value]['housing'].title,
-  description: seo[locale.value]['housing'].description,
-  keywords: seo[locale.value]['housing'].keywords
-});
+useMySEO('housing');
 
 onUnmounted(() => {
   if (tl) tl.kill();

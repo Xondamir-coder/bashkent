@@ -1,5 +1,5 @@
 <template>
-  <OverlayMap :paths="paths" image="/images/masterplan.jpg" to-where="buildings">
+  <OverlayMap :paths="paths" image="/images/masterplan.avif" to-where="buildings">
     <template #overlay-content="{ data, pointer }">
       <div
         v-if="data"
@@ -23,6 +23,7 @@
 </template>
 
 <script setup>
+useMySEO('masterplan');
 const paths = [
   {
     d: 'M 793 487 L 788.5 490.5 L 788 546.5 L 794 552.5 L 796 552 L 811 568 L 811 569.5 L 818 577 L 823 574 L 824 575 L 830 572 L 831.5 573 L 836 570 L 837.5 571.5 L 843 568.5 L 843.5 566 L 847 564 L 847 561.5 L 851 558.5 L 851 556.5 L 851.5 556.5 L 855 554.5 L 857 497.5 L 850.5 491.5 L 849 492 L 833 476 L 832.5 473.5 L 827 467.5 L 822 470.5 L 820 469 L 814.5 473 L 812.5 471 L 807.5 474.5 L 805.5 473 L 801 476 L 802.5 477.5 L 798 480 L 798.5 481.5 C 796.5 482.833 792.4 485.6 792 486 C 791.6 486.4 792.5 486.833 793 487 Z',

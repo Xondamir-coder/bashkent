@@ -1,5 +1,5 @@
 <template>
-  <NuxtLink :to="$localePath('/apartment')" class="item">
+  <NuxtLink :to="$localePath(`/apartments/${data.id}`)" class="item">
     <div class="item__top">
       <span class="item__label">
         {{ data.type }}

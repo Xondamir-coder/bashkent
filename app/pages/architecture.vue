@@ -48,7 +48,7 @@ import housingBg from '/images/housing.jpg';
 
 // Composables
 const { showPreloader, showPageLoader } = useLoader();
-const { t, locale } = useI18n();
+const { t } = useI18n();
 
 // State
 const currentPage = ref(0);
@@ -137,11 +137,7 @@ useScrollPage(direction => {
 });
 
 // Head meta
-useSeoMeta({
-  title: seo[locale.value]['architecture'].title,
-  description: seo[locale.value]['architecture'].description,
-  keywords: seo[locale.value]['architecture'].keywords
-});
+useMySEO('architecture');
 </script>
 
 <style lang="scss" scoped>

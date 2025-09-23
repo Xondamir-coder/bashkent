@@ -41,12 +41,7 @@
 </template>
 
 <script setup>
-const { locale } = useI18n();
-useSeoMeta({
-  title: seo[locale.value]['select'].title,
-  description: seo[locale.value]['select'].description,
-  keywords: seo[locale.value]['select'].keywords
-});
+useMySEO('select');
 </script>
 
 <style lang="scss" scoped>

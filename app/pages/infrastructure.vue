@@ -71,7 +71,7 @@ import { SplitText } from 'gsap/SplitText';
 
 // Composables
 const { showPreloader, showPageLoader } = useLoader();
-const { t, locale } = useI18n();
+const { t } = useI18n();
 
 // State
 const currentPage = ref(0);
@@ -162,11 +162,7 @@ useScrollPage(direction => {
 });
 
 // Head meta
-useSeoMeta({
-  title: seo[locale.value]['infrastructure'].title,
-  description: seo[locale.value]['infrastructure'].description,
-  keywords: seo[locale.value]['infrastructure'].keywords
-});
+useMySEO('infrastructure');
 </script>
 
 <style lang="scss" scoped>

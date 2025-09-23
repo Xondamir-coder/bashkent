@@ -1,121 +1,12 @@
 {
-  "seo": {
-    "home": {
-      "title": "Modern Apartments in Bukhara",
-      "description": "Discover Bashkent Residence in Bukhara: modern apartments with urban comfort, thoughtful infrastructure, and a touch of history. Find your new home today.",
-      "keywords": "apartments in Bukhara, real estate Bukhara, buy apartment Bukhara, Bashkent Residence, modern housing Bukhara",
-      "og": {
-        "title": "Modern Apartments in Bukhara",
-        "description": "Discover Bashkent Residence in Bukhara: modern apartments with urban comfort, thoughtful infrastructure, and a touch of history."
-      }
-    },
-    "about": {
-      "title": "About Bashkent Residence in Bukhara",
-      "description": "Learn about Bashkent Residence in Bukhara – modern architecture, thoughtful infrastructure, and comfortable living in harmony with the city.",
-      "keywords": "about Bashkent Residence, apartments in Bukhara, residential complex Bukhara, modern housing Bukhara",
-      "og": {
-        "title": "About Bashkent Residence in Bukhara",
-        "description": "Discover Bashkent Residence in Bukhara – modern living with comfort and cultural harmony."
-      }
-    },
-    "advanced-search": {
-      "title": "Advanced Apartment Search",
-      "description": "Filter apartments in Bukhara by floor, layout, area, rooms, renovation type, and completion date. View detailed apartment cards.",
-      "keywords": "advanced apartment search Bukhara, apartment filter floor, apartment filter layout, apartment by area, apartment by rooms, renovated apartments, completion date apartments, apartment listings Bukhara",
-      "og": {
-        "title": "Advanced Apartment Search – Filters & Results",
-        "description": "Filter apartments in Bukhara by floor, layout, area, rooms, renovation type, and completion date. Browse detailed listings."
-      }
-    },
-    "architecture": {
-      "title": "Architecture & Design Features",
-      "description": "Explore Bashkent Residence architecture in Bukhara: terraces, panoramic windows, facade lighting, bicycle paths, recreation areas, and parking.",
-      "keywords": "Bashkent Residence architecture, terraces Bukhara, panoramic windows, facade lighting, bicycle paths, recreation area, parking",
-      "og": {
-        "title": "Architecture & Design Features",
-        "description": "Discover Bashkent Residence in Bukhara: terraces, panoramic windows, facade lighting, bicycle paths, recreation areas, and parking."
-      }
-    },
-    "calculator": {
-      "title": "Apartment Price Calculator – Bashkent Residence",
-      "description": "Calculate your apartment price at Bashkent Residence in Bukhara. Choose layout, floor, and completion date to view detailed payment and pricing options.",
-      "keywords": "apartment calculator Bukhara, Bashkent Residence calculator, apartment price, layout selection, floor choice, completion date, payment options",
-      "og": {
-        "title": "Apartment Price Calculator – Bashkent Residence",
-        "description": "Use the Bashkent Residence calculator to find the price of your apartment in Bukhara by selecting layout, floor, and completion date."
-      }
-    },
-    "contacts": {
-      "title": "Contacts & Nearby Facilities",
-      "description": "Contact Bashkent Residence and explore nearby facilities: shopping, schools, parks, universities, theaters, and cultural spots in Bukhara.",
-      "keywords": "contacts Bukhara, nearby facilities, shopping malls, stores, schools, parks, universities, theaters, cultural and leisure facilities",
-      "og": {
-        "title": "Contacts & Nearby Facilities",
-        "description": "Find contacts and nearby facilities: shopping, schools, parks, universities, theaters, and cultural spots near Bashkent Residence in Bukhara."
-      }
-    },
-    "formula": {
-      "title": "Formula for Success",
-      "description": "Discover Bashkent Residence in Bukhara by the numbers: 38 buildings, 2928 apartments, green zones, sports grounds, schools, wellness complex, parking.",
-      "keywords": "Bashkent Residence numbers, residential buildings Bukhara, apartments Bukhara, green zones, sports grounds, school, wellness complex, parking spaces",
-      "og": {
-        "title": "Formula for Success – Bashkent Residence in Numbers",
-        "description": "Explore Bashkent Residence in Bukhara: 38 buildings, 2928 apartments, green zones, sports grounds, schools, wellness complex, and parking."
-      }
-    },
-    "housing": {
-      "title": "Housing Options & Apartment Features in Bukhara",
-      "description": "Explore modern apartments in Bukhara with natural lighting, ventilation, ergonomic kitchens, balconies, wardrobes, and flexible renovation options.",
-      "keywords": "housing Bukhara, apartments Bukhara, natural lighting, ventilation, ergonomic kitchen, balconies, wardrobes, ready for renovation, finished renovation, choose floor, choose view",
-      "og": {
-        "title": "Housing Options & Apartment Features in Bukhara",
-        "description": "Modern apartments in Bukhara with natural lighting, ventilation, ergonomic kitchens, balconies, wardrobes, and flexible renovation options."
-      }
-    },
-    "infrastructure": {
-      "title": "Infrastructure & Security in Bukhara",
-      "description": "Next-generation security and modern technologies ensure safety, comfort, and 24/7 monitoring for residents in Bashkent Residence, Bukhara.",
-      "keywords": "infrastructure Bukhara, modern technologies, home security, 24/7 monitoring, safe residential complex, comfortable living",
-      "og": {
-        "title": "Infrastructure & Security – Modern Comfort in Bukhara",
-        "description": "Discover Bashkent Residence infrastructure: next-gen security, modern tech, and 24/7 monitoring for maximum comfort and safety."
-      }
-    },
-    "masterplan": {
-      "title": "Masterplan & Interactive Map",
-      "description": "View the interactive masterplan of Bashkent Residence in Bukhara with phases, buildings, floors, and apartments.",
-      "keywords": "masterplan Bukhara, residential complex plan, Bashkent Residence plan, building plan, apartment map, interactive masterplan",
-      "og": {
-        "title": "Masterplan & Interactive Map",
-        "description": "Explore the Bashkent Residence masterplan: interactive map of buildings, floors, and apartments."
-      }
-    },
-    "portfolio": {
-      "title": "Portfolio Projects in Uzbekistan",
-      "description": "Explore Bashkent Residence portfolio projects in Uzbekistan, including AGMK production plants in Almalyk and the University of Social Innovations in Tashkent.",
-      "keywords": "AGMK Almalyk, production plants Uzbekistan, industrial facilities, University of Social Innovations Tashkent, social innovations, technology university",
-      "og": {
-        "title": "Portfolio Projects in Uzbekistan",
-        "description": "Discover Bashkent Residence portfolio: AGMK production plants in Almalyk and the University of Social Innovations in Tashkent."
-      }
-    },
-    "select": {
-      "title": "Selection Method: Visual or Advanced Filtering",
-      "description": "Choose how you want to search: use visual selection on the masterplan facade or advanced filters by price and area.",
-      "keywords": "selection method, apartment search options, visual search masterplan, facade selection, advanced filters, choose by price, choose by area",
-      "og": {
-        "title": "Selection Method – Visual or Advanced Filtering",
-        "description": "Decide how to proceed: explore with visual search on the masterplan facade or use advanced filtering by price and area."
-      }
-    }
-  },
-
   "home": {
     "label": "A new stage of architecture.",
     "title": "Life in the City of Bukhara",
     "subtitle": "A new philosophy of urban living"
   },
 
+  "masterplan": "Masterplan",
+  "block": "Block",
   "just-area": "Area",
   "rooms": "Rooms",
   "condition": "Condition",

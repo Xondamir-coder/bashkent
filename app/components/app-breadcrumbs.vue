@@ -1,14 +1,9 @@
 <template>
   <nav class="breadcrumbs">
-    <NuxtLink
-      v-for="(crumb, index) in crumbs"
-      :key="index"
-      :to="$localePath(crumb.path)"
-      class="breadcrumbs__link"
-    >
-      <span>{{ crumb.name }}</span>
+    <div v-for="(crumb, index) in crumbs" :key="index" class="breadcrumbs__link">
+      <NuxtLink :to="$localePath(crumb.path)">{{ crumb.name }}</NuxtLink>
       <SvgKeyboardArrowLeft v-if="index !== crumbs.length - 1" class="breadcrumbs__link-icon" />
-    </NuxtLink>
+    </div>
   </nav>
 </template>
 

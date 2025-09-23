@@ -33,7 +33,7 @@ import {
   SvgTrees
 } from '#components';
 
-const { locale, tm, rt } = useI18n();
+const { tm, rt } = useI18n();
 
 const currentMarkers = ref([0]);
 
@@ -94,11 +94,7 @@ useScrollPage(direction => {
     useLocaleNavigate('/infrastructure');
   }
 });
-useSeoMeta({
-  title: seo[locale.value]['contacts'].title,
-  description: seo[locale.value]['contacts'].description,
-  keywords: seo[locale.value]['contacts'].keywords
-});
+useMySEO('contacts');
 </script>
 
 <style lang="scss" scoped>

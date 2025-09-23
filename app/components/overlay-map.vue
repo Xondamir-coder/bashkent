@@ -37,6 +37,9 @@ const props = defineProps({
   toWhere: { type: String, required: true }
 });
 
+const route = useRoute();
+const cookie = useCookie('building');
+
 const data = ref(null);
 const pointer = reactive({ x: 0, y: 0 });
 
@@ -44,8 +47,13 @@ const assignData = path => {
   data.value = path;
 };
 
-const goIn = () => {
-  useLocaleNavigate(props.toWhere);
+const goIn = path => {
+  if (route.name.includes('buildings')) {
+    cookie.value = route.params.id;
+    useLocaleNavigate(`/${props.toWhere}/${path.id}?building=${route.params.id}`);
+  } else {
+    useLocaleNavigate(`/${props.toWhere}/${path.id}`);
+  }
 };
 
 const handleParallax = e => {

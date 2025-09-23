@@ -95,10 +95,5 @@ useScrollPage(direction => {
   }
 });
 
-const { locale } = useI18n();
-useSeoMeta({
-  title: seo[locale.value]['portfolio'].title,
-  description: seo[locale.value]['portfolio'].description,
-  keywords: seo[locale.value]['portfolio'].keywords
-});
+useMySEO('portfolio');
 </script>

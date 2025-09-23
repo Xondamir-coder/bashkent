@@ -63,7 +63,7 @@
 </template>
 
 <script setup>
-const { t, locale } = useI18n();
+const { t } = useI18n();
 
 const planDetails = computed(() => [
   {
@@ -101,11 +101,7 @@ const selectedFloor = useState('selectedFloor', () => 1);
 definePageMeta({
   layout: 'only-header'
 });
-useSeoMeta({
-  title: seo[locale.value]['calculator'].title,
-  description: seo[locale.value]['calculator'].description,
-  keywords: seo[locale.value]['calculator'].keywords
-});
+useMySEO('calculator');
 </script>
 
 <style lang="scss" scoped>

@@ -128,13 +128,7 @@ onUnmounted(() => {
   if (tl) tl.kill();
 });
 
-const { locale } = useI18n();
-
-useSeoMeta({
-  title: seo[locale.value].home.title,
-  description: seo[locale.value].home.description,
-  keywords: seo[locale.value].home.keywords
-});
+useMySEO('home');
 
 useScrollPage(direction => {
   if (direction === 'next') {

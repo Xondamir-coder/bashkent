@@ -25,7 +25,7 @@ import { SplitText } from 'gsap/SplitText';
 import imgSrc from '/images/apt-banner.png';
 import gsap from 'gsap';
 
-const { t, locale } = useI18n();
+const { t } = useI18n();
 
 const crumbs = computed(() => [
   {
@@ -39,6 +39,7 @@ const crumbs = computed(() => [
 ]);
 const items = computed(() =>
   Array(6).fill({
+    id: 4,
     type: 'Студия',
     desc: '10к1 , 6 секц., 4 из 12 этаж',
     area: '25,79 м²',
@@ -69,11 +70,7 @@ definePageMeta({
   layout: 'only-header'
 });
 
-useSeoMeta({
-  title: seo[locale.value]['advanced-search'].title,
-  description: seo[locale.value]['advanced-search'].description,
-  keywords: seo[locale.value]['advanced-search'].keywords
-});
+useMySEO('advanced-search');
 </script>
 
 <style lang="scss" scoped>

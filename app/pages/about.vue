@@ -148,12 +148,7 @@ useScrollPage(direction => {
   }
 });
 
-const { locale } = useI18n();
-useSeoMeta({
-  title: seo[locale.value].about.title,
-  description: seo[locale.value].about.description,
-  keywords: seo[locale.value].about.keywords
-});
+useMySEO('about');
 </script>
 
 <style lang="scss" scoped>
