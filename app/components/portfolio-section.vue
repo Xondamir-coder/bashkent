@@ -76,7 +76,7 @@ onMounted(() => {
       }
     }
   }
-  &:last-child {
+  &:nth-child(2) {
     &:not(.active) {
       .portfolio-section__content {
         transform: translateY(100%);
@@ -87,7 +87,7 @@ onMounted(() => {
       }
     }
   }
-  &:last-child .portfolio-section__content {
+  &:nth-child(2) .portfolio-section__content {
     background-color: #fff;
   }
   &:first-child {
@@ -108,7 +108,7 @@ onMounted(() => {
       }
     }
   }
-  &:last-child {
+  &:nth-child(2) {
     z-index: 5;
     .portfolio-section__content {
       padding-inline: var(--block-spacing);

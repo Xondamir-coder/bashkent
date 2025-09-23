@@ -1,7 +1,7 @@
 <template>
   <main class="portfolio">
     <PortfolioSection
-      v-for="(section, index) in $tm('portfolio.items')"
+      v-for="(section, index) in data"
       :key="index"
       ref="sectionRefs"
       :class="{ active: currentSection === index }"
@@ -13,13 +13,9 @@
 </template>
 
 <script setup>
-// imports
-// import gsap from 'gsap';
 import imgSrc1 from '/images/portfolio-1.jpg';
-import imgSrc2 from '/images/portfolio-2.jpg';
+// import imgSrc2 from '/images/portfolio-2.jpg';
 
-// state
-// let timelines;
 const sectionRefs = ref([]);
 const currentSection = ref(0);
 
@@ -28,15 +24,11 @@ const data = computed(() => [
     image: imgSrc1,
     title: 'Производственные заводы АГМК в Алмалыке',
     text: 'На территории АГМК в городе Алмалык Ташкентской области расположены современные производственные заводы, обеспечивающие полный цикл переработки и выпуска продукции'
-  },
-  {
-    image: imgSrc2,
-    title: 'Университет социальных инноваций, Ташкент',
-    text: 'В Ташкенте действует Международный университет социальных инноваций, который готовит специалистов нового поколения в сфере социальных и технологических преобразований'
   }
 ]);
 
-// scroll/swipe helpers
+/*
+// scroll/swipe helpers (disabled as only one block)
 let startY = 0;
 let isLocked = false;
 const lockTime = 1000;
@@ -53,7 +45,6 @@ const atTop = () => window.scrollY === 0;
 const atBottom = () =>
   Math.ceil(window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight;
 
-// scroll/swipe handler
 const handleScrollOrSwipe = e => {
   if (isLocked) return;
 
@@ -69,28 +60,18 @@ const handleScrollOrSwipe = e => {
   }
 
   if (deltaY > 0 && atBottom()) {
-    if (currentSection.value === data.value.length - 1) {
-      useLocaleNavigate('/architecture');
-      return lock();
-    }
-    currentSection.value++;
-    lock();
+    useLocaleNavigate('/architecture');
+    return lock();
   } else if (deltaY < 0 && atTop()) {
-    if (currentSection.value === 0) {
-      useLocaleNavigate('/about');
-      return lock();
-    }
-    currentSection.value--;
-    lock();
+    useLocaleNavigate('/about');
+    return lock();
   }
 };
 
-// touch start handler
 const onTouchStart = e => {
   startY = e.touches[0].clientY;
 };
 
-// lifecycle
 onMounted(() => {
   setTimeout(() => {
     window.addEventListener('wheel', handleScrollOrSwipe, { passive: false });
@@ -104,8 +85,16 @@ onUnmounted(() => {
   window.removeEventListener('touchend', handleScrollOrSwipe);
   window.removeEventListener('touchstart', onTouchStart);
 });
+*/
 
-// head
+useScrollPage(direction => {
+  if (direction === 'next') {
+    useLocaleNavigate('/architecture');
+  } else if (direction === 'prev') {
+    useLocaleNavigate('/about');
+  }
+});
+
 const { locale } = useI18n();
 useSeoMeta({
   title: seo[locale.value]['portfolio'].title,
@@ -113,12 +102,3 @@ useSeoMeta({
   keywords: seo[locale.value]['portfolio'].keywords
 });
 </script>
-
-<style lang="scss" scoped>
-.portfolio {
-  display: grid;
-  & > * {
-    grid-area: 1/1/2/2;
-  }
-}
-</style>
