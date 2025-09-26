@@ -6,6 +6,7 @@
 </template>
 
 <script setup>
-const { fetchFilters } = useAppState();
+const { fetchFilters, fetchBuildings } = useAppState();
 fetchFilters();
+fetchBuildings();
 </script>

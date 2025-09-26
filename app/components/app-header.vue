@@ -78,6 +78,10 @@ defineProps({
   justify-content: space-between;
   font-size: max(1.4rem, 11px);
   z-index: 10;
+  pointer-events: none;
+  & > * {
+    pointer-events: all;
+  }
   &:not(.header--plan) {
     @media screen and (max-width: 900px) {
       display: none;

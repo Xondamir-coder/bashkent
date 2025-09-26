@@ -5,7 +5,13 @@
     "subtitle": "Shahar hayotining yangi falsafasi"
   },
 
-  "masterplan": "Masterplan",
+  "masterplan": {
+    "name": "Masterplan",
+    "house": "Uy",
+    "type": "Turi",
+    "floors": "Qavatlar"
+  },
+
   "block": "Blok",
   "just-area": "Maydon",
   "rooms": "Xonalar",

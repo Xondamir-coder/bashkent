@@ -5,7 +5,13 @@
     "subtitle": "A new philosophy of urban living"
   },
 
-  "masterplan": "Masterplan",
+  "masterplan": {
+    "name": "Masterplan",
+    "house": "House",
+    "type": "Type",
+    "floors": "Floors"
+  },
+
   "block": "Block",
   "just-area": "Area",
   "rooms": "Rooms",

@@ -15,15 +15,13 @@
         <path
           v-for="(path, index) in paths"
           :key="index"
-          :d="path.d"
+          :d="path.path"
           class="overlay__container-path"
-          @click="goIn(path)"
-          @pointerenter="assignData(path)"
+          @click="emits('select-path', path)"
+          @pointerenter="emits('hover-path', path)"
         />
       </svg>
-
-      <!-- Custom content slot (tooltip, etc) -->
-      <slot name="overlay-content" :data="data" :pointer="pointer" />
+      <slot />
     </div>
   </main>
 </template>
@@ -31,37 +29,15 @@
 <script setup>
 import gsap from 'gsap';
 
-const props = defineProps({
+defineProps({
   image: { type: String, required: true },
-  paths: { type: Array, required: true },
-  toWhere: { type: String, required: true }
+  paths: { type: Array, required: true }
 });
-
-const route = useRoute();
-const cookie = useCookie('building');
-
-const data = ref(null);
-const pointer = reactive({ x: 0, y: 0 });
-
-const assignData = path => {
-  data.value = path;
-};
-
-const goIn = path => {
-  if (route.name.includes('buildings')) {
-    cookie.value = route.params.id;
-    useLocaleNavigate(`/${props.toWhere}/${path.id}?building=${route.params.id}`);
-  } else {
-    useLocaleNavigate(`/${props.toWhere}/${path.id}`);
-  }
-};
+const emits = defineEmits(['select-path', 'hover-path']);
 
 const handleParallax = e => {
   const xVal = (e.clientX / window.innerWidth) * 2 - 1;
   const yVal = (e.clientY / window.innerHeight) * 2 - 1;
-
-  pointer.x = e.clientX + 20;
-  pointer.y = e.clientY + 20;
 
   gsap.to('.overlay__wrapper', {
     x: -xVal * window.innerWidth * 0.1,

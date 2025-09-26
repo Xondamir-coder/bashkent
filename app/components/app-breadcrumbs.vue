@@ -33,7 +33,8 @@ defineProps({
         animation-delay: ($i - 1) * 0.1s;
       }
     }
-    &:first-child {
+    &:last-child {
+      pointer-events: none;
       color: vars.$darker-grey;
     }
     &:hover {
