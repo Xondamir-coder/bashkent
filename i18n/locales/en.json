@@ -7,12 +7,13 @@
 
   "masterplan": {
     "name": "Masterplan",
-    "house": "House",
-    "type": "Type",
     "floors": "Floors"
   },
 
-  "block": "Block",
+  "total-area": "Total area",
+  "m-squared": "m²",
+  "house": "House",
+  "building": "Building",
   "just-area": "Area",
   "rooms": "Rooms",
   "condition": "Condition",

@@ -1,18 +1,20 @@
 <template>
-  <div class="preloader">
-    <div class="preloader__logo">
-      <SvgPreloaderLogoIcon class="preloader__logo-icon" />
-      <SvgPreloaderLogoText class="preloader__logo-text" />
+  <Transition name="slide-out">
+    <div v-if="showPreloader" class="preloader">
+      <div class="preloader__logo">
+        <SvgPreloaderLogoIcon class="preloader__logo-icon" />
+        <SvgPreloaderLogoText class="preloader__logo-text" />
+      </div>
+      <SvgRadialGradientBg />
     </div>
-    <SvgRadialGradientBg />
-  </div>
+  </Transition>
 </template>
 
 <script setup>
 import gsap from 'gsap';
 import DrawSVGPlugin from 'gsap/DrawSVGPlugin';
 
-const { togglePreloader } = useLoader();
+const { showPreloader, togglePreloader } = useLoader();
 
 const animateLogo = () => {
   const duration = 2; // seconds
@@ -56,5 +58,14 @@ onMounted(() => {
       width: 37.6%;
     }
   }
+}
+.slide-out-enter-active,
+.slide-out-leave-active {
+  transition: all 0.6s ease;
+}
+.slide-out-enter-from,
+.slide-out-leave-to {
+  transform: translateY(-100%);
+  opacity: 0;
 }
 </style>

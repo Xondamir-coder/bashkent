@@ -7,12 +7,13 @@
 
   "masterplan": {
     "name": "Masterplan",
-    "house": "Uy",
-    "type": "Turi",
     "floors": "Qavatlar"
   },
 
-  "block": "Blok",
+  "total-area": "Umumiy maydon",
+  "m-squared": "m²",
+  "house": "Uy",
+  "building": "Blok",
   "just-area": "Maydon",
   "rooms": "Xonalar",
   "condition": "Holat",

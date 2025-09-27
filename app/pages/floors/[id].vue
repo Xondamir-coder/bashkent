@@ -7,18 +7,18 @@
     <div class="apartments__container">
       <div class="apartments__wrapper">
         <img
-          :src="`${DOMAIN_URL}/${activeFloor?.schema}`"
+          :src="`${DOMAIN_URL}/${floor?.schema}`"
           alt="schema"
           class="apartments__wrapper-image"
         />
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 800 500"
+          :viewBox="`0 0 ${viewBox}`"
           preserveAspectRatio="xMidYMid slice"
           alt="schema"
         >
           <path
-            v-for="(apartment, index) in activeFloor?.apartments"
+            v-for="(apartment, index) in floor?.apartments"
             :key="index"
             :d="apartment.path"
             class="apartments__wrapper-path"
@@ -28,10 +28,10 @@
       </div>
       <div class="apartments__numbers">
         <button
-          v-for="number in [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]"
+          v-for="number in countdownArray(floors?.length)"
           :key="number"
           class="apartments__number"
-          :class="{ active: number === activeFloor?.floor_number }"
+          :class="{ active: number === floor?.floor_number }"
           @click="changeSchema(number)"
         >
           {{ number }}
@@ -45,24 +45,24 @@
 import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
 
-// Horizontal: 0 0 500 800
-// Vertical: 0 0 401 800
+// Viewboxes
+// 1: 0 0 500 800
+// 4.1: 0 0 401 800
+// 4.4 0 0 876 550
 
 // Composables
 const { t } = useI18n();
-const { activeBuilding, activeFloor, activeApartment } = useAppState();
+const { activeBuilding, floors } = useAppState();
 const route = useRoute();
 const router = useRouter();
 const localePath = useLocalePath();
-
-const FRONT_API_URL = `${DOMAIN_URL}/api/front`;
 
 // Cookie related
 const buildingCookie = useCookie('building_id');
 const blockCookie = useCookie('block_id');
 
 const buildingID = ref(route.query.building_id || activeBuilding.value?.id || buildingCookie.value);
-const blockID = ref(route.query.block_id || activeFloor.value?.block_id || blockCookie.value);
+const blockID = ref(route.query.block_id || blockCookie.value);
 
 if (!buildingID.value || !blockID.value) {
   useLocaleNavigate('/masterplan');
@@ -78,32 +78,29 @@ if (!route.query.building_id || !route.query.block_id) {
   });
 }
 
-if (!activeFloor.value?.apartments) {
-  const { data } = await useFetch(`${FRONT_API_URL}/floors`, {
-    query: {
-      block_id: blockID.value,
-      building_id: buildingID.value
-    }
-  });
-
-  activeFloor.value = data.value?.find(
+const floor = computed(() =>
+  floors.value?.find(
     d =>
       d.id === +route.params.id &&
       d.building_id === +buildingID.value &&
       d.block_id === +blockID.value
-  );
-}
+  )
+);
+const typeName = computed(() => floor.value?.block.building_type.name_en);
+const viewBox = computed(() =>
+  typeName.value === '4.4' ? '876 550' : typeName.value === '4.1' ? '800 500' : '401 500'
+);
 const crumbs = computed(() => [
   {
     name: t('masterplan.name'),
     path: '/masterplan'
   },
   {
-    name: `${t('masterplan.house')} ${buildingID.value}`,
+    name: `${t('building')} ${buildingID.value}`,
     path: `/buildings/${buildingID.value}`
   },
   {
-    name: `${t('floor')} ${activeFloor.value?.floor_number}`,
+    name: `${t('floor')} ${floor.value?.floor_number}`,
     path: `/floors/${route.params.id}`
   }
 ]);
@@ -112,14 +109,8 @@ const changeSchema = () => {
   // TODO: Change schema by floor number
 };
 const goToApartment = apt => {
-  activeApartment.value = apt;
   navigateTo({
-    path: localePath(`/apartments/${apt.id}`),
-    query: {
-      building_id: buildingID.value,
-      block_id: blockID.value,
-      floor_id: route.params.id
-    }
+    path: localePath(`/apartments/${apt.id}`)
   });
 };
 

@@ -1,1 +1,0 @@
-import{_ as e,c as o,o as n,a,$ as _}from"./B_ExSOLx.js";const c={class:"glass-button__icon"},l={__name:"GlassButton",emits:["click"],setup(r){return(t,s)=>(n(),o("button",{class:"glass-button",onClick:s[0]||(s[0]=i=>t.$emit("click"))},[a("div",c,[_(t.$slots,"default",{},void 0,!0)])]))}},d=e(l,[["__scopeId","data-v-7e53656f"]]);export{d as _};

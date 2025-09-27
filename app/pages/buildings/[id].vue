@@ -3,7 +3,7 @@
 </template>
 
 <script setup>
-const { activeBuilding, activeFloor, buildings, fetchBuildings } = useAppState();
+const { activeBuilding, buildings } = useAppState();
 const route = useRoute();
 const localePath = useLocalePath();
 
@@ -13,11 +13,6 @@ const buildingCookie = useCookie('building_id', { expires: expireYear });
 const blockCookie = useCookie('block_id', { expires: expireYear });
 const floorCookie = useCookie('floor_id', { expires: expireYear });
 
-if (!buildings.value) {
-  // Just a guard if somehow fetchBuildings in app.vue didn't work
-  await fetchBuildings();
-}
-
 if (!activeBuilding.value) {
   activeBuilding.value = buildings.value.find(b => b.id === +route.params.id);
 }
@@ -26,10 +21,6 @@ const floors = computed(() => activeBuilding.value?.blocks.flatMap(b => b.floors
 const image = computed(() => `${DOMAIN_URL}/${activeBuilding.value?.image}`);
 
 const selectPath = pathData => {
-  activeFloor.value = pathData;
-
-  console.log(activeFloor.value);
-
   buildingCookie.value = pathData.building_id;
   blockCookie.value = pathData.block_id;
   floorCookie.value = pathData.id;

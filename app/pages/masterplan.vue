@@ -7,12 +7,12 @@
   >
     <div class="box">
       <h2 class="box__title">
-        <span>{{ $t('masterplan.house') }}</span>
+        <span>{{ $t('house') }}</span>
         <span>&ThinSpace;№{{ hoveredPathData?.name }}</span>
       </h2>
       <div class="box__text">
         <div>
-          <span>{{ $t('masterplan.type') }}: </span>
+          <span>{{ $t('type') }}: </span>
           <span>{{ hoveredPathData?.building_type[`name_${$i18n.locale}`] }}</span>
         </div>
         <div>
@@ -27,20 +27,15 @@
 <script setup>
 import gsap from 'gsap';
 
-const { buildings, activeBuilding, fetchBuildings } = useAppState();
+const { buildings, activeBuilding } = useAppState();
 const localePath = useLocalePath();
 
-if (!buildings.value) fetchBuildings();
-
-const blocks = computed(() =>
-  buildings.value?.flatMap(d => d.blocks.map(b => ({ ...b, image: d.image })))
-);
+const blocks = computed(() => buildings.value?.flatMap(d => d.blocks));
 const hoveredPathData = ref();
 
 const selectPath = pathData => {
   navigateTo(localePath(`/buildings/${pathData.building_id}`));
   activeBuilding.value = buildings.value.find(b => b.id === +pathData.building_id);
-  console.log(activeBuilding.value);
 };
 
 const hoverPath = pathData => (hoveredPathData.value = pathData);

@@ -1,8 +1,5 @@
 <template>
   <div class="layout">
-    <Transition name="slide-out">
-      <AppPreloader v-if="showPreloader" />
-    </Transition>
     <ClientOnly>
       <Transition name="page">
         <PageLoader v-if="showPageLoader" :data="pageLoaderData" />
@@ -18,7 +15,7 @@
 </template>
 
 <script setup>
-const { showPreloader, showPageLoader } = useLoader();
+const { showPageLoader } = useLoader();
 const { tm, rt } = useI18n();
 
 const newPageName = useState('newPageName');
@@ -90,15 +87,6 @@ onMounted(() => {
 .scale-out-enter-from,
 .scale-out-leave-to {
   transform: scale(1.1);
-  opacity: 0;
-}
-.slide-out-enter-active,
-.slide-out-leave-active {
-  transition: all 0.6s ease;
-}
-.slide-out-enter-from,
-.slide-out-leave-to {
-  transform: translateY(-100%);
   opacity: 0;
 }
 </style>

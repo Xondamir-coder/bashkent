@@ -6,12 +6,13 @@
   },
   "masterplan": {
     "name": "Мастерплан",
-    "house": "Дом",
-    "type": "Тип",
     "floors": "Этажность"
   },
 
-  "block": "Корпус",
+  "total-area": "Общая площадь",
+  "m-squared": "м²",
+  "house": "Дом",
+  "building": "Корпус",
   "just-area": "Площадь",
   "rooms": "Комнаты",
   "condition": "Состояние",

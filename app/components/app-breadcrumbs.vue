@@ -19,8 +19,10 @@ defineProps({
 <style lang="scss" scoped>
 .breadcrumbs {
   display: flex;
+  flex-wrap: wrap;
   gap: max(1rem, 10px);
   &__link {
+    text-wrap: nowrap;
     font-weight: 500;
     font-size: max(1.4rem, 14px);
     color: vars.$black-medium;
