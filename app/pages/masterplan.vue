@@ -1,7 +1,7 @@
 <template>
   <OverlayMap
     :paths="blocks"
-    image="/images/masterplan.avif"
+    image="/images/original/masterplan.avif"
     @select-path="selectPath"
     @hover-path="hoverPath"
   >

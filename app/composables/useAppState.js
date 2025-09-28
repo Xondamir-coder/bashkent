@@ -1,7 +1,8 @@
-const API_URL = 'https://api.projectview.uz/api';
-const FRONT_API_URL = `${API_URL}/front`;
-
 export default () => {
+  // API URL CONSTANTS
+  const API_URL = 'https://api.projectview.uz/api';
+  const FRONT_API_URL = `${API_URL}/front`;
+
   // Fetch data
   const filters = useState('filters', () => null);
   const buildings = useState('buildings', () => null);
@@ -39,7 +40,7 @@ export default () => {
           block_id: blockID
         }
       });
-      if (status.value === 'error') throw new Error('Error occured in fetching buildings');
+      if (status.value === 'error') throw new Error('Error occured in fetching floors');
       floors.value = data;
     } catch (err) {
       console.log(err);
@@ -49,7 +50,7 @@ export default () => {
   const fetchApartment = async apartmentID => {
     try {
       const { data, status } = await useFetch(`${FRONT_API_URL}/apartments/${apartmentID}`);
-      if (status.value === 'error') throw new Error('Error occured in fetching buildings');
+      if (status.value === 'error') throw new Error('Error occured in fetching apartment');
       return data;
     } catch (err) {
       console.log(err);
@@ -64,6 +65,8 @@ export default () => {
     fetchFilters,
     fetchBuildings,
     fetchFloors,
-    fetchApartment
+    fetchApartment,
+    API_URL,
+    FRONT_API_URL
   };
 };

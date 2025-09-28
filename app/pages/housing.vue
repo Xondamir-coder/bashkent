@@ -18,13 +18,11 @@
       </div>
     </div>
 
-    <NuxtPicture
-      v-for="(img, i) in $tm('housing.images')"
-      :key="i"
-      format="avif"
-      sizes="(max-width: 640px) 640px, 1280px"
-      :src="$rt(img.src)"
-      :alt="$rt(img.alt)"
+    <MyPicture
+      v-for="(image, index) in images"
+      :key="index"
+      :src="image"
+      alt="housing banner"
       class="housing__banner"
     />
   </main>
@@ -34,26 +32,23 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-let tl;
-const containerRef = ref();
-const { showPageLoader } = useLoader();
+const images = ['housing-1.jpg', 'housing-2.jpg', 'housing-3.jpg', 'housing-4.jpg'].reverse();
 
-const timeoutAfterPageLoader = 1500;
+const containerRef = ref();
+const showPageLoader = useState('showPageLoader');
 
 watch(showPageLoader, () => {
-  if (!import.meta.client) return;
-
-  if (!showPageLoader.value) {
+  if (showPageLoader.value) document.body.classList.add('no-scroll');
+  else {
     setTimeout(() => {
       document.body.classList.remove('no-scroll');
-    }, timeoutAfterPageLoader);
+    }, 1000);
   }
 });
 
+let tl;
 onMounted(() => {
   gsap.registerPlugin(ScrollTrigger);
-
-  document.body.classList.add('no-scroll');
 
   tl = gsap.timeline({
     scrollTrigger: {
@@ -83,8 +78,6 @@ onMounted(() => {
   });
 });
 
-useMySEO('housing');
-
 onUnmounted(() => {
   if (tl) tl.kill();
 });
@@ -95,6 +88,7 @@ useScrollPage(direction => {
     useLocaleNavigate('/formula');
   }
 });
+useMySEO('housing');
 </script>
 
 <style lang="scss" scoped>

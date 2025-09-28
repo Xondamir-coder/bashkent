@@ -14,7 +14,7 @@
 import gsap from 'gsap';
 import DrawSVGPlugin from 'gsap/DrawSVGPlugin';
 
-const { showPreloader, togglePreloader } = useLoader();
+const showPreloader = useState('showPreloader', () => true);
 
 const animateLogo = () => {
   const duration = 2; // seconds
@@ -22,7 +22,10 @@ const animateLogo = () => {
   gsap.set('.preloader__logo', { opacity: 1 });
 
   const tl = gsap.timeline({
-    onComplete: togglePreloader
+    onComplete: () => {
+      showPreloader.value = false;
+      document.body.classList.remove('no-scroll');
+    }
   });
   tl.from('.preloader__logo-icon path', { duration: duration, drawSVG: 0, stagger: 0.08 });
   gsap.from('.preloader__logo-text path', { duration: duration * 15, drawSVG: 0, stagger: 0.08 });
@@ -32,6 +35,7 @@ const animateLogo = () => {
 onMounted(() => {
   gsap.registerPlugin(DrawSVGPlugin);
   animateLogo();
+  document.body.classList.add('no-scroll');
 });
 </script>
 

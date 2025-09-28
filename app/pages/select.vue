@@ -4,13 +4,7 @@
       <SvgClose class="fill-teal" />
     </GlassButton>
     <NuxtLink :to="$localePath('/advanced-search')" class="select__left">
-      <NuxtPicture
-        format="avif"
-        sizes="(max-width: 640px) 640px, 1280px"
-        src="/images/select-banner.jpg"
-        alt="banner"
-        class="select__banner"
-      />
+      <MyPicture src="select-banner.jpg" alt="banner" class="select__banner" />
       <SvgRadialPattern class="select__pattern" />
       <div class="select__content">
         <div class="select__icon-box">
@@ -21,13 +15,7 @@
       </div>
     </NuxtLink>
     <NuxtLink :to="$localePath('/masterplan')" class="select__right">
-      <NuxtPicture
-        format="avif"
-        sizes="(max-width: 640px) 640px, 1280px"
-        src="/images/select-banner.jpg"
-        alt="banner"
-        class="select__banner"
-      />
+      <MyPicture src="select-banner.jpg" alt="banner" class="select__banner" />
       <SvgRadialPattern class="select__pattern" />
       <div class="select__content">
         <div class="select__icon-box">

@@ -1,19 +1,21 @@
 <template>
-  <main class="floor-plans">
-    <div class="floor-plans__top">
+  <main class="advanced-search">
+    <div class="advanced-search__top">
       <AppBreadcrumbs :crumbs="crumbs" />
-      <h1 id="floor-plans-title" class="heading-large">{{ $t('layouts') }}</h1>
+      <h1 id="advanced-search-title" class="heading-large">{{ $t('layouts') }}</h1>
     </div>
-    <div class="floor-plans__wrapper">
-      <FloorPlansSidebar />
-      <div class="floor-plans__container">
-        <span class="floor-plans__label">{{ $t('available-x-apartments', { count: 87 }) }}</span>
-        <div class="floor-plans__list">
-          <FloorPlansItem v-for="(item, index) in items" :key="index" :data="item" />
+    <div class="advanced-search__wrapper">
+      <AdvancedSearchSidebar />
+      <div class="advanced-search__container">
+        <span class="advanced-search__label">
+          {{ $t('available-x-apartments', { count: 87 }) }}
+        </span>
+        <div class="advanced-search__list">
+          <AdvancedSearchItem v-for="(item, index) in items" :key="index" :data="item" />
         </div>
-        <button class="floor-plans__button">
+        <button class="advanced-search__button">
           <span>{{ $t('see-more-x', { count: 6 }) }}</span>
-          <SvgKeyboardArrowLeft class="floor-plans__arrow" />
+          <SvgKeyboardArrowLeft class="advanced-search__arrow" />
         </button>
       </div>
     </div>
@@ -22,7 +24,7 @@
 
 <script setup>
 import { SplitText } from 'gsap/SplitText';
-import imgSrc from '/images/apt-banner.png';
+import imgSrc from '/images/original/calc-apt.png';
 import gsap from 'gsap';
 
 const { t } = useI18n();
@@ -52,7 +54,7 @@ const items = computed(() =>
 );
 
 onMounted(() => {
-  SplitText.create('#floor-plans-title', {
+  SplitText.create('#advanced-search-title', {
     type: 'chars',
     mask: 'chars',
     onSplit: self => {
@@ -74,7 +76,7 @@ useMySEO('advanced-search');
 </script>
 
 <style lang="scss" scoped>
-.floor-plans {
+.advanced-search {
   padding-top: calc(var(--header-height) + max(3.2rem, 21px));
   padding-inline: var(--block-spacing);
   padding-bottom: max(2rem, 20px);

@@ -1,10 +1,8 @@
 <template>
   <main class="architecture" :class="{ hidden: showPreloader || showPageLoader }">
-    <NuxtPicture
+    <MyPicture
       v-for="(pic, index) in pics"
       :key="index"
-      format="avif"
-      sizes="(max-width: 640px) 640px, 1280px"
       :src="pic"
       alt="banner"
       class="architecture__banner"
@@ -43,11 +41,12 @@
 <script setup>
 import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
-import archBg from '/images/architecture-bg.jpg';
-import housingBg from '/images/housing.jpg';
+const archBg = 'architecture-bg.jpg';
+const housingBg = 'housing-1.jpg';
 
 // Composables
-const { showPreloader, showPageLoader } = useLoader();
+const showPreloader = useState('showPreloader');
+const showPageLoader = useState('showPageLoader');
 const { t } = useI18n();
 
 // State

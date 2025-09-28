@@ -4,7 +4,6 @@ export default defineNuxtConfig({
   modules: [
     '@nuxt/eslint',
     '@nuxtjs/google-fonts',
-    '@nuxt/image',
     '@nuxtjs/i18n',
     '@nuxtjs/leaflet',
     '@nuxtjs/seo'

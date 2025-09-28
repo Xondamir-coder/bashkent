@@ -1,5 +1,5 @@
 <template>
-  <input v-if="!isTextArea" v-model="model" class="form-input" @input="checkInput" />
+  <input v-if="!isTextArea" v-model="model" class="form-input" @input="checkInput" >
   <textarea v-else v-model="model" rows="5" class="form-input" @input="checkInput" />
 </template>
 

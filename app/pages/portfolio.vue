@@ -5,7 +5,7 @@
       :key="index"
       ref="sectionRefs"
       :class="{ active: currentSection === index }"
-      :img-src="$rt(section.image)"
+      :img-src="section.image"
       :title="$rt(section.title)"
       :text="$rt(section.text)"
     />
@@ -13,18 +13,15 @@
 </template>
 
 <script setup>
-import imgSrc1 from '/images/portfolio-1.jpg';
-// import imgSrc2 from '/images/portfolio-2.jpg';
-
+const { tm } = useI18n();
 const sectionRefs = ref([]);
 const currentSection = ref(0);
 
 const data = computed(() => [
-  {
-    image: imgSrc1,
-    title: 'Производственные заводы АГМК в Алмалыке',
-    text: 'На территории АГМК в городе Алмалык Ташкентской области расположены современные производственные заводы, обеспечивающие полный цикл переработки и выпуска продукции'
-  }
+  tm('portfolio.items').map((item, i) => ({
+    ...item,
+    image: `portfolio-${i + 1}.jpg`
+  }))[0]
 ]);
 
 /*

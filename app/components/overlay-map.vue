@@ -5,7 +5,7 @@
     </GlassButton>
 
     <div class="overlay__wrapper">
-      <img :src="image" alt="overlay banner" class="overlay__picture" />
+      <img :src="image" alt="overlay banner" class="overlay__picture" >
       <svg
         class="overlay__container"
         xmlns="http://www.w3.org/2000/svg"

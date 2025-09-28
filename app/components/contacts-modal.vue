@@ -48,7 +48,7 @@
           </div>
         </form>
         <div class="contacts-modal__info">
-          <img src="~/assets/images/man.jpg" alt="man" class="contacts-modal__image" />
+          <MyPicture src="man.jpg" alt="man" class="contacts-modal__image" />
           <p>{{ $t('modal.form.author') }}</p>
         </div>
       </div>
@@ -58,6 +58,8 @@
 
 <script setup>
 const { locale } = useI18n();
+const { FRONT_API_URL } = useAppState();
+const route = useRoute();
 
 const showContactsModal = useState('showContactsModal', () => false);
 
@@ -104,11 +106,10 @@ const validateInput = e => {
   }
 };
 const submitForm = async () => {
-  const url = 'https://api.projectview.uz/api/front/enquiry';
   const strippedPhone = userData.value.tel.replace(/\s|\+/g, '');
   try {
     isLoading.value = true;
-    const res = await $fetch(url, {
+    const res = await $fetch(`${FRONT_API_URL}/enquiry`, {
       method: 'POST',
       headers: {
         Accept: 'application/json'
@@ -116,7 +117,8 @@ const submitForm = async () => {
       body: objectToFormData({
         name: userData.value.name,
         phone: strippedPhone,
-        comment: userData.value.comment
+        comment: userData.value.comment,
+        page_name: route.name.split('___')[0]
       })
     });
     successMessage.value = res.message[locale.value];

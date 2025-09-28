@@ -15,9 +15,9 @@
 </template>
 
 <script setup>
-const { showPageLoader } = useLoader();
 const { tm, rt } = useI18n();
 
+const showPageLoader = useState('showPageLoader');
 const newPageName = useState('newPageName');
 const pages = useState('pages');
 const isGoingForward = useState('isGoingForward');

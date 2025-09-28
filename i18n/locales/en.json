@@ -79,13 +79,11 @@
     "items": [
       {
         "title": "AGMK production plants in Almalyk",
-        "text": "On the territory of AGMK in Almalyk, Tashkent region, there are modern production plants that provide a full cycle of processing and product output",
-        "image": "/images/portfolio-1.jpg"
+        "text": "On the territory of AGMK in Almalyk, Tashkent region, there are modern production plants that provide a full cycle of processing and product output"
       },
       {
         "title": "University of Social Innovations, Tashkent",
-        "text": "In Tashkent operates the International University of Social Innovations, which trains a new generation of specialists in the field of social and technological transformations",
-        "image": "/images/portfolio-2.jpg"
+        "text": "In Tashkent operates the International University of Social Innovations, which trains a new generation of specialists in the field of social and technological transformations"
       }
     ]
   },
@@ -106,20 +104,19 @@
   "formula": {
     "title": "Numbers speak for themselves:",
     "items": [
-      { "image": "/images/formula-1.jpg", "amount": "38", "text": "Residential buildings" },
-      { "image": "/images/formula-1.jpg", "amount": "2928", "text": "Apartments" },
-      { "image": "/images/formula-1.jpg", "amount": "17,890.2 m²", "text": "Green zone" },
+      { "amount": "38", "text": "Residential buildings" },
+      { "amount": "2928", "text": "Apartments" },
+      { "amount": "17,890.2 m²", "text": "Green zone" },
       {
-        "image": "/images/formula-1.jpg",
         "amount": "5,451.2 m²",
         "text": "Children's and sports grounds"
       },
-      { "image": "/images/formula-1.jpg", "amount": "2", "text": "School and kindergarten" },
-      { "image": "/images/formula-1.jpg", "amount": "1", "text": "Wellness complex" },
-      { "image": "/images/formula-1.jpg", "amount": "1", "text": "Commercial buildings" },
-      { "image": "/images/formula-1.jpg", "amount": "1,660", "text": "Parking spaces" },
-      { "image": "/images/formula-1.jpg", "amount": "1", "text": "Commercial buildings" },
-      { "image": "/images/formula-1.jpg", "amount": "4", "text": "Substations" }
+      { "amount": "2", "text": "School and kindergarten" },
+      { "amount": "1", "text": "Wellness complex" },
+      { "amount": "1", "text": "Commercial buildings" },
+      { "amount": "1,660", "text": "Parking spaces" },
+      { "amount": "1", "text": "Commercial buildings" },
+      { "amount": "4", "text": "Substations" }
     ]
   },
 
@@ -241,12 +238,6 @@
         "variant2": ["Ergonomic", "kitchen, balconies,", "wardrobes"]
       },
       { "single": "Ready for renovation / finished renovation" }
-    ],
-    "images": [
-      { "src": "/images/housing-4.jpg", "alt": "housing 4" },
-      { "src": "/images/housing-3.jpg", "alt": "housing 3" },
-      { "src": "/images/housing-2.jpg", "alt": "housing 2" },
-      { "src": "/images/housing.jpg", "alt": "housing banner" }
     ]
   }
 }

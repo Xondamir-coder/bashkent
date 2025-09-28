@@ -15,26 +15,11 @@
       </div>
       <div class="about__container">
         <video ref="videoRef" muted loop class="about__video">
-          <source src="/videos/city.mp4" type="video/mp4" />
+          <source src="/videos/city.mp4" type="video/mp4" >
         </video>
-        <NuxtPicture
-          format="avif"
-          sizes="(max-width: 640px) 640px, 1280px"
-          src="/images/home/tree-top.png"
-          class="about__picture"
-        />
-        <NuxtPicture
-          format="avif"
-          sizes="(max-width: 640px) 640px, 1280px"
-          src="/images/home/light.png"
-          class="about__picture"
-        />
-        <NuxtPicture
-          format="avif"
-          sizes="(max-width: 640px) 640px, 1280px"
-          src="/images/home/tree-2.png"
-          class="about__picture"
-        />
+        <MyPicture src="tree-top.png" class="about__picture" />
+        <MyPicture src="light.png" class="about__picture" />
+        <MyPicture src="tree-2.png" class="about__picture" />
         <button class="about__play" @click="handlePlay">
           <SvgPlayText class="about__play-text" />
           <div class="about__play-box">
@@ -56,7 +41,8 @@
 import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
 
-const { showPreloader, showPageLoader } = useLoader();
+const showPreloader = useState('showPreloader');
+const showPageLoader = useState('showPageLoader');
 
 let tl;
 

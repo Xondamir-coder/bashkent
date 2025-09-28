@@ -9,7 +9,7 @@
         </p>
       </div>
       <div class="page-loader__bar">
-        <div class="page-loader__bar--inner"></div>
+        <div class="page-loader__bar--inner"/>
       </div>
     </div>
   </div>
@@ -20,7 +20,7 @@ import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
 
 // loader state
-const { showPageLoader } = useLoader();
+const showPageLoader = useState('showPageLoader', () => false);
 
 // refs
 const titleRef = ref();

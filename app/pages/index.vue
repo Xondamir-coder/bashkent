@@ -1,55 +1,16 @@
 <template>
   <main ref="homeRef" class="home" :class="{ hidden: showPreloader || showPageLoader }">
     <SvgBigPattern class="home__pattern" />
-    <NuxtPicture
-      format="avif"
-      sizes="(max-width: 640px) 640px, 1280px"
-      data-depth="0.2"
-      src="/images/home/wave.png"
-      alt="wave"
-      class="home__image"
-    />
-    <NuxtPicture
-      format="avif"
-      sizes="(max-width: 640px) 640px, 1280px"
-      data-depth="0.3"
-      src="/images/home/building-small.png"
-      alt="small building"
-      class="home__image"
-    />
-    <NuxtPicture
-      format="avif"
-      sizes="(max-width: 640px) 640px, 1280px"
-      data-depth=".35"
-      src="/images/home/tree.png"
-      alt="tree"
-      class="home__image"
-    />
-    <NuxtPicture
-      format="avif"
-      sizes="(max-width: 640px) 640px, 1280px"
-      data-depth=".6"
-      src="/images/home/building-big.png"
-      alt="big building"
-      class="home__image"
-    />
-    <NuxtPicture
-      format="avif"
-      sizes="(max-width: 640px) 640px, 1280px"
-      data-depth="1"
-      src="/images/home/rotated-tree.png"
-      alt="rotated tree"
-      class="home__image"
-    />
+    <MyPicture data-depth="0.2" src="wave.png" alt="wave" class="home__image" />
+    <MyPicture data-depth="0.3" src="building-small.png" alt="small building" class="home__image" />
+    <MyPicture data-depth=".35" src="tree-big.png" alt="tree" class="home__image" />
+    <MyPicture data-depth=".6" src="building-big.png" alt="big building" class="home__image" />
+    <MyPicture data-depth="1" src="rotated-tree.png" alt="rotated tree" class="home__image" />
     <div class="home__content">
       <p ref="textRef" class="home__content-text">{{ $t('home.label') }}</p>
       <h1 ref="titleRef" class="heading-extra-large">{{ $t('home.title') }}</h1>
       <div class="home__content-bottom">
-        <img
-          src="~/assets/images/home-flower.jpg"
-          alt="home flower"
-          class="home__content-bottom-image"
-        />
+        <MyPicture src="home-flower.jpg" alt="home flower" class="home__content-bottom-image" />
         <span ref="subtextRef">{{ $t('home.subtitle') }}</span>
       </div>
     </div>
@@ -60,7 +21,8 @@
 import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
 
-const { showPreloader, showPageLoader } = useLoader();
+const showPreloader = useState('showPreloader');
+const showPageLoader = useState('showPageLoader');
 
 const titleRef = ref();
 const textRef = ref();

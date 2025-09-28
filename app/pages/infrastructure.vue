@@ -6,28 +6,22 @@
   >
     <SvgFadingPattern class="infrastructure__pattern" />
     <SvgFadingPattern class="infrastructure__pattern" />
-    <NuxtPicture
-      format="avif"
-      sizes="(max-width: 640px) 640px, 1280px"
+    <MyPicture
       data-depth="0.4"
       class="infrastructure__parallax infrastructure__picture"
-      src="/images/picnic.jpg"
+      src="picnic.jpg"
       alt="picnic"
     />
-    <NuxtPicture
-      format="avif"
-      sizes="(max-width: 640px) 640px, 1280px"
+    <MyPicture
       data-depth="0.45"
       class="infrastructure__parallax infrastructure__picture"
-      src="/images/hugging.jpg"
+      src="hugging.jpg"
       alt="hugging"
     />
-    <NuxtPicture
-      format="avif"
-      sizes="(max-width: 640px) 640px, 1280px"
+    <MyPicture
       data-depth="0.8"
       class="infrastructure__parallax infrastructure__picture"
-      src="/images/camera.png"
+      src="camera.png"
       alt="cameras"
     />
     <div class="infrastructure__content-box">
@@ -45,20 +39,16 @@
     </div>
     <PageCounter v-model="currentPage" :pages="6" />
     <div class="infrastructure__box">
-      <NuxtPicture
-        format="avif"
-        sizes="(max-width: 640px) 640px, 1280px"
+      <MyPicture
         data-depth=".2"
         class="infrastructure__parallax infrastructure__box-picture"
-        src="/images/street.jpg"
+        src="street.jpg"
         alt="street"
       />
-      <NuxtPicture
-        format="avif"
-        sizes="(max-width: 640px) 640px, 1280px"
+      <MyPicture
         data-depth="0.5"
         class="infrastructure__parallax infrastructure__box-picture"
-        src="/images/tree.png"
+        src="tree.png"
         alt="tree"
       />
     </div>
@@ -70,7 +60,8 @@ import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
 
 // Composables
-const { showPreloader, showPageLoader } = useLoader();
+const showPreloader = useState('showPreloader');
+const showPageLoader = useState('showPageLoader');
 const { t } = useI18n();
 
 // State

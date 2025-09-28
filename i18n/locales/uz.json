@@ -78,13 +78,11 @@
     "items": [
       {
         "title": "Olmaliqdagi OTMK ishlab chiqarish zavodlari",
-        "text": "Toshkent viloyati Olmaliq shahridagi OTMK hududida to‘liq qayta ishlash va mahsulot chiqarishni ta’minlovchi zamonaviy ishlab chiqarish zavodlari joylashgan",
-        "image": "/images/portfolio-1.jpg"
+        "text": "Toshkent viloyati Olmaliq shahridagi OTMK hududida to‘liq qayta ishlash va mahsulot chiqarishni ta’minlovchi zamonaviy ishlab chiqarish zavodlari joylashgan"
       },
       {
         "title": "Ijtimoiy innovatsiyalar universiteti, Toshkent",
-        "text": "Toshkentda ijtimoiy va texnologik o‘zgarishlar sohasida yangi avlod mutaxassislarini tayyorlaydigan Xalqaro ijtimoiy innovatsiyalar universiteti faoliyat yuritadi",
-        "image": "/images/portfolio-2.jpg"
+        "text": "Toshkentda ijtimoiy va texnologik o‘zgarishlar sohasida yangi avlod mutaxassislarini tayyorlaydigan Xalqaro ijtimoiy innovatsiyalar universiteti faoliyat yuritadi"
       }
     ]
   },
@@ -105,20 +103,19 @@
   "formula": {
     "title": "Raqamlar o‘zlari gapiradi:",
     "items": [
-      { "image": "/images/formula-1.jpg", "amount": "38", "text": "Turar-joy binolari" },
-      { "image": "/images/formula-1.jpg", "amount": "2928", "text": "Xonadonlar" },
-      { "image": "/images/formula-1.jpg", "amount": "17 890,2 m²", "text": "Yashil hudud" },
+      { "amount": "38", "text": "Turar-joy binolari" },
+      { "amount": "2928", "text": "Xonadonlar" },
+      { "amount": "17 890,2 m²", "text": "Yashil hudud" },
       {
-        "image": "/images/formula-1.jpg",
         "amount": "5 451,2 m²",
         "text": "Bolalar va sport maydonchalari"
       },
-      { "image": "/images/formula-1.jpg", "amount": "2", "text": "Maktab va bog‘cha" },
-      { "image": "/images/formula-1.jpg", "amount": "1", "text": "Sog‘lomlashtirish majmuasi" },
-      { "image": "/images/formula-1.jpg", "amount": "1", "text": "Tijorat binolari" },
-      { "image": "/images/formula-1.jpg", "amount": "1 660", "text": "Avtoturargoh joylari" },
-      { "image": "/images/formula-1.jpg", "amount": "1", "text": "Tijorat binolari" },
-      { "image": "/images/formula-1.jpg", "amount": "4", "text": "Podstansiyalar" }
+      { "amount": "2", "text": "Maktab va bog‘cha" },
+      { "amount": "1", "text": "Sog‘lomlashtirish majmuasi" },
+      { "amount": "1", "text": "Tijorat binolari" },
+      { "amount": "1 660", "text": "Avtoturargoh joylari" },
+      { "amount": "1", "text": "Tijorat binolari" },
+      { "amount": "4", "text": "Podstansiyalar" }
     ]
   },
 
@@ -240,12 +237,6 @@
         "variant2": ["Ergonomik", "oshxona, balkonlar,", "garderoblar"]
       },
       { "single": "Ta’mirga tayyor / tayyor ta’mir" }
-    ],
-    "images": [
-      { "src": "/images/housing-4.jpg", "alt": "uy-joy 4" },
-      { "src": "/images/housing-3.jpg", "alt": "uy-joy 3" },
-      { "src": "/images/housing-2.jpg", "alt": "uy-joy 2" },
-      { "src": "/images/housing.jpg", "alt": "uy-joy banner" }
     ]
   }
 }

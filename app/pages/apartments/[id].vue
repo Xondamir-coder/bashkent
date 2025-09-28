@@ -12,7 +12,7 @@
         width="460"
         height="520"
         class="apartment__banner"
-      />
+      >
       <ul class="apartment__details">
         <li v-for="(room, index) in apartment?.rooms" :key="index" class="apartment__detail">
           <span class="apartment__detail-index">{{ index + 1 }}</span>
@@ -20,28 +20,66 @@
           <span class="apartment__detail-val">{{ room.val }} {{ $t('m-squared') }}</span>
         </li>
       </ul>
-      <div class="apartment__cta">
-        <ColoredButton :text="$t('book')" color="teal">
-          <SvgLock />
-        </ColoredButton>
-        <ColoredButton :text="$t('book-meeting')" color="gold">
-          <SvgCall />
-        </ColoredButton>
-        <ColoredButton :text="$t('download-pdf')" color="orange">
-          <SvgArticle />
-        </ColoredButton>
+      <div class="apartment__right">
+        <div class="apartment__cta">
+          <ColoredButton :text="$t('book')" color="teal" @click="showContactsModal = true">
+            <SvgLock />
+          </ColoredButton>
+          <a :href="`tel:${TEL_NUMBER}`">
+            <ColoredButton :text="$t('book-meeting')" color="gold">
+              <SvgCall />
+            </ColoredButton>
+          </a>
+          <ColoredButton :text="$t('download-pdf')" color="orange" @click="downloadPDF">
+            <SvgArticle />
+          </ColoredButton>
+        </div>
+        <img
+          width="500"
+          :src="`${DOMAIN_URL}/${apartment?.floor_plan_selected_pdf}`"
+          alt="selected schema"
+          class="apartment__schema"
+        >
       </div>
     </div>
   </main>
 </template>
 
 <script setup>
-const { fetchApartment } = useAppState();
 const route = useRoute();
+const { t } = useI18n();
+const { fetchApartment, API_URL } = useAppState();
+
+const showContactsModal = useState('showContactsModal');
 
 const apartment = await fetchApartment(route.params.id);
 
-const { t } = useI18n();
+const downloadPDF = async () => {
+  try {
+    const res = await $fetch(`${API_URL}/pdf`, {
+      responseType: 'arrayBuffer',
+      headers: { accept: 'application/pdf' },
+      query: {
+        block_id: apartment.value?.block_id,
+        floor_number: apartment.value?.floor,
+        apartment_id: apartment.value?.id
+      }
+    });
+
+    const blob = new Blob([res], { type: 'application/pdf' });
+    const url = URL.createObjectURL(blob);
+
+    const link = Object.assign(document.createElement('a'), {
+      href: url,
+      download: `${t('apartment').toLowerCase()}-${apartment.value?.unit}.pdf`
+    });
+
+    link.click();
+    URL.revokeObjectURL(url);
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 const crumbs = computed(() => [
   {
@@ -54,7 +92,7 @@ const crumbs = computed(() => [
   },
   {
     name: `${t('floor')} ${apartment.value?.floor}`,
-    path: `/floors/${apartment.value?.floor_id}?building_id=${apartment.value?.building_id}&block_id=${apartment.value?.block_id}`
+    path: `/floors/${apartment.value?.floor}?building_id=${apartment.value?.building_id}&block_id=${apartment.value?.block_id}`
   },
   {
     name: `${t('apt')} ${apartment.value?.unit}`,
@@ -84,7 +122,15 @@ definePageMeta({
   flex-direction: column;
   gap: max(1.2rem, 12px);
   padding-bottom: max(3rem, 24px);
+  position: relative;
+  &__right {
+    grid-area: right;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
   &__wrapper {
+    flex: 1;
     display: grid;
     grid-auto-columns: 1fr 1.27fr 0.92fr;
     grid-template-areas:
@@ -168,7 +214,7 @@ definePageMeta({
     gap: max(3.2rem, 32px);
   }
   &__cta {
-    grid-area: right;
+    align-items: flex-start;
     display: flex;
     flex-direction: column;
     gap: max(2.4rem, 20px);

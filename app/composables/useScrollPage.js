@@ -77,8 +77,7 @@ export default callback => {
     }
   }
 
-  const { showPageLoader } = useLoader();
-
+  const showPageLoader = useState('showPageLoader');
   watch(showPageLoader, () => {
     if (!import.meta.client) return;
     if (!showPageLoader.value) {

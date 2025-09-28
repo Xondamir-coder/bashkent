@@ -9,9 +9,9 @@ export default defineNuxtPlugin(() => {
     'housing',
     'infrastructure'
   ]);
+  const showPageLoader = useState('showPageLoader');
 
   const router = useRouter();
-  const { showPageLoader } = useLoader();
 
   // const PAGE_LOADER_DURATION = 1;
   const PAGE_DELAY = 0.85;
