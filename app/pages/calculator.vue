@@ -10,7 +10,7 @@
         <span class="calculator__label">{{ $t('calculator.desired-layout') }}</span>
         <FilterRow :no-label="true" />
         <div class="calculator__plan-box">
-          <img src="/images/original/calc-apt.png" alt="apartment" class="calculator__plan-image" >
+          <img src="/images/original/calc-apt.png" alt="apartment" class="calculator__plan-image" />
           <ul class="calculator__plan-details">
             <DetailsItem
               v-for="(detail, i) in planDetails"
@@ -24,7 +24,7 @@
       <div class="calculator__params calculator-box">
         <span class="calculator__label">{{ $t('calculator.params') }}</span>
         <FilterRow
-          v-model="selectedFloor"
+          v-model="floorNumber"
           :label="$t('floor')"
           :options="floors"
           :is-from-api="false"
@@ -90,7 +90,7 @@ const crumbs = computed(() => [
 const floors = Array.from({ length: 12 }, (_, i) => i + 1);
 
 const percentage = ref('10');
-const selectedFloor = useState('selectedFloor', () => 1);
+const floorNumber = useState('floorNumber', () => 1);
 
 definePageMeta({
   layout: 'only-header'

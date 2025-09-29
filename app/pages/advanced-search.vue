@@ -1,7 +1,7 @@
 <template>
   <main class="advanced-search">
     <div class="advanced-search__top">
-      <AppBreadcrumbs :crumbs="crumbs" />
+      <AppBreadcrumbs :crumbs />
       <h1 id="advanced-search-title" class="heading-large">{{ $t('layouts') }}</h1>
     </div>
     <div class="advanced-search__wrapper">
@@ -35,7 +35,7 @@ const crumbs = computed(() => [
     path: '/select'
   },
   {
-    name: t('layouts'),
+    name: t('advanced-search'),
     path: '/advanced-search'
   }
 ]);

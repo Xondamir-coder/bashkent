@@ -37,11 +37,12 @@ const showMobileFilter = ref(false);
 
 const layoutType = useState('layoutType', () => filters.value?.types[0]);
 const condition = useState('condition', () => filters.value?.conditions[0]);
-const selectedFloor = useState('selectedFloor', () => 1);
-const selectedNumber = useState('selectedNumber', () => 1);
+const floorNumber = useState('floorNumber', () => 1);
+const roomsCount = useState('roomsCount', () => 1);
+const deadline = useState('deadline', () => new Date().getFullYear());
 const area = useState('area', () => ({
-  start: null,
-  end: null
+  from: null,
+  to: null
 }));
 
 const toggleMobileFilter = () => {
@@ -50,12 +51,13 @@ const toggleMobileFilter = () => {
 };
 const submitForm = () => {};
 const resetFilters = () => {
-  selectedNumber.value = 1;
+  roomsCount.value = 1;
   layoutType.value = filters.value.types[0];
   condition.value = filters.value.conditions[0];
-  area.value.start = null;
-  area.value.end = null;
-  selectedFloor.value = 1;
+  area.value.from = null;
+  area.value.to = null;
+  floorNumber.value = 1;
+  deadline.value = new Date().getFullYear();
 };
 </script>
 

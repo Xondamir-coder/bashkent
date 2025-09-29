@@ -1,9 +1,9 @@
 <template>
   <form class="filter-form" @submit.prevent="submitForm">
     <FilterRow
-      v-model="selectedFloor"
+      v-model="floorNumber"
       :label="$t('floor')"
-      :options="floors"
+      :options="countdownArray(13).reverse()"
       :is-from-api="false"
     />
     <FilterRow v-model="layoutType" :label="$t('layout-type')" :options="filters.types" />
@@ -12,34 +12,34 @@
         <div class="filter-item">
           <input
             id="area-from"
-            v-model="area.start"
+            v-model="area.from"
             type="number"
             name="area"
             class="filter-form__input"
             :placeholder="$t('from')"
-          >
-          <span>{{ $t('m') }}²</span>
+          />
+          <span>{{ $t('m-squared') }}</span>
         </div>
         <div class="filter-item">
           <input
             id="area-to"
-            v-model="area.end"
+            v-model="area.to"
             type="number"
             name="area"
             class="filter-form__input"
             :placeholder="$t('to')"
-          >
-          <span>{{ $t('m') }}²</span>
+          />
+          <span>{{ $t('m-squared') }}</span>
         </div>
       </div>
     </FilterRow>
     <FilterRow type="numbers" :label="$t('number-of-rooms')">
       <div class="filter-form__numbers filter-item">
         <button
-          v-for="number in 4"
+          v-for="number in 3"
           :key="number"
           class="filter-form__number"
-          :class="{ active: number === selectedNumber }"
+          :class="{ active: number === roomsCount }"
           @click="changeNumber(number)"
         >
           {{ number }}
@@ -47,23 +47,27 @@
       </div>
     </FilterRow>
     <FilterRow v-model="condition" :label="$t('type-of-housing')" :options="filters.conditions" />
-    <FilterRow :label="$t('deadline')" />
+    <FilterRow v-model="deadline" :label="$t('deadline')" :options="dates" :is-from-api="false" />
   </form>
 </template>
 
 <script setup>
 const { filters } = useAppState();
 
-const floors = Array.from({ length: 12 }, (_, i) => i + 1);
+const dates = computed(() => {
+  const currentYear = new Date().getFullYear();
+  return Array.from({ length: 5 }, (_, i) => currentYear + i);
+});
 
-const selectedFloor = useState('selectedFloor');
-const selectedNumber = useState('selectedNumber');
+const deadline = useState('deadline');
+const floorNumber = useState('floorNumber');
+const roomsCount = useState('roomsCount');
 const area = useState('area');
 const layoutType = useState('layoutType');
 const condition = useState('condition');
 
 const changeNumber = number => {
-  selectedNumber.value = number;
+  roomsCount.value = number;
 };
 </script>
 

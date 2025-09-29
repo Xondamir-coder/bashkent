@@ -28,4 +28,8 @@ const selectPath = pathData => {
     query: { building_id: pathData.building_id, block_id: pathData.block_id }
   });
 };
+
+definePageMeta({
+  layout: 'only-header'
+});
 </script>

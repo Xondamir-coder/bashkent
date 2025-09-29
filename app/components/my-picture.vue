@@ -1,25 +1,25 @@
 <template>
   <picture class="my-picture">
-    <!-- Small -->
+    <!-- 0–575 -->
     <source
       :srcset="`/images/576/${src.split('.')[0]}.avif`"
       type="image/avif"
-      media="(max-width: 576px)"
-    >
+      media="(max-width: 575px)"
+    />
 
-    <!-- Medium -->
+    <!-- 576–1023 -->
     <source
       :srcset="`/images/1024/${src.split('.')[0]}.avif`"
       type="image/avif"
-      media="(max-width: 1024px)"
-    >
+      media="(min-width: 576px) and (max-width: 1023px)"
+    />
 
-    <!-- Large and above -->
+    <!-- ≥1024 -->
     <source
       :srcset="`/images/1440/${src.split('.')[0]}.avif`"
       type="image/avif"
-      media="(min-width: 1025px)"
-    >
+      media="(min-width: 1024px)"
+    />
 
     <!-- Fallback original -->
     <img
@@ -27,7 +27,7 @@
       :alt="alt"
       :class="imageClass"
       class="my-picture__image"
-    >
+    />
   </picture>
 </template>
 

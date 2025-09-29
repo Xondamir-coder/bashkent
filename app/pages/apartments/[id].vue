@@ -12,7 +12,7 @@
         width="460"
         height="520"
         class="apartment__banner"
-      >
+      />
       <ul class="apartment__details">
         <li v-for="(room, index) in apartment?.rooms" :key="index" class="apartment__detail">
           <span class="apartment__detail-index">{{ index + 1 }}</span>
@@ -39,7 +39,7 @@
           :src="`${DOMAIN_URL}/${apartment?.floor_plan_selected_pdf}`"
           alt="selected schema"
           class="apartment__schema"
-        >
+        />
       </div>
     </div>
   </main>
@@ -61,7 +61,7 @@ const downloadPDF = async () => {
       headers: { accept: 'application/pdf' },
       query: {
         block_id: apartment.value?.block_id,
-        floor_number: apartment.value?.floor,
+        // floor_number: apartment.value?.floor,
         apartment_id: apartment.value?.id
       }
     });
