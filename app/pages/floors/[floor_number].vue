@@ -11,7 +11,9 @@
           alt="schema"
           class="floors__wrapper-image"
           width="1000"
-        >
+          :class="{ loaded: isImgLoaded }"
+          @load="isImgLoaded = true"
+        />
         <svg
           xmlns="http://www.w3.org/2000/svg"
           :viewBox="`0 0 ${viewBox}`"
@@ -23,6 +25,8 @@
             v-for="(apartment, index) in floor?.apartments"
             :key="index"
             :to="$localePath(`/apartments/${apartment.id}`)"
+            @pointerenter="showInfoBox(apartment)"
+            @pointerleave="hideInfoBox"
           >
             <path :d="apartment.path" class="floors__wrapper-path" />
           </NuxtLink>
@@ -40,6 +44,11 @@
         </button>
       </div>
     </div>
+    <InfoBox
+      :is-active="isInfoBoxActive"
+      :title="`№${hoveredData?.unit}`"
+      :texts="[`${hoveredData?.area} ${$t('m-squared')}`]"
+    />
   </main>
 </template>
 
@@ -58,6 +67,19 @@ const { floors, fetchFloors, activeBuilding } = useAppState();
 const route = useRoute();
 const router = useRouter();
 const localePath = useLocalePath();
+
+const isImgLoaded = ref(false);
+
+// Info box related
+const isInfoBoxActive = ref(false);
+const hoveredData = ref();
+const showInfoBox = apt => {
+  hoveredData.value = apt;
+  isInfoBoxActive.value = true;
+};
+const hideInfoBox = () => {
+  isInfoBoxActive.value = false;
+};
 
 // Cookie related
 const buildingCookie = useCookie('building_id');
@@ -133,6 +155,12 @@ definePageMeta({
 </script>
 
 <style lang="scss" scoped>
+@keyframes scale-appear {
+  from {
+    opacity: 0;
+    transform: scale(1.05);
+  }
+}
 @keyframes reveal-from-top {
   from {
     clip-path: inset(100% 0 100% 0);
@@ -149,7 +177,9 @@ definePageMeta({
     display: grid;
     &-image {
       clip-path: inset(0 0 0 0);
-      animation: reveal-from-top 1s ease;
+      &.loaded {
+        animation: reveal-from-top 1s ease;
+      }
     }
     &-svg {
       z-index: 2;

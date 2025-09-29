@@ -6,7 +6,14 @@
 
     <div class="overlay__wrapper" ref="wrapper">
       <div class="overlay__layer" ref="layer" :style="layerStyle">
-        <img :src="image" alt="overlay banner" class="overlay__picture" draggable="false" />
+        <img
+          :src="image"
+          alt="overlay banner"
+          class="overlay__picture"
+          draggable="false"
+          :class="{ loaded: isImgLoaded }"
+          @load="isImgLoaded = true"
+        />
 
         <svg
           class="overlay__container"
@@ -48,6 +55,7 @@ const emit = defineEmits(['select-path', 'hover-path', 'leave-path']);
 const root = ref(null);
 const wrapper = ref(null);
 const layer = ref(null);
+const isImgLoaded = ref(false);
 
 /* constants */
 const ASPECT_W = 1440;
@@ -233,6 +241,12 @@ onUnmounted(() => {
 </script>
 
 <style lang="scss" scoped>
+@keyframes scale-appear {
+  from {
+    opacity: 0;
+    transform: scale(1.05);
+  }
+}
 .overlay {
   user-select: none;
   position: fixed;
@@ -304,6 +318,9 @@ onUnmounted(() => {
     pointer-events: none;
     user-drag: none;
     user-select: none;
+    &.loaded {
+      animation: scale-appear 1s backwards;
+    }
   }
 
   &__container {

@@ -12,6 +12,8 @@
         width="460"
         height="520"
         class="apartment__banner"
+        :class="{ loaded: isImgLoaded }"
+        @load="isImgLoaded = true"
       />
       <ul class="apartment__details">
         <li v-for="(room, index) in apartment?.rooms" :key="index" class="apartment__detail">
@@ -51,6 +53,8 @@ const { t } = useI18n();
 const { fetchApartment, API_URL } = useAppState();
 
 const showContactsModal = useState('showContactsModal');
+
+const isImgLoaded = ref(false);
 
 const apartment = await fetchApartment(route.params.id);
 
@@ -148,6 +152,19 @@ definePageMeta({
         'details'
         'right';
     }
+    & > *:not(.apartment__banner) {
+      animation: 1s backwards;
+      @for $i from 1 through 10 {
+        &:nth-child(#{$i}) {
+          animation-delay: $i * 0.1s;
+          @if ($i % 2 == 0) {
+            animation-name: slide-from-top-20;
+          } @else {
+            animation-name: slide-from-bottom-20;
+          }
+        }
+      }
+    }
   }
   &__details {
     grid-area: details;
@@ -183,6 +200,9 @@ definePageMeta({
     display: flex;
     flex-direction: column;
     gap: max(3rem, 20px);
+    &.loaded {
+      animation: slide-from-bottom-20 1s backwards;
+    }
     @media screen and (max-width: vars.$bp-ipad-pro) {
       margin-block: -15%;
     }
