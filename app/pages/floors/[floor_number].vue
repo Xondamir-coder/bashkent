@@ -1,18 +1,16 @@
 <template>
   <main class="floors">
     <div class="floors__top">
-      <AppBreadcrumbs :crumbs="crumbs" />
+      <AppBreadcrumbs :crumbs />
       <h1 class="heading-large">{{ $t('layouts') }}</h1>
     </div>
-    <div class="floors__container">
+    <div class="floors__container" :class="{ active: isImgLoaded }">
       <div class="floors__wrapper">
         <img
           :src="`${DOMAIN_URL}/${floor?.schema}`"
           alt="schema"
           class="floors__wrapper-image"
           width="1000"
-          :class="{ loaded: isImgLoaded }"
-          @load="isImgLoaded = true"
         />
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -100,7 +98,7 @@ if (!route.query.building_id || !route.query.block_id) {
 }
 
 const shouldFetchFloors = !floors.value || +floors.value[0].block_id !== +blockID.value;
-if (shouldFetchFloors) await fetchFloors({ buildingID: buildingID.value, blockID: blockID.value });
+if (shouldFetchFloors) fetchFloors({ buildingID: buildingID.value, blockID: blockID.value });
 
 // Current floor
 const floor = computed(() =>
@@ -124,6 +122,16 @@ const crumbs = computed(() => [
     path: `/floors/${route.params.floor_number}`
   }
 ]);
+
+// Image related
+watchEffect(() => {
+  const f = floor.value;
+  if (!f) return;
+
+  const img = new Image();
+  img.src = `${DOMAIN_URL}/${f.schema}`;
+  img.onload = () => (isImgLoaded.value = true);
+});
 
 const changeSchema = num => {
   navigateTo({
@@ -155,17 +163,6 @@ definePageMeta({
 </script>
 
 <style lang="scss" scoped>
-@keyframes scale-appear {
-  from {
-    opacity: 0;
-    transform: scale(1.05);
-  }
-}
-@keyframes reveal-from-top {
-  from {
-    clip-path: inset(100% 0 100% 0);
-  }
-}
 .floors {
   padding-top: calc(var(--header-height) + max(3.2rem, 20px));
   padding-inline: var(--block-spacing);
@@ -175,12 +172,6 @@ definePageMeta({
   gap: max(4.7rem, 26px);
   &__wrapper {
     display: grid;
-    &-image {
-      clip-path: inset(0 0 0 0);
-      &.loaded {
-        animation: reveal-from-top 1s ease;
-      }
-    }
     &-svg {
       z-index: 2;
     }
@@ -201,6 +192,22 @@ definePageMeta({
     display: flex;
     gap: max(4.4rem, 25px);
     overflow: hidden;
+    & > * {
+      opacity: 0;
+      transform: translateY(25px);
+      transition: transform 1s, opacity 1s;
+      @for $i from 1 through 2 {
+        &:nth-child(#{$i}) {
+          transition-delay: $i * 0.2s;
+        }
+      }
+    }
+    &.active {
+      & > * {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
     @media screen and (max-width: 700px) {
       flex: 1;
     }
@@ -218,13 +225,7 @@ definePageMeta({
     border: 1px solid #d6d7d7;
     width: max(3.6rem, 36px);
     height: max(3.6rem, 36px);
-    animation: slide-from-bottom-10 0.5s backwards;
     @include mix.flex-center;
-    @for $i from 1 through 20 {
-      &:nth-child(#{$i}) {
-        animation-delay: $i * 0.05s;
-      }
-    }
     &.active,
     &:hover {
       background-color: vars.$gold;

@@ -7,6 +7,7 @@ export default () => {
   const filters = useState('filters', () => null);
   const buildings = useState('buildings', () => null);
   const floors = useState('floors', () => null);
+  const apartments = useState('apartments', () => null);
 
   // Selected data
   const activeBuilding = useState('activeBuilding', () => null);
@@ -57,16 +58,37 @@ export default () => {
     }
   };
 
+  const fetchApartments = async params => {
+    const { type_id, condition_id, floor_number, area_from, area_to, year, rooms_number } = params;
+    const query = {
+      type_id,
+      condition_id,
+      floor_number,
+      area_from,
+      area_to,
+      year,
+      rooms_number
+    };
+    try {
+      const res = await $fetch(`${FRONT_API_URL}/apartments`, { query });
+      apartments.value = res.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return {
+    API_URL,
+    FRONT_API_URL,
+    activeBuilding,
     filters,
     buildings,
     floors,
-    activeBuilding,
+    apartments,
     fetchFilters,
     fetchBuildings,
     fetchFloors,
     fetchApartment,
-    API_URL,
-    FRONT_API_URL
+    fetchApartments
   };
 };

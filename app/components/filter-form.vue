@@ -1,5 +1,5 @@
 <template>
-  <form class="filter-form" @submit.prevent="submitForm">
+  <form class="filter-form" @submit.prevent>
     <FilterRow
       v-model="floorNumber"
       :label="$t('floor')"
@@ -38,6 +38,7 @@
         <button
           v-for="number in 3"
           :key="number"
+          type="button"
           class="filter-form__number"
           :class="{ active: number === roomsCount }"
           @click="changeNumber(number)"
@@ -53,6 +54,8 @@
 
 <script setup>
 const { filters } = useAppState();
+
+defineEmits(['submit']);
 
 const dates = computed(() => {
   const currentYear = new Date().getFullYear();

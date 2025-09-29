@@ -1,6 +1,6 @@
 <template>
   <main class="apartment">
-    <AppBreadcrumbs :crumbs="crumbs" />
+    <AppBreadcrumbs :crumbs />
     <div class="apartment__wrapper">
       <div class="apartment__top">
         <h1 class="heading-large">{{ apartment?.area }} {{ $t('m-squared') }}</h1>
@@ -12,7 +12,7 @@
         width="460"
         height="520"
         class="apartment__banner"
-        :class="{ loaded: isImgLoaded }"
+        :class="{ active: isImgLoaded }"
         @load="isImgLoaded = true"
       />
       <ul class="apartment__details">
@@ -32,7 +32,12 @@
               <SvgCall />
             </ColoredButton>
           </a>
-          <ColoredButton :text="$t('download-pdf')" color="orange" @click="downloadPDF">
+          <ColoredButton
+            :disabled="isDownloading"
+            :text="!isDownloading ? $t('download-pdf') : `${$t('loading')}...`"
+            color="orange"
+            @click="downloadPDF"
+          >
             <SvgArticle />
           </ColoredButton>
         </div>
@@ -55,17 +60,19 @@ const { fetchApartment, API_URL } = useAppState();
 const showContactsModal = useState('showContactsModal');
 
 const isImgLoaded = ref(false);
+const isDownloading = ref(false);
 
 const apartment = await fetchApartment(route.params.id);
 
 const downloadPDF = async () => {
+  isDownloading.value = true;
   try {
     const res = await $fetch(`${API_URL}/pdf`, {
       responseType: 'arrayBuffer',
       headers: { accept: 'application/pdf' },
       query: {
         block_id: apartment.value?.block_id,
-        // floor_number: apartment.value?.floor,
+        floor_number: apartment.value?.floor,
         apartment_id: apartment.value?.id
       }
     });
@@ -75,13 +82,15 @@ const downloadPDF = async () => {
 
     const link = Object.assign(document.createElement('a'), {
       href: url,
-      download: `${t('apartment').toLowerCase()}-${apartment.value?.unit}.pdf`
+      download: `${t('apt').toLowerCase()}-${apartment.value?.unit}.pdf`
     });
 
     link.click();
     URL.revokeObjectURL(url);
   } catch (error) {
     console.log(error);
+  } finally {
+    isDownloading.value = false;
   }
 };
 
@@ -152,16 +161,11 @@ definePageMeta({
         'details'
         'right';
     }
-    & > *:not(.apartment__banner) {
-      animation: 1s backwards;
+    & > * {
+      animation: slide-from-bottom-20 1s backwards;
       @for $i from 1 through 10 {
         &:nth-child(#{$i}) {
           animation-delay: $i * 0.1s;
-          @if ($i % 2 == 0) {
-            animation-name: slide-from-top-20;
-          } @else {
-            animation-name: slide-from-bottom-20;
-          }
         }
       }
     }
@@ -200,19 +204,11 @@ definePageMeta({
     display: flex;
     flex-direction: column;
     gap: max(3rem, 20px);
-    &.loaded {
-      animation: slide-from-bottom-20 1s backwards;
+    &.active {
+      animation: slide-from-bottom-20 1s;
     }
     @media screen and (max-width: vars.$bp-ipad-pro) {
       margin-block: -15%;
-    }
-    & > * {
-      animation: scale-in 0.5s backwards;
-      @for $i from 1 through 2 {
-        &:nth-child(#{$i}) {
-          animation-delay: $i * 0.1s;
-        }
-      }
     }
   }
   &__top {
@@ -220,7 +216,6 @@ definePageMeta({
     display: flex;
     flex-direction: column;
     gap: max(0.8rem, 4px);
-    animation: slide-from-left-20 0.5s backwards;
 
     span {
       font-weight: 500;

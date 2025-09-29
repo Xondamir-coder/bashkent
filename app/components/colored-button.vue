@@ -37,7 +37,9 @@ defineProps({
       animation-delay: $i * 0.1s;
     }
   }
-
+  &:disabled {
+    opacity: 0.3;
+  }
   &--teal {
     &:hover {
       color: vars.$teal;

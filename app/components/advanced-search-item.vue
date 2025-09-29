@@ -1,32 +1,53 @@
 <template>
-  <NuxtLink :to="$localePath(`/apartments/${data.id}`)" class="item">
+  <NuxtLink :to="$localePath(`/apartments/${data?.id}`)" class="item">
     <div class="item__top">
       <span class="item__label">
-        {{ data.type }}
+        {{ data?.type[`name_${$i18n.locale}`] }}
       </span>
       <p class="item__desc">
-        {{ data.desc }}
+        {{ data?.[`name_${$i18n.locale}`] }}, ?,
+        {{
+          $t('x-floor-of-y', {
+            x: data?.floor,
+            y: 13
+          })
+        }}
       </p>
     </div>
-    <img :src="data.image" class="item__image" >
-    <span class="item__area">
-      {{ data.area }}
-    </span>
+    <img :src="`${DOMAIN_URL}/${data?.image}`" class="item__image" />
+    <span class="item__area"> {{ data?.area }} {{ $t('m-squared') }} </span>
     <div class="item__divider" />
-    <div class="item__tags">
+    <div class="item__rooms">
       <span
-        v-for="(tag, tagIndex) in data.tags"
-        :key="tagIndex"
-        class="item__tag"
-        :style="{ backgroundColor: tag.color }"
+        v-for="(room, roomIndex) in data?.rooms"
+        :key="roomIndex"
+        class="item__room"
+        :style="{ backgroundColor: stringToColor(room.key_en) }"
       >
-        {{ tag.text }}
+        {{ room[`key_${$i18n.locale}`] }}
       </span>
     </div>
   </NuxtLink>
 </template>
 
 <script setup>
+const COLORS = [
+  '#05312b', // $teal-dark
+  '#076962', // $teal
+  '#609e99', // $teal-light
+  '#c1eae7', // $teal-very-light
+  '#d3ad48', // $gold
+  '#181a1a', // $black-medium
+  '#eb8331' // $orange
+];
+
+const stringToColor = str => {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    hash = str.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  return COLORS[Math.abs(hash) % COLORS.length];
+};
 defineProps({
   data: {
     required: true,
@@ -45,17 +66,21 @@ defineProps({
   align-items: flex-start;
   gap: max(1.6rem, 12px);
   transition: all vars.$dt;
+  animation: slide-from-bottom-20 0.7s backwards;
+
   &:hover {
     box-shadow: 0px 4px 32px 0px #0000001f;
   }
-  &__tags {
+  &__rooms {
     display: flex;
     gap: max(1rem, 10px);
+    flex-wrap: wrap;
   }
   &__image {
     aspect-ratio: 237/174;
+    object-fit: contain;
   }
-  &__tag {
+  &__room {
     padding-block: max(0.6rem, 6px);
     padding-inline: max(1rem, 10px);
     font-size: max(1rem, 10px);
@@ -76,6 +101,10 @@ defineProps({
     display: flex;
     flex-direction: column;
     gap: max(0.8rem, 8px);
+  }
+  &__desc {
+    font-size: max(1.4rem, 12px);
+    color: vars.$darker-grey;
   }
   &__label {
     font-weight: bold;

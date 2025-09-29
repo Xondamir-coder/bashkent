@@ -41,7 +41,7 @@
           <div class="contacts-modal__form-bottom">
             <button class="contacts-modal__button" :disabled="isLoading || !isFormValid">
               <span v-if="!isLoading && !successMessage"> {{ $t('modal.form.submit') }}</span>
-              <span v-else-if="isLoading">{{ $t('modal.form.loading') }}</span>
+              <span v-else-if="isLoading">{{ $t('sending') }}...</span>
               <span v-else-if="successMessage">{{ successMessage }}</span>
             </button>
             <p>{{ $t('modal.form.copyright') }}</p>

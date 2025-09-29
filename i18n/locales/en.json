@@ -10,6 +10,10 @@
     "floors": "Floors"
   },
 
+  "no-apartments-found": "No apartments found",
+  "sending": "Sending",
+  "loading": "Loading",
+  "x-floor-of-y": "floor {x} of {y}",
   "advanced-search": "Advanced search",
   "total-area": "Total area",
   "m-squared": "m²",
@@ -170,8 +174,7 @@
       "message": "Comment",
       "submit": "Send",
       "copyright": "I agree to the processing of personal data",
-      "author": "Head of sales department Sergey Obozny",
-      "loading": "Sending..."
+      "author": "Head of sales department Sergey Obozny"
     }
   },
 

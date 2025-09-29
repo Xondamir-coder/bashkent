@@ -10,6 +10,10 @@
     "floors": "Qavatlar"
   },
 
+  "no-apartments-found": "Kvartira topilmadi",
+  "sending": "Yuborilmoqda",
+  "loading": "Yuklanmoqda",
+  "x-floor-of-y": "{y} dan {x} etaj",
   "advanced-search": "Qo‘llanma qidirish",
   "total-area": "Umumiy maydon",
   "m-squared": "m²",
@@ -169,8 +173,7 @@
       "message": "Izoh",
       "submit": "Yuborish",
       "copyright": "Shaxsiy ma’lumotlarni qayta ishlashga roziman",
-      "author": "Savdo bo‘limi rahbari Sergey Obozniy",
-      "loading": "Yuborilmoqda..."
+      "author": "Savdo bo‘limi rahbari Sergey Obozniy"
     }
   },
 

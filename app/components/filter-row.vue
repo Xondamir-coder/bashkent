@@ -3,6 +3,7 @@
     <span v-if="label !== ''" class="filter-row__label">{{ label }}</span>
     <div v-if="type === 'dropdown'" class="filter-row__box">
       <button
+        type="button"
         class="filter-item"
         :class="{ active: showDropdown }"
         @click="showDropdown = !showDropdown"
@@ -15,6 +16,7 @@
           <button
             v-for="option in options"
             :key="option?.id"
+            type="button"
             class="filter-row__option"
             :class="{ active: isFromApi ? option?.id === model?.id : option === model }"
             @click="selectOption(option)"

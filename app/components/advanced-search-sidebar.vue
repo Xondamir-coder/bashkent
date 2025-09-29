@@ -9,7 +9,9 @@
       <button class="sidebar__reset" @click="resetFilters">{{ $t('reset-filters') }}</button>
     </div>
     <FilterForm />
-    <button class="sidebar__submit" @click="submitForm">{{ $t('apply-filter') }}</button>
+    <button :disabled="isSubmitting" class="sidebar__submit" @click="submitForm">
+      {{ isSubmitting ? `${$t('loading')}...` : $t('apply-filter') }}
+    </button>
   </div>
   <Teleport to="body">
     <Transition name="fade">
@@ -23,7 +25,9 @@
             <SvgClose class="mobile-filter__icon" @click="toggleMobileFilter" />
           </div>
           <FilterForm />
-          <button class="sidebar__submit" @click="submitForm">{{ $t('apply-filter') }}</button>
+          <button :disabled="isSubmitting" class="sidebar__submit" @click="submitForm">
+            {{ isSubmitting ? `${$t('loading')}...` : $t('apply-filter') }}
+          </button>
         </div>
       </div>
     </Transition>
@@ -31,15 +35,16 @@
 </template>
 
 <script setup>
-const { filters } = useAppState();
+const { fetchApartments } = useAppState();
 
 const showMobileFilter = ref(false);
+const isSubmitting = ref(false);
 
-const layoutType = useState('layoutType', () => filters.value?.types[0]);
-const condition = useState('condition', () => filters.value?.conditions[0]);
-const floorNumber = useState('floorNumber', () => 1);
-const roomsCount = useState('roomsCount', () => 1);
-const deadline = useState('deadline', () => new Date().getFullYear());
+const layoutType = useState('layoutType', () => null);
+const condition = useState('condition', () => null);
+const floorNumber = useState('floorNumber', () => null);
+const roomsCount = useState('roomsCount', () => null);
+const deadline = useState('deadline', () => null);
 const area = useState('area', () => ({
   from: null,
   to: null
@@ -49,15 +54,28 @@ const toggleMobileFilter = () => {
   showMobileFilter.value = !showMobileFilter.value;
   document.body.classList.toggle('no-scroll', showMobileFilter.value);
 };
-const submitForm = () => {};
+const submitForm = async () => {
+  const params = {
+    type_id: layoutType.value.id,
+    condition_id: condition.value.id,
+    floor_number: floorNumber.value,
+    area_from: area.value.from,
+    area_to: area.value.to,
+    year: deadline.value,
+    rooms_number: roomsCount.value
+  };
+  isSubmitting.value = true;
+  await fetchApartments(params);
+  isSubmitting.value = false;
+};
 const resetFilters = () => {
-  roomsCount.value = 1;
-  layoutType.value = filters.value.types[0];
-  condition.value = filters.value.conditions[0];
+  layoutType.value = null;
+  condition.value = null;
   area.value.from = null;
   area.value.to = null;
-  floorNumber.value = 1;
-  deadline.value = new Date().getFullYear();
+  roomsCount.value = null;
+  floorNumber.value = null;
+  deadline.value = null;
 };
 </script>
 
@@ -119,6 +137,9 @@ const resetFilters = () => {
     background-color: vars.$teal;
     color: #fff;
     border-radius: max(1.2rem, 10px);
+    &:disabled {
+      opacity: 0.4;
+    }
     &:hover {
       background-color: vars.$teal-dark;
     }

@@ -7,14 +7,26 @@
     <div class="advanced-search__wrapper">
       <AdvancedSearchSidebar />
       <div class="advanced-search__container">
-        <span class="advanced-search__label">
-          {{ $t('available-x-apartments', { count: 87 }) }}
+        <span v-if="apartments?.length > 0" class="advanced-search__label">
+          {{ $t('available-x-apartments', { count: apartments?.length }) }}
         </span>
-        <div class="advanced-search__list">
-          <AdvancedSearchItem v-for="(item, index) in items" :key="index" :data="item" />
+        <span v-if="apartments?.length <= 0" class="advanced-search__label">
+          {{ $t('no-apartments-found') }}
+        </span>
+        <div v-if="apartments" class="advanced-search__list">
+          <AdvancedSearchItem
+            v-for="apartment in slicedApartments"
+            :key="apartment.id"
+            :data="apartment"
+            class="search-item"
+          />
         </div>
-        <button class="advanced-search__button">
-          <span>{{ $t('see-more-x', { count: 6 }) }}</span>
+        <button
+          v-if="apartments?.length > MAX_ITEMS_COUNT && maxSlice < apartments.length"
+          class="advanced-search__button"
+          @click="maxSlice = apartments.length"
+        >
+          <span>{{ $t('see-more-x', { count: apartments.length - MAX_ITEMS_COUNT }) }}</span>
           <SvgKeyboardArrowLeft class="advanced-search__arrow" />
         </button>
       </div>
@@ -24,10 +36,13 @@
 
 <script setup>
 import { SplitText } from 'gsap/SplitText';
-import imgSrc from '/images/original/calc-apt.png';
 import gsap from 'gsap';
 
 const { t } = useI18n();
+const { apartments } = useAppState();
+
+const MAX_ITEMS_COUNT = 6;
+const maxSlice = ref(MAX_ITEMS_COUNT);
 
 const crumbs = computed(() => [
   {
@@ -39,19 +54,7 @@ const crumbs = computed(() => [
     path: '/advanced-search'
   }
 ]);
-const items = computed(() =>
-  Array(6).fill({
-    id: 4,
-    type: 'Студия',
-    desc: '10к1 , 6 секц., 4 из 12 этаж',
-    area: '25,79 м²',
-    image: imgSrc,
-    tags: [
-      { text: 'Комфорт', color: '#076962' },
-      { text: 'Отделка: Чистовая', color: '#EB8331' }
-    ]
-  })
-);
+const slicedApartments = computed(() => apartments.value.slice(0, maxSlice.value));
 
 onMounted(() => {
   SplitText.create('#advanced-search-title', {
