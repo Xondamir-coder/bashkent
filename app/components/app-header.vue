@@ -20,7 +20,9 @@
     <button class="header__back" @click="$router.back()">
       <SvgKeyboardArrowLeft />
     </button>
-    <SvgHeaderLogo class="header__logo" />
+    <NuxtLink :to="$localePath('/')" class="header__logo">
+      <SvgHeaderLogo />
+    </NuxtLink>
     <FloatingCall :clickable="true" class="header__call" />
     <div class="header__right">
       <a :href="`tel:${TEL_NUMBER}`" class="header__tel">
@@ -155,7 +157,8 @@ defineProps({
   &__button {
     @include mix.flex-center;
     padding-block: max(1.15rem, 8px);
-    padding-inline: max(2.1rem, 17px);
+    padding-right: max(2.1rem, 17px);
+    padding-left: max(1rem, 8px);
     font-weight: 500;
     border-radius: max(0.8rem, 5px);
     background-color: vars.$light-grey;

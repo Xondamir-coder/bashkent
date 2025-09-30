@@ -26,10 +26,15 @@
         <FilterRow
           v-model="floorNumber"
           :label="$t('floor')"
-          :options="floors"
+          :options="countdownArray(13).reverse()"
           :is-from-api="false"
         />
-        <FilterRow :label="$t('deadline')" />
+        <FilterRow
+          v-model="deadline"
+          :label="$t('deadline')"
+          :options="dates"
+          :is-from-api="false"
+        />
         <RangeSlider v-model="percentage" />
         <div class="calculator__params-bottom">
           <span>{{ $t('calculator.discount') }}: <span class="clr-teal">16%</span></span>
@@ -59,6 +64,10 @@
 <script setup>
 const { t } = useI18n();
 
+const dates = computed(() => {
+  const currentYear = new Date().getFullYear();
+  return Array.from({ length: 4 }, (_, i) => currentYear + i);
+});
 const planDetails = computed(() => [
   {
     name: t('just-area'),
@@ -87,8 +96,8 @@ const crumbs = computed(() => [
     path: '/calculator'
   }
 ]);
-const floors = Array.from({ length: 12 }, (_, i) => i + 1);
 
+const deadline = ref(dates.value[0]);
 const percentage = ref('10');
 const floorNumber = useState('floorNumber', () => 1);
 

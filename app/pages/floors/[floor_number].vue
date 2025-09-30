@@ -4,18 +4,21 @@
       <AppBreadcrumbs :crumbs />
       <h1 class="heading-large">{{ $t('layouts') }}</h1>
     </div>
-    <div class="floors__container" :class="{ active: isImgLoaded }">
-      <div class="floors__wrapper">
-        <img
-          :src="`${DOMAIN_URL}/${floor?.schema}`"
-          alt="schema"
-          class="floors__wrapper-image"
-          width="1000"
-        />
+    <div class="floors__container">
+      <div
+        class="floors__wrapper"
+        :style="{ aspectRatio: viewBox.split(' ').join('/') }"
+        :class="{
+          fourfour: typeName === '4.4',
+          fourone: typeName === '4.1',
+          one: typeName === '1'
+        }"
+      >
+        <img :src="imageSrc" alt="schema" class="floors__wrapper-image" width="1000" />
         <svg
           xmlns="http://www.w3.org/2000/svg"
           :viewBox="`0 0 ${viewBox}`"
-          preserveAspectRatio="xMidYMid slice"
+          preserveAspectRatio="xMidYMid meet"
           alt="schema"
           class="floors__wrapper-svg"
         >
@@ -51,11 +54,6 @@
 </template>
 
 <script setup>
-// Viewboxes
-// 1: 0 0 500 800
-// 4.1: 0 0 401 800
-// 4.4 0 0 876 550
-
 import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
 
@@ -65,8 +63,6 @@ const { floors, fetchFloors, activeBuilding } = useAppState();
 const route = useRoute();
 const router = useRouter();
 const localePath = useLocalePath();
-
-const isImgLoaded = ref(false);
 
 // Info box related
 const isInfoBoxActive = ref(false);
@@ -97,8 +93,9 @@ if (!route.query.building_id || !route.query.block_id) {
   });
 }
 
-const shouldFetchFloors = !floors.value || +floors.value[0].block_id !== +blockID.value;
-if (shouldFetchFloors) fetchFloors({ buildingID: buildingID.value, blockID: blockID.value });
+if (!floors.value) {
+  fetchFloors({ buildingID: buildingID.value, blockID: blockID.value });
+}
 
 // Current floor
 const floor = computed(() =>
@@ -108,6 +105,7 @@ const typeName = computed(() => floor.value?.block.building_type.name_en);
 const viewBox = computed(() =>
   typeName.value === '4.4' ? '876 550' : typeName.value === '4.1' ? '401 500' : '800 500'
 );
+const imageSrc = computed(() => `${DOMAIN_URL}/${floor.value?.schema}`);
 const crumbs = computed(() => [
   {
     name: t('masterplan.name'),
@@ -122,16 +120,6 @@ const crumbs = computed(() => [
     path: `/floors/${route.params.floor_number}`
   }
 ]);
-
-// Image related
-watchEffect(() => {
-  const f = floor.value;
-  if (!f) return;
-
-  const img = new Image();
-  img.src = `${DOMAIN_URL}/${f.schema}`;
-  img.onload = () => (isImgLoaded.value = true);
-});
 
 const changeSchema = num => {
   navigateTo({
@@ -171,9 +159,45 @@ definePageMeta({
   flex-direction: column;
   gap: max(4.7rem, 26px);
   &__wrapper {
-    display: grid;
+    position: relative;
+    margin-inline: auto;
+    height: 100%;
+    width: auto;
+    &.fourfour {
+      @media screen and (max-width: 1200px) {
+        height: auto;
+        width: 100%;
+      }
+      @media screen and (max-width: 600px) {
+        & > * {
+          transform: scale(2);
+        }
+      }
+    }
+    &.fourone {
+      @media screen and (max-width: 600px) {
+        height: auto;
+        width: 100%;
+      }
+    }
+    &.one {
+      @media screen and (max-width: 1200px) {
+        height: auto;
+        width: 100%;
+      }
+      @media screen and (max-width: 500px) {
+        transform: rotate(90deg) scale(1.5);
+      }
+    }
+    & > * {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
     &-svg {
-      z-index: 2;
+      z-index: 1;
     }
     &-path {
       fill: transparent;
@@ -183,34 +207,11 @@ definePageMeta({
         fill: vars.$gold;
       }
     }
-    & > * {
-      grid-area: 1/1/2/2;
-      object-fit: contain;
-    }
   }
   &__container {
     display: flex;
     gap: max(4.4rem, 25px);
     overflow: hidden;
-    & > * {
-      opacity: 0;
-      transform: translateY(25px);
-      transition: transform 1s, opacity 1s;
-      @for $i from 1 through 2 {
-        &:nth-child(#{$i}) {
-          transition-delay: $i * 0.2s;
-        }
-      }
-    }
-    &.active {
-      & > * {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    @media screen and (max-width: 700px) {
-      flex: 1;
-    }
   }
   &__numbers {
     display: flex;

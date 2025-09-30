@@ -54,7 +54,7 @@
 
 <script setup>
 const route = useRoute();
-const { t } = useI18n();
+const { t, locale } = useI18n();
 const { fetchApartment, API_URL } = useAppState();
 
 const showContactsModal = useState('showContactsModal');
@@ -73,7 +73,8 @@ const downloadPDF = async () => {
       query: {
         block_id: apartment.value?.block_id,
         floor_number: apartment.value?.floor,
-        apartment_id: apartment.value?.id
+        apartment_id: apartment.value?.id,
+        lang: locale.value
       }
     });
 
@@ -141,6 +142,7 @@ definePageMeta({
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    gap: 10px;
   }
   &__wrapper {
     flex: 1;

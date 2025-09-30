@@ -17,7 +17,7 @@ export default () => {
     try {
       const { data, status } = await useFetch(`${FRONT_API_URL}/filters`);
       if (status.value === 'error') throw new Error('Error occured in fetching filters');
-      filters.value = data;
+      filters.value = data.value;
     } catch (err) {
       console.log(err);
     }
@@ -27,7 +27,7 @@ export default () => {
     try {
       const { data, status } = await useFetch(`${FRONT_API_URL}/buildings`);
       if (status.value === 'error') throw new Error('Error occured in fetching buildings');
-      buildings.value = data;
+      buildings.value = data.value;
     } catch (err) {
       console.log(err);
     }
@@ -42,7 +42,7 @@ export default () => {
         }
       });
       if (status.value === 'error') throw new Error('Error occured in fetching floors');
-      floors.value = data;
+      floors.value = data.value;
     } catch (err) {
       console.log(err);
     }

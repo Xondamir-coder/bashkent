@@ -10,13 +10,13 @@
         <span v-if="apartments?.length > 0" class="advanced-search__label">
           {{ $t('available-x-apartments', { count: apartments?.length }) }}
         </span>
-        <span v-if="apartments?.length <= 0" class="advanced-search__label">
+        <span v-if="apartments?.length === 0" class="advanced-search__label">
           {{ $t('no-apartments-found') }}
         </span>
         <div v-if="apartments" class="advanced-search__list">
           <AdvancedSearchItem
             v-for="apartment in slicedApartments"
-            :key="apartment.id"
+            :key="apartment?.id"
             :data="apartment"
             class="search-item"
           />
@@ -54,7 +54,7 @@ const crumbs = computed(() => [
     path: '/advanced-search'
   }
 ]);
-const slicedApartments = computed(() => apartments.value.slice(0, maxSlice.value));
+const slicedApartments = computed(() => apartments.value?.slice(0, maxSlice.value));
 
 onMounted(() => {
   SplitText.create('#advanced-search-title', {

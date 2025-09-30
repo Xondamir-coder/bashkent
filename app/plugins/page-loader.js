@@ -11,6 +11,7 @@ export default defineNuxtPlugin(() => {
   ]);
   const showPageLoader = useState('showPageLoader');
 
+  const { floors } = useAppState();
   const router = useRouter();
 
   // const PAGE_LOADER_DURATION = 1;
@@ -20,6 +21,11 @@ export default defineNuxtPlugin(() => {
 
   router.beforeEach(async (to, from) => {
     const pageName = to.name.split('___')[0];
+
+    // If leaving floor page, reset floors
+    if (!pageName.includes('floors') && floors.value) {
+      floors.value = null;
+    }
 
     if (!from.name || !pages.value.includes(from.name.split('___')[0])) {
       return;
