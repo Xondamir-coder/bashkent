@@ -5,11 +5,11 @@
         {{ data?.type[`name_${$i18n.locale}`] }}
       </span>
       <p class="item__desc">
-        {{ data?.[`name_${$i18n.locale}`] }}, ?,
+        {{ data?.[`name_${$i18n.locale}`] }}, {{ `${data?.rooms.length} ${$t('sect')}` }},
         {{
           $t('x-floor-of-y', {
             x: data?.floor,
-            y: 13
+            y: data?.block.floors_count
           })
         }}
       </p>

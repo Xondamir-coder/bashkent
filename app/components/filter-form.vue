@@ -59,7 +59,7 @@ defineEmits(['submit']);
 
 const dates = computed(() => {
   const currentYear = new Date().getFullYear();
-  return Array.from({ length: 5 }, (_, i) => currentYear + i);
+  return Array.from({ length: 4 }, (_, i) => currentYear + i);
 });
 
 const deadline = useState('deadline');

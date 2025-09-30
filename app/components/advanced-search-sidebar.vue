@@ -35,37 +35,40 @@
 </template>
 
 <script setup>
-const { fetchApartments } = useAppState();
+const { fetchApartments, filters } = useAppState();
 
 const showMobileFilter = ref(false);
 const isSubmitting = ref(false);
 
-const layoutType = useState('layoutType', () => null);
-const condition = useState('condition', () => null);
-const floorNumber = useState('floorNumber', () => null);
-const roomsCount = useState('roomsCount', () => null);
-const deadline = useState('deadline', () => null);
+const layoutType = useState('layoutType', () => filters.value?.types[0]);
+const condition = useState('condition', () => filters.value?.conditions[0]);
+const floorNumber = useState('floorNumber', () => 1);
+const roomsCount = useState('roomsCount', () => 2);
+const deadline = useState('deadline', () => new Date().getFullYear());
 const area = useState('area', () => ({
-  from: null,
-  to: null
+  from: 0,
+  to: 100
 }));
+
+const params = computed(() => ({
+  type_id: layoutType.value?.id,
+  condition_id: condition.value?.id,
+  floor_number: floorNumber.value,
+  area_from: area.value.from,
+  area_to: area.value.to,
+  year: deadline.value,
+  rooms_number: roomsCount.value
+}));
+
+fetchApartments(params.value);
 
 const toggleMobileFilter = () => {
   showMobileFilter.value = !showMobileFilter.value;
   document.body.classList.toggle('no-scroll', showMobileFilter.value);
 };
 const submitForm = async () => {
-  const params = {
-    type_id: layoutType.value.id,
-    condition_id: condition.value.id,
-    floor_number: floorNumber.value,
-    area_from: area.value.from,
-    area_to: area.value.to,
-    year: deadline.value,
-    rooms_number: roomsCount.value
-  };
   isSubmitting.value = true;
-  await fetchApartments(params);
+  await fetchApartments(params.value);
   isSubmitting.value = false;
 };
 const resetFilters = () => {
