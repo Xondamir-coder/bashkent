@@ -5,45 +5,61 @@
       <h1 class="heading-large">{{ $t('calculator.label') }}</h1>
       <span>{{ $t('calculator.text') }}</span>
     </div>
-    <div class="calculator__container">
-      <div class="calculator__plan calculator-box">
-        <span class="calculator__label">{{ $t('calculator.desired-layout') }}</span>
-        <FilterRow :no-label="true" />
-        <div class="calculator__plan-box">
-          <img src="/images/original/calc-apt.png" alt="apartment" class="calculator__plan-image" />
-          <ul class="calculator__plan-details">
-            <DetailsItem
-              v-for="(detail, i) in planDetails"
-              :key="i"
-              :detail
-              class="calculator__plan-detail"
+    <Transition name="slide-in">
+      <div v-if="group" class="calculator__container">
+        <div class="calculator__plan calculator-box">
+          <span class="calculator__label">{{ $t('calculator.desired-layout') }}</span>
+          <CalculatorDropdown v-model="selectedApartment" :apartments />
+          <div class="calculator__plan-box">
+            <img
+              :src="`${DOMAIN_URL}/${selectedApartment?.image}`"
+              alt="apartment"
+              class="calculator__plan-image"
             />
-          </ul>
+            <ul class="calculator__plan-details">
+              <DetailsItem
+                v-for="(detail, i) in planDetails"
+                :key="i"
+                :detail
+                class="calculator__plan-detail"
+              />
+            </ul>
+          </div>
         </div>
-      </div>
-      <div class="calculator__params calculator-box">
-        <span class="calculator__label">{{ $t('calculator.params') }}</span>
-        <FilterRow
-          v-model="floorNumber"
-          :label="$t('floor')"
-          :options="countdownArray(13).reverse()"
-          :is-from-api="false"
-        />
-        <FilterRow
-          v-model="deadline"
-          :label="$t('deadline')"
-          :options="dates"
-          :is-from-api="false"
-        />
-        <RangeSlider v-model="percentage" />
-        <div class="calculator__params-bottom">
-          <span>{{ $t('calculator.discount') }}: <span class="clr-teal">16%</span></span>
-          <span>{{ $t('calculator.included') }}</span>
+        <div class="calculator__params calculator-box">
+          <span class="calculator__label">{{ $t('calculator.params') }}</span>
+          <FilterRow
+            v-model="floorNumber"
+            :label="$t('floor')"
+            :options="countdownArray(13).reverse()"
+            :is-from-api="false"
+          />
+          <FilterRow type="numbers" :label="$t('deadline')">
+            <div class="filter-form__numbers filter-item">
+              <button
+                v-for="date in dates"
+                :key="date"
+                type="button"
+                class="filter-form__number"
+                :class="{ active: date === deadline }"
+                @click="deadline = date"
+              >
+                {{ date }}
+              </button>
+            </div>
+          </FilterRow>
+          <RangeSlider v-model="percentage" />
+          <div class="calculator__params-bottom">
+            <span
+              >{{ $t('calculator.discount') }}: <span class="clr-teal">{{ discount }}%</span></span
+            >
+            <span>{{ $t('calculator.included') }}</span>
+          </div>
         </div>
+        <button class="calculator__button">{{ $t('calculator.calculate-price') }}</button>
       </div>
-      <button class="calculator__button">{{ $t('calculator.calculate-price') }}</button>
-    </div>
-    <CalculatorResult />
+    </Transition>
+    <!-- <CalculatorResult /> -->
     <div class="calculator__bottom">
       <ColoredButton color="teal" :text="$t('print')">
         <SvgPrint />
@@ -62,28 +78,39 @@
 </template>
 
 <script setup>
-const { t } = useI18n();
+const { t, locale } = useI18n();
+const { FRONT_API_URL, filters } = useAppState();
 
 const dates = computed(() => {
   const currentYear = new Date().getFullYear();
   return Array.from({ length: 4 }, (_, i) => currentYear + i);
 });
+
+const group = ref();
+const discount = ref(16);
+const selectedApartment = ref();
+const percentage = ref('20');
+const deadline = ref(dates.value[0]);
+const floorNumber = useState('floorNumber', () => 1);
+
 const planDetails = computed(() => [
   {
     name: t('just-area'),
-    value: '48,76 м2'
+    value: `${selectedApartment.value?.area} ${t('m-squared')}`
   },
   {
     name: t('rooms'),
-    value: 'Тип 3.3'
+    value: selectedApartment.value?.rooms_number
   },
   {
     name: t('type'),
-    value: '1 комн.'
+    value: selectedApartment.value?.buildingTypeName
   },
   {
     name: t('condition'),
-    value: ' Готовый ремонт'
+    value: filters.value?.conditions.find(c => c.id === selectedApartment.value?.condition_id)?.[
+      `name_${locale.value}`
+    ]
   }
 ]);
 const crumbs = computed(() => [
@@ -96,10 +123,38 @@ const crumbs = computed(() => [
     path: '/calculator'
   }
 ]);
+const apartments = computed(() =>
+  group.value?.flatMap(g =>
+    g.floors[0].apartments.map(a => ({
+      ...a,
+      buildingTypeName: g.building_type[`name_${locale.value}`]
+    }))
+  )
+);
 
-const deadline = ref(dates.value[0]);
-const percentage = ref('10');
-const floorNumber = useState('floorNumber', () => 1);
+watch(floorNumber, () => {
+  fetchGroup();
+});
+
+const fetchGroup = async (isMounted = false) => {
+  try {
+    if (isMounted) {
+      const { data } = await useFetch(`${FRONT_API_URL}/group`, {
+        query: { floor_number: floorNumber.value }
+      });
+      group.value = data.value;
+    } else {
+      const res = await $fetch(`${FRONT_API_URL}/group`, {
+        query: { floor_number: floorNumber.value }
+      });
+      group.value = res;
+    }
+    selectedApartment.value = apartments.value[0];
+  } catch (error) {
+    console.log(error);
+  }
+};
+fetchGroup(true);
 
 definePageMeta({
   layout: 'only-header'
@@ -122,6 +177,7 @@ useMySEO('calculator');
     // grid-template-columns: repeat(auto-fit, minmax(200px, max-content));
     gap: max(6rem, 20px);
     flex-wrap: wrap;
+    animation: appear backwards 0.5s 1s;
     @media screen and (max-width: vars.$bp-small-mobile) {
       flex-direction: column;
     }
@@ -153,7 +209,7 @@ useMySEO('calculator');
     display: grid;
     row-gap: max(3.2rem, 16px);
     column-gap: max(2rem, 16px);
-    grid-template-columns: 1.241fr 1fr;
+    grid-template-columns: 1.06fr 1fr;
     @media screen and (max-width: vars.$bp-large-mobile) {
       grid-template-columns: 1fr;
     }
@@ -164,6 +220,7 @@ useMySEO('calculator');
       flex-direction: column;
       background-color: #fff;
       padding: max(1.6rem, 16px);
+      gap: 10px;
       border-radius: max(1.2rem, 12px);
     }
     &-detail {
@@ -198,5 +255,48 @@ useMySEO('calculator');
       color: vars.$darker-grey;
     }
   }
+}
+.filter-form {
+  &__numbers {
+    display: flex;
+    gap: 1.5rem;
+    padding-block: max(1rem, 8px);
+  }
+  &__divider {
+    width: 1px;
+    background-color: #d6d7d7;
+    height: 100%;
+  }
+  &__number {
+    flex: 1;
+    padding-block: max(0.8rem, 8px);
+    border-radius: max(0.6rem, 6px);
+    position: relative;
+    @include mix.flex-center;
+    &:not(:last-child) {
+      margin-right: 1.5rem;
+      &::after {
+        content: '';
+        width: 1px;
+        height: 100%;
+        background-color: #d6d7d7;
+        right: -1.5rem;
+        top: 0;
+        position: absolute;
+      }
+    }
+    &.active {
+      background-color: vars.$teal;
+      color: #fff;
+    }
+  }
+}
+.slide-in-enter-active,
+.slide-in-leave-active {
+  transition: opacity 0.5s;
+}
+.slide-in-enter-from,
+.slide-in-leave-to {
+  opacity: 0;
 }
 </style>

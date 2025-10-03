@@ -58,7 +58,7 @@ import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
 
 // Composables
-const { t } = useI18n();
+const { t, locale } = useI18n();
 const { floors, fetchFloors, activeBuilding } = useAppState();
 const route = useRoute();
 const router = useRouter();
@@ -148,6 +148,28 @@ onMounted(() => {
 definePageMeta({
   layout: 'only-header'
 });
+
+// SEO
+const seo = {
+  en: (floorNumber, buildingId, blockId) => ({
+    title: `Apartments – Floor ${floorNumber}, Block ${blockId}, Building ${buildingId}`,
+    description: `Explore apartments on Floor ${floorNumber} of Block ${blockId}, Building ${buildingId}. Select units from the floor plan.`
+  }),
+  ru: (floorNumber, buildingId, blockId) => ({
+    title: `Квартиры – Этаж ${floorNumber}, Блок ${blockId}, Здание ${buildingId}`,
+    description: `Квартиры на этаже ${floorNumber}, блок ${blockId}, здание ${buildingId}. Выберите жильё на плане этажа.`
+  }),
+  uz: (floorNumber, buildingId, blockId) => ({
+    title: `Xonadonlar – ${floorNumber}-qavat, ${blockId}-blok, ${buildingId}-bino`,
+    description: `${buildingId}-bino, ${blockId}-blok, ${floorNumber}-qavatdagi xonadonlarni ko‘ring. Rejadan tanlang.`
+  })
+};
+
+useSeoMeta({
+  ...seo[locale.value](route.params.floor_number, buildingID.value, blockID.value),
+  ogSiteName: 'Bashkent Residence',
+  ogImage: `${DOMAIN_URL}/${floor.value?.schema}`
+});
 </script>
 
 <style lang="scss" scoped>
@@ -212,6 +234,7 @@ definePageMeta({
     display: flex;
     gap: max(4.4rem, 25px);
     overflow: hidden;
+    animation: slide-from-bottom-20 1s;
   }
   &__numbers {
     display: flex;

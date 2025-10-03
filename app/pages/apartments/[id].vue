@@ -120,6 +120,28 @@ useHead({
 definePageMeta({
   layout: 'only-header'
 });
+
+// SEO
+const seo = {
+  en: apartmentId => ({
+    title: `Apartment ${apartmentId} – Details & Layout`,
+    description: `View details and layout of Apartment ${apartmentId}. Check the plan, features, and availability.`
+  }),
+  ru: apartmentId => ({
+    title: `Квартира ${apartmentId} – Подробности и планировка`,
+    description: `Смотрите детали и планировку квартиры ${apartmentId}. Узнайте характеристики и доступность.`
+  }),
+  uz: apartmentId => ({
+    title: `Xonadon ${apartmentId} – Tafsilotlar va joylashuv`,
+    description: `Xonadon ${apartmentId} tafsilotlari va joylashuvi. Reja, imkoniyatlar va mavjudlikni ko‘ring.`
+  })
+};
+
+useSeoMeta({
+  ...seo[locale.value](apartment.value?.unit),
+  ogImage: `${DOMAIN_URL}/${apartment.value?.image}`,
+  ogSiteName: 'Bashkent Residence'
+});
 </script>
 
 <style lang="scss" scoped>

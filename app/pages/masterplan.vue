@@ -48,4 +48,6 @@ onMounted(() => {
 definePageMeta({
   layout: 'only-header'
 });
+
+useMySEO('masterplan');
 </script>

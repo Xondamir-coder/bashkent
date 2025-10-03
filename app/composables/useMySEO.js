@@ -11,7 +11,7 @@ const seo = {
 export default pageName => {
   const { locale } = useI18n();
   useSeoMeta({
-    title: seo[locale.value][pageName]?.title,
-    description: seo[locale.value][pageName]?.description
+    ...seo[locale.value][pageName],
+    ogSiteName: 'Bashkent Residence'
   });
 };

@@ -1,6 +1,8 @@
 <template>
   <div class="sidebar">
-    <SvgLogo class="sidebar__logo" />
+    <NuxtLink :to="$localePath('/')" class="sidebar__logo">
+      <SvgLogo />
+    </NuxtLink>
     <SvgLogoMobile class="sidebar__logo--mobile" />
     <div class="sidebar__pattern-box">
       <SvgSidebarPattern class="sidebar__pattern" />

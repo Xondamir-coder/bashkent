@@ -32,4 +32,26 @@ const selectPath = pathData => {
 definePageMeta({
   layout: 'only-header'
 });
+
+const { locale } = useI18n();
+const seo = {
+  en: id => ({
+    title: `Building ${id} – Explore Floors & Apartments`,
+    description: `Explore Building ${id}. Select floors from the interactive plan and view apartment layouts and availability.`
+  }),
+  ru: id => ({
+    title: `Здание ${id} – Этажи и квартиры`,
+    description: `Исследуйте здание ${id}. Выберите этажи на интерактивном плане и смотрите планировки и доступные квартиры.`
+  }),
+  uz: id => ({
+    title: `Bino ${id} – Qavatlar va xonadonlar`,
+    description: `Bino ${id}ni ko‘ring. Interaktiv rejadan qavatlarni tanlab, xonadon joylashuvi va mavjudligini bilib oling.`
+  })
+};
+
+useSeoMeta({
+  ...seo[locale.value](activeBuilding.value?.id),
+  ogSiteName: 'Bashkent Residence',
+  ogImage: `${DOMAIN_URL}/${activeBuilding.value?.image}`
+});
 </script>

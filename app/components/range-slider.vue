@@ -9,12 +9,12 @@
       type="range"
       min="10"
       max="100"
-      step="1"
+      :step="step"
       class="range-slider__input"
       :style="{
         background: `linear-gradient(to right, #076962 0%, #076962 ${percentage}%, #f0f0f0 ${percentage}%, #f0f0f0 100%)`
       }"
-    >
+    />
 
     <!-- Labels -->
     <div class="range-slider__labels">
@@ -28,6 +28,13 @@
 <script setup>
 const model = defineModel({
   type: String
+});
+
+defineProps({
+  step: {
+    type: Number,
+    default: 10
+  }
 });
 
 const min = 10;

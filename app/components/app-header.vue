@@ -157,8 +157,7 @@ defineProps({
   &__button {
     @include mix.flex-center;
     padding-block: max(1.15rem, 8px);
-    padding-right: max(2.1rem, 17px);
-    padding-left: max(1rem, 8px);
+    padding-inline: max(2.1rem, 17px);
     font-weight: 500;
     border-radius: max(0.8rem, 5px);
     background-color: vars.$light-grey;
