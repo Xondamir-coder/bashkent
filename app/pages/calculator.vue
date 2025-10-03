@@ -5,60 +5,63 @@
       <h1 class="heading-large">{{ $t('calculator.label') }}</h1>
       <span>{{ $t('calculator.text') }}</span>
     </div>
-    <Transition name="slide-in">
-      <div v-if="group" class="calculator__container">
-        <div class="calculator__plan calculator-box">
-          <span class="calculator__label">{{ $t('calculator.desired-layout') }}</span>
-          <CalculatorDropdown v-model="selectedApartment" :apartments />
-          <div class="calculator__plan-box">
-            <img
-              :src="`${DOMAIN_URL}/${selectedApartment?.image}`"
-              alt="apartment"
-              class="calculator__plan-image"
-            />
-            <ul class="calculator__plan-details">
-              <DetailsItem
-                v-for="(detail, i) in planDetails"
-                :key="i"
-                :detail
-                class="calculator__plan-detail"
+    <ClientOnly>
+      <Transition name="slide-in">
+        <div v-if="group" class="calculator__container">
+          <div class="calculator__plan calculator-box">
+            <span class="calculator__label">{{ $t('calculator.desired-layout') }}</span>
+            <CalculatorDropdown v-model="selectedApartment" :apartments />
+            <div class="calculator__plan-box">
+              <img
+                :src="`${DOMAIN_URL}/${selectedApartment?.image}`"
+                alt="apartment"
+                class="calculator__plan-image"
               />
-            </ul>
-          </div>
-        </div>
-        <div class="calculator__params calculator-box">
-          <span class="calculator__label">{{ $t('calculator.params') }}</span>
-          <FilterRow
-            v-model="floorNumber"
-            :label="$t('floor')"
-            :options="countdownArray(13).reverse()"
-            :is-from-api="false"
-          />
-          <FilterRow type="numbers" :label="$t('deadline')">
-            <div class="filter-form__numbers filter-item">
-              <button
-                v-for="date in dates"
-                :key="date"
-                type="button"
-                class="filter-form__number"
-                :class="{ active: date === deadline }"
-                @click="deadline = date"
-              >
-                {{ date }}
-              </button>
+              <ul class="calculator__plan-details">
+                <DetailsItem
+                  v-for="(detail, i) in planDetails"
+                  :key="i"
+                  :detail
+                  class="calculator__plan-detail"
+                />
+              </ul>
             </div>
-          </FilterRow>
-          <RangeSlider v-model="percentage" />
-          <div class="calculator__params-bottom">
-            <span
-              >{{ $t('calculator.discount') }}: <span class="clr-teal">{{ discount }}%</span></span
-            >
-            <span>{{ $t('calculator.included') }}</span>
           </div>
+          <div class="calculator__params calculator-box">
+            <span class="calculator__label">{{ $t('calculator.params') }}</span>
+            <FilterRow
+              v-model="floorNumber"
+              :label="$t('floor')"
+              :options="countdownArray(13).reverse()"
+              :is-from-api="false"
+            />
+            <FilterRow type="numbers" :label="$t('deadline')">
+              <div class="filter-form__numbers filter-item">
+                <button
+                  v-for="date in dates"
+                  :key="date"
+                  type="button"
+                  class="filter-form__number"
+                  :class="{ active: date === deadline }"
+                  @click="deadline = date"
+                >
+                  {{ date }}
+                </button>
+              </div>
+            </FilterRow>
+            <RangeSlider v-model="percentage" />
+            <div class="calculator__params-bottom">
+              <span
+                >{{ $t('calculator.discount') }}:
+                <span class="clr-teal">{{ discount }}%</span></span
+              >
+              <span>{{ $t('calculator.included') }}</span>
+            </div>
+          </div>
+          <button class="calculator__button">{{ $t('calculator.calculate-price') }}</button>
         </div>
-        <button class="calculator__button">{{ $t('calculator.calculate-price') }}</button>
-      </div>
-    </Transition>
+      </Transition>
+    </ClientOnly>
     <!-- <CalculatorResult /> -->
     <div class="calculator__bottom">
       <ColoredButton color="teal" :text="$t('print')">

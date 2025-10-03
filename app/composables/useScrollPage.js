@@ -6,9 +6,8 @@ export default callback => {
   if (!import.meta.client) return;
 
   let touchStartY = 0;
-  const lockTime = 3000; // 3s minimum lock
+  const lockTime = 2000; // 2s minimum lock
   const minDelta = 30; // threshold for trackpad/touch
-  const isGoingForward = useState('isGoingForward');
   const timeoutAfterPageLoader = 1500;
 
   function triggerOnce(direction) {
@@ -25,7 +24,7 @@ export default callback => {
     };
     requestAnimationFrame(fixScroll);
 
-    // Unlock after 3s
+    // Unlock after 2s
     if (globalUnlockTimer) clearTimeout(globalUnlockTimer);
     globalUnlockTimer = setTimeout(() => {
       isGlobalLocked = false;
@@ -52,11 +51,9 @@ export default callback => {
     if (e.deltaY > minDelta && atBottom()) {
       e.preventDefault();
       triggerOnce('next');
-      isGoingForward.value = true;
     } else if (e.deltaY < -minDelta && atTop()) {
       e.preventDefault();
       triggerOnce('prev');
-      isGoingForward.value = false;
     }
   }
 

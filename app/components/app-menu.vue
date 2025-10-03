@@ -1,64 +1,73 @@
 <template>
-  <div class="menu">
-    <div class="menu__top">
-      <h2 class="heading-large">Меню</h2>
-      <nav class="menu__nav">
-        <NuxtLink
-          v-for="(link, index) in $tm('menu.nav')"
-          :key="index"
-          :to="$localePath($rt(link.path))"
-          class="menu__link"
-          active-class="active"
-          @click="$emit('toggle-menu')"
-        >
-          {{ $rt(link.name) }}
+  <Transition name="slide-in">
+    <div v-if="showMenu" class="menu">
+      <div class="menu__top">
+        <h2 class="heading-large">Меню</h2>
+        <nav class="menu__nav">
+          <NuxtLink
+            v-for="(link, index) in $tm('menu.nav')"
+            :key="index"
+            :to="$localePath($rt(link.path))"
+            class="menu__link"
+            active-class="active"
+            @click="showMenu = !showMenu"
+          >
+            {{ $rt(link.name) }}
+          </NuxtLink>
+        </nav>
+      </div>
+      <div class="menu__cta">
+        <button class="menu__button">
+          <SvgVideocam class="menu__button-icon" />
+          <span>{{ $t('live') }}</span>
+        </button>
+        <NuxtLink :to="$localePath('/select')" class="menu__button">
+          <span>{{ $t('select-apt') }}</span>
         </NuxtLink>
-      </nav>
-    </div>
-    <div class="menu__cta">
-      <button class="menu__button">
-        <SvgVideocam class="menu__button-icon" />
-        <span>{{ $t('live') }}</span>
-      </button>
-      <NuxtLink :to="$localePath('/select')" class="menu__button">
-        <span>{{ $t('select-apt') }}</span>
-      </NuxtLink>
-      <button class="menu__button" @click="showContactsModal = true">
-        <span>{{ $t('book-appointment') }}</span>
-      </button>
-    </div>
-    <div class="menu__bottom">
-      <div class="menu__bottom-header">
-        <h3 class="menu__subtitle">{{ $t('menu.office') }}</h3>
-        <p>Office location</p>
-        <p>{{ $t('menu.timing') }}</p>
+        <button class="menu__button" @click="showContactsModal = true">
+          <span>{{ $t('book-appointment') }}</span>
+        </button>
       </div>
+      <div class="menu__bottom">
+        <div class="menu__bottom-header">
+          <h3 class="menu__subtitle">{{ $t('menu.office') }}</h3>
+          <p>Office location</p>
+          <p>{{ $t('menu.timing') }}</p>
+        </div>
 
-      <div class="menu__list">
-        <a class="menu__item" href="https://maps.app.goo.gl/jJozY1KSuyT9hoWu8" target="_blank">
-          <SvgPin class="menu__item-icon" />
-          <span>{{ $t('address') }}:</span>
-          <span class="menu__item-address">{{ $t('menu.address') }}</span>
-        </a>
-        <a class="menu__item" :href="`tel:${TEL_NUMBER}`">
-          <SvgCallEnd class="menu__item-icon" />
-          <span>{{ $t('phone') }}:</span>
-          <span>{{ TEL_NUMBER }}</span>
-        </a>
-        <a class="menu__item" href="https://t.me/bashkent_residence">
-          <SvgTelegram class="menu__item-icon" />
-          <span>{{ $t('telegram') }}:</span>
-          <span>@bashkent_residence</span>
-        </a>
+        <div class="menu__list">
+          <a class="menu__item" href="https://maps.app.goo.gl/jJozY1KSuyT9hoWu8" target="_blank">
+            <SvgPin class="menu__item-icon" />
+            <span>{{ $t('address') }}:</span>
+            <span class="menu__item-address">{{ $t('menu.address') }}</span>
+          </a>
+          <a class="menu__item" :href="`tel:${TEL_NUMBER}`">
+            <SvgCallEnd class="menu__item-icon" />
+            <span>{{ $t('phone') }}:</span>
+            <span>{{ TEL_NUMBER }}</span>
+          </a>
+          <a class="menu__item" href="https://t.me/bashkent_residence">
+            <SvgTelegram class="menu__item-icon" />
+            <span>{{ $t('telegram') }}:</span>
+            <span>@bashkent_residence</span>
+          </a>
+        </div>
       </div>
     </div>
-  </div>
+  </Transition>
 </template>
 
 <script setup>
-defineEmits(['toggle-menu']);
-
+const showMenu = useState('showMenu');
 const showContactsModal = useState('showContactsModal');
+
+onMounted(() => {
+  document.addEventListener('click', e => {
+    if (showMenu.value && !e.target.closest('.menu') && !e.target.closest('.ham__container')) {
+      showMenu.value = false;
+    }
+  });
+});
 </script>
 
 <style lang="scss" scoped>
@@ -83,6 +92,7 @@ const showContactsModal = useState('showContactsModal');
   padding-left: var(--sidebar-width);
   padding-right: 4.3rem;
   z-index: 15;
+  scrollbar-width: 0;
   @media screen and (max-width: 900px) {
     padding-left: 0;
     padding-top: calc(var(--header-height) + max(2.2rem, 22px));
@@ -90,6 +100,9 @@ const showContactsModal = useState('showContactsModal');
   }
   @media screen and (max-width: vars.$bp-small-mobile) {
     min-width: 100%;
+  }
+  &::-webkit-scrollbar {
+    display: none;
   }
   h2 {
     @media screen and (max-width: 900px) {
@@ -238,6 +251,19 @@ const showContactsModal = useState('showContactsModal');
     &-icon {
       width: max(2.4rem, 20px);
     }
+  }
+}
+.slide-in-enter-active,
+.slide-in-leave-active {
+  transition: all 0.7s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+.slide-in-enter-from,
+.slide-in-leave-to {
+  transform: translateX(-20%);
+  opacity: 0;
+  @media screen and (max-width: 900px) {
+    transform: scale(1.1);
+    opacity: 0;
   }
 }
 </style>

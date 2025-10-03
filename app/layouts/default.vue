@@ -1,54 +1,17 @@
 <template>
   <div class="layout">
-    <ClientOnly>
-      <Transition name="page">
-        <PageLoader v-if="showPageLoader" :data="pageLoaderData" />
-      </Transition>
-    </ClientOnly>
-    <AppHeader />
-    <Transition name="slide-in">
-      <AppMenu v-if="showMenu" @toggle-menu="toggleMenu" />
+    <Transition name="page">
+      <PageLoader v-if="showPageLoader" />
     </Transition>
-    <AppSidebar :show-menu="showMenu" @toggle-menu="toggleMenu" />
+    <AppHeader />
+    <AppMenu />
+    <AppSidebar />
     <slot />
   </div>
 </template>
 
 <script setup>
-const { tm, rt } = useI18n();
-
 const showPageLoader = useState('showPageLoader');
-const newPageName = useState('newPageName');
-const pages = useState('pages');
-const isGoingForward = useState('isGoingForward');
-
-// menu
-const showMenu = ref(false);
-const toggleMenu = () => {
-  isGoingForward.value = true;
-  showMenu.value = !showMenu.value;
-};
-
-// page loader
-const data = computed(() =>
-  pages.value.map((page, i) => ({
-    name: page,
-    title: rt(tm('page-loader')[i].title),
-    texts: tm('page-loader')[i].texts,
-    color: i % 2 === 0 ? 'yellow' : ''
-  }))
-);
-const pageLoaderData = computed(() => {
-  return data.value.find(item => item.name === newPageName.value) || {};
-});
-
-onMounted(() => {
-  document.addEventListener('click', e => {
-    if (showMenu.value && !e.target.closest('.menu') && !e.target.closest('.ham__container')) {
-      showMenu.value = false;
-    }
-  });
-});
 </script>
 
 <style lang="scss" scoped>
@@ -57,35 +20,12 @@ onMounted(() => {
   width: 100dvw;
   display: flex;
 }
-.slide-in-enter-active,
-.slide-in-leave-active {
-  transition: all 0.7s cubic-bezier(0.215, 0.61, 0.355, 1);
-}
-.slide-in-enter-from,
-.slide-in-leave-to {
-  transform: translateX(-20%);
-  opacity: 0;
-  @media screen and (max-width: 900px) {
-    transform: scale(1.1);
-    opacity: 0;
-  }
-}
 .page-enter-active,
 .page-leave-active {
   transition: all 1s;
 }
 .page-enter-from,
 .page-leave-to {
-  transform: scale(1.1);
-  opacity: 0;
-}
-
-.scale-out-enter-active,
-.scale-out-leave-active {
-  transition: all 1s ease;
-}
-.scale-out-enter-from,
-.scale-out-leave-to {
   transform: scale(1.1);
   opacity: 0;
 }

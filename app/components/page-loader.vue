@@ -1,15 +1,17 @@
 <template>
-  <div class="page-loader" :class="{ yellow: data?.color === 'yellow' }">
-    <SvgRadialGradientBg :class="{ yellow: data?.color === 'yellow' }" />
+  <div class="page-loader" :class="{ yellow: currentPageData?.color === 'yellow' }">
+    <SvgRadialGradientBg :class="{ yellow: currentPageData?.color === 'yellow' }" />
     <div class="page-loader__content">
-      <h2 ref="titleRef" class="heading-large page-loader__title">{{ data?.title }}</h2>
-      <div ref="textsContainerRef" class="page-loader__texts">
-        <p v-for="text in data?.texts" :key="text" ref="textsRef">
+      <h2 class="heading-large page-loader__title">
+        {{ currentPageData?.title }}
+      </h2>
+      <div class="page-loader__texts">
+        <p v-for="(text, index) in currentPageData?.texts" :key="index" class="page-loader__text">
           {{ $rt(text) }}
         </p>
       </div>
       <div class="page-loader__bar">
-        <div class="page-loader__bar--inner"/>
+        <div class="page-loader__bar--inner" />
       </div>
     </div>
   </div>
@@ -18,79 +20,38 @@
 <script setup>
 import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
+const { tm, rt } = useI18n();
 
-// loader state
+const newPageName = useState('newPageName');
+const pages = useState('pages');
+
 const showPageLoader = useState('showPageLoader', () => false);
 
-// refs
-const titleRef = ref();
-const textsRef = ref([]);
-const textsContainerRef = ref();
+// page loader
+const allPagesData = computed(() =>
+  pages.value?.map((page, i) => ({
+    name: page,
+    title: rt(tm('page-loader')[i].title),
+    texts: tm('page-loader')[i].texts,
+    color: i % 2 === 0 ? 'yellow' : ''
+  }))
+);
+const currentPageData = computed(() => {
+  return allPagesData.value?.find(item => item.name === newPageName.value);
+});
 
-// direction state (forward or backward)
-const isGoingForward = useState('isGoingForward', () => true);
-
-// progress values
-let progress = isGoingForward.value ? 0 : 1; // bar progress: 0 → 1
-let startY = 0; // for touch tracking
-
-// animate the bar based on progress
-const animateBar = () => {
-  gsap.to('.page-loader__bar--inner', {
-    scaleX: progress,
-    duration: 0.5,
-    ease: 'power2.out'
-  });
-};
-
-// handle wheel event
-const onWheel = e => {
-  progress += e.deltaY * 0.001; // sensitivity
-  progress = Math.max(0, Math.min(1, progress)); // clamp
-  animateBar();
-
-  // exit loader when bar is full or empty depending on direction
-  if (!isGoingForward.value && progress <= 0) {
-    showPageLoader.value = false;
-  }
-  if (isGoingForward.value && progress >= 1) {
-    showPageLoader.value = false;
-  }
-};
-
-// handle touch start
-const onTouchStart = e => {
-  startY = e.touches[0].clientY;
-};
-
-// handle touch move (swipe)
-const onTouchMove = e => {
-  const delta = startY - e.touches[0].clientY;
-  progress += delta * 0.002; // sensitivity
-  progress = Math.max(0, Math.min(1, progress)); // clamp
-  startY = e.touches[0].clientY;
-  animateBar();
-
-  // exit loader when bar is full or empty depending on direction
-  if (!isGoingForward.value && progress <= 0) {
-    showPageLoader.value = false;
-  }
-  if (isGoingForward.value && progress >= 1) {
-    showPageLoader.value = false;
-  }
-};
-
-// setup animations and listeners
+// Animations
 onMounted(() => {
+  setTimeout(() => {
+    showPageLoader.value = false;
+  }, 2000);
+
   // set initial states
-  gsap.set(titleRef.value, { opacity: 1 });
-  gsap.set(textsContainerRef.value, { opacity: 1 });
-  gsap.set('.page-loader__bar--inner', {
-    scaleX: isGoingForward.value ? 0 : 1
-  });
+  gsap.set('.page-loader__title', { opacity: 1 });
+  gsap.set('.page-loader__text', { opacity: 1 });
 
   // animate title chars
-  SplitText.create(titleRef.value, {
+  SplitText.create('.page-loader__title', {
     type: 'chars, words',
     mask: 'chars',
     onSplit: self => {
@@ -105,7 +66,7 @@ onMounted(() => {
   });
 
   // animate text lines
-  SplitText.create(textsRef.value, {
+  SplitText.create('.page-loader__text', {
     type: 'lines',
     mask: 'lines',
     onSplit: self => {
@@ -117,28 +78,6 @@ onMounted(() => {
       });
     }
   });
-
-  // delay input listeners so animation plays first
-  setTimeout(() => {
-    window.addEventListener('wheel', onWheel, { passive: true });
-    window.addEventListener('touchstart', onTouchStart, { passive: true });
-    window.addEventListener('touchmove', onTouchMove, { passive: true });
-  }, 1000);
-});
-
-// cleanup
-onBeforeUnmount(() => {
-  window.removeEventListener('wheel', onWheel);
-  window.removeEventListener('touchstart', onTouchStart);
-  window.removeEventListener('touchmove', onTouchMove);
-});
-
-// props
-defineProps({
-  data: {
-    required: true,
-    type: Object
-  }
 });
 </script>
 
@@ -154,12 +93,13 @@ defineProps({
   min-width: 100dvw;
   min-height: 100dvh;
   background: vars.$green-linear-gradient;
+  z-index: 50;
+  position: fixed;
   &.yellow {
     background: vars.$yellow-linear-gradient;
   }
-  z-index: 50;
-  position: fixed;
-  &__title {
+  &__title,
+  &__text {
     opacity: 0;
   }
   &__image {
@@ -197,6 +137,7 @@ defineProps({
       border-radius: inherit;
       z-index: 1;
       transform-origin: left;
+      animation: animate-bar 1.5s backwards 0.5s;
     }
   }
   &__texts {
@@ -204,7 +145,6 @@ defineProps({
     flex-direction: column;
     align-items: center;
     gap: max(1.2rem, 12px);
-    opacity: 0;
     p:first-child {
       max-width: 43ch;
     }

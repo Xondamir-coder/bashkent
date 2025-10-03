@@ -15,7 +15,7 @@
       </div>
       <div class="about__container">
         <video ref="videoRef" muted loop class="about__video">
-          <source src="/videos/city.mp4" type="video/mp4" >
+          <source src="/videos/city.mp4" type="video/mp4" />
         </video>
         <MyPicture src="tree-top.png" class="about__picture" />
         <MyPicture src="light.png" class="about__picture" />

@@ -7,7 +7,7 @@
     <div class="sidebar__pattern-box">
       <SvgSidebarPattern class="sidebar__pattern" />
     </div>
-    <SidebarHam :show-menu="showMenu" class="sidebar__ham--mobile" @click="emits('toggle-menu')" />
+    <SidebarHam :show-menu="showMenu" class="sidebar__ham--mobile" @click="showMenu = !showMenu" />
     <div class="sidebar__mobile">
       <NuxtLink :to="$localePath('/calculator')">
         <SvgCalculator class="sidebar__mobile-icon" />
@@ -18,7 +18,7 @@
         </button>
         <LangDropdown v-model="showLangDropdown" />
       </div>
-      <SidebarHam :show-menu="showMenu" @click="emits('toggle-menu')" />
+      <SidebarHam :show-menu="showMenu" @click="showMenu = !showMenu" />
     </div>
     <div class="sidebar__bottom">
       <span class="sidebar__bottom-text">{{ $t('calculator.label') }}</span>
@@ -32,10 +32,7 @@
 </template>
 
 <script setup>
-defineProps({
-  showMenu: Boolean
-});
-const emits = defineEmits(['toggle-menu']);
+const showMenu = useState('showMenu');
 const showLangDropdown = ref(false);
 </script>
 
