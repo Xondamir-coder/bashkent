@@ -80,6 +80,7 @@ onMounted(() => {
 
 onUnmounted(() => {
   if (tl) tl.kill();
+  document.body.classList.remove('no-scroll');
 });
 useScrollPage(direction => {
   if (direction === 'next') {

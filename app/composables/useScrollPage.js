@@ -1,37 +1,34 @@
-// 🔒 Global lock state
-let isGlobalLocked = false;
-let globalUnlockTimer = null;
-
 export default callback => {
   if (!import.meta.client) return;
 
+  const route = useRoute();
+  const allowedPages = useState('pages');
+
+  // local-only lock state
+  let isLocked = false;
+  let unlockTimer = null;
   let touchStartY = 0;
-  const lockTime = 2000; // 2s minimum lock
-  const minDelta = 30; // threshold for trackpad/touch
-  const timeoutAfterPageLoader = 1500;
+
+  const lockTime = 2000;
+  const minDelta = 30;
+
+  const isScrollablePage = () => {
+    const current = route.name?.split('___')[0];
+    return allowedPages.value.includes(current);
+  };
 
   function triggerOnce(direction) {
-    if (isGlobalLocked) return;
-    isGlobalLocked = true;
+    // Do nothing if page not in scrollable list
+    if (!isScrollablePage()) return;
+    if (isLocked) return;
 
+    isLocked = true;
     callback(direction);
 
-    // Keep checking + fixing scroll during lock
-    const fixScroll = () => {
-      if (isGlobalLocked) {
-        requestAnimationFrame(fixScroll);
-      }
-    };
-    requestAnimationFrame(fixScroll);
-
-    // Unlock after 2s
-    if (globalUnlockTimer) clearTimeout(globalUnlockTimer);
-    globalUnlockTimer = setTimeout(() => {
-      isGlobalLocked = false;
+    clearTimeout(unlockTimer);
+    unlockTimer = setTimeout(() => {
+      isLocked = false;
     }, lockTime);
-    setTimeout(() => {
-      window.scrollTo({ top: 0, behavior: 'instant' });
-    }, lockTime * 0.5);
   }
 
   function atTop() {
@@ -43,8 +40,9 @@ export default callback => {
   }
 
   function onWheel(e) {
-    if (isGlobalLocked) {
-      e.preventDefault(); // kill leftover momentum
+    if (!isScrollablePage()) return;
+    if (isLocked) {
+      e.preventDefault();
       return;
     }
 
@@ -62,7 +60,7 @@ export default callback => {
   }
 
   function onTouchEnd(e) {
-    if (isGlobalLocked) return;
+    if (!isScrollablePage() || isLocked) return;
 
     const touchEndY = e.changedTouches[0].clientY;
     const deltaY = touchStartY - touchEndY;
@@ -74,31 +72,16 @@ export default callback => {
     }
   }
 
-  const showPageLoader = useState('showPageLoader');
-  watch(showPageLoader, () => {
-    if (!import.meta.client) return;
-    if (!showPageLoader.value) {
-      setTimeout(() => {
-        window.addEventListener('wheel', onWheel, { passive: false });
-        window.addEventListener('touchstart', onTouchStart, { passive: true });
-        window.addEventListener('touchend', onTouchEnd, { passive: true });
-      }, timeoutAfterPageLoader);
-    }
-  });
-
   onMounted(() => {
-    if (showPageLoader.value || !import.meta.client) return;
-
     window.addEventListener('wheel', onWheel, { passive: false });
     window.addEventListener('touchstart', onTouchStart, { passive: true });
     window.addEventListener('touchend', onTouchEnd, { passive: true });
   });
 
   onUnmounted(() => {
-    if (!import.meta.client) return;
-
     window.removeEventListener('wheel', onWheel);
     window.removeEventListener('touchstart', onTouchStart);
     window.removeEventListener('touchend', onTouchEnd);
+    clearTimeout(unlockTimer);
   });
 };

@@ -2,7 +2,7 @@
   <Transition name="slide-in">
     <div v-if="showMenu" class="menu">
       <div class="menu__top">
-        <h2 class="heading-large">Меню</h2>
+        <h2 class="heading-large">{{ $t('menu.label') }}</h2>
         <nav class="menu__nav">
           <NuxtLink
             v-for="(link, index) in $tm('menu.nav')"

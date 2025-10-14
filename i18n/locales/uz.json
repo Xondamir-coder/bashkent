@@ -64,7 +64,6 @@
     "nav": [
       { "name": "Asosiy", "path": "/" },
       { "name": "Loyiha haqida", "path": "/about" },
-      { "name": "Loyihalarimiz", "path": "/portfolio" },
       { "name": "Arxitektura", "path": "/architecture" },
       { "name": "Muvaffaqiyat formulasi", "path": "/formula" },
       { "name": "Uy-joy fondi", "path": "/housing" },
@@ -223,6 +222,12 @@
       "title": "Infratuzilma va qulayliklar",
       "texts": [
         "Bashkent Residence — bu shunchaki turar-joy majmuasi emas, balki puxta o‘ylangan hayot muhiti."
+      ]
+    },
+    {
+      "title": "Yaqlash va yaqin atrofdagi obyektlar",
+      "texts": [
+        "Bashkent Residence yaqin atrofdagi obyektlar, maktablar, bog'chalar, savdo mollari, bog'lar va madaniy joylar bilan."
       ]
     }
   ],

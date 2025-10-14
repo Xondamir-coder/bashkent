@@ -7,7 +7,8 @@ export default defineNuxtPlugin(() => {
     'architecture',
     'formula',
     'housing',
-    'infrastructure'
+    'infrastructure',
+    'contacts'
   ]);
   const showPageLoader = useState('showPageLoader');
 
@@ -28,7 +29,7 @@ export default defineNuxtPlugin(() => {
     }
 
     if (!from.name || !pages.value.includes(from.name.split('___')[0])) {
-      return;
+      return true;
     }
 
     if (pages.value.includes(pageName)) {

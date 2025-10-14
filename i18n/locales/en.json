@@ -65,7 +65,6 @@
     "nav": [
       { "name": "Home", "path": "/" },
       { "name": "About project", "path": "/about" },
-      { "name": "Our projects", "path": "/portfolio" },
       { "name": "Architecture", "path": "/architecture" },
       { "name": "Formula for success", "path": "/formula" },
       { "name": "Housing fund", "path": "/housing" },
@@ -224,6 +223,12 @@
       "title": "Infrastructure and amenities",
       "texts": [
         "Bashkent Residence is not just a residential complex, but a well-thought-out living environment."
+      ]
+    },
+    {
+      "title": "Contacts and nearby facilities",
+      "texts": [
+        "Bashkent Residence is surrounded by a variety of facilities, such as schools, kindergartens, shopping malls, parks, and cultural institutions."
       ]
     }
   ],

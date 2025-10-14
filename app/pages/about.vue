@@ -128,7 +128,7 @@ watch([showPreloader, showPageLoader], () => {
 
 useScrollPage(direction => {
   if (direction === 'next') {
-    useLocaleNavigate('/portfolio');
+    useLocaleNavigate('/architecture');
   } else {
     useLocaleNavigate('/');
   }

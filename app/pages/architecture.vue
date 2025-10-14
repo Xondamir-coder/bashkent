@@ -131,7 +131,7 @@ useScrollPage(direction => {
   if (direction === 'next') {
     useLocaleNavigate('/formula');
   } else {
-    useLocaleNavigate('/portfolio');
+    useLocaleNavigate('/about');
   }
 });
 

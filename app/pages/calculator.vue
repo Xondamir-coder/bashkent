@@ -152,7 +152,7 @@ const fetchGroup = async (isMounted = false) => {
       });
       group.value = res;
     }
-    selectedApartment.value = apartments.value[0];
+    selectedApartment.value = apartments.value?.[0];
   } catch (error) {
     console.log(error);
   }
