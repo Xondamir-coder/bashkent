@@ -48,8 +48,6 @@ const model = defineModel({
   type: Object
 });
 
-model.value = props.apartments?.[0];
-
 const showDropdown = ref(false);
 const selectOption = opt => {
   model.value = opt;

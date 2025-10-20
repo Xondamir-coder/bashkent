@@ -14,17 +14,22 @@
         </div>
       </div>
       <div class="about__container">
-        <video ref="videoRef" muted loop class="about__video">
-          <source src="/videos/city.mp4" type="video/mp4" />
+        <video ref="videoRef" muted loop playsinline class="about__video" @click="handlePlay">
+          <!-- Desktop: Full HD -->
+          <source src="/videos/video-1080.mp4" type="video/mp4" media="(min-width: 1200px)" />
+          <!-- Tablet: HD -->
+          <source src="/videos/video-720.mp4" type="video/mp4" media="(min-width: 768px)" />
+          <!-- Mobile: SD -->
+          <source src="/videos/video-480.mp4" type="video/mp4" media="(max-width: 767px)" />
+          Your browser does not support the video tag.
         </video>
         <MyPicture src="tree-top.png" class="about__picture" />
         <MyPicture src="light.png" class="about__picture" />
         <MyPicture src="tree-2.png" class="about__picture" />
-        <button class="about__play" @click="handlePlay">
+        <button class="about__play" :class="{ paused: !isPaused }" @click="handlePlay">
           <SvgPlayText class="about__play-text" />
           <div class="about__play-box">
-            <SvgPlay class="about__play-icon" :class="{ paused: !isPaused }" />
-            <SvgPause class="about__play-icon" :class="{ paused: isPaused }" />
+            <SvgPlay class="about__play-icon" />
           </div>
         </button>
         <div class="about__box">
@@ -165,7 +170,7 @@ useMySEO('about');
   &__play {
     top: 50%;
     left: 50%;
-    transform: translate(-70%, -50%);
+    translate: -70% -50%;
     display: flex;
     width: max(12.3rem, 90px);
     height: max(12.3rem, 90px);
@@ -173,8 +178,13 @@ useMySEO('about');
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: all 0.5s;
+    &.paused {
+      scale: 1.15;
+      opacity: 0;
+    }
     @media screen and (max-width: vars.$bp-large-mobile) {
-      transform: translate(-50%, -50%);
+      translate: -50% -50%;
     }
     &-text {
       position: absolute;
@@ -241,6 +251,7 @@ useMySEO('about');
     width: 100%;
     height: 100%;
     object-fit: cover;
+    cursor: pointer;
   }
   &__container {
     flex: 1;

@@ -1,15 +1,15 @@
 <template>
   <div class="range-slider filter-item">
-    <!-- Percentage Display -->
+    <!-- Value Display -->
     <div class="range-slider__value">{{ model }}%</div>
 
     <!-- Slider -->
     <input
-      v-model="model"
       type="range"
-      min="10"
-      max="100"
-      :step="step"
+      :min="0"
+      :max="steps.length - 1"
+      step="1"
+      v-model="index"
       class="range-slider__input"
       :style="{
         background: `linear-gradient(to right, #076962 0%, #076962 ${percentage}%, #f0f0f0 ${percentage}%, #f0f0f0 100%)`
@@ -18,8 +18,8 @@
 
     <!-- Labels -->
     <div class="range-slider__labels">
-      <span v-for="n in 10" :key="n" :class="{ active: n * 10 == Math.floor(model / 10) * 10 }">
-        {{ n * 10 }}%
+      <span v-for="(step, i) in steps" :key="i" :class="{ active: i === index }">
+        {{ step }}%
       </span>
     </div>
   </div>
@@ -27,20 +27,30 @@
 
 <script setup>
 const model = defineModel({
-  type: String
+  type: Number,
+  default: 100
 });
 
-defineProps({
-  step: {
-    type: Number,
-    default: 10
+const props = defineProps({
+  steps: {
+    type: Array,
+    default: () => [20, 30, 40, 50, 75, 100] // ascending order
   }
 });
 
-const min = 10;
-const max = 100;
+// Internal index (maps the slider position to the step value)
+const index = computed({
+  get: () => props.steps.indexOf(model.value),
+  set: newIndex => {
+    const clamped = Math.min(props.steps.length - 1, Math.max(0, newIndex));
+    model.value = props.steps[clamped];
+  }
+});
 
-const percentage = computed(() => ((model.value - min) / (max - min)) * 100);
+// Compute gradient percentage based on current position
+const percentage = computed(() => {
+  return (index.value / (props.steps.length - 1)) * 100;
+});
 </script>
 
 <style scoped lang="scss">
@@ -49,19 +59,20 @@ const percentage = computed(() => ((model.value - min) / (max - min)) * 100);
   flex-direction: column;
   align-items: center;
   gap: max(2.3rem, 16px);
+
   &__value {
     font-size: max(2.8rem, 28px);
     font-weight: bold;
     font-family: vars.$font-angst;
   }
+
   &__input {
     width: 100%;
     height: 6px;
     border-radius: 9999px;
-    // background: vars.$light-grey; /* light gray */
     outline: none;
     appearance: none;
-    // overflow: hidden;
+    transition: background 0.25s ease;
 
     &::-webkit-slider-thumb {
       -webkit-appearance: none;
@@ -71,20 +82,22 @@ const percentage = computed(() => ((model.value - min) / (max - min)) * 100);
       border-radius: 50%;
       background: vars.$teal;
       cursor: pointer;
-      margin-top: -5px; /* center thumb */
+      margin-top: -5px;
       border: 1px solid #fff;
     }
+
     &::-webkit-slider-runnable-track {
       height: 6px;
       border-radius: 2px;
-      // background: vars.$light-grey;
     }
   }
+
   &__labels {
     display: flex;
     justify-content: space-between;
     width: 100%;
     font-size: max(1.2rem, 12px);
+
     @media screen and (max-width: vars.$bp-small-mobile) {
       span {
         opacity: 0;
@@ -98,19 +111,4 @@ const percentage = computed(() => ((model.value - min) / (max - min)) * 100);
     }
   }
 }
-/* Firefox */
-// &::-moz-range-thumb {
-//   height: 16px;
-//   width: 16px;
-//   border-radius: 50%;
-//   background: vars.$teal;
-//   cursor: pointer;
-//   border: 2px solid #fff;
-// }
-
-// &::-moz-range-track {
-//   height: 6px;
-//   border-radius: 2px;
-//   background: vars.$light-grey;
-// }
 </style>

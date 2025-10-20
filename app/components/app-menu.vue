@@ -31,7 +31,6 @@
       <div class="menu__bottom">
         <div class="menu__bottom-header">
           <h3 class="menu__subtitle">{{ $t('menu.office') }}</h3>
-          <p>Office location</p>
           <p>{{ $t('menu.timing') }}</p>
         </div>
 

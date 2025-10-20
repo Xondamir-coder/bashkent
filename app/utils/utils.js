@@ -16,3 +16,9 @@ export const countdownArray = n => {
   }
   return result;
 };
+
+export const formatNumbers = val => {
+  const convertedToNumber = Math.round(Number(val));
+  if (!convertedToNumber) return 'Not number';
+  return Intl.NumberFormat('fr').format(convertedToNumber);
+};

@@ -21,6 +21,9 @@ defineProps({
   display: flex;
   flex-wrap: wrap;
   gap: max(1rem, 10px);
+  @media print {
+    display: none;
+  }
   &__link {
     text-wrap: nowrap;
     font-weight: 500;

@@ -2,7 +2,11 @@
   <header
     v-if="!$route.path.includes('/select')"
     class="header"
-    :class="{ 'header--plan': isPlanHeader, 'header--variant': isVariant }"
+    :class="{
+      'header--plan': isPlanHeader,
+      'header--variant': isVariant,
+      'header--black': ['about', 'architecture', 'housing'].includes(route.name.split('___')[0])
+    }"
   >
     <div class="header__left">
       <button
@@ -81,6 +85,19 @@ defineProps({
   font-size: max(1.4rem, 11px);
   z-index: 10;
   pointer-events: none;
+  @media print {
+    display: none;
+  }
+  &--black {
+    background: linear-gradient(180deg, #000000 0%, rgba(0, 0, 0, 0) 100%);
+    .header__tel {
+      color: #fff;
+      & > *:first-child {
+        background-color: #fff;
+        fill: vars.$gold;
+      }
+    }
+  }
   & > * {
     pointer-events: all;
   }
@@ -184,6 +201,7 @@ defineProps({
     align-items: center;
     gap: 1rem;
     fill: #fff;
+    font-weight: 500;
     &:hover {
       color: vars.$gold;
     }

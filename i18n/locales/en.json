@@ -10,6 +10,8 @@
     "floors": "Floors"
   },
 
+  "sum": "sum",
+  "pre-payment": "Pre-payment",
   "sect": "sect.",
   "no-apartments-found": "No apartments found",
   "sending": "Sending",
@@ -163,7 +165,16 @@
     "calculate-price": "Calculate price",
     "results": "Calculation results",
     "apt-price": "Apartment price",
-    "also": "including:"
+    "also": "including:",
+    "down-payment": "Down payment",
+    "monthly-x": "Monthly ({x} months)",
+    "monthly-payment": "Monthly payment",
+    "total-schedule-amount": "Total payments according to schedule",
+    "residual-payment": "Residual payment",
+    "price-per-m2": "Price per 1m²",
+    "base-price": "Base cost without discount",
+    "your-discount-x": "Your discount is {x}%",
+    "price-with-discount": "Price with discount"
   },
 
   "modal": {

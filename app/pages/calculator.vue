@@ -32,7 +32,7 @@
             <FilterRow
               v-model="floorNumber"
               :label="$t('floor')"
-              :options="countdownArray(13).reverse()"
+              :options="countdownArray(12).reverse()"
               :is-from-api="false"
             />
             <FilterRow type="numbers" :label="$t('deadline')">
@@ -49,7 +49,9 @@
                 </button>
               </div>
             </FilterRow>
-            <RangeSlider v-model="percentage" />
+            <FilterRow type="numbers" :label="$t('pre-payment')">
+              <RangeSlider v-model="prePayment" :steps="[20, 30, 40, 50, 75, 100]" />
+            </FilterRow>
             <div class="calculator__params-bottom">
               <span
                 >{{ $t('calculator.discount') }}:
@@ -58,72 +60,89 @@
               <span>{{ $t('calculator.included') }}</span>
             </div>
           </div>
-          <button class="calculator__button">{{ $t('calculator.calculate-price') }}</button>
+          <button class="calculator__button" @click="calculateResults">
+            {{ $t('calculator.calculate-price') }}
+          </button>
+        </div>
+      </Transition>
+      <Transition name="slide-in">
+        <CalculatorResult v-if="showResults" :results />
+      </Transition>
+      <Transition name="slide-in">
+        <div v-if="group" class="calculator__bottom">
+          <ColoredButton color="teal" :text="$t('print')" @click="printPage">
+            <SvgPrint />
+          </ColoredButton>
+          <ColoredButton color="orange" :text="$t('download-pdf')" @click="downloadPDF">
+            <SvgArticle />
+          </ColoredButton>
+          <ColoredButton color="teal" :text="$t('share')" @click="sharePage">
+            <SvgShare />
+          </ColoredButton>
+          <ColoredButton color="gold" :text="$t('leave-enquiry')" @click="showContactsModal = true">
+            <SvgCall />
+          </ColoredButton>
         </div>
       </Transition>
     </ClientOnly>
-    <!-- <CalculatorResult /> -->
-    <div class="calculator__bottom">
-      <ColoredButton color="teal" :text="$t('print')">
-        <SvgPrint />
-      </ColoredButton>
-      <ColoredButton color="orange" :text="$t('download-pdf')">
-        <SvgArticle />
-      </ColoredButton>
-      <ColoredButton color="teal" :text="$t('share')">
-        <SvgShare />
-      </ColoredButton>
-      <ColoredButton color="gold" :text="$t('leave-enquiry')">
-        <SvgCall />
-      </ColoredButton>
-    </div>
   </main>
 </template>
 
 <script setup>
+import table from '~/assets/data/table.json';
+import SvgEstateAgent from '~/components/svg/estate-agent.vue';
+import SvgPercent from '~/components/svg/percent.vue';
+import SvgStraighten from '~/components/svg/straighten.vue';
+
 const { t, locale } = useI18n();
 const { FRONT_API_URL, filters } = useAppState();
+const { query } = useRoute();
+const router = useRouter();
+const localePath = useLocalePath();
 
+const showContactsModal = useState('showContactsModal');
+
+// Dates considering next 3 years
 const dates = computed(() => {
-  const currentYear = new Date().getFullYear();
-  return Array.from({ length: 4 }, (_, i) => currentYear + i);
+  const nextYear = new Date().getFullYear() + 1;
+  return Array.from({ length: 3 }, (_, i) => nextYear + i);
 });
 
+// API fetched data
 const group = ref();
-const discount = ref(16);
 const selectedApartment = ref();
-const percentage = ref('20');
-const deadline = ref(dates.value[0]);
-const floorNumber = useState('floorNumber', () => 1);
 
+// Show results
+const showResults = ref(Boolean(query.show_results) || false);
+let isMounted = false;
+
+// Filters
+const prePayment = ref(+query.pre_payment || 20);
+const deadline = ref(+query.deadline || dates.value[0]);
+const floorNumber = useState('floorNumber', () => +query.floor || 1);
+
+// Computed vals
+const discount = computed(
+  () => table[selectedApartment.value?.rooms_number]?.discountRates[`${prePayment.value}%`]
+);
 const planDetails = computed(() => [
   {
-    name: t('just-area'),
-    value: `${selectedApartment.value?.area} ${t('m-squared')}`
+    key: t('just-area'),
+    val: `${selectedApartment.value?.area} ${t('m-squared')}`
   },
   {
-    name: t('rooms'),
-    value: selectedApartment.value?.rooms_number
+    key: t('rooms'),
+    val: selectedApartment.value?.rooms_number
   },
   {
-    name: t('type'),
-    value: selectedApartment.value?.buildingTypeName
+    key: t('type'),
+    val: selectedApartment.value?.buildingTypeName
   },
   {
-    name: t('condition'),
-    value: filters.value?.conditions.find(c => c.id === selectedApartment.value?.condition_id)?.[
+    key: t('condition'),
+    val: filters.value?.conditions.find(c => c.id === selectedApartment.value?.condition_id)?.[
       `name_${locale.value}`
     ]
-  }
-]);
-const crumbs = computed(() => [
-  {
-    name: t('select-apt'),
-    path: '/select'
-  },
-  {
-    name: t('calculator.label'),
-    path: '/calculator'
   }
 ]);
 const apartments = computed(() =>
@@ -134,11 +153,96 @@ const apartments = computed(() =>
     }))
   )
 );
+const results = computed(() => {
+  const basePrice = selectedApartment.value?.price;
+  const discountVal = (discount.value / 100) * selectedApartment.value?.price;
+  const discountedPrice = basePrice - discountVal;
+  const paymentPerSquare = Math.round(basePrice / selectedApartment.value?.area);
 
+  return [
+    {
+      key: t('calculator.your-discount-x', { x: discount.value }),
+      val: discountVal,
+      icon: SvgPercent
+    },
+    {
+      key: t('calculator.price-with-discount'),
+      val: discountedPrice,
+      icon: SvgEstateAgent
+    },
+    {
+      key: t('calculator.price-per-m2'),
+      val: paymentPerSquare,
+      icon: SvgStraighten
+    }
+  ];
+});
+const crumbs = computed(() => [
+  {
+    name: t('select-apt'),
+    path: '/select'
+  },
+  {
+    name: t('calculator.label'),
+    path: '/calculator'
+  }
+]);
+const newQuery = computed(() => ({
+  path: localePath('/calculator'),
+  query: {
+    id: selectedApartment.value?.id,
+    pre_payment: prePayment.value,
+    deadline: deadline.value,
+    floor: floorNumber.value,
+    show_results: showResults.value
+  }
+}));
+
+// Watchers
 watch(floorNumber, () => {
   fetchGroup();
 });
+watch([selectedApartment, prePayment, deadline, floorNumber], () => {
+  router.replace(newQuery.value);
 
+  // Close results when changing filters
+  if (showResults.value && isMounted) {
+    showResults.value = false;
+  }
+
+  isMounted = true;
+});
+
+// Functions
+const printPage = () => {
+  window.print();
+};
+const downloadPDF = () => {
+  window.print();
+};
+const sharePage = () => {
+  if (navigator.share) {
+    navigator
+      .share({
+        title: document.title,
+        text: document.description,
+        url: window.location.href
+      })
+      .then(() => console.log('Page shared successfully'))
+      .catch(err => console.warn('Share canceled or failed', err));
+  } else {
+    // Fallback for unsupported browsers
+    const fullUrl = url || window.location.href;
+    navigator.clipboard
+      .writeText(fullUrl)
+      .then(() => alert('Link copied to clipboard!'))
+      .catch(() => alert('Your browser does not support sharing.'));
+  }
+};
+const calculateResults = () => {
+  showResults.value = true;
+  router.replace(newQuery.value);
+};
 const fetchGroup = async (isMounted = false) => {
   try {
     if (isMounted) {
@@ -146,13 +250,16 @@ const fetchGroup = async (isMounted = false) => {
         query: { floor_number: floorNumber.value }
       });
       group.value = data.value;
+      selectedApartment.value = query.id
+        ? apartments.value?.find(a => a.id === +query.id)
+        : apartments.value?.[0];
     } else {
       const res = await $fetch(`${FRONT_API_URL}/group`, {
         query: { floor_number: floorNumber.value }
       });
       group.value = res;
+      selectedApartment.value = apartments.value?.[0];
     }
-    selectedApartment.value = apartments.value?.[0];
   } catch (error) {
     console.log(error);
   }
@@ -173,6 +280,10 @@ useMySEO('calculator');
   flex-direction: column;
   gap: max(1.6rem, 12px);
   padding-bottom: max(3rem, 24px);
+  @media print {
+    padding-inline: 0;
+    padding-top: 0;
+  }
   &__bottom {
     display: flex;
     margin-top: max(1.6rem, 4px);
@@ -180,7 +291,9 @@ useMySEO('calculator');
     // grid-template-columns: repeat(auto-fit, minmax(200px, max-content));
     gap: max(6rem, 20px);
     flex-wrap: wrap;
-    animation: appear backwards 0.5s 1s;
+    @media print {
+      display: none;
+    }
     @media screen and (max-width: vars.$bp-small-mobile) {
       flex-direction: column;
     }
@@ -213,6 +326,9 @@ useMySEO('calculator');
     row-gap: max(3.2rem, 16px);
     column-gap: max(2rem, 16px);
     grid-template-columns: 1.06fr 1fr;
+    @media print {
+      // grid-template-columns: 1fr;
+    }
     @media screen and (max-width: vars.$bp-large-mobile) {
       grid-template-columns: 1fr;
     }
@@ -252,6 +368,9 @@ useMySEO('calculator');
     flex-direction: column;
     gap: max(0.8rem, 4px);
     animation: slide-from-left-20 0.5s backwards;
+    @media print {
+      display: none;
+    }
     span {
       font-weight: 500;
       font-size: max(1.4rem, 14px);

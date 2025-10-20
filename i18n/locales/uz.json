@@ -10,6 +10,8 @@
     "floors": "Qavatlar"
   },
 
+  "sum": "so'm",
+  "pre-payment": "Oldindan to'lov",
   "sect": "sekts.",
   "no-apartments-found": "Kvartira topilmadi",
   "sending": "Yuborilmoqda",
@@ -162,7 +164,16 @@
     "calculate-price": "Narxni hisoblash",
     "results": "Hisoblash natijalari",
     "apt-price": "Xonadon narxi",
-    "also": "jumladan:"
+    "also": "jumladan:",
+    "down-payment": "Bosh to‘lov",
+    "monthly-x": "Oylik ({x} oy)",
+    "monthly-payment": "Oylik to‘lov",
+    "total-schedule-amount": "To‘lov jadvali bo‘yicha jami summa",
+    "residual-payment": "Qoldiq to‘lov",
+    "price-per-m2": "1 m² narxi",
+    "base-price": "Chegirmasiz asosiy narx",
+    "your-discount-x": "Sizga {x}% chegirma",
+    "price-with-discount": "Chegirma bilan narx"
   },
 
   "modal": {

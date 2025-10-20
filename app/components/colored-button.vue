@@ -1,5 +1,5 @@
 <template>
-  <button class="colored-button" :class="`colored-button--${color}`">
+  <button class="colored-button" :class="`colored-button--${color}`" @click="$emit('click')">
     <div class="colored-button__box">
       <div class="colored-button__icon">
         <slot />
@@ -10,6 +10,7 @@
 </template>
 
 <script setup>
+defineEmits(['click']);
 defineProps({
   color: {
     required: true,

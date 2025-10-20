@@ -1,7 +1,7 @@
 <template>
   <li class="details-item">
-    <span>{{ detail.name }}:</span>
-    <span>{{ detail.value }}</span>
+    <span>{{ detail?.key }}:</span>
+    <span>{{ detail?.val }}</span>
   </li>
 </template>
 

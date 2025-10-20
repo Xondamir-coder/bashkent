@@ -58,8 +58,8 @@ const { filters } = useAppState();
 defineEmits(['submit']);
 
 const dates = computed(() => {
-  const currentYear = new Date().getFullYear();
-  return Array.from({ length: 4 }, (_, i) => currentYear + i);
+  const nextYear = new Date().getFullYear() + 1;
+  return Array.from({ length: 4 }, (_, i) => nextYear + i);
 });
 
 const deadline = useState('deadline');
