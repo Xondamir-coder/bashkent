@@ -24,10 +24,10 @@ defineProps({
   border-radius: 50%;
   transition-property: background-color, transform;
   transition-duration: vars.$dt;
+  @include mix.flex-center;
   @media print {
     display: none;
   }
-  @include mix.flex-center;
   @media screen and (max-width: 900px) {
     width: max(3.8rem, 48px);
     height: max(3.8rem, 48px);

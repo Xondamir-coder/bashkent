@@ -59,18 +59,8 @@ export default () => {
   };
 
   const fetchApartments = async params => {
-    const { type_id, condition_id, floor_number, area_from, area_to, year, rooms_number } = params;
-    const query = {
-      type_id,
-      condition_id,
-      floor_number,
-      area_from,
-      area_to,
-      year,
-      rooms_number
-    };
     try {
-      const res = await $fetch(`${FRONT_API_URL}/apartments`, { query });
+      const res = await $fetch(`${FRONT_API_URL}/apartments`, { query: params });
       apartments.value = res.data;
     } catch (error) {
       console.log(error);

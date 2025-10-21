@@ -187,7 +187,7 @@ const crumbs = computed(() => [
     path: '/calculator'
   }
 ]);
-const newQuery = computed(() => ({
+const newParams = computed(() => ({
   path: localePath('/calculator'),
   query: {
     id: selectedApartment.value?.id,
@@ -203,7 +203,7 @@ watch(floorNumber, () => {
   fetchGroup();
 });
 watch([selectedApartment, prePayment, deadline, floorNumber], () => {
-  router.replace(newQuery.value);
+  router.replace(newParams.value);
 
   // Close results when changing filters
   if (showResults.value && isMounted) {
@@ -241,7 +241,7 @@ const sharePage = () => {
 };
 const calculateResults = () => {
   showResults.value = true;
-  router.replace(newQuery.value);
+  router.replace(newParams.value);
 };
 const fetchGroup = async (isMounted = false) => {
   try {

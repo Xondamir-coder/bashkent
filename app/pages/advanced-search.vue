@@ -7,13 +7,16 @@
     <div class="advanced-search__wrapper">
       <AdvancedSearchSidebar />
       <div class="advanced-search__container">
-        <span v-if="apartments?.length > 0" class="advanced-search__label">
+        <span v-if="!apartments" class="advanced-search__label">
+          {{ $t('start-searching-apartments') }}
+        </span>
+        <span v-else-if="apartments?.length > 0" class="advanced-search__label">
           {{ $t('available-x-apartments', { count: apartments?.length }) }}
         </span>
-        <span v-if="apartments?.length === 0" class="advanced-search__label">
+        <span v-else class="advanced-search__label">
           {{ $t('no-apartments-found') }}
         </span>
-        <div v-if="apartments" class="advanced-search__list">
+        <div v-if="apartments?.length" class="advanced-search__list">
           <AdvancedSearchItem
             v-for="apartment in slicedApartments"
             :key="apartment?.id"

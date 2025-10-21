@@ -3,7 +3,7 @@
     <FilterRow
       v-model="floorNumber"
       :label="$t('floor')"
-      :options="countdownArray(13).reverse()"
+      :options="countdownArray(12).reverse()"
       :is-from-api="false"
     />
     <FilterRow v-model="layoutType" :label="$t('layout-type')" :options="filters.types" />
@@ -59,7 +59,7 @@ defineEmits(['submit']);
 
 const dates = computed(() => {
   const nextYear = new Date().getFullYear() + 1;
-  return Array.from({ length: 4 }, (_, i) => nextYear + i);
+  return Array.from({ length: 3 }, (_, i) => nextYear + i);
 });
 
 const deadline = useState('deadline');

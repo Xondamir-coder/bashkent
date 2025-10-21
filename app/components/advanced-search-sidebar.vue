@@ -36,20 +36,32 @@
 
 <script setup>
 const { fetchApartments, filters } = useAppState();
+const { query } = useRoute();
+const router = useRouter();
+const localePath = useLocalePath();
 
+// Refs
 const showMobileFilter = ref(false);
 const isSubmitting = ref(false);
 
-const layoutType = useState('layoutType', () => filters.value?.types[0]);
-const condition = useState('condition', () => filters.value?.conditions[0]);
-const floorNumber = useState('floorNumber', () => 1);
-const roomsCount = useState('roomsCount', () => 2);
-const deadline = useState('deadline', () => new Date().getFullYear());
+// Filter states
+const layoutType = useState('layoutType', () =>
+  query.type ? filters.value?.types.find(c => c.id === +query.type) : filters.value?.types[0]
+);
+const condition = useState('condition', () =>
+  query.condition
+    ? filters.value?.conditions.find(c => c.id === +query.condition)
+    : filters.value?.conditions[0]
+);
+const floorNumber = useState('floorNumber', () => +query.floor || 1);
+const roomsCount = useState('roomsCount', () => +query.rooms || 1);
+const deadline = useState('deadline', () => +query.deadline || new Date().getFullYear() + 1);
 const area = useState('area', () => ({
-  from: 0,
-  to: 100
+  from: +query.area_from || 0,
+  to: +query.area_to || 100
 }));
 
+// Computed vals
 const params = computed(() => ({
   type_id: layoutType.value?.id,
   condition_id: condition.value?.id,
@@ -60,8 +72,10 @@ const params = computed(() => ({
   rooms_number: roomsCount.value
 }));
 
-fetchApartments(params.value);
+// Fetch initial apartments if there is query
+if (Object.keys(query).length) fetchApartments(params.value);
 
+// Functions
 const toggleMobileFilter = () => {
   showMobileFilter.value = !showMobileFilter.value;
   document.body.classList.toggle('no-scroll', showMobileFilter.value);
@@ -70,15 +84,29 @@ const submitForm = async () => {
   isSubmitting.value = true;
   await fetchApartments(params.value);
   isSubmitting.value = false;
+
+  // Update query
+  router.replace({
+    path: localePath('/advanced-search'),
+    query: {
+      type: layoutType.value?.id,
+      condition: condition.value?.id,
+      floor: floorNumber.value,
+      area_from: area.value.from,
+      area_to: area.value.to,
+      deadline: deadline.value,
+      rooms: roomsCount.value
+    }
+  });
 };
 const resetFilters = () => {
-  layoutType.value = null;
-  condition.value = null;
-  area.value.from = null;
-  area.value.to = null;
-  roomsCount.value = null;
-  floorNumber.value = null;
-  deadline.value = null;
+  layoutType.value = filters.value?.types[0];
+  condition.value = filters.value?.conditions[0];
+  area.value.from = 0;
+  area.value.to = 100;
+  roomsCount.value = 1;
+  floorNumber.value = 1;
+  deadline.value = new Date().getFullYear() + 1;
 };
 </script>
 
