@@ -49,18 +49,21 @@
       </button>
     </div>
   </header>
-  <FloatingCall :clickable="true" class="header__floating" />
+  <FloatingCall v-if="isFloatingCallExist" :clickable="true" class="header__floating" />
 </template>
 
 <script setup>
 const route = useRoute();
 
 const paths = ['about', 'portfolio', 'architecture', 'housing'];
+const floatingCallPages = ['masterplan', 'buildings', 'floors', 'apartments'];
 
 const showContactsModal = useState('showContactsModal');
 
 const showLangDropdown = ref(false);
+
 const isVariant = computed(() => paths.includes(route.path.slice(1)));
+const isFloatingCallExist = computed(() => !floatingCallPages.some(p => route.path.includes(p)));
 
 defineProps({
   isPlanHeader: {

@@ -89,10 +89,8 @@
 </template>
 
 <script setup>
+import { SvgPercentage, SvgRuler, SvgDiscount } from '#components';
 import table from '~/assets/data/table.json';
-import SvgEstateAgent from '~/components/svg/estate-agent.vue';
-import SvgPercent from '~/components/svg/percent.vue';
-import SvgStraighten from '~/components/svg/straighten.vue';
 
 const { t, locale } = useI18n();
 const { FRONT_API_URL, filters } = useAppState();
@@ -157,36 +155,26 @@ const results = computed(() => {
   const basePrice = selectedApartment.value?.price;
   const discountVal = (discount.value / 100) * selectedApartment.value?.price;
   const discountedPrice = basePrice - discountVal;
-  const paymentPerSquare = Math.round(basePrice / selectedApartment.value?.area);
+  const paymentPerSquare = Math.round(discountedPrice / selectedApartment.value?.area);
 
   return [
     {
       key: t('calculator.your-discount-x', { x: discount.value }),
       val: discountVal,
-      icon: SvgPercent
+      icon: SvgPercentage
     },
     {
       key: t('calculator.price-with-discount'),
       val: discountedPrice,
-      icon: SvgEstateAgent
+      icon: SvgDiscount
     },
     {
       key: t('calculator.price-per-m2'),
       val: paymentPerSquare,
-      icon: SvgStraighten
+      icon: SvgRuler
     }
   ];
 });
-const crumbs = computed(() => [
-  {
-    name: t('select-apt'),
-    path: '/select'
-  },
-  {
-    name: t('calculator.label'),
-    path: '/calculator'
-  }
-]);
 const newParams = computed(() => ({
   path: localePath('/calculator'),
   query: {
@@ -197,6 +185,16 @@ const newParams = computed(() => ({
     show_results: showResults.value
   }
 }));
+const crumbs = computed(() => [
+  {
+    name: t('select-apt'),
+    path: '/select'
+  },
+  {
+    name: t('calculator.label'),
+    path: '/calculator'
+  }
+]);
 
 // Watchers
 watch(floorNumber, () => {

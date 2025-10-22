@@ -96,14 +96,38 @@
   },
 
   "architecture": {
-    "title": "Dam olish va uchrashuvlar uchun keng terrasalar",
-    "text": "Panoramali manzaralar va toza havodan bahramand bo‘ling — tijorat joylari ustida joylashgan keng terrasalar dam olish, uchrashuv va yoqimli vaqt o‘tkazish uchun ideal maskan.",
+    "items": [
+      {
+        "image": "architecture-1.jpg",
+        "title": "Dam olish zonalari",
+        "text": "Savdo va tijoratli manzarlarda dam olish joy va uchrashuvlarni baham ko'rish uchun joylashgan joylar — dam olish va uchrashuvlarning, uchrashuvlar va uchrashuvlarning o'zaro vaqti."
+      },
+      {
+        "image": "architecture-2.jpg",
+        "title": "Ko'proq yorug'lik. Ko'proq hayot",
+        "text": "Panoramali oynalar kvartiraga tabiiy sun'ni va havo yorug'lik qilishini keltiradi. Ushbu joyda kunduzi soatdan boshlanadi, kechasi shahar chiroqlari bilan o'zgarlikka intilishni boshlaydi."
+      },
+      {
+        "image": "architecture-2.jpg",
+        "title": "Kechasi, tunda kechasi",
+        "text": "Fasad yoritgichining o'zgarligi kechasi shaharning o'zgarligini yaratadi. Bu joyda kunduzi soatdan boshlanadi, kechasi shahar chiroqlari bilan o'zgarlikka intilishni boshlaydi."
+      },
+      {
+        "image": "architecture-3.jpg",
+        "title": "Harakat boshlanadi",
+        "text": "Velosiped yo'llari sizning uyini, sport va dam olish joylari bilan majmuasini bog'laydi. Uydurma, xavfsizlik, ekologiklik — faqat tanlanmagan shaharlarda yashash joy."
+      },
+      {
+        "image": "architecture-4.jpg",
+        "title": "Hamisha, qayerda turadi",
+        "text": "Kompleks hududida joylashgan avtomashinalar uchun mo'ljallangan joylashgan avtomashinalar mavjud. Xavfsizlik, bezopasnost, kirishuvchanlik — asosiy prioritetlar."
+      }
+    ],
     "nav": [
       "Terrasalar",
       "Panoramali oynalar",
       "Fasad yoritgichi",
       "Veloyo‘llar",
-      "Dam olish zonasi",
       "Avtoturargohlar"
     ]
   },

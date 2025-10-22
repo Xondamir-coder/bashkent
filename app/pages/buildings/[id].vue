@@ -1,5 +1,17 @@
 <template>
-  <OverlayMap :paths="floors" :image @select-path="selectPath" />
+  <OverlayMap
+    :paths="floors"
+    :image
+    @select-path="selectPath"
+    @hover-path="hoverPath"
+    @leave-path="isInfoBoxActive = false"
+  >
+    <InfoBox
+      :title="`${$t('house')} №${hoveredPathData?.block_id}`"
+      :texts="[`${$t('floor')}: ${hoveredPathData?.floor_number}`]"
+      :is-active="isInfoBoxActive"
+    />
+  </OverlayMap>
 </template>
 
 <script setup>
@@ -8,6 +20,9 @@ const route = useRoute();
 const localePath = useLocalePath();
 
 const expireYear = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000);
+
+const hoveredPathData = ref();
+const isInfoBoxActive = ref(false);
 
 const buildingCookie = useCookie('building_id', { expires: expireYear });
 const blockCookie = useCookie('block_id', { expires: expireYear });
@@ -27,6 +42,11 @@ const selectPath = pathData => {
     path: localePath(`/floors/${pathData.floor_number}`),
     query: { building_id: pathData.building_id, block_id: pathData.block_id }
   });
+};
+const hoverPath = pathData => {
+  console.log(pathData);
+  hoveredPathData.value = pathData;
+  isInfoBoxActive.value = true;
 };
 
 definePageMeta({

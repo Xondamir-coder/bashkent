@@ -278,6 +278,10 @@ onUnmounted(() => {
       display: block;
       -webkit-overflow-scrolling: touch;
       touch-action: auto;
+      scrollbar-width: 0;
+      &::-webkit-scrollbar {
+        display: none;
+      }
     }
   }
 

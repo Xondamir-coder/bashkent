@@ -97,16 +97,34 @@
   },
 
   "architecture": {
-    "title": "Spacious terraces for rest and meetings",
-    "text": "Enjoy panoramic views and fresh air on spacious terraces located right above the commercial spaces — the perfect place for rest, meetings, and pleasant pastime.",
-    "nav": [
-      "Terraces",
-      "Panoramic windows",
-      "Facade lighting",
-      "Bicycle paths",
-      "Recreation area",
-      "Parking lots"
-    ]
+    "items": [
+      {
+        "image": "architecture-1.jpg",
+        "title": "Spacious terraces for rest and meetings",
+        "text": "Enjoy panoramic views and fresh air on spacious terraces located right above the commercial spaces — the perfect place for rest, meetings, and pleasant pastime."
+      },
+      {
+        "image": "architecture-2.jpg",
+        "title": "More light. More life.",
+        "text": "Panoramic windows fill your apartment with natural light and create a sense of space. Here, daytime begins with soft sunlight, and evening meets the city lights."
+      },
+      {
+        "image": "architecture-2.jpg",
+        "title": "Style, noticeable at night",
+        "text": "Thought-out facade lighting makes the building stand out at any time of day and creates a cozy atmosphere when you return home."
+      },
+      {
+        "image": "architecture-3.jpg",
+        "title": "Movement starts at the gate",
+        "text": "Well-designed cycle paths connect your home to parks and recreational areas. Conveniently, safely, and ecologically — for those who choose an active lifestyle."
+      },
+      {
+        "image": "architecture-4.jpg",
+        "title": "Always a place to park",
+        "text": "The complex territory provides convenient parking spaces for residents and guests. Safety and accessibility are our top priorities."
+      }
+    ],
+    "nav": ["Terraces", "Panoramic windows", "Facade lighting", "Bicycle paths", "Parking lots"]
   },
 
   "formula": {

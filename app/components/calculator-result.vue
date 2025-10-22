@@ -7,8 +7,8 @@
           <component :is="result.icon" class="result__item-icon" />
         </div>
         <div class="result__item-content">
-          <span class="result__item-key">{{ result.key }}</span>
           <span class="result__item-price">{{ formatNumbers(result.val) }} {{ $t('sum') }}</span>
+          <span class="result__item-key">{{ result.key }}</span>
         </div>
       </li>
     </ul>
@@ -37,15 +37,16 @@ defineProps({
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     align-items: flex-start;
-    gap: max(1.6rem, 16px);
+    gap: max(1.4rem, 12px);
   }
   &__item {
     background-color: #fff;
     padding: max(2rem, 14px);
-    border-radius: max(1.6rem, 10px);
+    border-radius: 12px;
     display: flex;
     flex-direction: column;
-    gap: max(1.6rem, 5px);
+    align-items: center;
+    gap: max(2.4rem, 16px);
     &-content {
       display: flex;
       flex-direction: column;
@@ -53,17 +54,19 @@ defineProps({
       align-items: center;
     }
     &-key {
-      color: #7f8d88;
+      font-size: max(1.4rem, 12px);
     }
     &-icon {
-      width: max(2.4rem, 20px);
-      height: max(2.4rem, 20px);
+      width: 47.4%;
+      height: 47.4%;
       &-container {
         @include mix.flex-center;
-        background-color: rgba(0, 76, 71, 0.1);
-        width: max(4.8rem, 40px);
-        height: max(4.8rem, 40px);
+        background-color: vars.$teal;
+        width: max(3.8rem, 38px);
+        height: max(3.8rem, 38px);
         border-radius: 50%;
+        stroke: #fff;
+        fill: none;
       }
     }
     &-price {

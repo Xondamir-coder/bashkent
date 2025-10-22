@@ -10,7 +10,8 @@
     "postinstall": "nuxt prepare",
     "lint": "eslint .",
     "lint:fix": "eslint --fix",
-    "push": "git add . && git commit && git push gitlab && git push github"
+    "push": "git add . && git commit && git push gitlab && git push github",
+    "transform-images": "mkdir -p public/images/576 && for f in public/images/original/*.{png,PNG,jpg,JPG,jpeg,JPEG}; do [ -f \"$f\" ] && magick \"$f\" -resize 40% \"public/images/576/$(basename \"${f%.*}\").avif\"; done; mkdir -p public/images/1024 && for f in public/images/original/*.{png,PNG,jpg,JPG,jpeg,JPEG}; do [ -f \"$f\" ] && magick \"$f\" -resize 70% \"public/images/1024/$(basename \"${f%.*}\").avif\"; done; mkdir -p public/images/1440 && for f in public/images/original/*.{png,PNG,jpg,JPG,jpeg,JPEG}; do [ -f \"$f\" ] && magick \"$f\" \"public/images/1440/$(basename \"${f%.*}\").avif\"; done"
   },
   "dependencies": {
     "@nuxt/eslint": "^1.9.0",

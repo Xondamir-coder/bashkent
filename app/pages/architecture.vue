@@ -1,23 +1,23 @@
 <template>
   <main class="architecture" :class="{ hidden: showPreloader || showPageLoader }">
     <MyPicture
-      v-for="(pic, index) in pics"
+      v-for="(item, index) in $tm('architecture.items')"
       :key="index"
-      :src="pic"
+      :src="$rt(item.image)"
       alt="banner"
       class="architecture__banner"
       :class="{ hidden: index !== currentPage }"
     />
     <div class="architecture__box">
       <div
-        v-for="(content, index) in contents"
+        v-for="(item, index) in $tm('architecture.items')"
         :key="index"
         class="architecture__content"
         :class="{ hidden: index !== currentPage }"
       >
-        <h2 class="heading-large">{{ content.title }}</h2>
+        <h2 class="heading-large">{{ $rt(item.title) }}</h2>
         <p class="architecture__content-text">
-          {{ content.text }}
+          {{ $rt(item.text) }}
         </p>
       </div>
     </div>
@@ -41,25 +41,14 @@
 <script setup>
 import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
-const archBg = 'architecture-bg.jpg';
-const housingBg = 'housing-1.jpg';
 
 // Composables
 const showPreloader = useState('showPreloader');
 const showPageLoader = useState('showPageLoader');
-const { t } = useI18n();
 
 // State
 const currentPage = ref(0);
 const changePage = index => (currentPage.value = index);
-
-const pics = [archBg, housingBg, archBg, housingBg, archBg, housingBg];
-const contents = computed(() =>
-  Array(6).fill({
-    title: t('architecture.title'),
-    text: t('architecture.text')
-  })
-);
 
 // GSAP timeline
 let tl;
