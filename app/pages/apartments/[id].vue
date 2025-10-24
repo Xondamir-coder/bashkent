@@ -14,7 +14,7 @@
         class="apartment__banner"
         :class="{ active: isImgLoaded }"
         @load="isImgLoaded = true"
-      />
+      >
       <ul class="apartment__details">
         <li v-for="(room, index) in apartment?.rooms" :key="index" class="apartment__detail">
           <span class="apartment__detail-index">{{ index + 1 }}</span>
@@ -46,7 +46,7 @@
           :src="`${DOMAIN_URL}/${apartment?.floor_plan_selected_pdf}`"
           alt="selected schema"
           class="apartment__schema"
-        />
+        >
       </div>
     </div>
   </main>

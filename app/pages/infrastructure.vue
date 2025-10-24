@@ -25,19 +25,13 @@
       alt="cameras"
     />
     <div class="infrastructure__content-box">
-      <div
-        v-for="(content, index) in contents"
-        :key="index"
-        class="infrastructure__content"
-        :class="{ hidden: index !== currentPage }"
-      >
-        <h2 class="heading-large">{{ content.title }}</h2>
+      <div class="infrastructure__content">
+        <h2 class="heading-large">{{ $t('infrastructure.title') }}</h2>
         <p class="infrastructure__content-text">
-          {{ content.text }}
+          {{ $t('infrastructure.text') }}
         </p>
       </div>
     </div>
-    <PageCounter v-model="currentPage" :pages="6" />
     <div class="infrastructure__box">
       <MyPicture
         data-depth=".2"
@@ -62,19 +56,10 @@ import { SplitText } from 'gsap/SplitText';
 // Composables
 const showPreloader = useState('showPreloader');
 const showPageLoader = useState('showPageLoader');
-const { t } = useI18n();
 
 // State
-const currentPage = ref(0);
 const containerRef = ref();
 let tl;
-
-const contents = computed(() =>
-  Array(6).fill({
-    title: t('infrastructure.title'),
-    text: t('infrastructure.text')
-  })
-);
 
 // Functions
 const changePage = newPage => (currentPage.value = newPage);

@@ -16,11 +16,11 @@
       <div class="about__container">
         <video ref="videoRef" muted loop playsinline class="about__video" @click="handlePlay">
           <!-- Desktop: Full HD -->
-          <source src="/videos/video-1080.mp4" type="video/mp4" media="(min-width: 1200px)" />
+          <source src="/videos/video-1080.mp4" type="video/mp4" media="(min-width: 1200px)" >
           <!-- Tablet: HD -->
-          <source src="/videos/video-720.mp4" type="video/mp4" media="(min-width: 768px)" />
+          <source src="/videos/video-720.mp4" type="video/mp4" media="(min-width: 768px)" >
           <!-- Mobile: SD -->
-          <source src="/videos/video-480.mp4" type="video/mp4" media="(max-width: 767px)" />
+          <source src="/videos/video-480.mp4" type="video/mp4" media="(max-width: 767px)" >
           Your browser does not support the video tag.
         </video>
         <MyPicture src="tree-top.png" class="about__picture" />

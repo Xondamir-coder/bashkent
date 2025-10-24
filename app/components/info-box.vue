@@ -30,6 +30,8 @@ const props = defineProps({
   }
 });
 
+const route = useRoute();
+
 const boxEl = ref(null);
 
 const OFFSET_X = 24; // how far to the right of cursor
@@ -62,9 +64,11 @@ const handlePointer = e => {
 };
 
 onMounted(() => {
+  if (window.innerWidth < 1280 && route.path.includes('buildings')) return;
   window.addEventListener('pointermove', handlePointer);
 });
 onUnmounted(() => {
+  if (window.innerWidth < 1280 && route.path.includes('buildings')) return;
   window.removeEventListener('pointermove', handlePointer);
 });
 </script>

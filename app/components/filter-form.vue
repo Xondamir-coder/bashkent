@@ -17,7 +17,7 @@
             name="area"
             class="filter-form__input"
             :placeholder="$t('from')"
-          />
+          >
           <span>{{ $t('m-squared') }}</span>
         </div>
         <div class="filter-item">
@@ -28,7 +28,7 @@
             name="area"
             class="filter-form__input"
             :placeholder="$t('to')"
-          />
+          >
           <span>{{ $t('m-squared') }}</span>
         </div>
       </div>

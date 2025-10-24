@@ -1,11 +1,11 @@
 <template>
-  <main class="overlay" ref="root">
+  <main ref="root" class="overlay">
     <GlassButton class="overlay__close" @click="$router.back()">
       <SvgClose />
     </GlassButton>
 
-    <div class="overlay__wrapper" ref="wrapper">
-      <div class="overlay__layer" ref="layer" :style="layerStyle">
+    <div ref="wrapper" class="overlay__wrapper">
+      <div ref="layer" class="overlay__layer" :style="layerStyle">
         <img
           :src="image"
           alt="overlay banner"
@@ -26,6 +26,8 @@
             v-for="(path, index) in paths"
             :key="index"
             :d="path.path"
+            :data-floor="path.floor_number"
+            :data-block="path.block_id"
             class="overlay__container-path"
             @click="() => emitSelect(path)"
             @pointerenter="() => emitHover(path)"
@@ -255,7 +257,29 @@ onUnmounted(() => {
   height: 100vh;
   overflow: hidden; // toggled by JS
   z-index: 0;
-
+  &:not(.overlay--buildings) .overlay__container-path:hover {
+    fill: #ffff0080;
+  }
+  @media screen and (min-width: 1280px) {
+    &.overlay--buildings .overlay__container-path:hover {
+      fill: #ffff0080;
+    }
+  }
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 20%;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%);
+    opacity: 0.8;
+    z-index: 10;
+    pointer-events: none;
+    @media screen and (min-width: 1280px) {
+      display: none;
+    }
+  }
   &__close {
     position: absolute !important;
     right: var(--block-spacing);
@@ -336,7 +360,7 @@ onUnmounted(() => {
       transition: fill 160ms ease;
       fill: transparent;
       pointer-events: auto;
-      &:hover {
+      &.active {
         fill: #ffff0080;
       }
     }

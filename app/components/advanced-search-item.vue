@@ -14,7 +14,7 @@
         }}
       </p>
     </div>
-    <img :src="`${DOMAIN_URL}/${data?.image}`" class="item__image" />
+    <img :src="`${DOMAIN_URL}/${data?.image}`" class="item__image" >
     <span class="item__area"> {{ data?.area }} {{ $t('m-squared') }} </span>
   </NuxtLink>
 </template>

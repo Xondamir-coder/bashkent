@@ -16,7 +16,7 @@
                 :src="`${DOMAIN_URL}/${selectedApartment?.image}`"
                 alt="apartment"
                 class="calculator__plan-image"
-              />
+              >
               <ul class="calculator__plan-details">
                 <DetailsItem
                   v-for="(detail, i) in planDetails"

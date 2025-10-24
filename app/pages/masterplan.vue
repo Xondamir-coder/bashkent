@@ -1,20 +1,28 @@
 <template>
-  <OverlayMap
-    :paths="blocks"
-    :image="imageSrc"
-    @select-path="selectPath"
-    @hover-path="hoverPath"
-    @leave-path="isInfoBoxActive = false"
-  >
-    <InfoBox
-      :title="`${$t('house')} №${hoveredPathData?.name}`"
-      :texts="[
-        `${$t('type')}: ${hoveredPathData?.building_type[`name_${$i18n.locale}`]}`,
-        `${$t('masterplan.floors')}: ${hoveredPathData?.floors.length}`
-      ]"
-      :is-active="isInfoBoxActive"
-    />
-  </OverlayMap>
+  <div class="masterplan">
+    <OverlayMap
+      :paths="blocks"
+      :image="imageSrc"
+      @select-path="selectPath"
+      @hover-path="hoverPath"
+      @leave-path="isInfoBoxActive = false"
+    >
+      <InfoBox
+        :title="`${$t('house')} №${hoveredPathData?.name}`"
+        :texts="[
+          `${$t('type')}: ${hoveredPathData?.building_type[`name_${$i18n.locale}`]}`,
+          `${$t('masterplan.floors')}: ${hoveredPathData?.floors.length}`
+        ]"
+        :is-active="isInfoBoxActive"
+      />
+    </OverlayMap>
+    <div class="masterplan__button-container">
+      <GlassButton class="masterplan__button">
+        <SvgHandFinger />
+      </GlassButton>
+      <span>{{ $t('swipe') }}</span>
+    </div>
+  </div>
 </template>
 
 <script setup>
@@ -51,3 +59,28 @@ definePageMeta({
 
 useMySEO('masterplan');
 </script>
+
+<style scoped lang="scss">
+.masterplan {
+  &__button {
+    background-color: #ffffff33;
+    fill: none;
+
+    &-container {
+      position: fixed;
+      pointer-events: none;
+      bottom: 20px;
+      left: 20px;
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 500;
+      @media screen and (min-width: 1280px) {
+        display: none;
+      }
+    }
+  }
+}
+</style>

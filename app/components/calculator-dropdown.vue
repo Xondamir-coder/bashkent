@@ -27,9 +27,9 @@
       >
         <div class="calculator__row">
           <img :src="`${DOMAIN_URL}/${option?.image}`" alt="" class="calculator__row-image" />
-          <span>{{
-            `${option?.rooms_number} ${$t('rooms')}. ${option?.area} ${$t('m-squared')}`
-          }}</span>
+          <span>
+            {{ `${option?.rooms_number} ${$t('rooms')}. ${option?.area} ${$t('m-squared')}` }}
+          </span>
         </div>
         <SvgCheck class="filter-row__option-icon" />
       </button>
@@ -38,7 +38,7 @@
 </template>
 
 <script setup>
-const props = defineProps({
+defineProps({
   apartments: {
     required: true,
     type: Array

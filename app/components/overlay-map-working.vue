@@ -1,13 +1,13 @@
 <template>
-  <main class="overlay" ref="root">
+  <main ref="root" class="overlay">
     <GlassButton class="overlay__close" @click="$router.back()">
       <SvgClose />
     </GlassButton>
 
-    <div class="overlay__wrapper" ref="wrapper">
+    <div ref="wrapper" class="overlay__wrapper">
       <div
-        class="overlay__layer"
         ref="layer"
+        class="overlay__layer"
         :style="{
           width: `${scaledWidth}px`,
           height: `${scaledHeight}px`,
@@ -16,7 +16,7 @@
           transform: `translate(-50%, -50%)`
         }"
       >
-        <img :src="image" alt="overlay banner" class="overlay__picture" draggable="false" />
+        <img :src="image" alt="overlay banner" class="overlay__picture" draggable="false" >
         <svg
           class="overlay__container"
           xmlns="http://www.w3.org/2000/svg"

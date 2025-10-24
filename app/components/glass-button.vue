@@ -15,6 +15,7 @@ defineEmits(['click']);
   $anim-duration: 3.5s;
   $anim-delay: calc($anim-duration / 2);
   background-color: #fff;
+  fill: vars.$teal;
   width: max(4.2rem, 42px);
   height: max(4.2rem, 42px);
   border-radius: max(0.8rem, 8px);
@@ -45,7 +46,6 @@ defineEmits(['click']);
   &__icon {
     display: flex;
     width: 57.2%;
-    fill: vars.$teal;
   }
 }
 

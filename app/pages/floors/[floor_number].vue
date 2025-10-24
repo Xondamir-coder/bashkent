@@ -14,7 +14,7 @@
           one: typeName === '1'
         }"
       >
-        <img :src="imageSrc" alt="schema" class="floors__wrapper-image" width="1000" />
+        <img :src="imageSrc" alt="schema" class="floors__wrapper-image" width="1000" >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           :viewBox="`0 0 ${viewBox}`"
