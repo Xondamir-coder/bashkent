@@ -13,7 +13,7 @@
           draggable="false"
           :class="{ loaded: isImgLoaded }"
           @load="isImgLoaded = true"
-        />
+        >
 
         <svg
           class="overlay__container"

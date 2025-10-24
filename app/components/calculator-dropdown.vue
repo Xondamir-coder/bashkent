@@ -8,7 +8,7 @@
         @click="showDropdown = !showDropdown"
       >
         <div class="calculator__row">
-          <img :src="`${DOMAIN_URL}/${model?.image}`" alt="" class="calculator__row-image" />
+          <img :src="`${DOMAIN_URL}/${model?.image}`" alt="" class="calculator__row-image" >
           <span>
             {{ `${model?.rooms_number} ${$t('rooms')}. ${model?.area} ${$t('m-squared')}` }}
           </span>
@@ -26,7 +26,7 @@
         @click="selectOption(option)"
       >
         <div class="calculator__row">
-          <img :src="`${DOMAIN_URL}/${option?.image}`" alt="" class="calculator__row-image" />
+          <img :src="`${DOMAIN_URL}/${option?.image}`" alt="" class="calculator__row-image" >
           <span>
             {{ `${option?.rooms_number} ${$t('rooms')}. ${option?.area} ${$t('m-squared')}` }}
           </span>

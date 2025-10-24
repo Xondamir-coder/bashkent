@@ -35,7 +35,7 @@
 </template>
 
 <script setup>
-const { fetchApartments, filters } = useAppState();
+const { fetchApartments } = useAppState();
 const { query } = useRoute();
 const router = useRouter();
 const localePath = useLocalePath();
@@ -45,26 +45,16 @@ const showMobileFilter = ref(false);
 const isSubmitting = ref(false);
 
 // Filter states
-const layoutType = useState('layoutType', () =>
-  query.type ? filters.value?.types.find(c => c.id === +query.type) : filters.value?.types[0]
-);
-const condition = useState('condition', () =>
-  query.condition
-    ? filters.value?.conditions.find(c => c.id === +query.condition)
-    : filters.value?.conditions[0]
-);
 const floorNumber = useState('floorNumber', () => +query.floor || 1);
 const roomsCount = useState('roomsCount', () => +query.rooms || 1);
 const deadline = useState('deadline', () => +query.deadline || new Date().getFullYear() + 1);
 const area = useState('area', () => ({
-  from: +query.area_from || 0,
-  to: +query.area_to || 100
+  from: +query.area_from || 25,
+  to: +query.area_to || 150
 }));
 
 // Computed vals
 const params = computed(() => ({
-  type_id: layoutType.value?.id,
-  condition_id: condition.value?.id,
   floor_number: floorNumber.value,
   area_from: area.value.from,
   area_to: area.value.to,
@@ -84,13 +74,12 @@ const submitForm = async () => {
   isSubmitting.value = true;
   await fetchApartments(params.value);
   isSubmitting.value = false;
+  showMobileFilter.value = false;
 
   // Update query
   router.replace({
     path: localePath('/advanced-search'),
     query: {
-      type: layoutType.value?.id,
-      condition: condition.value?.id,
       floor: floorNumber.value,
       area_from: area.value.from,
       area_to: area.value.to,
@@ -100,10 +89,8 @@ const submitForm = async () => {
   });
 };
 const resetFilters = () => {
-  layoutType.value = filters.value?.types[0];
-  condition.value = filters.value?.conditions[0];
-  area.value.from = 0;
-  area.value.to = 100;
+  area.value.from = 25;
+  area.value.to = 150;
   roomsCount.value = 1;
   floorNumber.value = 1;
   deadline.value = new Date().getFullYear() + 1;
@@ -142,8 +129,8 @@ const resetFilters = () => {
     }
   }
   &__button {
-    padding-inline: max(2rem, 11.5px);
-    padding-block: max(2.4rem, 16px);
+    padding-inline: max(2rem, 12px);
+    padding-block: max(2.4rem, 10px);
     border-radius: max(2rem, 8px);
     display: flex;
     align-items: center;
@@ -185,7 +172,7 @@ const resetFilters = () => {
 .mobile-filter {
   background-color: vars.$light-grey;
   width: 100%;
-  padding: max(1.6rem, 16px);
+  padding: 16px;
   border-top-left-radius: max(1.6rem, 16px);
   border-top-right-radius: max(1.6rem, 16px);
   animation: slide-from-bottom 0.5s;

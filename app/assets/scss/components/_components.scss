@@ -1,7 +1,8 @@
 @use '../abstracts/variables' as vars;
 
 .filter-item {
-  padding: max(1.6rem, 14px);
+  padding-block: max(1.6rem, 10px);
+  padding-inline: max(1.6rem, 16px);
   background-color: #fff;
   border-radius: max(1.2rem, 10px);
   display: flex;

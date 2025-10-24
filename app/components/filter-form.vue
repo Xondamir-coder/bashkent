@@ -6,33 +6,7 @@
       :options="countdownArray(12).reverse()"
       :is-from-api="false"
     />
-    <FilterRow v-model="layoutType" :label="$t('layout-type')" :options="filters.types" />
-    <FilterRow type="range" :label="$t('area')">
-      <div class="filter-form__rangebox">
-        <div class="filter-item">
-          <input
-            id="area-from"
-            v-model="area.from"
-            type="number"
-            name="area"
-            class="filter-form__input"
-            :placeholder="$t('from')"
-          >
-          <span>{{ $t('m-squared') }}</span>
-        </div>
-        <div class="filter-item">
-          <input
-            id="area-to"
-            v-model="area.to"
-            type="number"
-            name="area"
-            class="filter-form__input"
-            :placeholder="$t('to')"
-          >
-          <span>{{ $t('m-squared') }}</span>
-        </div>
-      </div>
-    </FilterRow>
+    <FilterHistogram v-model="area" />
     <FilterRow type="numbers" :label="$t('number-of-rooms')">
       <div class="filter-form__numbers filter-item">
         <button
@@ -47,14 +21,11 @@
         </button>
       </div>
     </FilterRow>
-    <FilterRow v-model="condition" :label="$t('type-of-housing')" :options="filters.conditions" />
     <FilterRow v-model="deadline" :label="$t('deadline')" :options="dates" :is-from-api="false" />
   </form>
 </template>
 
 <script setup>
-const { filters } = useAppState();
-
 defineEmits(['submit']);
 
 const dates = computed(() => {
@@ -66,8 +37,6 @@ const deadline = useState('deadline');
 const floorNumber = useState('floorNumber');
 const roomsCount = useState('roomsCount');
 const area = useState('area');
-const layoutType = useState('layoutType');
-const condition = useState('condition');
 
 const changeNumber = number => {
   roomsCount.value = number;
@@ -82,31 +51,32 @@ const changeNumber = number => {
 
   &__numbers {
     display: flex;
-    gap: 1.5rem;
-    padding-block: max(1rem, 8px);
-  }
-  &__divider {
-    width: 1px;
-    background-color: #d6d7d7;
-    height: 100%;
+    padding-block: 10px;
+    padding-inline: 16px;
   }
   &__number {
+    @include mix.flex-center;
     flex: 1;
     padding-block: max(0.8rem, 8px);
     border-radius: max(0.6rem, 6px);
     position: relative;
-    @include mix.flex-center;
-    &:not(:last-child) {
-      margin-right: 1.5rem;
+    margin-inline: 2.7rem;
+    &:first-child {
+      margin-left: 0;
+    }
+    &:last-child {
+      margin-right: 0;
       &::after {
-        content: '';
-        width: 1px;
-        height: 100%;
-        background-color: #d6d7d7;
-        right: -1.5rem;
-        top: 0;
-        position: absolute;
+        display: none;
       }
+    }
+    &::after {
+      content: '';
+      position: absolute;
+      background-color: #d6d7d7;
+      width: 1px;
+      height: 100%;
+      right: -2.7rem;
     }
     &.active {
       background-color: vars.$teal;
